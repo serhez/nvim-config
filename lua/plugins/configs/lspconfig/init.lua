@@ -1,0 +1,2 @@
+require("lsp").setup()
+

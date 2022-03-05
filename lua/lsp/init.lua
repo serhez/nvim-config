@@ -39,6 +39,45 @@ function M.setup()
     end
 end
 
+-- Formatting
+
+local auto_format_enabled = true -- Default
+
+function M.toggle_auto_format()
+    auto_format_enabled = not auto_format_enabled
+end
+
+-- NOTE: formatting_seq_sync() sequentially picks an LSP server to do formatting; it choses in the following order:
+-- NOTE:    1. Servers that are not listed on the given list (so don't list the servers you want to do the formatting).
+-- NOTE:    2. Servers that are on the list, in the order they appear there.
+function M.format()
+    vim.lsp.buf.formatting_seq_sync({}, 2000, {
+        'gopls',
+        'clangd',
+        'jsonls',
+        'sumneko_lua',
+        'eslint',
+        'html',
+        'cssls',
+        'cmake',
+        'pyright',
+        'tailwindcss',
+        'volar',
+        'yamlls',
+        'zeta_note',
+        'vimls',
+        'texlab',
+        'lemminx',
+        'dotls',
+    })
+end
+
+function M.auto_format()
+    if auto_format_enabled then
+        M.format()
+    end
+end
+
 function M.custom_attach(client, bufnr)
     require 'illuminate'.on_attach(client)
 
@@ -50,14 +89,11 @@ function M.custom_attach(client, bufnr)
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Auto-format on save
-    -- NOTE: vim.lsp.buf.formatting_seq_sync() sequentially picks an LSP server to do formatting; it choses in the following order:
-    -- NOTE:    1. Servers that are not listed on the given list (so don't list the servers you want to do the formatting).
-    -- NOTE:    2. Servers that are on the list, in the order they appear there.
     if client.resolved_capabilities.document_formatting then
         vim.cmd([[
         augroup LspFormatting
             autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync({}, 2000, {'gopls', 'clangd', 'jsonls', 'sumneko_lua', 'eslint', 'html', 'cssls', 'cmake', 'pyright', 'tailwindcss', 'volar', 'yamlls', 'zeta_note', 'vimls', 'texlab', 'lemminx', 'dotls',})
+            autocmd BufWritePre <buffer> lua require'lsp'.auto_format()
         augroup END
         ]])
     end

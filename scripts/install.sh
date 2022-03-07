@@ -50,10 +50,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	go install golang.org/x/tools/cmd/goimports@latest
 
 	npm install -g neovim
-	npm install -g @fsouza/prettierd
-	npm install eslint --save-dev
-	npm install jsonlint -g
-	npm install markdownlint --save-dev
+	npm install -g prettier
+	npm install -g jsonlint
+	npm install -g markdownlint
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -107,10 +106,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	go install golang.org/x/tools/cmd/goimports@latest
 
 	npm install -g neovim
-	npm install -g @fsouza/prettierd
-	npm install eslint --save-dev
-	npm install jsonlint -g
-	npm install markdownlint --save-dev
+	npm install -g prettier
+	npm install -g jsonlint
+	npm install -g markdownlint
 
 else
     echo "Your OS is not supported by the installer at this moment."

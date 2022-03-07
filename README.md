@@ -32,6 +32,8 @@ There is still a lot of room for improvement on this front, as there are still m
 
 ## Acknowledgments
 
+First of all, I would like to acknowledge the work of the `Neovim` team and contributors, as well as the developers who contribute to the nvim plugin ecosystem. After all, this config is just their work glued together in a certain way.
+
 I have been inspired by many open source configs and pieces of code out there in order to develop different parts and features of this config. These include (but are not limited to):
 
 - [LunarVim](https://github.com/LunarVim/LunarVim)

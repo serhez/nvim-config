@@ -17,8 +17,6 @@ require("null-ls").setup({
 
         -- Javascript/Typescript
         require("null-ls").builtins.formatting.prettierd, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
-        require("null-ls").builtins.diagnostics.eslint,
-        require("null-ls").builtins.code_actions.eslint,
 
         -- JSON
         require("null-ls").builtins.diagnostics.jsonlint,

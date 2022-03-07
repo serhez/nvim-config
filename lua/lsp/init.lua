@@ -129,9 +129,11 @@ M.custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
     },
 }
 
--- Provide custom settings that should only apply to given servers
+-- Provide custom settings that should only apply to the following servers
 M.enhance_server_opts = {
-    ["sumneko_lua"] = require "lsp.sumneko_lua"
+    ["eslint"] = require "lsp.eslint",
+    ["sumneko_lua"] = require "lsp.sumneko_lua",
+    ["volar"] = require "lsp.volar",
 }
 
 return M

@@ -179,7 +179,7 @@ local plugins = {
 
     {
         "jose-elias-alvarez/null-ls.nvim",
-        config = "require('plugins.configs.null-ls')",
+        config = "require('lsp.null-ls')",
         requires = { "nvim-lua/plenary.nvim" },
     },
 

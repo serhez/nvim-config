@@ -16,7 +16,7 @@ require("null-ls").setup({
         require("null-ls").builtins.diagnostics.golangci_lint,
 
         -- Javascript/Typescript
-        require("null-ls").builtins.formatting.prettierd, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
+        require("null-ls").builtins.formatting.prettier, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
 
         -- JSON
         require("null-ls").builtins.diagnostics.jsonlint,

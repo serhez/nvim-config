@@ -2,7 +2,6 @@ require("null-ls").setup({
     sources = {
         -- Lua
         require("null-ls").builtins.formatting.stylua,
-        require("null-ls").builtins.diagnostics.luacheck,
 
         -- Python
         require("null-ls").builtins.formatting.isort,

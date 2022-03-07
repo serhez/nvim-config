@@ -115,8 +115,6 @@ local mappings = {
         name = "Find",
         b = {"<cmd>Telescope buffers<cr>", "Buffers"},  -- Redundancy
         c = {"<cmd>Telescope commands<cr>", "Commands"},
-        -- d = {"<cmd>Telescope workspace_diagnostics<cr>", "Diagnostics (workspace)"},
-        -- D = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Diagnostics (file)"},
         f = {"<cmd>Telescope find_files<cr>", "Files"},
         m = {"<cmd>Telescope marks<cr>", "Marks"},
         M = {"<cmd>Telescope man_pages<cr>", "Man pages"},
@@ -131,8 +129,6 @@ local mappings = {
         c = {"<cmd>Telescope git_bcommits<cr>", "Commits (file)"},
         C = {"<cmd>Telescope git_commits<cr>", "Commits (workspace)"},
         d = {"<cmd>DiffviewOpen<cr>", "Diffs"},
-        -- g = {"<cmd>Gist<cr>", "Private gist"},
-        -- G = {"<cmd>Gist -P<cr>", "Public gist"},
         h = {"<cmd>Gitsigns preview_hunk<cr>", "Hunk details"},
         j = {"<cmd>Gitsigns next_hunk<cr>", "Next hunk"},
         k = {"<cmd>Gitsigns prev_hunk<cr>", "Prev hunk"},
@@ -144,25 +140,11 @@ local mappings = {
         T = {"<cmd>DiffviewFileHistory .<cr>", "Commit tree (workspace)"},
     },
 
-    -- s = {
-    --     name = "Session",
-    --     s = {"<cmd>SaveSession<cr>", "Save session"},
-    --     r = {"<cmd>RestoreSession<cr>", "Restore session"},
-    -- },
-
     t = {
         name = "Tab",
         c = {"<cmd>tabclose<cr>", "Close (current)"},
         n = {"<cmd>tabnew<cr>", "New"},
     },
-
-    -- t = {
-    --     name = "Terminal",
-    --     t = {"<cmd>ToggleTerm<cr>", "Toggle"},
-    --     f = {"<cmd>ToggleTerm direction=float<cr>", "Toggle floating"},
-    --     h = {"<cmd>ToggleTerm direction=horizontal<cr>", "Toggle horizontal"},
-    --     v = {"<cmd>ToggleTerm direction=vertical<cr>", "Toggle vertical"},
-    -- },
 
     u = {
         name = "Utils",
@@ -172,12 +154,8 @@ local mappings = {
         h = {"<cmd>AddFileHeader<cr>", "Add header"},
         m = {"<cmd>MarkdownPreviewToggle<cr>", "Markdown preview"},
         r = {"<cmd>lua require('spectre').open()<cr>", "Replace"},
-        s = {"<cmd>ScrollViewEnable<cr>", "Scrollview (enable)"},
-        S = {"<cmd>ScrollViewDisable<cr>", "Scrollview (disable)"},
         t = {"<cmd>TodoTrouble<cr>", "Todos"},
         v = {"<cmd>Vista!!<cr>", "Vista"},
-        -- w = {"<cmd>Bracey<cr>", "Web live"},
-        z = {"<cmd>ZenMode<cr>", "Zen"},
     },
 }
 

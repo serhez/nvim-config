@@ -379,12 +379,6 @@ local plugins = {
     },
 
     {
-        "folke/zen-mode.nvim",
-        cmd = "ZenMode",
-        config = "require('plugins.configs.zen-mode')",
-    },
-
-    {
         "ethanholz/nvim-lastplace",
         config = "require('plugins.configs.lastplace')",
     },
@@ -434,13 +428,6 @@ local plugins = {
         "folke/trouble.nvim",
         config = "require('plugins.configs.trouble')",
         cmd = "TroubleToggle",
-    },
-
-    {
-        "dstein64/nvim-scrollview",
-        branch = "main",
-        config = "require('plugins.configs.scrollview')",
-        cmd = {"ScrollViewEnable", "ScrollViewDisable", "ScrollViewRefresh"}
     },
 
     {
@@ -652,5 +639,18 @@ return packer.startup {
 --     "sbdchd/neoformat",
 --     config = "require('plugins.configs.neoformat')",
 --     cmd = "Neoformat",
+-- },
+
+-- {
+--     "folke/zen-mode.nvim",
+--     cmd = "ZenMode",
+--     config = "require('plugins.configs.zen-mode')",
+-- },
+
+-- {
+--     "dstein64/nvim-scrollview",
+--     branch = "main",
+--     config = "require('plugins.configs.scrollview')",
+--     cmd = {"ScrollViewEnable", "ScrollViewDisable", "ScrollViewRefresh"}
 -- },
 

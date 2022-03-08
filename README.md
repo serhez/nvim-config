@@ -1,6 +1,6 @@
 # My Neovim config
 
-This is my current `nvim` configuration. This is not a generic or customization oriented config: my current focus is on web development (`Go`, `Vue`, `TypeScript`, `TailwindCSS`, etc.), machine learning on `Python` and also some `C/C++`, hence this config will be adapted mostly to that. Nonetheless, it is hopefully easy to tweak it for other purposes.
+This is my current `nvim` configuration. This is not a generic or customization oriented config: my current focus is on web development (`Go`, `Vue`, `TypeScript`, `TailwindCSS`, etc.), machine learning on `Python` and also some `C/C++`, hence this config will be adapted mostly to that. Nonetheless, it is hopefully easy to tweak for other purposes.
 
 ## Examples of features
 
@@ -32,7 +32,7 @@ There is still a lot of room for improvement on this front, as there are still m
 
 ## Acknowledgments
 
-First of all, I would like to acknowledge the work of the `Neovim` team and contributors, as well as the developers who contribute to the nvim plugin ecosystem. After all, this config is just their work glued together in a certain way.
+First of all, I must acknowledge the work of the `Neovim` team and contributors, as well as the developers who contribute to the nvim plugin ecosystem. After all, this config is just their work glued together in a certain way.
 
 I have been inspired by many open source configs and pieces of code out there in order to develop different parts and features of this config. These include (but are not limited to):
 

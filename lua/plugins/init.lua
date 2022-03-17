@@ -339,6 +339,11 @@ local plugins = {
     },
 
     {
+        'anuvyklack/pretty-fold.nvim',
+        config = "require('plugins.configs.pretty-fold')",
+    },
+
+    {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
         config = "require('plugins.configs.indent-blankline')",

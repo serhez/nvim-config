@@ -16,14 +16,15 @@ cmd('set wrap linebreak')               -- wrap on words
 cmd('let &showbreak = \'⤷ \'')          -- change the wrapping symbol
 cmd('set whichwrap+=<,>,[,],h,l')       -- move to next line with theses keys
 
+-- TODO: Remove the folding plugin and set it up myself here
 -- Handle folding
-cmd([[function! MyFoldText()
-        let line = getline(v:foldstart)
-        let foldedlinecount = v:foldend - v:foldstart + 1
-        return '⮞ '. foldedlinecount . '  ' . line
-    endfunction
-    set foldtext=MyFoldText()]])
-cmd('set fillchars=fold:\\ ')
+-- cmd([[function! MyFoldText()
+--         let line = getline(v:foldstart)
+--         let foldedlinecount = v:foldend - v:foldstart + 1
+--         return '⮞ '. foldedlinecount . '  ' . line
+--     endfunction
+--     set foldtext=MyFoldText()]])
+-- cmd('set fillchars=fold:\\ ')
 
 -- Automatically equalize splits when Vim is resized
 cmd('autocmd VimResized * wincmd =')
@@ -55,7 +56,7 @@ opt.swapfile        = false                          -- creates a swapfile
 opt.termguicolors   = true                           -- set term gui colors (most terminals support this)
 opt.timeoutlen      = 100                            -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.title           = true                           -- set the title of window to the value of the titlestring
-opt.titlestring     = "%<%F%=%l/%L - nvim"           -- what the title of the window will be set to
+opt.titlestring     = "%<%F  %l:%L"                  -- what the title of the window will be set to
 opt.undodir         = CACHE_PATH .. '/undo'          -- set an undo directory
 opt.undofile        = true                           -- enable persisten undo
 opt.updatetime      = 300                            -- faster completion

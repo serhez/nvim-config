@@ -136,6 +136,7 @@ local mappings = {
         L = {"<cmd>Gitsigns toggle_linehl<cr>", "Line highlighting"},
         r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"},
         R = {"<cmd>Gitsigns reset_buffer<cr>", "Reset buffer"},
+        s = {"<cmd>Telescope git_stash<cr>", "Stashes"},
         t = {"<cmd>DiffviewFileHistory<cr>", "Commit tree (file)"},
         T = {"<cmd>DiffviewFileHistory .<cr>", "Commit tree (workspace)"},
     },

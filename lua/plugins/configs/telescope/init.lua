@@ -1,9 +1,5 @@
 local actions = require('telescope.actions')
--- local trouble = require("trouble.providers.telescope")
 
--- Global remapping
-------------------------------
--- '--color=never',
 require('telescope').setup {
     defaults = {
         find_command = {
@@ -15,21 +11,23 @@ require('telescope').setup {
         entry_prefix = "  ",
         initial_mode = "insert",
         selection_strategy = "reset",
-        sorting_strategy = "descending",
-        layout_strategy = "horizontal",
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
         layout_config = {
-            width = 0.75,
-            prompt_position = "bottom",
-            preview_cutoff = 120,
+            width = 0.8,
+            height = 0.9,
+            anchor = "center",
+            prompt_position = "top",
+            preview_cutoff = 1,
             horizontal = {mirror = false},
-            vertical = {mirror = false}
+            vertical = {mirror = false},
         },
         file_sorter = require'telescope.sorters'.get_fzy_sorter,
         file_ignore_patterns = {},
         generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
-        -- path_display = {'smart'},
+        path_display = {'truncate'},
         winblend = 0,
-        border = {},
+        border = true,
         borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
         color_devicons = true,
         use_less = true,
@@ -38,35 +36,24 @@ require('telescope').setup {
         grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
         qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
 
-        -- Developer configurations: Not meant for general override
-        buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
         mappings = {
             i = {
+                ['<esc>'] = actions.close,
                 ["<C-c>"] = actions.close,
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                -- ["<c-t>"] = trouble.open_with_trouble,
+                ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                -- To disable a keymap, put [map] = false
-                -- So, to not map "<C-n>", just put
-                -- ["<c-x>"] = false,
-                -- ["<esc>"] = actions.close,
-
-                -- Otherwise, just set the mapping to the function that you want it to be.
-                -- ["<C-i>"] = actions.select_horizontal,
-
-                -- Add up multiple actions
                 ["<CR>"] = actions.select_default + actions.center
-
-                -- You can perform as many actions in a row as you like
-                -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
             },
             n = {
+                ['<esc>'] = actions.close,
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                -- ["<c-t>"] = trouble.open_with_trouble,
+                ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist
-                -- ["<C-i>"] = my_cool_custom_action,
             }
         }
     },

@@ -16,7 +16,15 @@ require("null-ls").setup({
         require("null-ls").builtins.diagnostics.golangci_lint,
 
         -- Javascript/Typescript
-        require("null-ls").builtins.formatting.prettier, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
+        -- require("null-ls").builtins.formatting.prettier.with({  -- Also Markdown, JSON, YAML, CSS, HTML, etc.
+        --     disabled_filetypes = { "vue" },
+        --     extra_args = {
+        --         "--tab-width 4",
+        --         "--print-width 120",
+        --         "--embedded-language-formatting auto",
+        --         "--single-quote",
+        --     }
+        -- }),
 
         -- JSON
         require("null-ls").builtins.diagnostics.jsonlint,

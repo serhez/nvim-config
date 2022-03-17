@@ -333,6 +333,12 @@ local plugins = {
     },
 
     {
+        'kevinhwang91/nvim-bqf',
+        ft = 'qf',
+        config = "require('plugins.configs.bqf')",
+    },
+
+    {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
         config = "require('plugins.configs.indent-blankline')",

@@ -41,7 +41,8 @@ end
 
 -- Formatting
 
-local auto_format_enabled = true -- Default
+-- FIX: Default should be true, but formatting is currently broken in .vue files
+local auto_format_enabled = false -- Default
 
 function M.toggle_auto_format()
     auto_format_enabled = not auto_format_enabled

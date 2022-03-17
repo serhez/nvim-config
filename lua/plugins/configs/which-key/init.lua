@@ -77,8 +77,8 @@ local mappings = {
         l = {"<cmd>Telescope buffers<cr>", "List"},  -- Redundancy
         m = {
             name = "Move",
-            n = {"<cmd>BufferLineMoveNext<cr>", "Next"},
-            p = {"<cmd>BufferLineMovePrev<cr>", "Previous"},
+            h = {"<cmd>BufferLineMovePrev<cr>", "Previous"},
+            l = {"<cmd>BufferLineMoveNext<cr>", "Next"},
         },
         p = {"<cmd>BufferLinePick<cr>", "Pick"},
         s = {

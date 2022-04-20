@@ -6,7 +6,6 @@ vim.g.nvim_tree_icons = {
 }
 
 require'nvim-tree'.setup {
-    auto_close = true,
     update_cwd = true,
     hijack_cursor = true,
     update_focused_file = {
@@ -45,3 +44,5 @@ require'nvim-tree'.setup {
     },
 }
 
+-- Auto close on exit
+vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")

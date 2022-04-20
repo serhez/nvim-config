@@ -10,8 +10,8 @@ cmp.setup({
     completion = {
         completeopt = "menuone,noselect",
     },
-    documentation = {
-        border = "single",
+    window = {
+        documentation = cmp.config.window.bordered(),
     },
     snippet = (luasnip_present and {
         expand = function(args)

@@ -404,17 +404,17 @@ local plugins = {
     },
 
     {
+        "nvim-telescope/telescope.nvim",
+        requires = { {"nvim-lua/plenary.nvim"} },
+        cmd = "Telescope",
+        config = "require('plugins.configs.telescope')",
+    },
+
+    {
         "ahmedkhalf/project.nvim",
         after = "telescope.nvim",
         event = "BufRead",
         config = "require('plugins.configs.project')",
-    },
-
-    {
-        "nvim-telescope/telescope.nvim",
-        module = "telescope",
-        cmd = "Telescope",
-        config = "require('plugins.configs.telescope')",
     },
 
     {

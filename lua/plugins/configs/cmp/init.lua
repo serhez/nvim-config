@@ -7,6 +7,11 @@ end
 local luasnip_present, luasnip = pcall(require, "luasnip")
 
 cmp.setup({
+    -- nvim-cmp by defaults disables autocomplete for prompt buffers
+    enabled = function ()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+    end,
     completion = {
         completeopt = "menuone,noselect",
     },
@@ -73,6 +78,7 @@ cmp.setup({
         { name = "nvim_lua" },
         { name = "cmp_tabnine" },
         { name = "path" },
+        { name = "dap" },
     },
 })
 

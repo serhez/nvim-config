@@ -113,6 +113,12 @@ local plugins = {
         event = "BufReadPost",
     },
 
+    {
+        'm-demare/hlargs.nvim',
+        requires = { 'nvim-treesitter/nvim-treesitter' },
+        config = "require('plugins.configs.hlargs')",
+    },
+
     -- Git
 
     {
@@ -259,6 +265,12 @@ local plugins = {
         config = "require('plugins.configs.cmp.tabnine')",
     },
 
+    {
+        'rcarriga/cmp-dap',
+        requires = 'hrsh7th/nvim-cmp',
+        after = "cmp-tabnine",
+    },
+
     -- Motions
 
     {
@@ -392,6 +404,12 @@ local plugins = {
     {
         "ethanholz/nvim-lastplace",
         config = "require('plugins.configs.lastplace')",
+    },
+
+    {
+        'michaelb/sniprun',
+        run = 'bash install.sh',
+        config = "require('plugins.configs.sniprun')",
     },
 
     -- Navigation, searching and finding
@@ -535,6 +553,7 @@ return packer.startup {
 -- Integrate telescope and tmux through tmuxinator: https://github.com/danielpieper/telescope-tmuxinator.nvim
 -- Navigate between splits and tmux panes: https://github.com/numToStr/Navigator.nvim
 -- Command palette, integrated with which-key: https://github.com/mrjones2014/legendary.nvim
+-- DoGe vs Neogen (https://github.com/danymat/neogen)
 
 -- Graveyard
 

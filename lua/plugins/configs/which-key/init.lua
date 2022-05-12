@@ -56,6 +56,7 @@ local mappings = {
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["q"] = { "<cmd>Bwipeout<cr>", "Close current buffer" },  -- Shortcut
     ["s"] = { "<cmd>Telescope live_grep<cr>", "Search text" },  -- Shortcut
+    ["U"] = { "<cmd>PackerSync<cr>", "Update" },
 
     b = {
         name = "Buffers",
@@ -154,7 +155,9 @@ local mappings = {
         D = {"<cmd>DogeGenerate<cr>", "Generate docs"},
         h = {"<cmd>AddFileHeader<cr>", "Add header"},
         m = {"<cmd>MarkdownPreviewToggle<cr>", "Markdown preview"},
-        r = {"<cmd>lua require('spectre').open()<cr>", "Replace"},
+        s = {"<cmd>lua require('spectre').open()<cr>", "Search & replace"},
+        r = {"<cmd>SnipRun<cr>", "Run code"},
+        R = {"<cmd>SnipLive<cr>", "Run code live"},
         t = {"<cmd>TodoTrouble<cr>", "Todos"},
         v = {"<cmd>Vista!!<cr>", "Vista"},
     },

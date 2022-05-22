@@ -120,6 +120,7 @@ local mappings = {
         m = {"<cmd>Telescope marks<cr>", "Marks"},
         M = {"<cmd>Telescope man_pages<cr>", "Man pages"},
         r = {"<cmd>Telescope oldfiles<cr>", "Recent files"},
+        s = {"<cmd>Telescope session-lens search_session<cr>", "Sessions"},
         t = {"<cmd>Telescope live_grep<cr>", "Text"},
     },
 
@@ -140,6 +141,14 @@ local mappings = {
         s = {"<cmd>Telescope git_stash<cr>", "Stashes"},
         t = {"<cmd>DiffviewFileHistory<cr>", "Commit tree (file)"},
         T = {"<cmd>DiffviewFileHistory .<cr>", "Commit tree (workspace)"},
+    },
+
+    S = {
+        name = "Sessions",
+        d = {"<cmd>DeleteSession<cr>", "Delete"},
+        f = {"<cmd>Telescope session-lens search_session<cr>", "Find"}, -- Redundancy
+        r = {"<cmd>RestoreSession<cr>", "Restore"},
+        s = {"<cmd>SaveSession<cr>", "Save"},
     },
 
     t = {

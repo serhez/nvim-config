@@ -336,6 +336,20 @@ local plugins = {
         event = "BufRead",
     },
 
+    -- Sessions
+
+    {
+        "rmagatti/auto-session",
+        config = "require('plugins.configs.auto-session')",
+    },
+
+    {
+        "rmagatti/session-lens",
+        requires = {"rmagatti/auto-session", "nvim-telescope/telescope.nvim"},
+        config = "require('plugins.configs.session-lens')",
+    },
+
+
     --  Misc
 
     {
@@ -397,11 +411,6 @@ local plugins = {
         run = ":call doge#install()",
         config = "require('plugins.configs.doge')",
         cmd = "DogeGenerate",
-    },
-
-    {
-        "ethanholz/nvim-lastplace",
-        config = "require('plugins.configs.lastplace')",
     },
 
     {
@@ -548,8 +557,6 @@ return packer.startup {
 -- Refactoring features like extracting functions, variables, etc.: https://github.com/ThePrimeagen/refactoring.nvim
 -- Follow links in markdown: https://github.com/jakewvincent/mkdnflow.nvim
 -- Complete jupyter plugin (author abandoned it in alpha stage): https://github.com/ahmedkhalf/jupyter-nvim
--- Integrate telescope and tmux through tmuxinator: https://github.com/danielpieper/telescope-tmuxinator.nvim
--- Navigate between splits and tmux panes: https://github.com/numToStr/Navigator.nvim
 -- Command palette, integrated with which-key: https://github.com/mrjones2014/legendary.nvim
 -- DoGe vs Neogen (https://github.com/danymat/neogen)
 
@@ -682,3 +689,7 @@ return packer.startup {
 --     cmd = {"ScrollViewEnable", "ScrollViewDisable", "ScrollViewRefresh"}
 -- },
 
+-- {
+--     "ethanholz/nvim-lastplace",
+--     config = "require('plugins.configs.lastplace')",
+-- },

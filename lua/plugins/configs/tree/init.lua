@@ -1,15 +1,19 @@
-vim.g.nvim_tree_icons = {
-    default = '',
-    symlink = '',
-    git = {unstaged = "", staged = "✓", unmerged = "", renamed = "➜", untracked = ""},
-    folder = {default = "", open = "", empty = "", empty_open = "", symlink = ""}
-}
-
 require'nvim-tree'.setup {
     update_cwd = true,
     hijack_cursor = true,
     update_focused_file = {
         enable = true,
+    },
+
+    renderer = {
+        icons = {
+            glyphs = {
+                default = '',
+                symlink = '',
+                git = {unstaged = "", staged = "✓", unmerged = "", renamed = "➜", untracked = ""},
+                folder = {default = "", open = "", empty = "", empty_open = "", symlink = ""}
+            },
+        },
     },
 
     diagnostics = {

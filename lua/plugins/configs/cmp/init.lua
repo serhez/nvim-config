@@ -7,14 +7,20 @@ end
 local luasnip_present, luasnip = pcall(require, "luasnip")
 
 cmp.setup({
-    -- nvim-cmp by defaults disables autocomplete for prompt buffers
+    -- Disable for comments
     enabled = function ()
-        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
+        local context = require 'cmp.config.context'
+        -- keep command mode completion enabled when cursor is in a comment
+        if vim.api.nvim_get_mode().mode == 'c' then
+            return true
+        else
+            return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+        end
     end,
     completion = {
         completeopt = "menuone,noselect",
     },
+    preselect = cmp.PreselectMode.None,
     window = {
         documentation = cmp.config.window.bordered(),
     },
@@ -33,7 +39,6 @@ cmp.setup({
             vim_item.menu = ({
                 buffer = "[Buffer]",
                 nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
                 cmp_tabnine = "[Tabnine]",
                 path = "[Path]",
             })[entry.source.name]
@@ -71,15 +76,30 @@ cmp.setup({
             end
         end, { "i", "s" }),
     },
+    -- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
     sources = {
-        { name = "nvim_lsp" },
         { name = "luasnip" },
-        { name = "buffer" },
-        { name = "nvim_lua" },
         { name = "cmp_tabnine" },
+        { name = "nvim_lsp" },
+        { name = "buffer" },
         { name = "path" },
         { name = "dap" },
     },
+    -- TODO: Ideally, we would remove the comparators we don't want instead of adding the ones we do, so that when new ones are added we don't miss them
+    -- sorting = {
+    --     comparators = {
+    --         cmp.config.compare.offset,
+    --         cmp.config.compare.exact,
+    --         cmp.config.compare.score,
+    --         cmp.config.compare.recently_used,
+    --         cmp.config.compare.kind,
+    --         cmp.config.compare.sort_text,
+    --         cmp.config.compare.length,
+    --         cmp.config.compare.order,
+    --         cmp.config.compare.locality,
+    --         cmp.config.compare.scopes,
+    --     },
+    -- },
 })
 
 cmp.setup.filetype('gitcommit', {

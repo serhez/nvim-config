@@ -234,15 +234,9 @@ local plugins = {
     },
 
     {
-        "hrsh7th/cmp-nvim-lua",
-        requires = 'hrsh7th/nvim-cmp',
-        after = "cmp_luasnip",
-    },
-
-    {
         "hrsh7th/cmp-nvim-lsp",
         requires = 'hrsh7th/nvim-cmp',
-        after = "cmp-nvim-lua",
+        after = "cmp_luasnip",
     },
 
     {

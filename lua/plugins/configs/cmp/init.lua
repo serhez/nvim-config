@@ -31,10 +31,10 @@ cmp.setup({
             vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
             vim_item.menu = ({
-                buffer = "[BUF]",
+                buffer = "[Buffer]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
-                cmp_tabnine = "[TN]",
+                cmp_tabnine = "[Tabnine]",
                 path = "[Path]",
             })[entry.source.name]
 
@@ -82,3 +82,28 @@ cmp.setup({
     },
 })
 
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'git' },
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})

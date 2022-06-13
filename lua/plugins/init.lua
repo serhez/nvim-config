@@ -271,6 +271,19 @@ local plugins = {
         after = "cmp-tabnine",
     },
 
+    {
+        'hrsh7th/cmp-cmdline',
+        requires = 'hrsh7th/nvim-cmp',
+        after = "cmp-dap",
+    },
+
+    {
+        "petertriho/cmp-git",
+        requires = "nvim-lua/plenary.nvim",
+        after = "cmp-cmdline",
+        config = "require('plugins.configs.cmp-git')",
+    },
+
     -- Motions
 
     {

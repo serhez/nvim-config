@@ -50,7 +50,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	go install golang.org/x/tools/cmd/goimports@latest
 
 	npm install -g neovim
+	npm install -g eslint
+	npm install -g eslint_d
 	npm install -g prettier
+	npm install -g @fsouza/prettierd
 	npm install -g jsonlint
 	npm install -g markdownlint
 
@@ -106,7 +109,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	go install golang.org/x/tools/cmd/goimports@latest
 
 	npm install -g neovim
+	npm install -g eslint
+	npm install -g eslint_d
 	npm install -g prettier
+	npm install -g @fsouza/prettierd
 	npm install -g jsonlint
 	npm install -g markdownlint
 

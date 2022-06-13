@@ -12,4 +12,3 @@ local settings = {
 }
 
 return settings
-

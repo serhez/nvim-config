@@ -41,22 +41,25 @@ end
 
 -- Formatting
 
--- FIX: Default should be true, but formatting is currently broken in .vue files
-local auto_format_enabled = false -- Default
+local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+local auto_format_enabled = true -- Default
 
 function M.toggle_auto_format()
     auto_format_enabled = not auto_format_enabled
 end
 
+-- TODO: When nvim 0.8 arrives, a new API for formatting will be available and you will be able to set it up as https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
 -- NOTE: formatting_seq_sync() sequentially picks an LSP server to do formatting; it choses in the following order:
 -- NOTE:    1. Servers that are not listed on the given list (so don't list the servers you want to do the formatting).
 -- NOTE:    2. Servers that are on the list, in the order they appear there.
 function M.format()
-    vim.lsp.buf.formatting_seq_sync({}, 2000, {
+    vim.lsp.buf.formatting_seq_sync({}, 5000, {
         'gopls',
         'clangd',
         'jsonls',
         'sumneko_lua',
+        'eslint_d',
         'eslint',
         'html',
         'cssls',
@@ -90,14 +93,17 @@ function M.custom_attach(client, bufnr)
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Auto-format on save
-    if client.resolved_capabilities.document_formatting then
-        vim.cmd([[
-        augroup LspFormatting
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua require'lsp'.auto_format()
-        augroup END
-        ]])
-    end
+    -- FIX: The if statement yields false for .ts files
+    -- if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = formatting_augroup,
+            buffer = bufnr,
+            callback = function()
+                require'lsp'.auto_format()
+            end,
+        })
+    -- end
 
     -- Mappings (some are commented as they are currently handled by plugins)
     vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {noremap = false, silent = true})
@@ -132,7 +138,7 @@ M.custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- Provide custom settings that should only apply to the following servers
 M.enhance_server_opts = {
-    ["eslint"] = require "lsp.eslint",
+    ["eslint_d"] = require "lsp.eslint_d",
     ["sumneko_lua"] = require "lsp.sumneko_lua",
     ["volar"] = require "lsp.volar",
 }

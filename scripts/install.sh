@@ -24,6 +24,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 			pacman -S python-pylint
 			pacman -S golangci-lint
 			pacman -S node
+			pacman -S lazygit
             ;;
         *)
             echo "Your Linux distribution is not supported by the installer at this moment."
@@ -76,6 +77,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			brew install cppcheck
 			brew install golangci-lint
 			brew install node
+			brew install jesseduffield/lazygit/lazygit
             ;;
 
         # Apple silicon

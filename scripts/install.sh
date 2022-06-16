@@ -1,6 +1,6 @@
 #!/bin/bash
 # vim: ai:ts=4:sw=4:noet
-# Install this config's dependencies
+# Install SH development environment
 # Supports MacOS and Arch Linux
 
 echo "Starting to install all dependencies..."
@@ -57,6 +57,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	npm install -g @fsouza/prettierd
 	npm install -g jsonlint
 	npm install -g markdownlint
+	npm install -g mprocs
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -78,6 +79,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			brew install golangci-lint
 			brew install node
 			brew install jesseduffield/lazygit/lazygit
+			brew install pvolok/mprocs/mprocs
             ;;
 
         # Apple silicon
@@ -95,6 +97,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			arch -arm64 brew install cppcheck
 			arch -arm64 brew install golangci-lint
 			arch -arm64 brew install node
+			arch -arm64 brew install jesseduffield/lazygit/lazygit
+			arch -arm64 brew install pvolok/mprocs/mprocs
             ;;
     esac
 

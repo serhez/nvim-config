@@ -3,7 +3,7 @@
 # Install SH development environment
 # Supports MacOS and Arch Linux
 
-echo "Starting to install all dependencies..."
+echo "Installing Neovim's dependencies..."
 echo ""
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -24,7 +24,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 			pacman -S python-pylint
 			pacman -S golangci-lint
 			pacman -S node
-			pacman -S lazygit
+			pacman -S bat
             ;;
         *)
             echo "Your Linux distribution is not supported by the installer at this moment."
@@ -32,9 +32,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             ;;
     esac
 
-	curl https://sh.rustup.rs -sSf | sh
-	cargo install stylua
-
+	# Generic installs for Linux
 	curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
 	tar -zxf lua-5.3.5.tar.gz
 	cd lua-5.3.5
@@ -42,29 +40,16 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	cd ..
 	sudo rm -r lua-5.3.5
 
-	luarocks install luacheck
+	go get github.com/jesseduffield/lazydocker
 
-	python3 -m pip install --upgrade pip
-	python3 -m pip install --user --upgrade pynvim
-	python3 -m pip install cmakelang
-
-	go install golang.org/x/tools/cmd/goimports@latest
-
-	npm install -g neovim
-	npm install -g eslint
-	npm install -g eslint_d
-	npm install -g prettier
-	npm install -g @fsouza/prettierd
-	npm install -g jsonlint
-	npm install -g markdownlint
 	npm install -g mprocs
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # Mac OSX
+    # MacOS
     architecture=$(uname -m)
     case $architecture in
-        # Intel silicon
-        x86_64) 
+        # Mac Intel silicon
+        x86_64)
 			brew install python3
             brew install gnu-sed
 			brew install fd
@@ -78,11 +63,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			brew install cppcheck
 			brew install golangci-lint
 			brew install node
-			brew install jesseduffield/lazygit/lazygit
-			brew install pvolok/mprocs/mprocs
+			brew install bat
             ;;
 
-        # Apple silicon
+        # Mac Apple silicon
         arm64) 
 			arch -arm64 brew install python3
             arch -arm64 brew install gnu-sed
@@ -97,38 +81,44 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			arch -arm64 brew install cppcheck
 			arch -arm64 brew install golangci-lint
 			arch -arm64 brew install node
-			arch -arm64 brew install jesseduffield/lazygit/lazygit
-			arch -arm64 brew install pvolok/mprocs/mprocs
+			arch -arm64 brew install bat
             ;;
     esac
 
-	curl https://sh.rustup.rs -sSf | sh
-	cargo install stylua
-
-	luarocks install luacheck
-
-	python3 -m pip install --upgrade pip
-	python3 -m pip install --user --upgrade pynvim
+	# Generic installs for MacOS
 	python3 -m pip install pylint
-	python3 -m pip install cmakelang
-
-	go install golang.org/x/tools/cmd/goimports@latest
-
-	npm install -g neovim
-	npm install -g eslint
-	npm install -g eslint_d
-	npm install -g prettier
-	npm install -g @fsouza/prettierd
-	npm install -g jsonlint
-	npm install -g markdownlint
 
 else
     echo "Your OS is not supported by the installer at this moment."
     exit 1
 fi
 
+# Generic installs for all OS's
+npm install -g neovim
+npm install -g eslint
+npm install -g eslint_d
+npm install -g prettier
+npm install -g @fsouza/prettierd
+npm install -g jsonlint
+npm install -g markdownlint
+
+go install golang.org/x/tools/cmd/goimports@latest
+
+python3 -m pip install --upgrade pip
+python3 -m pip install --user --upgrade pynvim
+python3 -m pip install cmakelang
+
+luarocks install luacheck
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install stylua
+
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-echo ""
-echo "Done! All dependencies have been installed. Use the command \"nvim\" to start using Neovim."
+sudo mv ~/.config/nvim ~/.config/nvim.old
+mkdir ~/.config
+mkdir ~/.config/nvim
+cp -r * ~/.config/nvim
 
+echo ""
+echo "Done! Neovim has been configured. Use the command \"nvim\" to start using it and the command :PackerSync to install all plugins."

@@ -558,7 +558,7 @@ local plugins = {
 return packer.startup({
 	plugins,
 	config = {
-		max_jobs = 10,
+		max_jobs = 5,
 	},
 })
 

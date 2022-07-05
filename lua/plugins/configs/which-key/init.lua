@@ -137,7 +137,7 @@ local mappings = {
             D = { "<cmd>DiffviewOpen -- % ", "Diffs (specify commits)" },
             r = { "<cmd>Gitsigns reset_buffer<cr>", "Revert" },
         },
-        c = { "<cmd><cd>", "Conflicts tool" },
+        c = { "<cmd>GitConflictListQf<cr>", "Conflicts tool" },
         d = { "<cmd>DiffviewOpen<cr>", "Diffs tool" },
         D = { "<cmd>DiffviewOpen ", "Diffs tool (specify commits)" },
         h = {

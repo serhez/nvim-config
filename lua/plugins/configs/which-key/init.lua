@@ -131,6 +131,7 @@ local mappings = {
         name = "Git",
         a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author" },
         b = {
+            name = "Buffer",
             t = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
             d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
             D = { "<cmd>DiffviewOpen -- % ", "Diffs (specify commits)" },
@@ -146,7 +147,6 @@ local mappings = {
             p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview" },
             r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert" },
         },
-        H = { "<cmd>Gitsigns toggle_linehl<cr>", "Line highlighting (toggle)" },
         l = {
             name = "List",
             b = { "<cmd>Telescope git_branches<cr>", "Branches" },
@@ -154,7 +154,7 @@ local mappings = {
             C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },
             s = { "<cmd>Telescope git_stash<cr>", "Stashes" },
         },
-        L = { "<cmd>GitMessenger<cr>", "Last commit message" },
+        m = { "<cmd>GitMessenger<cr>", "Last commit message" },
     },
 
     p = {

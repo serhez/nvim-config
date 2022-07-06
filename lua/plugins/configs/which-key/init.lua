@@ -17,7 +17,7 @@ require("which-key").setup({
     icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
         separator = "→", -- symbol used between a key and it's label
-        group = "+", -- symbol prepended to a group
+        group = " ", -- symbol prepended to a group
     },
     window = {
         border = "single", -- none, single, double, shadow
@@ -54,8 +54,8 @@ vim.api.nvim_set_keymap("v", "<leader>/", "gcc", { noremap = false, silent = tru
 local mappings = {
     ["/"] = "Comment",
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-    ["q"] = { "<cmd>Bwipeout<cr>", "Close current buffer" }, -- Shortcut
-    ["Q"] = { "<cmd>tabclose<cr>", "Close current tab" }, -- Shortcut
+    ["q"] = { "<cmd>Bwipeout<cr>", "Close buffer" }, -- Shortcut
+    ["Q"] = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
     ["s"] = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
     ["S"] = { "<cmd>Telescope live_grep<cr>", "Search text (+ignored)" },
     ["U"] = { "<cmd>PackerSync<cr>", "Update" },
@@ -163,7 +163,7 @@ local mappings = {
     },
 
     t = {
-        name = "Tab",
+        name = "Tabs",
         c = { "<cmd>tabclose<cr>", "Close (current)" },
         n = { "<cmd>tabnew<cr>", "New" },
     },

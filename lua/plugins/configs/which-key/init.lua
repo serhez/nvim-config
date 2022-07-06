@@ -56,8 +56,14 @@ local mappings = {
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["q"] = { "<cmd>Bwipeout<cr>", "Close buffer" }, -- Shortcut
     ["Q"] = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
-    ["s"] = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
-    ["S"] = { "<cmd>Telescope live_grep<cr>", "Search text (+ignored)" },
+    ["s"] = {
+        '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
+        "Search text",
+    }, -- Shortcut
+    ["S"] = {
+        '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
+        "Search text (+ignored)",
+    }, -- Shortcut
     ["U"] = { "<cmd>PackerSync<cr>", "Update" },
 
     b = {
@@ -118,13 +124,26 @@ local mappings = {
         name = "Find",
         b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
         c = { "<cmd>Telescope commands<cr>", "Commands" },
-        f = { "<cmd>Telescope find_files<cr>", "Files" },
+        f = {
+            "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
+            "Files",
+        },
+        F = {
+            "<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
+            "Files (+ignored)",
+        },
         m = { "<cmd>Telescope marks<cr>", "Marks" },
         M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
         p = { "<cmd>Telescope session-lens search_session<cr>", "Projects" }, -- Redundancy
         r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-        t = { "<cmd>Telescope live_grep<cr>", "Text" },
-        T = { "<cmd>Telescope live_grep<cr>", "Text (+ignored)" },
+        t = {
+            '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
+            "Text",
+        },
+        T = {
+            '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
+            "Text (+ignored)",
+        },
     },
 
     g = {

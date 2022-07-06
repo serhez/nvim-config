@@ -443,7 +443,6 @@ local plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
-		cmd = "Telescope",
 		config = "require('plugins.configs.telescope')",
 	},
 

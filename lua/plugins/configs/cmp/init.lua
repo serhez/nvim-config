@@ -7,16 +7,18 @@ end
 local luasnip_present, luasnip = pcall(require, "luasnip")
 
 local has_words_before = function()
-    local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+    local unpack = table.unpack or unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 cmp.setup({
     -- Disable for comments
-    enabled = function ()
-        local context = require 'cmp.config.context'
+    enabled = function()
+        local context = require("cmp.config.context")
         -- keep command mode completion enabled when cursor is in a comment
-        if vim.api.nvim_get_mode().mode == 'c' then
+        if vim.api.nvim_get_mode().mode == "c" then
             return true
         else
             return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
@@ -38,7 +40,7 @@ cmp.setup({
     },
     formatting = {
         format = function(entry, vim_item)
-            local icons = require "plugins.configs.cmp.icons"
+            local icons = require("plugins.configs.cmp.icons")
             vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
             vim_item.menu = ({
@@ -56,10 +58,10 @@ cmp.setup({
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm {
+        ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
-        },
+        }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -107,28 +109,28 @@ cmp.setup({
     -- },
 })
 
-cmp.setup.filetype('gitcommit', {
+cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-        { name = 'git' },
+        { name = "git" },
     }, {
-        { name = 'buffer' },
-    })
+        { name = "buffer" },
+    }),
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
-    }
+        { name = "buffer" },
+    },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path' }
+        { name = "path" },
     }, {
-        { name = 'cmdline' }
-    })
+        { name = "cmdline" },
+    }),
 })

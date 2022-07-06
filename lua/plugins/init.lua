@@ -377,8 +377,9 @@ local plugins = {
 	},
 
 	{
-		"anuvyklack/pretty-fold.nvim",
-		config = "require('plugins.configs.pretty-fold')",
+		"https://github.com/kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		config = "require('plugins.configs.ufo')",
 	},
 
 	{
@@ -703,4 +704,9 @@ return packer.startup({
 -- {
 --     "ethanholz/nvim-lastplace",
 --     config = "require('plugins.configs.lastplace')",
+-- },
+
+-- {
+-- 	"anuvyklack/pretty-fold.nvim",
+-- 	config = "require('plugins.configs.pretty-fold')",
 -- },

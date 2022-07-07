@@ -1,30 +1,32 @@
+local icons = require("icons")
+
 -- These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-vim.api.nvim_set_keymap('n', '<TAB>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<S-TAB>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<TAB>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<S-TAB>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
 
 -- These commands will move the current buffer backwards or forwards in the bufferline
-vim.api.nvim_set_keymap('n', '<C-TAB>', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-S-TAB>', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-TAB>", ":BufferLineMoveNext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-S-TAB>", ":BufferLineMovePrev<CR>", { noremap = true, silent = true })
 
-require('bufferline').setup {
+require("bufferline").setup({
     options = {
         numbers = "none",
         -- NOTE: this plugin is designed with this icon in mind,
         -- and so changing this is NOT recommended, this is intended
         -- as an escape hatch for people who cannot bear it for whatever reason
-        indicator_icon = '▎',
-        buffer_close_icon = '',
-        modified_icon = '●',
-        close_icon = '',
-        left_trunc_marker = '',
-        right_trunc_marker = '',
+        indicator_icon = icons.bar.vertical_left,
+        buffer_close_icon = icons.cross,
+        modified_icon = icons.circle,
+        close_icon = icons.fat_cross,
+        left_trunc_marker = icons.arrow.left_circled,
+        right_trunc_marker = icons.arrow.right_circled,
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
         tab_size = 18,
         diagnostics = true,
         diagnostics_indicator = function(count, _, _, _)
-            return "("..count..")"
+            return "(" .. count .. ")"
         end,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         -- custom_filter = function(buf_number)
@@ -42,7 +44,7 @@ require('bufferline').setup {
         --         return true
         --     end
         -- end,
-        offsets = {{filetype = "NvimTree", text = "Explorer", text_align = "center"}},
+        offsets = { { filetype = "NvimTree", text = "Explorer", text_align = "center" } },
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = true,
         show_close_icon = false,
@@ -57,5 +59,5 @@ require('bufferline').setup {
         --     -- add custom logic
         --     return buffer_a.modified > buffer_b.modified
         -- end
-    }
-}
+    },
+})

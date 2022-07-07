@@ -7,4 +7,10 @@ require("incline").setup({
             file_readonly_icon = icons.lock .. icons.single_space,
         })
     end,
+    window = {
+        margin = {
+            horizontal = 0,
+            vertical = 0,
+        },
+    },
 })

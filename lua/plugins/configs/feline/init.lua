@@ -8,7 +8,7 @@ local function get_navic_location()
     if location == "" then
         return location
     else
-        return icons.single_space .. icons.right_short_arrow .. icons.single_space .. location
+        return icons.single_space .. icons.arrow.right_short .. icons.single_space .. location
     end
 end
 

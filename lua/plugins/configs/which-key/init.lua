@@ -17,8 +17,8 @@ require("which-key").setup({
         },
     },
     icons = {
-        breadcrumb = icons.double_right_arrow, -- symbol used in the command line area that shows your active key combo
-        separator = icons.right_arrow, -- symbol used between a key and it's label
+        breadcrumb = icons.arrow.double_right_short, -- symbol used in the command line area that shows your active key combo
+        separator = icons.arrow.right, -- symbol used between a key and it's label
         group = icons.folder.open .. icons.single_space, -- symbol prepended to a group
     },
     window = {

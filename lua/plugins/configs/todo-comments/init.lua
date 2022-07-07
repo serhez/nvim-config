@@ -1,19 +1,24 @@
-require("todo-comments").setup
-{
+local icons = require("icons")
+
+require("todo-comments").setup({
     signs = true, -- show icons in the signs column
     -- keywords recognized as todo comments
     keywords = {
         FIX = {
-            icon = " ", -- icon used for the sign, and in search results
+            icon = icons.diagnostics.bug .. icons.single_space, -- icon used for the sign, and in search results
             color = "error", -- can be a hex color, or a named color (see below)
             alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
             -- signs = false, -- configure signs for some keywords individually
         },
-        TODO = { icon = " ", color = "info" },
-        HACK = { icon = " ", color = "warning" },
-        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TODO = { icon = icons.check .. icons.single_space, color = "info" },
+        HACK = { icon = icons.fire .. icons.single_space, color = "warning" },
+        WARN = {
+            icon = icons.diagnostics.warning .. icons.single_space,
+            color = "warning",
+            alt = { "WARNING", "XXX" },
+        },
+        PERF = { icon = icons.fast .. icons.single_space, alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = icons.message .. icons.single_space, color = "hint", alt = { "INFO" } },
     },
     -- highlighting of the line containing the todo comment
     -- * before: highlights before the keyword (typically comment characters)
@@ -38,15 +43,15 @@ require("todo-comments").setup
     search = {
         command = "rg",
         args = {
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
         },
         -- regex that will be used to match keywords.
         -- don't replace the (KEYWORDS) placeholder
         pattern = [[\b(KEYWORDS):]], -- ripgrep regex
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
-}
+})

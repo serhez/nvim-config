@@ -1,3 +1,5 @@
+local icons = require("icons")
+
 local M = {}
 
 local function lspSymbol(name, icon)
@@ -6,18 +8,18 @@ local function lspSymbol(name, icon)
 end
 
 function M.setup()
-    lspSymbol("Error", "")
-    lspSymbol("Info", "")
-    lspSymbol("Hint", "")
-    lspSymbol("Warn", "")
+    lspSymbol("Error", icons.diagnostics.error)
+    lspSymbol("Info", icons.diagnostics.info)
+    lspSymbol("Hint", icons.diagnostics.hint)
+    lspSymbol("Warn", icons.diagnostics.warning)
 
-    vim.diagnostic.config {
+    vim.diagnostic.config({
         virtual_text = false,
         signs = true,
         underline = true,
         update_in_insert = false,
         severity_sort = true,
-    }
+    })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "single",
@@ -28,7 +30,7 @@ function M.setup()
 
     -- Suppress error messages from lang servers
     vim.notify = function(msg, log_level)
-        if msg:match "exit code" then
+        if msg:match("exit code") then
             return
         end
         if log_level == vim.log.levels.ERROR then
@@ -55,24 +57,24 @@ end
 -- NOTE:    2. Servers that are on the list, in the order they appear there.
 function M.format()
     vim.lsp.buf.formatting_seq_sync({}, 5000, {
-        'gopls',
-        'clangd',
-        'jsonls',
-        'sumneko_lua',
-        'eslint_d',
-        'eslint',
-        'html',
-        'cssls',
-        'cmake',
-        'pyright',
-        'tailwindcss',
-        'volar',
-        'yamlls',
-        'zeta_note',
-        'vimls',
-        'texlab',
-        'lemminx',
-        'dotls',
+        "gopls",
+        "clangd",
+        "jsonls",
+        "sumneko_lua",
+        "eslint_d",
+        "eslint",
+        "html",
+        "cssls",
+        "cmake",
+        "pyright",
+        "tailwindcss",
+        "volar",
+        "yamlls",
+        "zeta_note",
+        "vimls",
+        "texlab",
+        "lemminx",
+        "dotls",
     })
 end
 
@@ -83,7 +85,8 @@ function M.auto_format()
 end
 
 function M.custom_attach(client, bufnr)
-    require 'illuminate'.on_attach(client)
+    require("illuminate").on_attach(client)
+    require("nvim-navic").attach(client, bufnr)
 
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
@@ -95,25 +98,25 @@ function M.custom_attach(client, bufnr)
     -- Auto-format on save
     -- FIX: The if statement yields false for .ts files
     -- if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = formatting_augroup,
-            buffer = bufnr,
-            callback = function()
-                require'lsp'.auto_format()
-            end,
-        })
+    vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        group = formatting_augroup,
+        buffer = bufnr,
+        callback = function()
+            require("lsp").auto_format()
+        end,
+    })
     -- end
 
     -- Mappings (some are commented as they are currently handled by plugins)
-    vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {noremap = false, silent = true})
-    vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap = false, silent = true})
+    vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = false, silent = true })
+    vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = false, silent = true })
     -- vim.api.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = false, silent = true})
-    vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = false, silent = true})
-    vim.api.nvim_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {noremap = false, silent = true})
+    vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = false, silent = true })
+    vim.api.nvim_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { noremap = false, silent = true })
     -- vim.api.nvim_set_keymap("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = false, silent = true})
     -- vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {noremap = false, silent = true})
-    vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = false, silent = true})
+    vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { noremap = false, silent = true })
     -- vim.api.nvim_set_keymap("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>", {noremap = false, silent = true})
     -- vim.api.nvim_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {noremap = false, silent = true})
     -- vim.api.nvim_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>", {noremap = false, silent = true})
@@ -138,10 +141,9 @@ M.custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- Provide custom settings that should only apply to the following servers
 M.enhance_server_opts = {
-    ["eslint_d"] = require "lsp.eslint_d",
-    ["sumneko_lua"] = require "lsp.sumneko_lua",
-    ["volar"] = require "lsp.volar",
+    ["eslint_d"] = require("lsp.eslint_d"),
+    ["sumneko_lua"] = require("lsp.sumneko_lua"),
+    ["volar"] = require("lsp.volar"),
 }
 
 return M
-

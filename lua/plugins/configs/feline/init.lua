@@ -1,26 +1,27 @@
-local u = require("plugins.configs.feline.utils")
+local icons = require("icons")
+local utils = require("plugins.configs.feline.utils")
 local lsp = require("feline.providers.lsp")
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
-local function get_gps_location()
-    local location = gps.get_location()
+local function get_navic_location()
+    local location = navic.get_location()
     if location == "" then
         return location
     else
-        return ' > ' .. location
+        return icons.single_space .. icons.right_short_arrow .. icons.single_space .. location
     end
 end
 
 local function vi_mode_hl()
-    return u.vi_colors[vim.fn.mode()] or "FlnViBlack"
+    return utils.vi_colors[vim.fn.mode()] or "FlnViBlack"
 end
 
 local function lsp_diagnostics_info()
     return {
-        errors = lsp.get_diagnostics_count('ERROR'),
-        warnings = lsp.get_diagnostics_count('WARN'),
-        infos = lsp.get_diagnostics_count('INFO'),
-        hints = lsp.get_diagnostics_count('HINT')
+        errors = lsp.get_diagnostics_count("ERROR"),
+        warnings = lsp.get_diagnostics_count("WARN"),
+        infos = lsp.get_diagnostics_count("INFO"),
+        hints = lsp.get_diagnostics_count("HINT"),
     }
 end
 
@@ -31,10 +32,10 @@ local function lsp_diagnostics_show(severity)
 end
 
 local function diag_of(f, s)
-    local icon = u.icons[s]
+    local icon = icons[s]
     return function()
         local diag = f()[s]
-        return icon .. ' ' .. diag
+        return icon .. icons.single_space .. diag
     end
 end
 
@@ -45,82 +46,82 @@ local c = {
     },
     vimode = {
         left = {
-            provider = u.icons.double_space,
+            provider = icons.double_space,
             hl = vi_mode_hl,
-            right_sep = { str = u.icons.double_space, hl = "FlnSep" },
+            right_sep = { str = icons.double_space, hl = "FlnSep" },
         },
         right = {
-            provider = u.icons.double_space,
+            provider = icons.double_space,
             hl = vi_mode_hl,
-            left_sep = { str = u.icons.double_space, hl = "FlnSep" },
+            left_sep = { str = icons.double_space, hl = "FlnSep" },
         },
     },
     git = {
         branch = {
             provider = "git_branch",
-            icon = u.icons.branch .. ' ',
+            icon = icons.git.branch .. icons.single_space,
             hl = "FlnGitBranch",
-            right_sep = { str = u.icons.single_space, hl = "FlnSep" },
+            right_sep = { str = icons.single_space, hl = "FlnSep" },
             enabled = function()
                 return vim.b.gitsigns_status_dict ~= nil
             end,
         },
         add = {
-            provider = 'git_diff_added',
+            provider = "git_diff_added",
             hl = "FlnGreen",
         },
         change = {
-            provider = 'git_diff_changed',
+            provider = "git_diff_changed",
             hl = "FlnYellow",
         },
         remove = {
-            provider = 'git_diff_removed',
+            provider = "git_diff_removed",
             hl = "FlnRed",
-        }
+        },
     },
     fileinfo = {
         provider = {
             name = "file_info",
             opts = {
                 type = "base-only",
-                file_readonly_icon = u.icons.lock .. ' ',
-            }
+                file_readonly_icon = icons.lock .. icons.single_space,
+            },
         },
         hl = "FlnBoldText",
         left_sep = { hl = "FlnSep" },
         right_sep = { hl = "FlnSep" },
     },
-    gps = {
+    navic = {
         provider = function()
-            return get_gps_location()
+            return get_navic_location()
         end,
         enabled = function()
-            return gps.is_available()
+            return navic.is_available()
         end,
-        hl = "FlnGPS",
+        hl = "FlnNavic",
     },
     diagnostics = {
         error = {
-            provider = diag_of(lsp_diagnostics_info, 'errors'),
-            enabled = lsp_diagnostics_show('ERROR'),
+            provider = diag_of(lsp_diagnostics_info, "errors"),
+            enabled = lsp_diagnostics_show("ERROR"),
             hl = "FlnError",
         },
         warning = {
-            provider = diag_of(lsp_diagnostics_info, 'warnings'),
-            enabled = lsp_diagnostics_show('WARN'),
-            left_sep = { str = u.icons.single_space, hl = "FlnSep" },
+            provider = diag_of(lsp_diagnostics_info, "warnings"),
+            enabled = lsp_diagnostics_show("WARN"),
+            left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnWarn",
         },
         info = {
-            provider = diag_of(lsp_diagnostics_info, 'infos'),
-            enabled = lsp_diagnostics_show('INFO'),
-            left_sep = { str = u.icons.single_space, hl = "FlnSep" },
+            provider = diag_of(lsp_diagnostics_info, "infos"),
+            enabled = lsp_diagnostics_show("INFO"),
+            left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnInfo",
         },
         hint = {
-            provider = diag_of(lsp_diagnostics_info, 'hints'),
-            enabled = lsp_diagnostics_show('HINT'),
-            left_sep = { str = u.icons.single_space, hl = "FlnSep" },
+            provider = diag_of(lsp_diagnostics_info, "hints"),
+            enabled = lsp_diagnostics_show("HINT"),
+            left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnHint",
         },
     },
@@ -128,11 +129,11 @@ local c = {
         position = {
             provider = "position",
             hl = "FlnText",
-            left_sep = { str = u.icons.double_space, hl = "FlnSep" },
+            left_sep = { str = icons.double_space, hl = "FlnSep" },
         },
         percentage = {
-            provider = 'line_percentage',
-            left_sep = { str = u.icons.double_space, hl = "FlnSep" },
+            provider = "line_percentage",
+            left_sep = { str = icons.double_space, hl = "FlnSep" },
             hl = "FlnText",
         },
     },
@@ -141,8 +142,8 @@ local c = {
             name = "file_info",
             opts = {
                 type = "relative",
-                file_readonly_icon = u.icons.lock .. ' ',
-            }
+                file_readonly_icon = icons.lock .. icons.single_space,
+            },
         },
         hl = "StatusLine",
         left_sep = { hl = "FlnSep" },
@@ -150,7 +151,7 @@ local c = {
     },
 }
 
-local active = {
+local statusline_active = {
     { -- left
         c.vimode.left,
         c.git.branch,
@@ -160,7 +161,7 @@ local active = {
     },
     { -- center
         c.fileinfo,
-        c.gps,
+        c.navic,
     },
     { -- right
         c.diagnostics.error,
@@ -173,14 +174,18 @@ local active = {
     },
 }
 
-local inactive = {
-    { c.default },     -- left
+local statusline_inactive = {
+    { c.default }, -- left
     { c.in_fileinfo }, -- center
-    { c.default },     -- right
+    { c.default }, -- right
 }
 
+-- local winbar_active = {
+--     { c.fileinfo },
+-- }
+
 require("feline").setup({
-    components = { active = active, inactive = inactive },
+    components = { active = statusline_active, inactive = statusline_inactive },
     highlight_reset_triggers = {},
     force_inactive = {
         filetypes = {
@@ -207,3 +212,4 @@ require("feline").setup({
     },
 })
 
+-- require("feline").winbar.setup()

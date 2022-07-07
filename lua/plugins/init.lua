@@ -52,16 +52,20 @@ local plugins = {
 	},
 
 	{
-		"SmiteshP/nvim-gps",
-		requires = "nvim-treesitter/nvim-treesitter",
-		after = "nvim-treesitter",
-		config = "require('plugins.configs.gps')",
+		"SmiteshP/nvim-navic",
+		requires = "neovim/nvim-lspconfig",
+		config = "require('plugins.configs.navic')",
 	},
 
 	{
 		"feline-nvim/feline.nvim",
 		after = "nvim-web-devicons",
 		config = "require('plugins.configs.feline')",
+	},
+
+	{
+		"b0o/incline.nvim",
+		config = "require('plugins.configs.incline')",
 	},
 
 	{
@@ -709,4 +713,11 @@ return packer.startup({
 -- {
 -- 	"anuvyklack/pretty-fold.nvim",
 -- 	config = "require('plugins.configs.pretty-fold')",
+-- },
+
+-- {
+-- 	"SmiteshP/nvim-gps",
+-- 	requires = "nvim-treesitter/nvim-treesitter",
+-- 	after = "nvim-treesitter",
+-- 	config = "require('plugins.configs.gps')",
 -- },

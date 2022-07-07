@@ -1,4 +1,6 @@
-require'nvim-tree'.setup {
+local icons = require("icons")
+
+require("nvim-tree").setup({
     update_cwd = true,
     hijack_cursor = true,
     update_focused_file = {
@@ -8,10 +10,22 @@ require'nvim-tree'.setup {
     renderer = {
         icons = {
             glyphs = {
-                default = '',
-                symlink = '',
-                git = {unstaged = "", staged = "✓", unmerged = "", renamed = "➜", untracked = ""},
-                folder = {default = "", open = "", empty = "", empty_open = "", symlink = ""}
+                default = icons.page,
+                symlink = icons.file.symlink,
+                git = {
+                    unstaged = icons.git.unstaged,
+                    staged = icons.git.staged,
+                    unmerged = icons.git.unmerged,
+                    renamed = icons.git.renamed,
+                    untracked = icons.git.untracked,
+                },
+                folder = {
+                    default = icons.folder.default,
+                    open = icons.folder.open,
+                    empty = icons.folder.empty,
+                    empty_open = icons.folder.empty_open,
+                    symlink = icons.folder.symlink,
+                },
             },
         },
     },
@@ -20,11 +34,11 @@ require'nvim-tree'.setup {
         enable = true,
         show_on_dirs = true,
         icons = {
-            hint = "",
-            info = "",
-            warning = "",
-            error = "",
-        }
+            hint = icons.diagnostics.hint,
+            info = icons.diagnostics.info,
+            warning = icons.diagnostics.warning,
+            error = icons.diagnostics.error,
+        },
     },
 
     filters = {
@@ -35,10 +49,10 @@ require'nvim-tree'.setup {
     view = {
         mappings = {
             list = {
-                { key = {"<CR>", "l" }, action = "edit", mode = "n"},
-                { key = {"<BS>", "h" }, action = "close_node", mode = "n"},
-            }
-        }
+                { key = { "<CR>", "l" }, action = "edit", mode = "n" },
+                { key = { "<BS>", "h" }, action = "close_node", mode = "n" },
+            },
+        },
     },
 
     actions = {
@@ -46,7 +60,7 @@ require'nvim-tree'.setup {
             quit_on_open = true,
         },
     },
-}
+})
 
 -- Auto close on exit
 vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")

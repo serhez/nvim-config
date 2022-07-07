@@ -1,3 +1,5 @@
+local icons = require("icons")
+
 require("which-key").setup({
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
@@ -15,9 +17,9 @@ require("which-key").setup({
         },
     },
     icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "→", -- symbol used between a key and it's label
-        group = " ", -- symbol prepended to a group
+        breadcrumb = icons.double_right_arrow, -- symbol used in the command line area that shows your active key combo
+        separator = icons.right_arrow, -- symbol used between a key and it's label
+        group = icons.folder.open .. icons.single_space, -- symbol prepended to a group
     },
     window = {
         border = "single", -- none, single, double, shadow

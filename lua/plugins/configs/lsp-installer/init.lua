@@ -5,7 +5,7 @@ local setup_lsp = function(attach, capabilities, enhance_server_opts)
     local present, lsp_installer = pcall(require, "nvim-lsp-installer")
 
     if not present then
-       return
+        return
     end
 
     lsp_installer.on_server_ready(function(server)
@@ -23,9 +23,8 @@ local setup_lsp = function(attach, capabilities, enhance_server_opts)
         end
 
         server:setup(opts)
-        vim.cmd [[ do User LspAttachBuffers ]]
+        vim.cmd([[ do User LspAttachBuffers ]])
     end)
 end
 
 setup_lsp(lsp_config.custom_attach, lsp_config.custom_capabilities, lsp_config.enhance_server_opts)
-

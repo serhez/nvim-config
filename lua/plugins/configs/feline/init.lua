@@ -18,10 +18,10 @@ end
 
 local function lsp_diagnostics_info()
     return {
-        errors = lsp.get_diagnostics_count("ERROR"),
-        warnings = lsp.get_diagnostics_count("WARN"),
-        infos = lsp.get_diagnostics_count("INFO"),
-        hints = lsp.get_diagnostics_count("HINT"),
+        error = lsp.get_diagnostics_count("ERROR"),
+        warning = lsp.get_diagnostics_count("WARN"),
+        info = lsp.get_diagnostics_count("INFO"),
+        hint = lsp.get_diagnostics_count("HINT"),
     }
 end
 
@@ -32,7 +32,7 @@ local function lsp_diagnostics_show(severity)
 end
 
 local function diag_of(f, s)
-    local icon = icons[s]
+    local icon = icons.diagnostics[s]
     return function()
         local diag = f()[s]
         return icon .. icons.single_space .. diag
@@ -102,24 +102,24 @@ local c = {
     },
     diagnostics = {
         error = {
-            provider = diag_of(lsp_diagnostics_info, "errors"),
+            provider = diag_of(lsp_diagnostics_info, "error"),
             enabled = lsp_diagnostics_show("ERROR"),
             hl = "FlnError",
         },
         warning = {
-            provider = diag_of(lsp_diagnostics_info, "warnings"),
+            provider = diag_of(lsp_diagnostics_info, "warning"),
             enabled = lsp_diagnostics_show("WARN"),
             left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnWarn",
         },
         info = {
-            provider = diag_of(lsp_diagnostics_info, "infos"),
+            provider = diag_of(lsp_diagnostics_info, "info"),
             enabled = lsp_diagnostics_show("INFO"),
             left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnInfo",
         },
         hint = {
-            provider = diag_of(lsp_diagnostics_info, "hints"),
+            provider = diag_of(lsp_diagnostics_info, "hint"),
             enabled = lsp_diagnostics_show("HINT"),
             left_sep = { str = icons.single_space, hl = "FlnSep" },
             hl = "FlnHint",

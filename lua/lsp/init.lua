@@ -86,7 +86,10 @@ end
 
 function M.custom_attach(client, bufnr)
     require("illuminate").on_attach(client)
-    require("nvim-navic").attach(client, bufnr)
+
+    if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+    end
 
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)

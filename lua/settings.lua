@@ -15,7 +15,6 @@ cmd("set wrap linebreak") -- wrap on words
 cmd("let &showbreak = '" .. icons.arrow.right_curved .. " '") -- change the wrapping symbol
 cmd("set whichwrap+=<,>,[,],h,l") -- move to next line with theses keys
 
--- TODO: Remove the folding plugin and set it up myself here
 -- Handle folding
 -- cmd([[function! MyFoldText()
 --         let line = getline(v:foldstart)
@@ -34,7 +33,6 @@ opt.confirm = true -- asks for confirmation instead of giving errors (e.g., on q
 opt.backup = false -- creates a backup file
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 opt.cmdheight = 1 -- space in the neovim command line for displaying messages
-opt.colorcolumn = "99999" -- fix indentline for now
 opt.completeopt = { "menuone", "noselect" }
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- the encoding written to a file

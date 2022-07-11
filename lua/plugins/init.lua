@@ -305,11 +305,8 @@ local plugins = {
 
 	{
 		"andymass/vim-matchup",
+		config = "require('plugins.configs.matchup')",
 		event = "BufRead",
-		opt = true,
-		setup = function()
-			require("utils").packer_lazy_load("vim-matchup")
-		end,
 	},
 
 	{

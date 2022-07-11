@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     ignore_install = { "phpdoc" },
 
@@ -7,17 +7,12 @@ require'nvim-treesitter.configs'.setup {
         use_languagetree = true,
     },
     -- indent = {enable = true, disable = {"python", "html", "javascript"}}, -- FIX: LSP indenting seems to be broken
-    indent = {enable = false},
+    indent = { enable = false },
     -- autotag = {enable = true},
-
-    matchup = {
-        enable = true -- mandatory, false will disable the whole extension
-        -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-    },
 
     context_commentstring = {
         enable = true,
-        config = {css = '// %s'}
+        config = { css = "// %s" },
     },
 
     textobjects = {
@@ -81,9 +76,8 @@ require'nvim-treesitter.configs'.setup {
     textsubjects = {
         enable = true,
         keymaps = {
-            ['.'] = 'textsubjects-smart',
-            [';'] = 'textsubjects-container-outer',
-        }
+            ["."] = "textsubjects-smart",
+            [";"] = "textsubjects-container-outer",
+        },
     },
-}
-
+})

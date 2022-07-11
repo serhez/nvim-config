@@ -7,7 +7,6 @@ vim.cmd("let g:nvcode_termcolors=256")
 vim.g.colors_name = "onedark"
 vim.g.syntax = true
 vim.cmd("set background=dark")
-vim.cmd('let ayucolor="dark"')
 vim.cmd("hi! link NonText LineNr")
 vim.cmd("hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg")
 vim.cmd([[let &fcs='eob: ']]) -- remove the tilde (~) after EOF

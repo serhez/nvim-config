@@ -4,11 +4,11 @@ local M = {}
 
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
-vim.g.colors_name = "onedark"
+vim.g.colors_name = "palenight"
 vim.g.syntax = true
 vim.cmd("set background=dark")
 vim.cmd("hi! link NonText LineNr")
-vim.cmd("hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg")
+vim.cmd("hi! link EndOfBuffer Normal")
 vim.cmd([[let &fcs='eob: ']]) -- remove the tilde (~) after EOF
 
 -- Word under cursor highlighting
@@ -36,8 +36,11 @@ local function fromhl(hl)
     local result = {}
     local list = vim.api.nvim_get_hl_by_name(hl, true)
     for k, v in pairs(list) do
-        local name = k == "background" and "bg" or "fg"
-        result[name] = string.format("#%06x", v)
+        local status, res = pcall(string.format, "#%06x", v)
+        if status then
+            local name = k == "background" and "bg" or "fg"
+            result[name] = res
+        end
     end
     return result
 end

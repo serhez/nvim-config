@@ -542,6 +542,23 @@ local plugins = {
         config = "require('plugins.configs.colorschemes.ayu')",
     },
 
+    {
+        "rose-pine/neovim",
+        as = "rose-pine",
+        tag = "v1.*",
+        config = "require('plugins.configs.colorschemes.rose-pine')",
+    },
+
+    {
+        "catppuccin/nvim",
+        as = "catppuccin",
+        config = "require('plugins.configs.colorschemes.catppuccin')",
+    },
+
+    { "projekt0n/github-nvim-theme" },
+
+    { "folke/tokyonight.nvim" },
+
     { "joshdick/onedark.vim" },
 
     { "shaunsingh/nord.nvim" },

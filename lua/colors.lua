@@ -2,11 +2,25 @@
 
 local M = {}
 
+-- Catppuccin
+vim.g.catppuccin_flavour = "latte"
+
+-- Github
+vim.g.github_function_style = "italic"
+vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+
+-- Tokyonight
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_functions = true
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
-vim.g.colors_name = "palenight"
 vim.g.syntax = true
+vim.g.colors_name = "onedark"
 vim.cmd("set background=dark")
+
+-- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")
 vim.cmd("hi! link EndOfBuffer Normal")
 vim.cmd([[let &fcs='eob: ']]) -- remove the tilde (~) after EOF

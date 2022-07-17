@@ -574,6 +574,13 @@ local plugins = {
     { "morhetz/gruvbox" },
 
     { "drewtempelmeyer/palenight.vim" },
+
+    -- Helpers
+
+    {
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
+    },
 }
 
 return packer.startup({

@@ -31,3 +31,6 @@ require("nvim-navic").setup({
     },
     separator = icons.single_space .. icons.arrow.right_short .. icons.single_space,
 })
+
+-- FIX: Should not have to do this, but the attach checks don't work ATM
+vim.g.navic_silence = true

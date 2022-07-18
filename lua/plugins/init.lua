@@ -444,7 +444,7 @@ local plugins = {
 
     {
         "nvim-telescope/telescope.nvim",
-        requires = { { "nvim-lua/plenary.nvim" } },
+        requires = { "nvim-lua/plenary.nvim" },
         config = "require('plugins.configs.telescope')",
     },
 
@@ -506,6 +506,30 @@ local plugins = {
     {
         "rmagatti/goto-preview",
         config = "require('plugins.configs.goto-preview')",
+    },
+
+    -- Testing
+
+    {
+        "nvim-neotest/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-neotest/neotest-go",
+            "haydenmeade/neotest-jest",
+            "nvim-neotest/neotest-python",
+        },
+        config = "require('plugins.configs.neotest')",
+        cmd = {
+            "TestDebugFile",
+            "TestDebugNearest",
+            "TestDebugSuite",
+            "TestRunFile",
+            "TestRunNearest",
+            "TestRunSuite",
+            "TestStopNearest",
+            "TestPanel",
+        },
     },
 
     -- Debugging
@@ -594,6 +618,10 @@ local plugins = {
         "dstein64/vim-startuptime",
         cmd = "StartupTime",
     },
+
+    -- BUG: This plugin suppresses the of a current nvim bug with CursorHold
+    -- FIX: Remove this plugin when the bug is fixed: https://github.com/neovim/neovim/issues/12587
+    { "antoinemadec/FixCursorHold.nvim" },
 }
 
 return packer.startup({

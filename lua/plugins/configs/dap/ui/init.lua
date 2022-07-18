@@ -1,6 +1,7 @@
 local icons = require("icons")
+local dap, dap_ui = require("dap"), require("dapui")
 
-require("dapui").setup({
+dap_ui.setup({
     icons = {
         expanded = icons.arrow.down_short,
         collapsed = icons.arrow.right_short,
@@ -13,26 +14,20 @@ require("dapui").setup({
         remove = "d",
         edit = "e",
         repl = "r",
+        toggle = "t",
     },
+    expand_lines = vim.fn.has("nvim-0.7"),
     layouts = {
         {
             elements = {
                 -- You can change the order of elements in the sidebar
-                { id = "scopes", size = 0.25 },
-                { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
-                { id = "watches", size = 0.25 },
+                { id = "scopes", size = 0.35 },
+                { id = "stacks", size = 0.35 },
+                { id = "breakpoints", size = 0.15 },
+                { id = "watches", size = 0.15 },
             },
-            size = 40,
+            size = 0.33,
             position = "left", -- Can be "left" or "right"
-        },
-        {
-            elements = {
-                "repl",
-                "console",
-            },
-            size = 10,
-            position = "bottom", -- Can be "bottom" or "top"
         },
     },
     floating = {
@@ -44,3 +39,14 @@ require("dapui").setup({
     },
     windows = { indent = 1 },
 })
+
+-- Attach DAP UI to DAP events
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dap_ui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dap_ui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+    dap_ui.close()
+end

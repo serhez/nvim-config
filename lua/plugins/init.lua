@@ -512,23 +512,36 @@ local plugins = {
 
     {
         "mfussenegger/nvim-dap",
-        config = "require('plugins.configs.dap')",
-        event = "BufRead",
-    }, -- TODO: Lazy
+        config = "require('plugins.configs.dap.dap')",
+    },
 
     {
         "rcarriga/nvim-dap-ui",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap-ui')",
-        event = "BufRead",
-    }, -- TODO: Lazy
+        config = "require('plugins.configs.dap.ui')",
+        cmd = { "DapContinue", "DapTest" },
+    },
 
     {
         "theHamsta/nvim-dap-virtual-text",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap-virtual-text')",
-        event = "BufRead",
-    }, -- TODO: Lazy
+        config = "require('plugins.configs.dap.virtual-text')",
+        cmd = { "DapContinue", "DapTest" },
+    },
+
+    {
+        "leoluz/nvim-dap-go",
+        requires = { "mfussenegger/nvim-dap" },
+        config = "require('plugins.configs.dap.go')",
+        cmd = { "DapContinue", "DapTest" },
+    },
+
+    {
+        "mfussenegger/nvim-dap-python",
+        requires = { "mfussenegger/nvim-dap" },
+        config = "require('plugins.configs.dap.python')",
+        cmd = { "DapContinue", "DapTest" },
+    },
 
     -- Colorschemes
 

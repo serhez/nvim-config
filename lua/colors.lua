@@ -1,16 +1,17 @@
 -- NOTE: You can discover all highlight groups the current colorscheme defines by executing ':hi'
+-- TODO: Redefine DAP UI colours (these ones: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/highlights.lua)
 
 local M = {}
 
 -- Catppuccin
-vim.g.catppuccin_flavour = "latte"
+vim.g.catppuccin_flavour = "macchiato"
 
 -- Github
 vim.g.github_function_style = "italic"
 vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Tokyonight
-vim.g.tokyonight_style = "night"
+vim.g.tokyonight_style = "storm"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 

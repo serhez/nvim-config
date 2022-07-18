@@ -23,6 +23,7 @@ M.circle = "●"
 M.cross = ""
 M.fat_cross = ""
 M.check = ""
+M.three_dots = ""
 M.cube = ""
 M.prism = ""
 M.bracketed_prism = ""
@@ -62,6 +63,8 @@ M.bar = {
     vertical_center = "┃",
     vertical_center_thin = "│",
     vertical_left = "▎",
+    upper_right_corner = "┐",
+    lower_left_corner = "└",
 }
 
 M.arrow = {

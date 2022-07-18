@@ -520,16 +520,6 @@ local plugins = {
             "nvim-neotest/neotest-python",
         },
         config = "require('plugins.configs.neotest')",
-        cmd = {
-            "TestDebugFile",
-            "TestDebugNearest",
-            "TestDebugSuite",
-            "TestRunFile",
-            "TestRunNearest",
-            "TestRunSuite",
-            "TestStopNearest",
-            "TestPanel",
-        },
     },
 
     -- Debugging

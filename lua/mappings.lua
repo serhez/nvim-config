@@ -90,6 +90,28 @@ vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
 
 -- Commands
 
+-- Testing
+vim.api.nvim_create_user_command("TestRunNearest", "lua require('neotest').run.run()", { nargs = 0 })
+vim.api.nvim_create_user_command("TestRunFile", "lua require('neotest').run.run(vim.fn.expand('%'))", { nargs = 0 })
+vim.api.nvim_create_user_command("TestRunSuite", "lua require('neotest').run.run({suite = true})", { nargs = 0 })
+vim.api.nvim_create_user_command(
+    "TestDebugNearest",
+    "lua require('neotest').run.run({strategy = 'dap'})",
+    { nargs = 0 }
+)
+vim.api.nvim_create_user_command(
+    "TestDebugFile",
+    "lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})",
+    { nargs = 0 }
+)
+vim.api.nvim_create_user_command(
+    "TestDebugSuite",
+    "lua require('neotest').run.run({suite = true, strategy = 'dap'})",
+    { nargs = 0 }
+)
+vim.api.nvim_create_user_command("TestStopNearest", "lua require('neotest').run.stop()", { nargs = 0 })
+vim.api.nvim_create_user_command("TestPanel", "lua require('neotest').summary.toggle()", { nargs = 0 })
+
 -- DAP
 vim.api.nvim_create_user_command("DapStart", "lua require'dap'.continue()", { nargs = 0 })
 vim.api.nvim_create_user_command("DapContinue", "lua require'dap'.continue()", { nargs = 0 })
@@ -133,28 +155,6 @@ vim.api.nvim_create_user_command("DapVisualSelection", function()
         print("The current debugging adapter does not support debugging by visual selection")
     end
 end, { nargs = 0 })
-
--- Testing
-vim.api.nvim_create_user_command("TestRunNearest", "lua require('neotest').run.run()", { nargs = 0 })
-vim.api.nvim_create_user_command("TestRunFile", "lua require('neotest').run.run(vim.fn.expand('%'))", { nargs = 0 })
-vim.api.nvim_create_user_command("TestRunSuite", "lua require('neotest').run.run({suite = true})", { nargs = 0 })
-vim.api.nvim_create_user_command(
-    "TestDebugNearest",
-    "lua require('neotest').run.run({strategy = 'dap'})",
-    { nargs = 0 }
-)
-vim.api.nvim_create_user_command(
-    "TestDebugFile",
-    "lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})",
-    { nargs = 0 }
-)
-vim.api.nvim_create_user_command(
-    "TestDebugSuite",
-    "lua require('neotest').run.run({suite = true, strategy = 'dap'})",
-    { nargs = 0 }
-)
-vim.api.nvim_create_user_command("TestStopNearest", "lua require('neotest').run.stop()", { nargs = 0 })
-vim.api.nvim_create_user_command("TestPanel", "lua require('neotest').summary.toggle()", { nargs = 0 })
 
 -- Comments
 vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = false, silent = true })

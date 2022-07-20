@@ -11,7 +11,7 @@ vim.g.github_function_style = "italic"
 vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Tokyonight
-vim.g.tokyonight_style = "storm"
+vim.g.tokyonight_style = "day"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
@@ -94,7 +94,7 @@ M.gen_highlights = function()
     local sbg = vim.o.background == "dark" and c.white or c.black
     M.colors = c
 
-    local groups = {
+    M.groups = {
         -- Feline
 
         FlnViBlack = { fg = c.white, bg = c.black, style = "bold" },
@@ -141,9 +141,13 @@ M.gen_highlights = function()
         LspSagaShTruncateLine = { fg = sbg, bg = c.normal_bg },
         LspSagaDocTruncateLine = { fg = sbg, bg = c.normal_bg },
         LspSagaCodeActionTruncateLine = { fg = sbg, bg = c.normal_bg },
+
+        -- Coverage
+        CoverageCovered = { fg = sfg, bg = c.green },
+        CoverageUncovered = { fg = sfg, bg = c.green },
     }
 
-    for k, v in pairs(groups) do
+    for k, v in pairs(M.groups) do
         highlight(k, v)
     end
 end

@@ -519,7 +519,13 @@ local plugins = {
             "haydenmeade/neotest-jest",
             "nvim-neotest/neotest-python",
         },
-        config = "require('plugins.configs.neotest')",
+        config = "require('plugins.configs.test.neotest')",
+    },
+
+    {
+        "andythigpen/nvim-coverage",
+        requires = "nvim-lua/plenary.nvim",
+        config = "require('plugins.configs.test.coverage')",
     },
 
     -- Debugging

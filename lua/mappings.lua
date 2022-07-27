@@ -132,9 +132,9 @@ vim.api.nvim_create_user_command("DapGoToCursor", "lua require'dap'.repl.run_to_
 vim.api.nvim_create_user_command("DapTest", function()
     local filetype = vim.bo.filetype
     if filetype == "go" then
-        vim.nvim_execute("lua require('dap-go').debug_test()")
+        vim.api.nvim_exec("lua require('dap-go').debug_test()", false)
     elseif filetype == "python" then
-        vim.nvim_execute("lua require('dap-python').test_method()")
+        vim.api.nvim_exec("lua require('dap-python').test_method()", false)
     else
         print("The current debugging adapter does not support debugging individual tests")
     end
@@ -142,7 +142,7 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command("DapClass", function()
     local filetype = vim.bo.filetype
     if filetype == "python" then
-        vim.nvim_execute("lua require('dap-python').test_class()")
+        vim.api.nvim_exec("lua require('dap-python').test_class()", false)
     else
         print("The current debugging adapter does not support debugging individual classes")
     end
@@ -150,7 +150,7 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command("DapVisualSelection", function()
     local filetype = vim.bo.filetype
     if filetype == "python" then
-        vim.nvim_execute("lua require('dap-python').debug_selection()")
+        vim.api.nvim_exec("lua require('dap-python').debug_selection()", false)
     else
         print("The current debugging adapter does not support debugging by visual selection")
     end
@@ -221,11 +221,11 @@ local mappings = {
 
     d = {
         name = "Debug",
-        b = {
+        b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle breakpoint" },
+        B = {
             name = "Breakpoints",
             c = { "<cmd>DapClearBreakpoints<cr>", "Clear" },
             l = { "<cmd>DapListBreakpoints<cr>", "List" },
-            t = { "<cmd>DapToggleBreakpoint<cr>", "Toggle" },
         },
         c = { "<cmd>DapContinue<cr>", "Continue / Start" },
         g = {
@@ -246,8 +246,8 @@ local mappings = {
             b = { "<cmd>DapStepOver<cr>", "Back" },
             d = { "<cmd>DapDown<cr>", "Down" },
             i = { "<cmd>DapStepInto<cr>", "Into" },
-            o = { "<cmd>DapStepOver<cr>", "Out" },
-            O = { "<cmd>DapStepOver<cr>", "Over" },
+            O = { "<cmd>DapStepOver<cr>", "Out" },
+            o = { "<cmd>DapStepOver<cr>", "Over" },
             u = { "<cmd>DapUp<cr>", "Up" },
         },
         S = { "<cmd>DapStop<cr>", "Stop" },

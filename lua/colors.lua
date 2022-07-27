@@ -18,7 +18,7 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
-vim.g.colors_name = "onedark"
+vim.g.colors_name = "rose-pine"
 vim.cmd("set background=dark")
 
 -- Fixes to default highlight groups
@@ -144,7 +144,7 @@ M.gen_highlights = function()
 
         -- Coverage
         CoverageCovered = { fg = sfg, bg = c.green },
-        CoverageUncovered = { fg = sfg, bg = c.green },
+        CoverageUncovered = { fg = sfg, bg = c.red },
     }
 
     for k, v in pairs(M.groups) do

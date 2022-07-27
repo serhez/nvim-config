@@ -47,6 +47,7 @@ require("nvim-tree").setup({
     },
 
     view = {
+        adaptive_size = true,
         mappings = {
             list = {
                 { key = { "<CR>", "l" }, action = "edit", mode = "n" },

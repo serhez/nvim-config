@@ -36,7 +36,6 @@ opt.cmdheight = 1 -- space in the neovim command line for displaying messages
 opt.completeopt = { "menuone", "noselect" }
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- the encoding written to a file
-opt.guifont = "SFMono Nerd Font:h17" -- the font used in graphical neovim applications
 opt.hidden = true -- required to keep multiple buffers and open multiple buffers
 opt.hlsearch = false -- highlight all matches on previous search pattern
 opt.ignorecase = true -- ignore case in search patterns

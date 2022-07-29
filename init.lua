@@ -9,3 +9,7 @@ require("colors")
 require("plugins")
 require("mappings")
 require("autocommands")
+
+if vim.g.neovide then
+    require("neovide")
+end

@@ -67,6 +67,7 @@ opt.relativenumber = true -- set relative numbered lines
 opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 opt.wrap = true -- display lines as one long line
 opt.laststatus = 3 -- display one statusline for all windows
+opt.guicursor = "i:ver100-blinkoff700-blinkon700"
 
 -- Improve quickfix window UI
 local fn = vim.fn

@@ -1,5 +1,28 @@
 if vim.g.colors_name == "catppuccin" then
     require("catppuccin").setup({
+        dim_inactive = {
+            enabled = true,
+            shade = "dark",
+            percentage = 0.15,
+        },
+        transparent_background = true,
+        compile = {
+            enabled = false,
+        },
+        styles = {
+            comments = { "italic" },
+            conditionals = { "italic" },
+            loops = {},
+            functions = {},
+            keywords = {},
+            strings = {},
+            variables = {},
+            numbers = {},
+            booleans = {},
+            properties = {},
+            types = {},
+            operators = {},
+        },
         integrations = {
             treesitter = true,
             native_lsp = {
@@ -27,7 +50,7 @@ if vim.g.colors_name == "catppuccin" then
             nvimtree = {
                 enabled = true,
                 show_root = false,
-                transparent_panel = false,
+                transparent_panel = true,
             },
             neotree = {
                 enabled = false,

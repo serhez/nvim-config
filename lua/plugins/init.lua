@@ -64,11 +64,6 @@ local plugins = {
     },
 
     {
-        "b0o/incline.nvim",
-        config = "require('plugins.configs.incline')",
-    },
-
-    {
         "akinsho/bufferline.nvim",
         after = "nvim-web-devicons",
         config = "require('plugins.configs.bufferline')",

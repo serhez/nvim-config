@@ -19,7 +19,7 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
 vim.g.colors_name = "rose-pine"
-vim.cmd("set background=dark")
+vim.cmd("set background=light")
 
 -- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")
@@ -67,10 +67,12 @@ end
 
 local function colors_from_theme()
     return {
-        normal_bg = fromhl("Normal").bg,
-        bg = fromhl("StatusLine").bg,
-        alt = fromhl("CursorLine").bg,
-        fg = fromhl("StatusLine").fg,
+        bg = fromhl("Normal").bg,
+        fg = fromhl("Normal").bg,
+        alt_bg = fromhl("CursorLine").bg,
+        alt_fg = fromhl("CursorLine").bg,
+        statusline_bg = fromhl("StatusLine").bg,
+        statusline_fg = fromhl("StatusLine").fg,
         hint = fromhl("DiagnosticHint").fg or "#5E81AC",
         info = fromhl("DiagnosticInfo").fg or "#81A1C1",
         warn = fromhl("DiagnosticWarn").fg or "#EBCB8B",
@@ -90,61 +92,58 @@ end
 -- After the function is called, UI components using these highlight groups must also be reloaded
 M.gen_highlights = function()
     local c = colors_from_theme()
-    local sfg = vim.o.background == "dark" and c.black or c.white
-    local sbg = vim.o.background == "dark" and c.white or c.black
     M.colors = c
 
     M.groups = {
         -- Feline
-
         FlnViBlack = { fg = c.white, bg = c.black, style = "bold" },
-        FlnViRed = { fg = c.bg, bg = c.red, style = "bold" },
-        FlnViGreen = { fg = c.bg, bg = c.green, style = "bold" },
-        FlnViYellow = { fg = c.bg, bg = c.yellow, style = "bold" },
-        FlnViBlue = { fg = c.bg, bg = c.blue, style = "bold" },
-        FlnViMagenta = { fg = c.bg, bg = c.magenta, style = "bold" },
-        FlnViCyan = { fg = c.bg, bg = c.cyan, style = "bold" },
-        FlnViWhite = { fg = c.bg, bg = c.white, style = "bold" },
+        FlnViRed = { fg = c.statusline_bg, bg = c.red, style = "bold" },
+        FlnViGreen = { fg = c.statusline_bg, bg = c.green, style = "bold" },
+        FlnViYellow = { fg = c.statusline_bg, bg = c.yellow, style = "bold" },
+        FlnViBlue = { fg = c.statusline_bg, bg = c.blue, style = "bold" },
+        FlnViMagenta = { fg = c.statusline_bg, bg = c.magenta, style = "bold" },
+        FlnViCyan = { fg = c.statusline_bg, bg = c.cyan, style = "bold" },
+        FlnViWhite = { fg = c.statusline_bg, bg = c.white, style = "bold" },
 
         FlnBlack = { fg = c.black, bg = c.white },
-        FlnRed = { fg = c.red, bg = c.bg },
-        FlnGreen = { fg = c.green, bg = c.bg },
-        FlnYellow = { fg = c.yellow, bg = c.bg },
-        FlnBlue = { fg = c.blue, bg = c.bg },
-        FlnMagenta = { fg = c.magenta, bg = c.bg },
-        FlnCyan = { fg = c.cyan, bg = c.bg },
-        FlnWhite = { fg = c.white, bg = c.bg },
+        FlnRed = { fg = c.red, bg = c.statusline_bg },
+        FlnGreen = { fg = c.green, bg = c.statusline_bg },
+        FlnYellow = { fg = c.yellow, bg = c.statusline_bg },
+        FlnBlue = { fg = c.blue, bg = c.statusline_bg },
+        FlnMagenta = { fg = c.magenta, bg = c.statusline_bg },
+        FlnCyan = { fg = c.cyan, bg = c.statusline_bg },
+        FlnWhite = { fg = c.white, bg = c.statusline_bg },
 
-        FlnHint = { fg = c.hint, bg = c.bg },
-        FlnInfo = { fg = c.info, bg = c.bg },
-        FlnWarn = { fg = c.warn, bg = c.bg },
-        FlnError = { fg = c.err, bg = c.bg },
-        FlnStatus = { fg = sfg, bg = sbg, style = "bold" },
+        FlnHint = { fg = c.hint, bg = c.statusline_bg },
+        FlnInfo = { fg = c.info, bg = c.statusline_bg },
+        FlnWarn = { fg = c.warn, bg = c.statusline_bg },
+        FlnError = { fg = c.err, bg = c.statusline_bg },
+        FlnStatus = { fg = c.statusline_fg, bg = c.statusline_bg, style = "bold" },
 
-        FlnText = { fg = sbg, bg = c.bg },
-        FlnBoldText = { fg = sbg, bg = c.bg, style = "bold" },
-        FlnSep = { fg = c.bg, bg = c.bg },
-        FlnGitBranch = { fg = sbg, bg = c.bg },
-        FlnNavic = { fg = sbg, bg = c.bg },
+        FlnText = { fg = c.statusline_fg, bg = c.statusline_bg },
+        FlnBoldText = { fg = c.statusline_fg, bg = c.statusline_bg, style = "bold" },
+        FlnSep = { fg = c.statusline_fg, bg = c.statusline_bg },
+        FlnGitBranch = { fg = c.statusline_fg, bg = c.statusline_bg },
+        FlnNavic = { fg = c.statusline_fg, bg = c.statusline_bg },
 
         -- LSPSaga
-        LspFloatWinBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaBorderTitle = { fg = sbg, bg = c.normal_bg },
-        LspSagaRenameBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaHoverBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaSignatureHelpBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaCodeActionBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaDefPreviewBorder = { fg = sbg, bg = c.normal_bg },
-        LspLinesDiagBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaDiagnosticBorder = { fg = sbg, bg = c.normal_bg },
-        LspSagaDiagnosticTruncateLine = { fg = sbg, bg = c.normal_bg },
-        LspSagaShTruncateLine = { fg = sbg, bg = c.normal_bg },
-        LspSagaDocTruncateLine = { fg = sbg, bg = c.normal_bg },
-        LspSagaCodeActionTruncateLine = { fg = sbg, bg = c.normal_bg },
+        LspFloatWinBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaBorderTitle = { fg = c.cyan, bg = c.bg },
+        LspSagaRenameBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaHoverBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaSignatureHelpBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaCodeActionBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaDefPreviewBorder = { fg = c.cyan, bg = c.bg },
+        LspLinesDiagBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaDiagnosticBorder = { fg = c.cyan, bg = c.bg },
+        LspSagaDiagnosticTruncateLine = { fg = c.cyan, bg = c.bg },
+        LspSagaShTruncateLine = { fg = c.cyan, bg = c.bg },
+        LspSagaDocTruncateLine = { fg = c.cyan, bg = c.bg },
+        LspSagaCodeActionTruncateLine = { fg = c.cyan, bg = c.bg },
 
         -- Coverage
-        CoverageCovered = { fg = sfg, bg = c.green },
-        CoverageUncovered = { fg = sfg, bg = c.red },
+        CoverageCovered = { fg = c.bg, bg = c.green },
+        CoverageUncovered = { fg = c.bg, bg = c.red },
     }
 
     for k, v in pairs(M.groups) do

@@ -160,10 +160,13 @@ end, { nargs = 0 })
 vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>/", "gcc", { noremap = false, silent = true })
 
+-- Run code within visual selections
+vim.api.nvim_set_keymap("v", "<leader>R", "<cmd>SnipRun<cr>", { noremap = false, silent = true })
+
 local mappings = {
     ["/"] = "Comment",
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-    ["q"] = { "<cmd>Bwipeout<cr>", "Close buffer" }, -- Shortcut
+    ["q"] = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
     ["Q"] = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
     ["s"] = {
         '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
@@ -179,11 +182,11 @@ local mappings = {
         name = "Buffers",
         c = {
             name = "Close",
-            a = { "<cmd>bufdo Bwipeout<cr>", "All" },
-            c = { "<cmd>Bwipeout<cr>", "Current" },
+            a = { "<cmd>%bwipeout<cr>", "All" },
+            c = { "<cmd>bwipeout<cr>", "Current" },
             g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- Redundancy
             l = { "<cmd>BufferLineCloseLeft<cr>", "Left of current" },
-            o = { "<cmd>%Bdelete|e#<cr>", "Others" },
+            o = { '<cmd>%bdelete | e # | normal `"<cr>', "Others" },
             p = { "<cmd>BufferLinePickClose<cr>", "Pick" },
             r = { "<cmd>BufferLineCloseRight<cr>", "Right of current" },
         },

@@ -40,7 +40,7 @@ cmp.setup({
     },
     formatting = {
         format = function(entry, vim_item)
-            local icons = require("plugins.configs.cmp.icons")
+            local icons = require("plugins.configs.completion.cmp.icons")
             vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
             vim_item.menu = ({

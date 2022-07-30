@@ -1,6 +1,6 @@
 if vim.g.colors_name == "ayu" then
     require("ayu").setup({
-        mirage = true,
+        mirage = false,
         overrides = {},
     })
 end

@@ -85,7 +85,7 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
-        config = "require('plugins.configs.treesitter')",
+        config = "require('plugins.configs.treesitter.treesitter')",
     },
 
     {
@@ -97,7 +97,7 @@ local plugins = {
     {
         "windwp/nvim-ts-autotag",
         requires = "nvim-treesitter/nvim-treesitter",
-        config = "require('plugins.configs.treesitter-autotag')",
+        config = "require('plugins.configs.treesitter.autotag')",
         event = "BufReadPost",
     },
 
@@ -115,7 +115,7 @@ local plugins = {
     {
         "m-demare/hlargs.nvim",
         requires = { "nvim-treesitter/nvim-treesitter" },
-        config = "require('plugins.configs.hlargs')",
+        config = "require('plugins.configs.treesitter.hlargs')",
     },
 
     -- Git
@@ -123,7 +123,7 @@ local plugins = {
     {
         "lewis6991/gitsigns.nvim",
         opt = true,
-        config = "require('plugins.configs.gitsigns')",
+        config = "require('plugins.configs.git.signs')",
         setup = function()
             require("utils").packer_lazy_load("gitsigns.nvim")
         end,
@@ -136,20 +136,20 @@ local plugins = {
 
     {
         "rhysd/git-messenger.vim",
-        config = "require('plugins.configs.git-messenger')",
+        config = "require('plugins.configs.git.messenger')",
         cmd = "GitMessenger",
     },
 
     {
         "sindrets/diffview.nvim",
         requires = "nvim-lua/plenary.nvim",
-        config = "require('plugins.configs.diffview')",
+        config = "require('plugins.configs.git.diffview')",
         cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewToggleFiles" },
     },
 
     {
         "akinsho/git-conflict.nvim",
-        config = "require('plugins.configs.git-conflict')",
+        config = "require('plugins.configs.git.conflict')",
         event = "BufRead",
     },
 
@@ -165,18 +165,18 @@ local plugins = {
                 vim.cmd('if &ft == "packer" | echo "" | else | silent! e %')
             end, 0)
         end,
-        config = "require('plugins.configs.lspconfig')",
+        config = "require('plugins.configs.lsp.config')",
     },
 
     {
         "RRethy/vim-illuminate",
-        config = "require('plugins.configs.illuminate')",
+        config = "require('plugins.configs.lsp.illuminate')",
     },
 
     {
         "williamboman/nvim-lsp-installer",
         requires = "neovim/nvim-lspconfig",
-        config = "require('plugins.configs.lsp-installer')",
+        config = "require('plugins.configs.lsp.installer')",
         event = "BufRead",
         -- cmd = {
         --     "LspInstallInfo",
@@ -190,14 +190,14 @@ local plugins = {
 
     {
         "jose-elias-alvarez/null-ls.nvim",
-        config = "require('lsp.null-ls')",
+        config = "require('plugins.configs.lsp.null-ls')",
         requires = { "nvim-lua/plenary.nvim" },
     },
 
     {
         "ray-x/lsp_signature.nvim",
         after = "nvim-lspconfig",
-        config = "require('plugins.configs.lsp_signature')",
+        config = "require('plugins.configs.lsp.signature')",
     },
 
     {
@@ -207,7 +207,7 @@ local plugins = {
 
     {
         "tami5/lspsaga.nvim",
-        config = "require('plugins.configs.lspsaga')",
+        config = "require('plugins.configs.lsp.saga')",
     },
 
     -- Completion
@@ -222,14 +222,14 @@ local plugins = {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         after = "friendly-snippets",
-        config = "require('plugins.configs.cmp')",
+        config = "require('plugins.configs.completion.cmp')",
     },
 
     {
         "L3MON4D3/LuaSnip",
         wants = "friendly-snippets",
         after = "nvim-cmp",
-        config = "require('plugins.configs.luasnip')",
+        config = "require('plugins.configs.completion.luasnip')",
     },
 
     {
@@ -261,7 +261,7 @@ local plugins = {
         run = "./install.sh",
         requires = "hrsh7th/nvim-cmp",
         after = "cmp-path",
-        config = "require('plugins.configs.cmp.tabnine')",
+        config = "require('plugins.configs.completion.cmp.tabnine')",
     },
 
     {
@@ -280,7 +280,7 @@ local plugins = {
         "petertriho/cmp-git",
         requires = "nvim-lua/plenary.nvim",
         after = "cmp-cmdline",
-        config = "require('plugins.configs.cmp-git')",
+        config = "require('plugins.configs.completion.cmp.git')",
     },
 
     -- Motions
@@ -289,18 +289,18 @@ local plugins = {
         "numToStr/Comment.nvim",
         module = "Comment",
         keys = { "gcc" },
-        config = "require('plugins.configs.comment')",
+        config = "require('plugins.configs.motions.comment')",
     },
 
     {
         "ggandor/lightspeed.nvim",
-        config = "require('plugins.configs.lightspeed')",
+        config = "require('plugins.configs.motions.lightspeed')",
         event = "BufRead",
     },
 
     {
         "andymass/vim-matchup",
-        config = "require('plugins.configs.matchup')",
+        config = "require('plugins.configs.motions.matchup')",
         event = "BufRead",
     },
 
@@ -341,7 +341,7 @@ local plugins = {
 
     {
         "nacro90/numb.nvim",
-        config = "require('plugins.configs.numb')",
+        config = "require('plugins.configs.motions.numb')",
         event = "BufRead",
     },
 
@@ -349,13 +349,13 @@ local plugins = {
 
     {
         "rmagatti/auto-session",
-        config = "require('plugins.configs.auto-session')",
+        config = "require('plugins.configs.session.auto-session')",
     },
 
     {
         "rmagatti/session-lens",
         requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-        config = "require('plugins.configs.session-lens')",
+        config = "require('plugins.configs.session.session-lens')",
     },
 
     --  Misc
@@ -426,6 +426,7 @@ local plugins = {
         "michaelb/sniprun",
         run = "bash install.sh",
         config = "require('plugins.configs.sniprun')",
+        cmd = "SnipRun",
     },
 
     -- Navigation, searching and finding
@@ -514,47 +515,47 @@ local plugins = {
             "haydenmeade/neotest-jest",
             "nvim-neotest/neotest-python",
         },
-        config = "require('plugins.configs.test.neotest')",
+        config = "require('plugins.configs.testing.neotest')",
     },
 
     {
         "andythigpen/nvim-coverage",
         requires = "nvim-lua/plenary.nvim",
-        config = "require('plugins.configs.test.coverage')",
+        config = "require('plugins.configs.testing.coverage')",
     },
 
     -- Debugging
 
     {
         "mfussenegger/nvim-dap",
-        config = "require('plugins.configs.dap.dap')",
+        config = "require('plugins.configs.debugging.dap')",
     },
 
     {
         "rcarriga/nvim-dap-ui",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap.ui')",
+        config = "require('plugins.configs.debugging.ui')",
         -- cmd = { "DapContinue", "DapTest" },
     },
 
     {
         "theHamsta/nvim-dap-virtual-text",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap.virtual-text')",
+        config = "require('plugins.configs.debugging.virtual-text')",
         -- cmd = { "DapContinue", "DapTest" },
     },
 
     {
         "leoluz/nvim-dap-go",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap.go')",
+        config = "require('plugins.configs.debugging.go')",
         -- cmd = { "DapContinue", "DapTest" },
     },
 
     {
         "mfussenegger/nvim-dap-python",
         requires = { "mfussenegger/nvim-dap" },
-        config = "require('plugins.configs.dap.python')",
+        config = "require('plugins.configs.debugging.python')",
         -- cmd = { "DapContinue", "DapTest" },
     },
 
@@ -632,13 +633,7 @@ return packer.startup({
 -- Command palette, integrated with which-key: https://github.com/mrjones2014/legendary.nvim
 -- DoGe vs Neogen (https://github.com/danymat/neogen)
 
--- Graveyard
-
--- {
---     "glepnir/lspsaga.nvim",
---     config = "require('plugins.configs.lspsaga')",
---     cmd = "Lspsaga",
--- },
+-- Legacy
 
 -- {
 --     "kabouzeid/nvim-lspinstall",
@@ -699,11 +694,6 @@ return packer.startup({
 -- },
 
 -- {
---     "kevinhwang91/nvim-bqf",
---     event = "BufRead",
--- },
-
--- {
 --     "kshenoy/vim-signature",
 --     event = "BufRead",
 -- },
@@ -732,7 +722,7 @@ return packer.startup({
 -- {
 --     "romgrk/nvim-treesitter-context",
 --     requires = "nvim-treesitter/nvim-treesitter",
---     config = "require('plugins.configs.treesitter-context')",
+--     config = "require('plugins.configs.treesitter.context')",
 --     event = "BufRead",
 -- },
 

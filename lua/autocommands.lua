@@ -21,6 +21,7 @@ require("utils").define_augroups({
             "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
         },
         { "VimLeavePre", "*", "set title set titleold=" },
+        { "VimLeave", "*", "set guicursor=a:ver100-blinkoff750-blinkon750" }, -- Restore alacritty cursor on exit
         { "FileType", "qf", "set nobuflisted" },
     },
 

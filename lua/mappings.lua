@@ -160,23 +160,20 @@ end, { nargs = 0 })
 vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>/", "gcc", { noremap = false, silent = true })
 
--- Run code within visual selections
-vim.api.nvim_set_keymap("v", "<leader>R", "<cmd>SnipRun<cr>", { noremap = false, silent = true })
-
-local mappings = {
+local normal_mappings = {
     ["/"] = "Comment",
-    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-    ["q"] = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
-    ["Q"] = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
-    ["s"] = {
+    e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+    q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
+    Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
+    s = {
         '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
         "Search text",
     }, -- Shortcut
-    ["S"] = {
+    S = {
         '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
         "Search text (+ignored)",
     }, -- Shortcut
-    ["U"] = { "<cmd>PackerSync<cr>", "Update" },
+    U = { "<cmd>PackerSync<cr>", "Update" },
 
     b = {
         name = "Buffers",
@@ -271,6 +268,7 @@ local mappings = {
         m = { "<cmd>Telescope marks<cr>", "Marks" },
         M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
         p = { "<cmd>Telescope session-lens search_session<cr>", "Projects" }, -- Redundancy
+        R = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
         r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
         t = {
             '<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
@@ -317,6 +315,23 @@ local mappings = {
         l = { "<cmd>Telescope session-lens search_session<cr>", "List" }, -- Redundancy
     },
 
+    r = {
+        name = "Refactor",
+        c = { "<cmd>lua require('refactoring').debug.cleanup({})<cr>", "Cleanup print statements" },
+        l = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
+        p = { "<cmd>lua require('refactoring').debug.printf({below = true})<cr>", "Insert print statement" },
+        b = {
+            name = "Block",
+            e = { "<cmd>lua require('refactoring').refactor('Extract Block')<cr>", "Extract" },
+            E = { "<cmd>lua require('refactoring').refactor('Extract Block To File')<cr>", "Extract to file" },
+        },
+        v = {
+            name = "Variable",
+            i = { "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>", "Inline" },
+            p = { "<cmd>lua require('refactoring').debug.print_var({ normal = true })<cr>", "Print" },
+        },
+    },
+
     t = {
         name = "Tests",
         d = {
@@ -356,13 +371,51 @@ local mappings = {
     },
 }
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = false, -- use `nowait` when creating keymaps
+local visual_mappings = {
+    ["/"] = "Comment",
+
+    R = { "<cmd>SnipRun<cr>", "Run" },
+
+    f = {
+        name = "Find",
+        r = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
+        p = { "<cmd>lua require('refactoring').select_refactor()<cr>", "Pick" },
+    },
+
+    r = {
+        name = "Refactor",
+        l = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
+        f = {
+            name = "Function",
+            e = { "<cmd>lua require('refactoring').refactor('Extract Function')<cr>", "Extract" },
+            E = { "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>", "Extract to file" },
+        },
+        v = {
+            name = "Variable",
+            e = { "<cmd>lua require('refactoring').refactor('Extract Variable')<cr>", "Extract" },
+            i = { "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>", "Inline" },
+            p = { "<cmd>lua require('refactoring').debug.print_var({})<cr>", "Print" },
+        },
+    },
 }
 
-require("which-key").register(mappings, opts)
+local normal_opts = {
+    mode = "n",
+    prefix = "<leader>",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = false,
+}
+
+local visual_opts = {
+    mode = "v",
+    prefix = "<leader>",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = false,
+}
+
+require("which-key").register(normal_mappings, normal_opts)
+require("which-key").register(visual_mappings, visual_opts)

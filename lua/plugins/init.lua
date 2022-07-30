@@ -559,6 +559,18 @@ local plugins = {
         -- cmd = { "DapContinue", "DapTest" },
     },
 
+    -- Refactoring
+
+    {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-treesitter/nvim-treesitter" },
+        },
+        after = "telescope.nvim",
+        config = "require('plugins.configs.refactoring')",
+    },
+
     -- Colorschemes
 
     {
@@ -627,10 +639,8 @@ return packer.startup({
 
 -- Replacement for gitsigns: https://github.com/tanvirtin/vgit.nvim
 -- Search jupyter integration plugins
--- Refactoring features like extracting functions, variables, etc.: https://github.com/ThePrimeagen/refactoring.nvim
 -- Follow links in markdown: https://github.com/jakewvincent/mkdnflow.nvim
 -- Complete jupyter plugin (author abandoned it in alpha stage): https://github.com/ahmedkhalf/jupyter-nvim
--- Command palette, integrated with which-key: https://github.com/mrjones2014/legendary.nvim
 -- DoGe vs Neogen (https://github.com/danymat/neogen)
 
 -- Legacy

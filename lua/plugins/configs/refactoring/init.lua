@@ -1,33 +1,26 @@
-local refactoring = require("refactoring")
-refactoring.setup()
+require("refactoring").setup({
+    -- Prompt for unguessable return types
+    prompt_func_return_type = {
+        go = true,
+        java = true,
+        cpp = true,
+        c = true,
+        h = true,
+        hpp = true,
+        cxx = true,
+    },
 
--- telescope refactoring helper
-local function refactor(prompt_bufnr)
-    local content = require("telescope.actions.state").get_selected_entry(
-        prompt_bufnr
-    )
-    require("telescope.actions").close(prompt_bufnr)
-    require("refactoring").refactor(content.value)
-end
+    -- Prompt for unguessable function parameters
+    prompt_func_param_type = {
+        go = true,
+        java = true,
+        cpp = true,
+        c = true,
+        h = true,
+        hpp = true,
+        cxx = true,
+    },
+})
 
--- NOTE: M is a global object
--- for the sake of simplicity in this example
--- you can extract this function and the helper above
--- and then require the file and call the extracted function
--- in the mappings below
-M = {}
-M.refactors = function()
-    require("telescope.pickers").new({}, {
-        prompt_title = "refactors",
-        finder = require("telescope.finders").new_table({
-            results = require("refactoring").get_refactors(),
-        }),
-        sorter = require("telescope.config").values.generic_sorter({}),
-        attach_mappings = function(_, map)
-            map("i", "<CR>", refactor)
-            map("n", "<CR>", refactor)
-            return true
-        end
-    }):find()
-end
-
+-- Telescope refactoring helper
+require("telescope").load_extension("refactoring")

@@ -11,15 +11,15 @@ vim.g.github_function_style = "italic"
 vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Tokyonight
-vim.g.tokyonight_style = "day"
+vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
-vim.g.colors_name = "rose-pine"
-vim.cmd("set background=light")
+vim.g.colors_name = "ayu"
+vim.cmd("set background=dark")
 
 -- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")
@@ -127,19 +127,20 @@ M.gen_highlights = function()
         FlnNavic = { fg = c.statusline_fg, bg = c.statusline_bg },
 
         -- LSPSaga
-        LspFloatWinBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaBorderTitle = { fg = c.cyan, bg = c.bg },
-        LspSagaRenameBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaHoverBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaSignatureHelpBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaCodeActionBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaDefPreviewBorder = { fg = c.cyan, bg = c.bg },
-        LspLinesDiagBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaDiagnosticBorder = { fg = c.cyan, bg = c.bg },
-        LspSagaDiagnosticTruncateLine = { fg = c.cyan, bg = c.bg },
-        LspSagaShTruncateLine = { fg = c.cyan, bg = c.bg },
-        LspSagaDocTruncateLine = { fg = c.cyan, bg = c.bg },
-        LspSagaCodeActionTruncateLine = { fg = c.cyan, bg = c.bg },
+        LspFloatWinNormal = { bg = c.statusline_bg },
+        LspFloatWinBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaBorderTitle = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaRenameBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaHoverBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaSignatureHelpBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaCodeActionBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaDefPreviewBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspLinesDiagBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaDiagnosticBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaDiagnosticTruncateLine = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaShTruncateLine = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaDocTruncateLine = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaCodeActionTruncateLine = { fg = c.cyan, bg = c.statusline_bg },
 
         -- Coverage
         CoverageCovered = { fg = c.bg, bg = c.green },

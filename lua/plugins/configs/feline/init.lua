@@ -83,7 +83,7 @@ local c = {
         provider = {
             name = "file_info",
             opts = {
-                type = "base-only",
+                type = "unique",
                 file_readonly_icon = icons.lock .. icons.single_space,
             },
         },

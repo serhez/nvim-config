@@ -5,51 +5,51 @@ local function get_location()
     if location == "" then
         return location
     else
-        return ' > ' .. location
+        return " > " .. location
     end
 end
 
-require('lualine').setup {
+require("lualine").setup({
     options = {
         icons_enabled = true,
-        theme = 'auto',
-        component_separators = { left = ' ', right = ' '},
-        section_separators = { left = '', right = ''},
+        theme = "auto",
+        component_separators = { left = " ", right = " " },
+        section_separators = { left = "", right = "" },
         disabled_filetypes = {},
         always_divide_middle = true,
     },
     sections = {
         lualine_a = {
-            'mode'
+            "mode",
         },
         lualine_b = {
-            'branch',
-            'diff',
+            "branch",
+            "diff",
         },
         lualine_c = {
-            'filetype',
-            'filename',
-            { get_location, cond = gps.is_available }
+            "filetype",
+            { "filename", path = 1, shorting_target = 100 },
+            { get_location, cond = gps.is_available },
         },
         lualine_x = {
-            'diagnostics',
+            "diagnostics",
         },
         lualine_y = {
-            'location',
+            "location",
         },
         lualine_z = {
-            'progress',
-        }
+            "progress",
+        },
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
         lualine_y = {},
-        lualine_z = {}
+        lualine_z = {},
     },
     tabline = nil,
     extensions = nil,
     on_config_done = nil,
-}
+})

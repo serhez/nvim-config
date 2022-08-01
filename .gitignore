@@ -7,7 +7,6 @@ nodepath.vim
 autoload/plugged/*
 vimspector-config/gadgets/*
 paths.vim
-session
 wiki/
 pack/
 utils/java/*

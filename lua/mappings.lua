@@ -156,6 +156,9 @@ vim.api.nvim_create_user_command("DapVisualSelection", function()
     end
 end, { nargs = 0 })
 
+-- Spectre
+vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", { nargs = 0 })
+
 -- Comments
 vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>/", "gcc", { noremap = false, silent = true })
@@ -364,7 +367,7 @@ local normal_mappings = {
         D = { "<cmd>DogeGenerate<cr>", "Generate docs" },
         h = { "<cmd>AddFileHeader<cr>", "Add header" },
         m = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown preview" },
-        s = { "<cmd>lua require('spectre').open()<cr>", "Search & replace" },
+        s = { "<cmd>Spectre<cr>", "Search & replace" },
         r = { "<cmd>SnipRun<cr>", "Run code" },
         R = { "<cmd>SnipLive<cr>", "Run code live" },
         t = { "<cmd>TodoTrouble<cr>", "Todos" },

@@ -184,21 +184,6 @@ local plugins = {
         config = "require('plugins.configs.lsp.illuminate')",
     },
 
-    -- {
-    --     "williamboman/nvim-lsp-installer",
-    --     requires = "neovim/nvim-lspconfig",
-    --     config = "require('plugins.configs.lsp.installer')",
-    --     event = "BufRead",
-    --     -- cmd = {
-    --     --     "LspInstallInfo",
-    --     --     "LspInstall",
-    --     --     "LspUninstall",
-    --     --     "LspUninstallAll",
-    --     --     "LspInstallLog",
-    --     --     "LspPrintInstalled",
-    --     -- },
-    -- },
-
     {
         "jose-elias-alvarez/null-ls.nvim",
         config = "require('plugins.configs.lsp.null-ls')",
@@ -471,7 +456,7 @@ local plugins = {
         "windwp/nvim-spectre",
         config = "require('plugins.configs.spectre')",
         event = "BufRead",
-        -- cmd = "lua require('spectre').open()", -- TODO: Lazy loading on cmd
+        cmd = "Spectre",
     },
 
     {

@@ -14,10 +14,17 @@ local has_words_before = function()
 end
 
 cmp.setup({
-    -- Disable for comments
+    -- Disable for comments and telescope
     enabled = function()
         local context = require("cmp.config.context")
-        -- keep command mode completion enabled when cursor is in a comment
+        local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+
+        -- Disable in prompts (e.g., telescope)
+        if buftype == "prompt" then
+            return false
+        end
+
+        -- Keep command mode completion enabled when cursor is in a comment
         if vim.api.nvim_get_mode().mode == "c" then
             return true
         else

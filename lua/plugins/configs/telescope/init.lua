@@ -3,8 +3,8 @@ local actions = require("telescope.actions")
 require("telescope").setup({
     defaults = {
         prompt_prefix = " 🔍 ",
-        selection_caret = " ",
-        entry_prefix = "  ",
+        selection_caret = "  ",
+        entry_prefix = "   ",
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
@@ -24,7 +24,7 @@ require("telescope").setup({
         path_display = { "truncate" },
         winblend = 0,
         border = true,
-        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         color_devicons = true,
         use_less = true,
         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,

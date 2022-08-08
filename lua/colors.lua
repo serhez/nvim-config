@@ -4,14 +4,14 @@
 local M = {}
 
 -- Catppuccin
-vim.g.catppuccin_flavour = "macchiato"
+vim.g.catppuccin_flavour = "latte"
 
 -- Github
 vim.g.github_function_style = "italic"
 vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Tokyonight
-vim.g.tokyonight_style = "night"
+vim.g.tokyonight_style = "day"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
@@ -19,7 +19,7 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
 vim.g.colors_name = "rose-pine"
-vim.cmd("set background=light")
+vim.cmd("set background=dark")
 
 -- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")
@@ -68,7 +68,7 @@ end
 local function colors_from_theme()
     return {
         bg = fromhl("Normal").bg,
-        fg = fromhl("Normal").bg,
+        fg = fromhl("Normal").fg,
         alt_bg = fromhl("CursorLine").bg,
         alt_fg = fromhl("CursorLine").bg,
         statusline_bg = fromhl("StatusLine").bg,
@@ -153,10 +153,14 @@ M.gen_highlights = function()
 
         -- Telescope
         TelescopeBorder = { fg = c.cyan, bg = c.statusline_bg },
-        TelescopeNormal = { fg = c.cyan, bg = c.statusline_bg },
-        TelescopePromptNormal = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopeNormal = { fg = c.fg, bg = c.statusline_bg },
+        TelescopePromptNormal = { fg = c.fg, bg = c.statusline_bg },
         TelescopePromptPrefix = { fg = c.cyan, bg = c.statusline_bg },
-        TelescopePromptCounter = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopePromptCounter = { fg = c.fg, bg = c.statusline_bg },
+        TelescopeSelection = { default = true, link = "Visual" },
+        TelescopeSelectionCaret = { default = true, link = "Visual" },
+        TelescopeMultiSelection = { default = true, link = "Visual" },
+        TelescopeMultiIcon = { default = true, link = "Visual" },
     }
 
     for k, v in pairs(M.groups) do

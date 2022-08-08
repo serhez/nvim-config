@@ -133,6 +133,8 @@ M.gen_highlights = function()
         LspFloatWinNormal = { bg = c.statusline_bg },
         LspFloatWinBorder = { fg = c.cyan, bg = c.statusline_bg },
         LspSagaBorderTitle = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaLspFinderBorder = { fg = c.cyan, bg = c.statusline_bg },
+        LspSagaAutoPreview = { fg = c.cyan, bg = c.statusline_bg },
         LspSagaRenameBorder = { fg = c.cyan, bg = c.statusline_bg },
         LspSagaHoverBorder = { fg = c.cyan, bg = c.statusline_bg },
         LspSagaSignatureHelpBorder = { fg = c.cyan, bg = c.statusline_bg },
@@ -148,6 +150,13 @@ M.gen_highlights = function()
         -- Coverage
         CoverageCovered = { fg = c.bg, bg = c.green },
         CoverageUncovered = { fg = c.bg, bg = c.red },
+
+        -- Telescope
+        TelescopeBorder = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopeNormal = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopePromptNormal = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopePromptPrefix = { fg = c.cyan, bg = c.statusline_bg },
+        TelescopePromptCounter = { fg = c.cyan, bg = c.statusline_bg },
     }
 
     for k, v in pairs(M.groups) do

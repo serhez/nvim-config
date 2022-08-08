@@ -1,4 +1,5 @@
 local icons = require("icons")
+local formatting = require("lsp.formatting")
 
 local M = {}
 
@@ -7,6 +8,7 @@ local function lspSymbol(name, icon)
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
+-- LSP general config
 function M.setup()
     lspSymbol("Error", icons.diagnostics.error)
     lspSymbol("Info", icons.diagnostics.info)
@@ -41,50 +43,9 @@ function M.setup()
     end
 end
 
--- Formatting
+-- Configure and startup servers
 
-local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-local auto_format_enabled = true -- Default
-
-function M.toggle_auto_format()
-    auto_format_enabled = not auto_format_enabled
-end
-
--- TODO: When nvim 0.8 arrives, a new API for formatting will be available and you will be able to set it up as https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
--- NOTE: formatting_seq_sync() sequentially picks an LSP server to do formatting; it choses in the following order:
--- NOTE:    1. Servers that are not listed on the given list (so don't list the servers you want to do the formatting).
--- NOTE:    2. Servers that are on the list, in the order they appear there.
-function M.format()
-    vim.lsp.buf.formatting_seq_sync({}, 5000, {
-        "gopls",
-        "clangd",
-        "jsonls",
-        "sumneko_lua",
-        "eslint_d",
-        "eslint",
-        "html",
-        "cssls",
-        "cmake",
-        "pyright",
-        "tailwindcss",
-        "volar",
-        "yamlls",
-        "zeta_note",
-        "vimls",
-        "texlab",
-        "lemminx",
-        "dotls",
-    })
-end
-
-function M.auto_format()
-    if auto_format_enabled then
-        M.format()
-    end
-end
-
-function M.custom_attach(client, bufnr)
+local function custom_attach(client, bufnr)
     require("illuminate").on_attach(client)
 
     if client.server_capabilities.documentSymbolProvider then
@@ -101,12 +62,12 @@ function M.custom_attach(client, bufnr)
     -- Auto-format on save
     -- FIX: The if statement yields false for .ts files
     -- if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
+    vim.api.nvim_clear_autocmds({ group = formatting.augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
-        group = formatting_augroup,
+        group = formatting.augroup,
         buffer = bufnr,
         callback = function()
-            require("lsp").auto_format()
+            formatting.auto_format()
         end,
     })
     -- end
@@ -114,27 +75,24 @@ function M.custom_attach(client, bufnr)
     -- Mappings (some are commented as they are currently handled by plugins)
     vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = false, silent = true })
     vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = false, silent = true })
-    -- vim.api.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = false, silent = true})
     vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = false, silent = true })
     vim.api.nvim_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { noremap = false, silent = true })
-    -- vim.api.nvim_set_keymap("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = false, silent = true})
-    -- vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {noremap = false, silent = true})
     vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { noremap = false, silent = true })
-    -- vim.api.nvim_set_keymap("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>", {noremap = false, silent = true})
-    -- vim.api.nvim_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {noremap = false, silent = true})
-    -- vim.api.nvim_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>", {noremap = false, silent = true})
+    vim.api.nvim_set_keymap("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = false, silent = true })
+    vim.api.nvim_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = false, silent = true })
+    vim.api.nvim_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = false, silent = true })
 end
 
-M.custom_capabilities = vim.lsp.protocol.make_client_capabilities()
-M.custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-M.custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.preselectSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-M.custom_capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-M.custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
+local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
+custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
+custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
+custom_capabilities.textDocument.completion.completionItem.preselectSupport = true
+custom_capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+custom_capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+custom_capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+custom_capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+custom_capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
         "documentation",
         "detail",
@@ -143,10 +101,35 @@ M.custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- Provide custom settings that should only apply to the following servers
-M.enhance_server_opts = {
-    ["eslint_d"] = require("lsp.eslint_d"),
-    ["sumneko_lua"] = require("lsp.sumneko_lua"),
-    ["volar"] = require("lsp.volar"),
+local enhance_server_opts = {
+    ["eslint_d"] = require("lsp.servers.eslint_d"),
+    ["sumneko_lua"] = require("lsp.servers.sumneko_lua"),
+    ["volar"] = require("lsp.servers.volar"),
 }
+
+require("mason-lspconfig").setup_handlers({
+    function(server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup({})
+    end,
+})
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        local opts = {
+            on_attach = custom_attach,
+            capabilities = custom_capabilities,
+            flags = {
+                debounce_text_changes = 150,
+            },
+        }
+
+        if enhance_server_opts[server_name] then
+            -- Enhance the default opts with the server-specific ones
+            opts.settings = enhance_server_opts[server_name]
+        end
+
+        require("lspconfig")[server_name].setup(opts)
+        vim.cmd([[ do User LspAttachBuffers ]])
+    end,
+})
 
 return M

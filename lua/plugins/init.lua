@@ -80,6 +80,28 @@ local plugins = {
         end,
     },
 
+    -- Installers
+
+    {
+        "williamboman/mason.nvim",
+        config = "require('plugins.configs.installer.mason')",
+    },
+
+    {
+        "williamboman/mason-lspconfig.nvim",
+        requires = {
+            "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
+        },
+        after = "mason.nvim",
+        config = "require('plugins.configs.installer.mason-lspconfig')",
+    },
+
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        config = "require('plugins.configs.installer.mason-tool-installer')",
+    },
+
     -- Treesitter
 
     {
@@ -122,11 +144,7 @@ local plugins = {
 
     {
         "lewis6991/gitsigns.nvim",
-        opt = true,
         config = "require('plugins.configs.git.signs')",
-        setup = function()
-            require("utils").packer_lazy_load("gitsigns.nvim")
-        end,
     },
 
     {
@@ -158,13 +176,6 @@ local plugins = {
     {
         "neovim/nvim-lspconfig",
         module = "lspconfig",
-        setup = function()
-            require("utils").packer_lazy_load("nvim-lspconfig")
-            -- reload the current file so lsp actually starts for it
-            vim.defer_fn(function()
-                vim.cmd('if &ft == "packer" | echo "" | else | silent! e %')
-            end, 0)
-        end,
         config = "require('plugins.configs.lsp.config')",
     },
 
@@ -173,20 +184,20 @@ local plugins = {
         config = "require('plugins.configs.lsp.illuminate')",
     },
 
-    {
-        "williamboman/nvim-lsp-installer",
-        requires = "neovim/nvim-lspconfig",
-        config = "require('plugins.configs.lsp.installer')",
-        event = "BufRead",
-        -- cmd = {
-        --     "LspInstallInfo",
-        --     "LspInstall",
-        --     "LspUninstall",
-        --     "LspUninstallAll",
-        --     "LspInstallLog",
-        --     "LspPrintInstalled",
-        -- },
-    },
+    -- {
+    --     "williamboman/nvim-lsp-installer",
+    --     requires = "neovim/nvim-lspconfig",
+    --     config = "require('plugins.configs.lsp.installer')",
+    --     event = "BufRead",
+    --     -- cmd = {
+    --     --     "LspInstallInfo",
+    --     --     "LspInstall",
+    --     --     "LspUninstall",
+    --     --     "LspUninstallAll",
+    --     --     "LspInstallLog",
+    --     --     "LspPrintInstalled",
+    --     -- },
+    -- },
 
     {
         "jose-elias-alvarez/null-ls.nvim",

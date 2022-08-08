@@ -18,8 +18,8 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
-vim.g.colors_name = "ayu"
-vim.cmd("set background=dark")
+vim.g.colors_name = "rose-pine"
+vim.cmd("set background=light")
 
 -- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")

@@ -1,3 +1,6 @@
+local sum = require("lsp.servers.sumneko_lua")
+print(sum.Lua.diagnostics.globals[0])
+
 local present, impatient = pcall(require, "impatient")
 
 if present then

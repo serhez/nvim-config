@@ -625,7 +625,7 @@ local plugins = {
         cmd = "StartupTime",
     },
 
-    -- BUG: This plugin suppresses the of a current nvim bug with CursorHold
+    -- BUG: This plugin suppresses the effects of a current nvim bug with CursorHold
     -- FIX: Remove this plugin when the bug is fixed: https://github.com/neovim/neovim/issues/12587
     { "antoinemadec/FixCursorHold.nvim" },
 }

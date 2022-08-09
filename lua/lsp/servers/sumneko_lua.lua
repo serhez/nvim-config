@@ -1,9 +1,9 @@
 local settings = {
-    Lua = {
-        diagnostics = {
-            globals = { "vim" },
-        },
-    },
+	Lua = {
+		diagnostics = {
+			globals = { "vim" },
+		},
+	},
 }
 
 return settings

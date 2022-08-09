@@ -59,61 +59,61 @@ M.key = ""
 M.ruler = "塞"
 
 M.bar = {
-    vertical_block = "█",
-    vertical_center = "┃",
-    vertical_center_thin = "│",
-    vertical_left = "▎",
-    upper_right_corner = "┐",
-    lower_left_corner = "└",
+	vertical_block = "█",
+	vertical_center = "┃",
+	vertical_center_thin = "│",
+	vertical_left = "▎",
+	upper_right_corner = "┐",
+	lower_left_corner = "└",
 }
 
 M.arrow = {
-    right = "→",
-    down_left = "",
-    right_short = "",
-    down_short = "",
-    double_right_short = "»",
-    left_circled = "",
-    right_circled = "",
-    right_curved = "⤷",
-    circular = "↺",
+	right = "→",
+	down_left = "",
+	right_short = "",
+	down_short = "",
+	double_right_short = "»",
+	left_circled = "",
+	right_circled = "",
+	right_curved = "⤷",
+	circular = "↺",
 }
 
 M.greek = {
-    alpha = "",
-    pi = "",
+	alpha = "",
+	pi = "",
 }
 
 M.file = {
-    empty = "",
-    filled = "",
-    page = "",
-    symlink = "",
+	empty = "",
+	filled = "",
+	page = "",
+	symlink = "",
 }
 
 M.folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
+	default = "",
+	open = "",
+	empty = "",
+	empty_open = "",
+	symlink = "",
 }
 
 M.diagnostics = {
-    error = "",
-    warning = "",
-    info = "",
-    hint = "",
-    bug = "",
+	error = "",
+	warning = "",
+	info = "",
+	hint = "",
+	bug = "",
 }
 
 M.git = {
-    branch = "",
-    unstaged = "",
-    staged = "✓",
-    unmerged = "",
-    renamed = "",
-    untracked = "",
+	branch = "",
+	unstaged = "",
+	staged = "✓",
+	unmerged = "",
+	renamed = "",
+	untracked = "",
 }
 
 return M

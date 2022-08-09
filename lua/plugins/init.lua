@@ -344,6 +344,7 @@ local plugins = {
     {
         "kylechui/nvim-surround",
         config = "require('plugins.configs.motions.surround')",
+        event = "BufRead",
     },
 
     -- Sessions

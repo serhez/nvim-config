@@ -1,11 +1,15 @@
 require("null-ls").setup({
     sources = {
+        -- Shell
+        require("null-ls").builtins.diagnostics.shellcheck,
+
         -- Lua
         require("null-ls").builtins.formatting.stylua,
 
         -- Python
         require("null-ls").builtins.diagnostics.pylint,
         require("null-ls").builtins.formatting.isort,
+        require("null-ls").builtins.formatting.black,
 
         -- C/C++
         require("null-ls").builtins.diagnostics.cppcheck,
@@ -22,7 +26,7 @@ require("null-ls").setup({
         require("null-ls").builtins.diagnostics.eslint_d.with({
             disabled_filetypes = { "vue" },
         }),
-        require("null-ls").builtins.formatting.prettierd.with({  -- Also Markdown, JSON, YAML, CSS, HTML, etc.
+        require("null-ls").builtins.formatting.prettierd.with({ -- Also Markdown, JSON, YAML, CSS, HTML, etc.
             -- FIX: As of now, prettier (and, therefore, prettierd) doens't run smoothly on .vue files, because of things like:
             --
             -- @hide="
@@ -44,6 +48,9 @@ require("null-ls").setup({
 
         -- JSON
         require("null-ls").builtins.diagnostics.jsonlint,
+
+        -- YAML
+        require("null-ls").builtins.diagnostics.yamllint,
 
         -- Markdown
         require("null-ls").builtins.diagnostics.markdownlint,

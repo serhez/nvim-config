@@ -216,7 +216,6 @@ local plugins = {
 
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
         after = "friendly-snippets",
         config = "require('plugins.configs.completion.cmp')",
     },
@@ -231,57 +230,57 @@ local plugins = {
     {
         "saadparwaiz1/cmp_luasnip",
         requires = "hrsh7th/nvim-cmp",
-        after = "LuaSnip",
+        after = "nvim-cmp",
     },
 
     {
         "hrsh7th/cmp-nvim-lsp",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp_luasnip",
+        after = "nvim-cmp",
     },
 
     {
         "hrsh7th/cmp-buffer",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-nvim-lsp",
+        after = "nvim-cmp",
     },
 
     {
         "hrsh7th/cmp-path",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-buffer",
+        after = "nvim-cmp",
     },
 
     {
         "tzachar/cmp-tabnine",
         run = "./install.sh",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-path",
+        after = "nvim-cmp",
         config = "require('plugins.configs.completion.cmp.tabnine')",
     },
 
     {
         "rcarriga/cmp-dap",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-tabnine",
+        after = "nvim-cmp",
     },
 
     {
         "hrsh7th/cmp-cmdline",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-dap",
+        after = "nvim-cmp",
     },
 
     {
         "dmitmel/cmp-cmdline-history",
         requires = "hrsh7th/nvim-cmp",
-        after = "cmp-dap",
+        after = "nvim-cmp",
     },
 
     {
         "petertriho/cmp-git",
         requires = "nvim-lua/plenary.nvim",
-        after = "cmp-cmdline",
+        after = "nvim-cmp",
         config = "require('plugins.configs.completion.cmp.git')",
     },
 

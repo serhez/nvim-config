@@ -38,7 +38,7 @@ cmp.setup({
     window = {
         -- https://github.com/hrsh7th/nvim-cmp/issues/1080
         completion = {
-            border = "single",
+            border = "none",
         },
         documentation = {
             border = "single",
@@ -52,15 +52,21 @@ cmp.setup({
         expand = function(_) end,
     },
     formatting = {
+        fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            local icons = require("plugins.configs.completion.cmp.icons")
-            vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+            local icons = require("icons").cmp
+            vim_item.kind = string.format("%s", icons[vim_item.kind])
 
             vim_item.menu = ({
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                cmp_tabnine = "[Tabnine]",
-                path = "[Path]",
+                cmdline_history = "History",
+                cmdline = "Command",
+                buffer = "Buffer",
+                nvim_lsp = "LSP",
+                cmp_tabnine = "Tabnine",
+                path = "Path",
+                luasnip = "Snippet",
+                dap = "DAP",
+                git = "Git",
             })[entry.source.name]
 
             return vim_item
@@ -123,27 +129,30 @@ cmp.setup({
 })
 
 cmp.setup.filetype("gitcommit", {
-    sources = cmp.config.sources({
-        { name = "git" },
-    }, {
-        { name = "buffer" },
-    }),
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline("/", {
-    mapping = cmp.mapping.preset.cmdline(),
     sources = {
+        { name = "git" },
+        { name = "path" },
         { name = "buffer" },
     },
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(":", {
+-- If you enabled `native_menu`, this won't work anymore
+cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
+    sources = {
         { name = "path" },
-    }, {
-        { name = "cmdline" },
-    }),
+        { name = "buffer" },
+        { name = "cmdline_history" },
+    },
 })
+
+-- If you enabled `native_menu`, this won't work anymore
+for _, cmd_type in ipairs({ ":", "?", "@" }) do
+    cmp.setup.cmdline(cmd_type, {
+        sources = {
+            { name = "path" },
+            { name = "cmdline" },
+            { name = "cmdline_history" },
+        },
+    })
+end

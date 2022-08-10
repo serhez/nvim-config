@@ -18,8 +18,8 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 -- Colorscheme
 vim.cmd("let g:nvcode_termcolors=256")
 vim.g.syntax = true
-vim.g.colors_name = "onedark"
-vim.cmd("set background=dark")
+vim.g.colors_name = "rose-pine"
+vim.cmd("set background=light")
 
 -- Fixes to default highlight groups
 vim.cmd("hi! link NonText LineNr")
@@ -97,7 +97,7 @@ M.gen_highlights = function()
     M.groups = {
         -- Native
         FloatBorder = { fg = c.cyan, bg = c.statusline_bg },
-        NormalFloat = { fg = c.cyan, bg = c.statusline_bg },
+        NormalFloat = { bg = c.statusline_bg },
 
         -- Feline
         FlnViBlack = { fg = c.white, bg = c.black, style = "bold" },
@@ -161,7 +161,9 @@ M.gen_highlights = function()
         TelescopeSelection = { default = true, link = "Visual" },
         TelescopeSelectionCaret = { default = true, link = "Visual" },
         TelescopeMultiSelection = { default = true, link = "Visual" },
-        TelescopeMultiIcon = { default = true, link = "Visual" },
+
+        -- CMP
+        CmpItemMenu = { style = "italic" },
     }
 
     for k, v in pairs(M.groups) do

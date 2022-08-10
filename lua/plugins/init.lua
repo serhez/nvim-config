@@ -273,6 +273,12 @@ local plugins = {
     },
 
     {
+        "dmitmel/cmp-cmdline-history",
+        requires = "hrsh7th/nvim-cmp",
+        after = "cmp-dap",
+    },
+
+    {
         "petertriho/cmp-git",
         requires = "nvim-lua/plenary.nvim",
         after = "cmp-cmdline",

@@ -99,6 +99,9 @@ M.gen_highlights = function()
         FloatBorder = { fg = c.cyan, bg = c.statusline_bg },
         NormalFloat = { bg = c.statusline_bg },
 
+        -- Bufferline
+        BufferLineBufferSelected = { style = "bold" },
+
         -- Feline
         FlnViBlack = { fg = c.white, bg = c.black, style = "bold" },
         FlnViRed = { fg = c.statusline_bg, bg = c.red, style = "bold" },

@@ -56,7 +56,7 @@ cmp.setup({
         format = function(entry, vim_item)
             local icons = require("icons").cmp
             vim_item.kind = string.format("%s", icons[vim_item.kind])
-
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
             vim_item.menu = ({
                 cmdline_history = "History",
                 cmdline = "Command",

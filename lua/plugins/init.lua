@@ -211,7 +211,7 @@ local plugins = {
     {
         "rafamadriz/friendly-snippets",
         module = "cmp_nvim_lsp",
-        event = "InsertEnter",
+        event = { "InsertEnter", "CmdlineEnter" },
     },
 
     {

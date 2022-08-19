@@ -301,6 +301,7 @@ local plugins = {
 
     {
         "andymass/vim-matchup",
+        enabled = false,
         config = "require('plugins.configs.motions.matchup')",
         event = "BufRead",
     },
@@ -399,6 +400,12 @@ local plugins = {
     {
         "norcalli/nvim-colorizer.lua",
         config = "require('plugins.configs.colorizer')",
+        event = "BufRead",
+    },
+
+    {
+        "mrshmllow/document-color.nvim",
+        config = "require('plugins.configs.document-color')",
         event = "BufRead",
     },
 

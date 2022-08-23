@@ -106,6 +106,7 @@ local plugins = {
 
     {
         "nvim-treesitter/nvim-treesitter",
+        commit = "e5c60516b5457b31628ad2c975c9b0dcacb0cbc2", -- FIX: Current master is buggy
         event = "BufRead",
         config = "require('plugins.configs.treesitter.treesitter')",
     },
@@ -202,8 +203,8 @@ local plugins = {
     },
 
     {
-        "tami5/lspsaga.nvim",
-        config = "require('plugins.configs.lsp.saga')",
+        "smjonas/inc-rename.nvim",
+        config = "require('plugins.configs.lsp.inc-rename')",
     },
 
     -- Completion
@@ -366,83 +367,6 @@ local plugins = {
         config = "require('plugins.configs.session.session-lens')",
     },
 
-    --  Misc
-
-    {
-        "windwp/nvim-autopairs",
-        config = "require('plugins.configs.autopairs')",
-        event = "BufRead",
-    },
-
-    {
-        "kevinhwang91/nvim-bqf",
-        ft = "qf",
-        config = "require('plugins.configs.bqf')",
-    },
-
-    {
-        "https://github.com/kevinhwang91/nvim-ufo",
-        requires = "kevinhwang91/promise-async",
-        config = "require('plugins.configs.ufo')",
-    },
-
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufRead",
-        config = "require('plugins.configs.indent-blankline')",
-    },
-
-    {
-        "aserowy/tmux.nvim",
-        config = "require('plugins.configs.tmux')",
-    },
-
-    {
-        "norcalli/nvim-colorizer.lua",
-        config = "require('plugins.configs.colorizer')",
-        event = "BufRead",
-    },
-
-    {
-        "mrshmllow/document-color.nvim",
-        config = "require('plugins.configs.document-color')",
-        event = "BufRead",
-    },
-
-    {
-        "iamcco/markdown-preview.nvim",
-        run = "cd app && yarn install",
-        ft = "markdown",
-        config = "require('plugins.configs.markdown-preview')",
-        cmd = "MarkdownPreviewToggle",
-    },
-
-    {
-        "metakirby5/codi.vim",
-        config = "require('plugins.configs.codi')",
-        cmd = "Codi",
-    },
-
-    {
-        "ahonn/vim-fileheader",
-        config = "require('plugins.configs.fileheader')",
-        cmd = { "AddFileHeader", "UpdateFileHeader" },
-    },
-
-    {
-        "kkoomen/vim-doge",
-        run = ":call doge#install()",
-        config = "require('plugins.configs.doge')",
-        cmd = "DogeGenerate",
-    },
-
-    {
-        "michaelb/sniprun",
-        run = "bash install.sh",
-        config = "require('plugins.configs.sniprun')",
-        cmd = "SnipRun",
-    },
-
     -- Navigation, searching and finding
 
     {
@@ -494,8 +418,9 @@ local plugins = {
         event = "BufRead",
     },
 
+    -- NOTE: This is a fork of the plugin (folke/todo-comments.nvim) as folke seems to be no longer mantaining the original repo
     {
-        "folke/todo-comments.nvim",
+        "B4mbus/todo-comments.nvim",
         config = "require('plugins.configs.todo-comments')",
         event = "BufRead",
     },
@@ -583,6 +508,84 @@ local plugins = {
         },
         after = "telescope.nvim",
         config = "require('plugins.configs.refactoring')",
+    },
+
+    --  Misc
+
+    {
+        "windwp/nvim-autopairs",
+        config = "require('plugins.configs.autopairs')",
+        event = "BufRead",
+    },
+
+    {
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+        config = "require('plugins.configs.bqf')",
+    },
+
+    {
+        "https://github.com/kevinhwang91/nvim-ufo",
+        disable = true, -- FIX: Currently buggy
+        requires = "kevinhwang91/promise-async",
+        config = "require('plugins.configs.ufo')",
+    },
+
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "BufRead",
+        config = "require('plugins.configs.indent-blankline')",
+    },
+
+    {
+        "aserowy/tmux.nvim",
+        config = "require('plugins.configs.tmux')",
+    },
+
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = "require('plugins.configs.colorizer')",
+        event = "BufRead",
+    },
+
+    {
+        "mrshmllow/document-color.nvim",
+        config = "require('plugins.configs.document-color')",
+        -- event = "BufRead",
+    },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && yarn install",
+        ft = "markdown",
+        config = "require('plugins.configs.markdown-preview')",
+        cmd = "MarkdownPreviewToggle",
+    },
+
+    {
+        "metakirby5/codi.vim",
+        config = "require('plugins.configs.codi')",
+        cmd = "Codi",
+    },
+
+    {
+        "ahonn/vim-fileheader",
+        config = "require('plugins.configs.fileheader')",
+        cmd = { "AddFileHeader", "UpdateFileHeader" },
+    },
+
+    {
+        "kkoomen/vim-doge",
+        run = ":call doge#install()",
+        config = "require('plugins.configs.doge')",
+        cmd = "DogeGenerate",
+    },
+
+    {
+        "michaelb/sniprun",
+        run = "bash install.sh",
+        config = "require('plugins.configs.sniprun')",
+        cmd = "SnipRun",
     },
 
     -- Colorschemes
@@ -790,4 +793,9 @@ return packer.startup({
 -- 	requires = "nvim-treesitter/nvim-treesitter",
 -- 	after = "nvim-treesitter",
 -- 	config = "require('plugins.configs.gps')",
+-- },
+
+-- {
+--     "tami5/lspsaga.nvim",
+--     config = "require('plugins.configs.lsp.saga')",
 -- },

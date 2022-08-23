@@ -1,1 +1,4 @@
-vim.g.Illuminate_delay = 300
+require("illuminate").configure({
+    -- delay: delay in milliseconds
+    delay = 300,
+})

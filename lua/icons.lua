@@ -3,6 +3,8 @@ local M = {}
 M.none = ""
 M.single_space = " "
 M.double_space = "  "
+M.triple_space = "   "
+M.lupa = ""
 M.lock = ""
 M.menu = "☰"
 M.line_number = ""
@@ -75,8 +77,9 @@ M.arrow = {
     double_right_short = "»",
     left_circled = "",
     right_circled = "",
-    right_curved = "⤷",
+    right_down_curved = "⤷",
     circular = "↺",
+    right_upper_curved = "",
 }
 
 M.greek = {
@@ -142,6 +145,10 @@ M.cmp = {
     Event = M.filled_lightning,
     Operator = M.plus_minus,
     TypeParameter = M.letter,
+}
+
+M.borders = {
+    straight = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 }
 
 return M

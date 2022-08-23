@@ -12,7 +12,7 @@ cmd("set inccommand=split") -- show what you are substituting in real time
 cmd("set iskeyword+=-") -- treat dash as a separate word
 
 cmd("set wrap linebreak") -- wrap on words
-cmd("let &showbreak = '" .. icons.arrow.right_curved .. " '") -- change the wrapping symbol
+cmd("let &showbreak = '" .. icons.arrow.right_down_curved .. " '") -- change the wrapping symbol
 cmd("set whichwrap+=<,>,[,],h,l") -- move to next line with theses keys
 
 -- Automatically equalize splits when Vim is resized

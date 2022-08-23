@@ -18,11 +18,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             pacman -S luajit
             pacman -S tree-sitter
             pacman -S neovim
-			pacman -S isort
-			pacman -S clang-format
-			pacman -S cppcheck
-			pacman -S python-pylint
-			pacman -S golangci-lint
 			pacman -S node
 			pacman -S bat
             ;;
@@ -40,10 +35,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	cd ..
 	sudo rm -r lua-5.3.5
 
-	go get github.com/jesseduffield/lazydocker
-
-	npm install -g mprocs
-
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # MacOS
     architecture=$(uname -m)
@@ -56,12 +47,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
             brew install ripgrep
             brew install luajit
             brew install tree-sitter
-            brew install neovim
+            brew install neovim --HEAD
 			brew install luarocks
-			brew install isort
-			brew install clang-format
-			brew install cppcheck
-			brew install golangci-lint
 			brew install node
 			brew install bat
             ;;
@@ -74,20 +61,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
             arch -arm64 brew install ripgrep
             arch -arm64 brew install --HEAD luajit
             arch -arm64 brew install tree-sitter
-            arch -arm64 brew install neovim
+            arch -arm64 brew install neovim --HEAD
 			arch -arm64 brew install luarocks
-			arch -arm64 brew install isort
-			arch -arm64 brew install clang-format
-			arch -arm64 brew install cppcheck
-			arch -arm64 brew install golangci-lint
 			arch -arm64 brew install node
 			arch -arm64 brew install bat
             ;;
     esac
-
-	# Generic installs for MacOS
-	python3 -m pip install pylint
-
 else
     echo "Your OS is not supported by the installer at this moment."
     exit 1
@@ -95,23 +74,9 @@ fi
 
 # Generic installs for all OS's
 npm install -g neovim
-npm install -g eslint
-npm install -g eslint_d
-npm install -g prettier
-npm install -g @fsouza/prettierd
-npm install -g jsonlint
-npm install -g markdownlint
-
-go install golang.org/x/tools/cmd/goimports@latest
 
 python3 -m pip install --upgrade pip
 python3 -m pip install --user --upgrade pynvim
-python3 -m pip install cmakelang
-
-luarocks install luacheck
-
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cargo install stylua
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 

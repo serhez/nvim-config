@@ -2,6 +2,7 @@ require("null-ls").setup({
 	sources = {
 		-- Shell
 		require("null-ls").builtins.diagnostics.shellcheck,
+		require("null-ls").builtins.formatting.shfmt,
 
 		-- Lua
 		require("null-ls").builtins.formatting.stylua,
@@ -46,16 +47,26 @@ require("null-ls").setup({
 			disabled_filetypes = { "vue" },
 		}),
 
+		-- Markdown
+		-- formatting: prettierd
+		require("null-ls").builtins.diagnostics.markdownlint,
+
 		-- JSON
+		-- formatting: prettierd
 		require("null-ls").builtins.diagnostics.jsonlint,
 
 		-- YAML
+		-- formatting: prettierd
 		require("null-ls").builtins.diagnostics.yamllint,
 
-		-- Markdown
-		require("null-ls").builtins.diagnostics.markdownlint,
+		-- TOML
+		require("null-ls").builtins.formatting.taplo,
 
 		-- Make/CMake
 		require("null-ls").builtins.formatting.cmake_format,
+
+		-- SQL
+		require("null-ls").builtins.diagnostics.sqlfluff,
+		require("null-ls").builtins.formatting.sqlfluff,
 	},
 })

@@ -102,15 +102,17 @@ cmp.setup({
             end
         end, { "i", "s" }),
     },
+
     -- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
     sources = {
         { name = "luasnip" },
-        { name = "cmp_tabnine" },
         { name = "nvim_lsp" },
+        { name = "cmp_tabnine" },
         { name = "buffer" },
         { name = "path" },
         { name = "dap" },
     },
+
     -- TODO: Ideally, we would remove the comparators we don't want instead of adding the ones we do, so that when new ones are added we don't miss them
     -- sorting = {
     --     comparators = {

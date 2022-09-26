@@ -547,15 +547,9 @@ local plugins = {
 	},
 
 	{
-		"norcalli/nvim-colorizer.lua",
+		"NvChad/nvim-colorizer.lua",
 		config = "require('plugins.configs.colorizer')",
 		event = "BufRead",
-	},
-
-	{
-		"mrshmllow/document-color.nvim",
-		config = "require('plugins.configs.document-color')",
-		-- event = "BufRead",
 	},
 
 	{
@@ -823,4 +817,10 @@ return packer.startup({
 --     "liuchengxu/vista.vim",
 --     cmd = "Vista",
 --     config = "require('plugins.configs.vista')",
+-- },
+
+-- {
+--     "mrshmllow/document-color.nvim",
+--     config = "require('plugins.configs.document-color')",
+--     -- event = "BufRead",
 -- },

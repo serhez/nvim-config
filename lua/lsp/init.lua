@@ -54,9 +54,9 @@ end
 -- Configure and startup servers
 
 local function custom_attach(client, bufnr)
-    local present, navic = pcall(require, "nvim-navic")
-    if present and client.server_capabilities.documentSymbolProvider then
-	    navic.attach(client, bufnr)
+	local present, navic = pcall(require, "nvim-navic")
+	if present and client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
 	end
 
 	local function buf_set_option(...)
@@ -76,11 +76,6 @@ local function custom_attach(client, bufnr)
 				formatting.auto_format(bufnr)
 			end,
 		})
-	end
-
-	-- Attach document colour support
-	if client.server_capabilities.colorProvider then
-		require("document-color").buf_attach(bufnr)
 	end
 end
 

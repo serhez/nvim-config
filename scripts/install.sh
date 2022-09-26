@@ -49,7 +49,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
             brew install tree-sitter
             brew install neovim --HEAD
 			brew install luarocks
-			brew install node
+			brew install node@16
 			brew install bat
             ;;
 
@@ -63,7 +63,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
             arch -arm64 brew install tree-sitter
             arch -arm64 brew install neovim --HEAD
 			arch -arm64 brew install luarocks
-			arch -arm64 brew install node
+			arch -arm64 brew install node@16
 			arch -arm64 brew install bat
             ;;
     esac

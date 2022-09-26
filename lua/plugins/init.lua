@@ -274,6 +274,20 @@ local plugins = {
 		config = "require('plugins.configs.completion.cmp.git')",
 	},
 
+	{
+		"zbirenbaum/copilot.lua",
+		event = "VimEnter",
+		config = "require('plugins.configs.completion.copilot')",
+	},
+
+	{
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua", "nvim-cmp" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	},
+
 	-- Motions
 
 	{
@@ -829,4 +843,9 @@ return packer.startup({
 --     "mrshmllow/document-color.nvim",
 --     config = "require('plugins.configs.document-color')",
 --     -- event = "BufRead",
+-- },
+
+-- {
+--     "github/copilot.vim",
+--     config = "require('plugins.configs.completion.copilot')",
 -- },

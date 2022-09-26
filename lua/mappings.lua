@@ -175,6 +175,9 @@ end, { nargs = 0 })
 -- Spectre
 vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", { nargs = 0 })
 
+-- Python venvs
+vim.api.nvim_create_user_command("PickPythonVenv", "lua require('swenv.api').pick_venv()", { nargs = 0 })
+
 local normal_mappings = {
 	["/"] = "Comment",
 	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
@@ -297,6 +300,7 @@ local normal_mappings = {
 			'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
 			"Text (+ignored)",
 		},
+		v = { "<cmd>PickPythonVenv<cr>", "Python venvs" },
 	},
 
 	g = {

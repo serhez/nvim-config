@@ -433,6 +433,12 @@ local plugins = {
 		config = "require('plugins.configs.goto-preview')",
 	},
 
+	{
+		"AckslD/swenv.nvim",
+		config = "require('plugins.configs.language.python.swenv')",
+		cmd = "PickPythonVenv",
+	},
+
 	-- Testing
 
 	{

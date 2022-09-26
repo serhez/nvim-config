@@ -1,5 +1,12 @@
 local M = {}
 
+function M.concat_tables(t1, t2)
+	for i = 1, #t2 do
+		t1[#t1 + 1] = t2[i]
+	end
+	return t1
+end
+
 function M.define_augroups(definitions) -- {{{
 	-- Create autocommand groups based on the passed definitions
 	--

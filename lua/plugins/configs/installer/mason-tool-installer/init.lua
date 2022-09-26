@@ -27,10 +27,6 @@ require("mason-tool-installer").setup({
 		-- Rust
 		"rust-analyzer",
 
-		-- CSS
-		"css-lsp",
-		"tailwindcss-language-server",
-
 		-- Go
 		"gopls",
 		"golangci-lint",
@@ -51,6 +47,10 @@ require("mason-tool-installer").setup({
 
 		-- HTML
 		"html-lsp",
+
+		-- CSS
+		"css-lsp",
+		"tailwindcss-language-server",
 
 		-- JSON
 		"json-lsp",

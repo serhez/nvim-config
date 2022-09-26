@@ -75,8 +75,21 @@ fi
 # Generic installs for all OS's
 npm install -g neovim
 
-python3 -m pip install --upgrade pip
-python3 -m pip install --user --upgrade pynvim
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user pynvim
+python3 -m pip install --user jupyter
+python3 -m pip install --user jupyter_client
+python3 -m pip install --user Pillow
+python3 -m pip install --user cairosvg
+python3 -m pip install --user pnglatex
+python3 -m pip install --user plotly
+python3 -m pip install --user kaleido
+python3 -m pip install --user ipykernel
+python3 -m pip install \
+  --global-option=build_ext \
+  --global-option="-I/usr/local/include" \
+  --global-option="-L/opt/X11/lib"  \
+  lookatme.contrib.image_ueberzug
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 

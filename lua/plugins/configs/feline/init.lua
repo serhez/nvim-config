@@ -1,9 +1,12 @@
 local icons = require("icons")
 local utils = require("plugins.configs.feline.utils")
 local lsp = require("feline.providers.lsp")
-local navic = require("nvim-navic")
+local navic_present, navic = pcall(require, "nvim-navic")
 
 local function get_navic_location()
+    if not navic_present then
+        return ""
+    end
     local location = navic.get_location()
     if location == "" then
         return location

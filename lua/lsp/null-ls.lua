@@ -27,25 +27,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.eslint_d.with({
 			disabled_filetypes = { "vue" },
 		}),
-		require("null-ls").builtins.formatting.prettierd.with({ -- Also Markdown, JSON, YAML, CSS, HTML, etc.
-			-- FIX: As of now, prettier (and, therefore, prettierd) doens't run smoothly on .vue files, because of things like:
-			--
-			-- @hide="
-			--     a = false;
-			--     b = true;
-			-- "
-			--
-			-- and also things like:
-			--
-			-- {{
-			--     a > 0
-			--     ? length + (length !== 1 ? ' apples' : ' apple')
-			--     : 'No text'
-			-- }}
-			--
-			-- Ideally, prettierd would be enabled in .vue files if it didn't create any such issues
-			disabled_filetypes = { "vue" },
-		}),
+		require("null-ls").builtins.formatting.prettierd, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
 
 		-- Markdown
 		-- formatting: prettierd

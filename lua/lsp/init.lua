@@ -23,7 +23,7 @@ function M.setup()
 		},
 		float = {
 			show_header = true,
-			source = "if_many",
+			source = true,
 			border = "single",
 			focusable = false,
 		},
@@ -54,8 +54,9 @@ end
 -- Configure and startup servers
 
 local function custom_attach(client, bufnr)
-	if client.server_capabilities.documentSymbolProvider then
-		require("nvim-navic").attach(client, bufnr)
+    local present, navic = pcall(require, "nvim-navic")
+    if present and client.server_capabilities.documentSymbolProvider then
+	    navic.attach(client, bufnr)
 	end
 
 	local function buf_set_option(...)

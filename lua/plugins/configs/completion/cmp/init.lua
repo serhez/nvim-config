@@ -13,6 +13,80 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local normal_mappings = {
+	["<C-d>"] = cmp.mapping.scroll_docs(-4),
+	["<C-f>"] = cmp.mapping.scroll_docs(4),
+	["<C-Space>"] = cmp.mapping.complete(),
+	["<C-e>"] = cmp.mapping.close(),
+	["<S-CR>"] = cmp.mapping.confirm({
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = true,
+	}),
+	["<C-CR>"] = cmp.mapping.confirm({
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = true,
+	}),
+	["<Tab>"] = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			cmp.select_next_item()
+		elseif luasnip_present and luasnip.expand_or_jumpable() then
+			luasnip.expand_or_jump()
+		elseif has_words_before() then
+			cmp.complete()
+		else
+			fallback()
+		end
+	end, { "i", "s" }),
+	["<S-Tab>"] = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			cmp.select_prev_item()
+		elseif luasnip.jumpable(-1) then
+			luasnip.jump(-1)
+		else
+			fallback()
+		end
+	end, { "i", "s" }),
+}
+
+local normal_formatting = {
+	fields = { "kind", "abbr", "menu" },
+	format = function(entry, vim_item)
+		local icons = require("icons").cmp
+		vim_item.kind = string.format("%s", icons[vim_item.kind])
+		vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
+		vim_item.menu = ({
+			cmdline_history = "History",
+			cmdline = "Command",
+			buffer = "Buffer",
+			nvim_lsp = "LSP",
+			cmp_tabnine = "Tabnine",
+			copilot = "Copilot",
+			path = "Path",
+			luasnip = "Snippet",
+			dap = "DAP",
+			git = "Git",
+		})[entry.source.name]
+
+		return vim_item
+	end,
+}
+
+local normal_window = {
+	-- https://github.com/hrsh7th/nvim-cmp/issues/1080
+	completion = {
+		border = "none",
+	},
+	documentation = {
+		border = "single",
+	},
+}
+
+local normal_preselect = cmp.PreselectMode.None
+
+local normal_completion = {
+	completeopt = "menuone,noselect",
+}
+
 cmp.setup({
 	-- Disable for comments and telescope
 	enabled = function()
@@ -31,19 +105,9 @@ cmp.setup({
 			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
 	end,
-	completion = {
-		completeopt = "menuone,noselect",
-	},
-	preselect = cmp.PreselectMode.None,
-	window = {
-		-- https://github.com/hrsh7th/nvim-cmp/issues/1080
-		completion = {
-			border = "none",
-		},
-		documentation = {
-			border = "single",
-		},
-	},
+	completion = normal_completion,
+	preselect = normal_preselect,
+	window = normal_window,
 	snippet = (luasnip_present and {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -51,69 +115,15 @@ cmp.setup({
 	}) or {
 		expand = function(_) end,
 	},
-	formatting = {
-		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			local icons = require("icons").cmp
-			vim_item.kind = string.format("%s", icons[vim_item.kind])
-			vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
-			vim_item.menu = ({
-				cmdline_history = "History",
-				cmdline = "Command",
-				buffer = "Buffer",
-				nvim_lsp = "LSP",
-				cmp_tabnine = "Tabnine",
-				copilot = "Copilot",
-				path = "Path",
-				luasnip = "Snippet",
-				dap = "DAP",
-				git = "Git",
-			})[entry.source.name]
-
-			return vim_item
-		end,
-	},
-	mapping = {
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
-		["<S-CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		}),
-		["<C-CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip_present and luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	},
+	formatting = normal_formatting,
+	mapping = normal_mappings,
 
 	-- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
 	sources = {
+		{ name = "copilot" },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		{ name = "cmp_tabnine" },
-		{ name = "copilot" },
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "dap" },
@@ -141,6 +151,11 @@ cmp.setup({
 })
 
 cmp.setup.filetype("gitcommit", {
+	completion = normal_completion,
+	preselect = normal_preselect,
+	window = normal_window,
+	formatting = normal_formatting,
+	mapping = normal_mappings,
 	sources = {
 		{ name = "git" },
 		{ name = "path" },
@@ -151,6 +166,7 @@ cmp.setup.filetype("gitcommit", {
 -- If you enabled `native_menu`, this won't work anymore
 cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
+	window = normal_window,
 	sources = {
 		{ name = "path" },
 		{ name = "buffer" },
@@ -161,6 +177,8 @@ cmp.setup.cmdline("/", {
 -- If you enabled `native_menu`, this won't work anymore
 for _, cmd_type in ipairs({ ":", "?", "@" }) do
 	cmp.setup.cmdline(cmd_type, {
+		mapping = cmp.mapping.preset.cmdline(),
+		window = normal_window,
 		sources = {
 			{ name = "path" },
 			{ name = "cmdline" },

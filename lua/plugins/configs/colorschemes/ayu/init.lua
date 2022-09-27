@@ -1,4 +1,4 @@
 require("ayu").setup({
-	mirage = true,
+	mirage = false,
 	overrides = {},
 })

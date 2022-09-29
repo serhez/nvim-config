@@ -284,8 +284,7 @@ local plugins = {
 
 	{
 		"numToStr/Comment.nvim",
-		module = "Comment",
-		keys = { "gcc" },
+		event = "BufRead",
 		config = "require('plugins.configs.motions.comment')",
 	},
 

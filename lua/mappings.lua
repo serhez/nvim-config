@@ -82,10 +82,6 @@ vim.api.nvim_set_keymap("i", "<C-v>", "<C-r>*", { noremap = true, silent = true 
 -- Y behaves like D and C
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
 
--- Comments
-vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<leader>/", "gcc", { noremap = true, silent = true })
-
 -- LSP
 vim.api.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { noremap = true, silent = true })
@@ -179,7 +175,7 @@ vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", { n
 vim.api.nvim_create_user_command("PickPythonVenv", "lua require('swenv.api').pick_venv()", { nargs = 0 })
 
 local normal_mappings = {
-	["/"] = "Comment",
+	["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
 	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 	i = { "<cmd>Mason<cr>", "Installer" },
 	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
@@ -401,7 +397,7 @@ local normal_mappings = {
 }
 
 local visual_mappings = {
-	["/"] = "Comment",
+	["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" },
 
 	R = { "<cmd>SnipRun<cr>", "Run" },
 

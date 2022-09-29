@@ -84,7 +84,12 @@ local normal_window = {
 local normal_preselect = cmp.PreselectMode.None
 
 local normal_completion = {
-	completeopt = "menuone,noselect",
+	autocomplete = {
+		cmp.TriggerEvent.TextChanged,
+		-- cmp.TriggerEvent.InsertEnter,
+	},
+	completeopt = "menuone,noinsert,noselect",
+	keyword_length = 0,
 }
 
 cmp.setup({
@@ -123,7 +128,7 @@ cmp.setup({
 		{ name = "copilot" },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
-		{ name = "cmp_tabnine" },
+		-- { name = "cmp_tabnine" },
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "dap" },
@@ -137,7 +142,7 @@ cmp.setup({
 
 			-- Below is the default comparitor list and order for nvim-cmp
 			cmp.config.compare.offset,
-			-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+			-- cmp.config.compare.scopes, -- this is commented in nvim-cmp internal config
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
 			cmp.config.compare.recently_used,

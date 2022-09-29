@@ -242,14 +242,6 @@ local plugins = {
 	},
 
 	{
-		"tzachar/cmp-tabnine",
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
-		config = "require('plugins.configs.completion.cmp.tabnine')",
-	},
-
-	{
 		"rcarriga/cmp-dap",
 		requires = "hrsh7th/nvim-cmp",
 		after = "nvim-cmp",
@@ -848,4 +840,12 @@ return packer.startup({
 -- {
 --     "github/copilot.vim",
 --     config = "require('plugins.configs.completion.copilot')",
+-- },
+
+-- {
+--     "tzachar/cmp-tabnine",
+--     run = "./install.sh",
+--     requires = "hrsh7th/nvim-cmp",
+--     after = "nvim-cmp",
+--     config = "require('plugins.configs.completion.cmp.tabnine')",
 -- },

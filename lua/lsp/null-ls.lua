@@ -8,7 +8,8 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.stylua,
 
 		-- Python
-		require("null-ls").builtins.diagnostics.pylint,
+		-- require("null-ls").builtins.diagnostics.pylint, -- Too much noise!
+		require("null-ls").builtins.diagnostics.pydocstyle,
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.black,
 

@@ -86,10 +86,10 @@ local normal_preselect = cmp.PreselectMode.None
 local normal_completion = {
 	autocomplete = {
 		cmp.TriggerEvent.TextChanged,
-		-- cmp.TriggerEvent.InsertEnter,
+		cmp.TriggerEvent.InsertEnter,
 	},
 	completeopt = "menuone,noinsert,noselect",
-	keyword_length = 0,
+	keyword_length = 1,
 }
 
 cmp.setup({
@@ -125,7 +125,7 @@ cmp.setup({
 
 	-- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
 	sources = {
-		{ name = "copilot" },
+		{ name = "copilot", keyword_length = 0 },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		-- { name = "cmp_tabnine" },

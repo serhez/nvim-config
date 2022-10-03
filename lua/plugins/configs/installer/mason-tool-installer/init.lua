@@ -13,6 +13,7 @@ require("mason-tool-installer").setup({
 		-- Python
 		"pyright",
 		"pylint",
+		"pydocstyle",
 		"black",
 		"isort",
 		"debugpy",

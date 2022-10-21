@@ -411,6 +411,7 @@ local plugins = {
 
 	{
 		"kevinhwang91/nvim-hlslens",
+		config = "require('plugins.configs.hlslens')",
 		event = "BufRead",
 	},
 

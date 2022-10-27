@@ -32,7 +32,7 @@ require("null-ls").setup({
 
 		-- Markdown
 		-- formatting: prettierd
-		require("null-ls").builtins.diagnostics.markdownlint,
+		-- require("null-ls").builtins.diagnostics.markdownlint,
 
 		-- JSON
 		-- formatting: prettierd

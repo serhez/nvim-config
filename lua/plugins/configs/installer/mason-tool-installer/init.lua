@@ -77,7 +77,7 @@ require("mason-tool-installer").setup({
 		"sqlfluff",
 
 		-- Markdown
-		"markdownlint",
+		-- "markdownlint",
 
 		-- LaTeX
 		"texlab",

@@ -589,6 +589,11 @@ local plugins = {
 	-- Colorschemes
 
 	{
+		"lukas-reineke/headlines.nvim",
+		config = "require('plugins.configs.colorschemes.headlines')",
+	},
+
+	{
 		"Shatur/neovim-ayu",
 		config = "require('plugins.configs.colorschemes.ayu')",
 	},
@@ -603,7 +608,6 @@ local plugins = {
 	{
 		"catppuccin/nvim",
 		as = "catppuccin",
-		run = ":CatppuccinCompile",
 		config = "require('plugins.configs.colorschemes.catppuccin')",
 	},
 
@@ -626,13 +630,6 @@ local plugins = {
 	{ "morhetz/gruvbox" },
 
 	{ "drewtempelmeyer/palenight.vim" },
-
-	-- Helpers
-
-	{
-		"dstein64/vim-startuptime",
-		cmd = "StartupTime",
-	},
 }
 
 return packer.startup({
@@ -848,4 +845,9 @@ return packer.startup({
 --     requires = "hrsh7th/nvim-cmp",
 --     after = "nvim-cmp",
 --     config = "require('plugins.configs.completion.cmp.tabnine')",
+-- },
+
+-- {
+--     "dstein64/vim-startuptime",
+--     cmd = "StartupTime",
 -- },

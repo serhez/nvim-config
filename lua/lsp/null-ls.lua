@@ -9,7 +9,7 @@ require("null-ls").setup({
 
 		-- Python
 		-- require("null-ls").builtins.diagnostics.pylint, -- Too much noise!
-		require("null-ls").builtins.diagnostics.pydocstyle,
+		-- require("null-ls").builtins.diagnostics.pydocstyle, -- Too much noise!
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.black,
 
@@ -32,7 +32,7 @@ require("null-ls").setup({
 
 		-- Markdown
 		-- formatting: prettierd
-		-- require("null-ls").builtins.diagnostics.markdownlint,
+		-- require("null-ls").builtins.diagnostics.markdownlint, -- Too much noise!
 
 		-- JSON
 		-- formatting: prettierd

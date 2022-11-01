@@ -289,8 +289,20 @@ local plugins = {
 	},
 
 	{
-		"ggandor/lightspeed.nvim",
-		config = "require('plugins.configs.motions.lightspeed')",
+		"ggandor/leap.nvim",
+		config = "require('plugins.configs.motions.leap')",
+		event = "BufRead",
+	},
+
+	{
+		"ggandor/leap-spooky.nvim",
+		config = "require('plugins.configs.motions.leap-spooky')",
+		event = "BufRead",
+	},
+
+	{
+		"ggandor/flit.nvim",
+		config = "require('plugins.configs.motions.flit')",
 		event = "BufRead",
 	},
 
@@ -850,4 +862,10 @@ return packer.startup({
 -- {
 --     "dstein64/vim-startuptime",
 --     cmd = "StartupTime",
+-- },
+
+-- {
+--     "ggandor/lightspeed.nvim",
+--     config = "require('plugins.configs.motions.lightspeed')",
+--     event = "BufRead",
 -- },

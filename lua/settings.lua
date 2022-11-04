@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 local opt = vim.opt
+local o = vim.o
 local icons = require("icons")
 local TERMINAL = vim.fn.expand("$TERMINAL")
 local CACHE_PATH = vim.fn.stdpath("cache")
@@ -64,6 +65,8 @@ opt.wrap = true -- display lines as one long line
 opt.laststatus = 3 -- display one statusline for all windows
 opt.guicursor = "i:ver100-blinkoff700-blinkon700"
 
+o.splitkeep = "screen"
+
 -- Improve quickfix window UI
 local fn = vim.fn
 
@@ -109,4 +112,4 @@ function _G.qftf(info)
 	return ret
 end
 
-vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
+o.qftf = "{info -> v:lua._G.qftf(info)}"

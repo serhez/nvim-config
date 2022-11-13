@@ -52,26 +52,72 @@ local plugins = {
 	},
 
 	{
+		"famiu/bufdelete.nvim",
+	},
+
+	-- UI
+
+	{
+		"rcarriga/nvim-notify",
+		config = "require('plugins.configs.ui.notify')",
+	},
+
+	{
+		"folke/noice.nvim",
+		config = "require('plugins.configs.ui.noice')",
+		requires = {
+			-- If you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- `nvim-notify` is only needed, if you want to use the notification view.
+			"rcarriga/nvim-notify",
+		},
+	},
+
+	{
 		"feline-nvim/feline.nvim",
 		after = "nvim-web-devicons",
-		config = "require('plugins.configs.feline')",
+		config = "require('plugins.configs.ui.feline')",
 	},
 
 	{
 		"akinsho/bufferline.nvim",
 		after = "nvim-web-devicons",
-		config = "require('plugins.configs.bufferline')",
+		config = "require('plugins.configs.ui.bufferline')",
 	},
 
 	{
-		"famiu/bufdelete.nvim",
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		config = "require('plugins.configs.ui.bqf')",
 	},
 
 	{
-		"rcarriga/nvim-notify",
-		config = function()
-			vim.notify = require("notify")
-		end,
+		"NvChad/nvim-colorizer.lua",
+		config = "require('plugins.configs.ui.colorizer')",
+		event = "BufRead",
+	},
+
+	{
+		"windwp/nvim-autopairs",
+		config = "require('plugins.configs.ui.autopairs')",
+		event = "BufRead",
+	},
+
+	{
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		config = "require('plugins.configs.ui.ufo')",
+	},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "BufRead",
+		config = "require('plugins.configs.ui.indent-blankline')",
+	},
+
+	{
+		"jbyuki/nabla.nvim",
+		cmd = "Nabla",
 	},
 
 	-- Installers
@@ -181,12 +227,6 @@ local plugins = {
 	},
 
 	{
-		"ray-x/lsp_signature.nvim",
-		after = "nvim-lspconfig",
-		config = "require('plugins.configs.lsp.signature')",
-	},
-
-	{
 		"weilbith/nvim-code-action-menu",
 		cmd = "CodeActionMenu",
 	},
@@ -283,6 +323,12 @@ local plugins = {
 	-- Motions
 
 	{
+		"ibhagwan/smartyank.nvim",
+		event = "BufRead",
+		config = "require('plugins.configs.motions.smartyank')",
+	},
+
+	{
 		"numToStr/Comment.nvim",
 		event = "BufRead",
 		config = "require('plugins.configs.motions.comment')",
@@ -290,8 +336,14 @@ local plugins = {
 
 	{
 		"ggandor/leap.nvim",
-		config = "require('plugins.configs.motions.leap')",
 		event = "BufRead",
+		config = "require('plugins.configs.motions.leap')",
+	},
+
+	{
+		"Weissle/easy-action",
+		event = "BufRead",
+		config = "require('plugins.configs.motions.easy-action')",
 	},
 
 	{
@@ -381,55 +433,49 @@ local plugins = {
 		run = ":DistantInstall",
 	},
 
-	-- Navigation, searching and finding
+	-- Navigation: searching and finding
 
 	{
 		"kyazdani42/nvim-tree.lua",
 		after = "nvim-web-devicons",
 		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		config = "require('plugins.configs.tree')",
+		config = "require('plugins.configs.navigation.tree')",
 	},
 
 	{
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
-		config = "require('plugins.configs.telescope')",
+		config = "require('plugins.configs.navigation.telescope')",
 	},
 
 	{
 		"ahmedkhalf/project.nvim",
 		after = "telescope.nvim",
 		event = "BufRead",
-		config = "require('plugins.configs.project')",
+		config = "require('plugins.configs.navigation.project')",
 	},
 
 	{
 		"folke/which-key.nvim",
-		config = "require('plugins.configs.which-key')",
+		config = "require('plugins.configs.navigation.which-key')",
 	},
 
 	{
 		"windwp/nvim-spectre",
-		config = "require('plugins.configs.spectre')",
+		config = "require('plugins.configs.navigation.spectre')",
 		event = "BufRead",
 		cmd = "Spectre",
 	},
 
 	{
 		"folke/trouble.nvim",
-		config = "require('plugins.configs.trouble')",
+		config = "require('plugins.configs.navigation.trouble')",
 		cmd = "TroubleToggle",
 	},
 
 	{
-		"kevinhwang91/nvim-hlslens",
-		config = "require('plugins.configs.hlslens')",
-		event = "BufRead",
-	},
-
-	{
 		"folke/todo-comments.nvim",
-		config = "require('plugins.configs.todo-comments')",
+		config = "require('plugins.configs.navigation.todo-comments')",
 		event = "BufRead",
 	},
 
@@ -448,13 +494,13 @@ local plugins = {
 
 	{
 		"rmagatti/goto-preview",
-		config = "require('plugins.configs.goto-preview')",
+		config = "require('plugins.configs.navigation.goto-preview')",
 	},
 
 	{
 		"AckslD/swenv.nvim",
-		config = "require('plugins.configs.language.python.swenv')",
-		cmd = "PickPythonVenv",
+		config = "require('plugins.configs.navigation.swenv')",
+		-- cmd = "PickPythonVenv",
 	},
 
 	-- Testing
@@ -535,45 +581,15 @@ local plugins = {
 	{
 		"dccsillag/magma-nvim",
 		run = ":UpdateRemotePlugins",
-		fp = "ipynb",
+		fp = { "ipynb", "python" },
 		config = "require('plugins.configs.notebooks.magma')",
 	},
 
-	--  Misc
-
-	{
-		"windwp/nvim-autopairs",
-		config = "require('plugins.configs.autopairs')",
-		event = "BufRead",
-	},
-
-	{
-		"kevinhwang91/nvim-bqf",
-		ft = "qf",
-		config = "require('plugins.configs.bqf')",
-	},
-
-	{
-		"https://github.com/kevinhwang91/nvim-ufo",
-		requires = "kevinhwang91/promise-async",
-		config = "require('plugins.configs.ufo')",
-	},
-
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufRead",
-		config = "require('plugins.configs.indent-blankline')",
-	},
+	--  Utils
 
 	{
 		"aserowy/tmux.nvim",
 		config = "require('plugins.configs.tmux')",
-	},
-
-	{
-		"NvChad/nvim-colorizer.lua",
-		config = "require('plugins.configs.colorizer')",
-		event = "BufRead",
 	},
 
 	{
@@ -623,11 +639,12 @@ local plugins = {
 		config = "require('plugins.configs.colorschemes.catppuccin')",
 	},
 
-	{ "projekt0n/github-nvim-theme" },
+	{
+		"navarasu/onedark.nvim",
+		config = "require('plugins.configs.colorschemes.onedark')",
+	},
 
 	{ "folke/tokyonight.nvim" },
-
-	{ "joshdick/onedark.vim" },
 
 	{ "shaunsingh/nord.nvim" },
 
@@ -869,3 +886,17 @@ return packer.startup({
 --     config = "require('plugins.configs.motions.lightspeed')",
 --     event = "BufRead",
 -- },
+
+-- {
+--     "ray-x/lsp_signature.nvim",
+--     after = "nvim-lspconfig",
+--     config = "require('plugins.configs.lsp.signature')",
+-- },
+
+-- {
+--     "kevinhwang91/nvim-hlslens",
+--     config = "require('plugins.configs.hlslens')",
+--     event = "BufRead",
+-- },
+
+-- { "projekt0n/github-nvim-theme" },

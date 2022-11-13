@@ -101,81 +101,84 @@ vim.api.nvim_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { 
 vim.api.nvim_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", { noremap = true, silent = true })
 
 -- Commands
+-- FIX: We have to wrap the commands with vim.cmd() because just calling vim.api.nvim_create_user_command() does not register them
 
 -- Testing
-vim.api.nvim_create_user_command("TestRunNearest", "lua require('neotest').run.run()", { nargs = 0 })
-vim.api.nvim_create_user_command("TestRunFile", "lua require('neotest').run.run(vim.fn.expand('%'))", { nargs = 0 })
-vim.api.nvim_create_user_command("TestRunSuite", "lua require('neotest').run.run({suite = true})", { nargs = 0 })
-vim.api.nvim_create_user_command(
-	"TestDebugNearest",
-	"lua require('neotest').run.run({strategy = 'dap'})",
-	{ nargs = 0 }
+vim.cmd([[lua vim.api.nvim_create_user_command("TestRunNearest", "lua require('neotest').run.run()", {})]])
+vim.cmd(
+	[[lua vim.api.nvim_create_user_command("TestRunFile", "lua require('neotest').run.run(vim.fn.expand('%'))", {})]]
 )
-vim.api.nvim_create_user_command(
-	"TestDebugFile",
-	"lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})",
-	{ nargs = 0 }
+vim.cmd([[lua vim.api.nvim_create_user_command("TestRunSuite", "lua require('neotest').run.run({suite = true})", {})]])
+vim.cmd(
+	[[lua vim.api.nvim_create_user_command("TestDebugNearest", "lua require('neotest').run.run({strategy = 'dap'})", {})]]
 )
-vim.api.nvim_create_user_command(
-	"TestDebugSuite",
-	"lua require('neotest').run.run({suite = true, strategy = 'dap'})",
-	{ nargs = 0 }
+vim.cmd(
+	[[lua vim.api.nvim_create_user_command("TestDebugFile", "lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})", {})]]
 )
-vim.api.nvim_create_user_command("TestStopNearest", "lua require('neotest').run.stop()", { nargs = 0 })
-vim.api.nvim_create_user_command("TestPanel", "lua require('neotest').summary.toggle()", { nargs = 0 })
+vim.cmd(
+	[[lua vim.api.nvim_create_user_command("TestDebugSuite", "lua require('neotest').run.run({suite = true, strategy = 'dap'})", {})]]
+)
+vim.cmd([[lua vim.api.nvim_create_user_command("TestStopNearest", "lua require('neotest').run.stop()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("TestPanel", "lua require('neotest').summary.toggle()", {})]])
 
 -- DAP
-vim.api.nvim_create_user_command("DapStart", "lua require'dap'.continue()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapContinue", "lua require'dap'.continue()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapStop", "lua require'dap'.terminate()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapToggleBreakpoint", "lua require'dap'.toggle_breakpoint()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapListBreakpoints", "lua require'dap'.list_breakpoints()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapClearBreakpoints", "lua require'dap'.clear_breakpoints()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapStepOver", "lua require'dap'.step_over()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapStepInto", "lua require'dap'.step_into()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapStepOut", "lua require'dap'.step_out()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapStepBack", "lua require'dap'.step_back()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapToggleREPL", "lua require'dap'.repl.toggle()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapPauseThread", "lua require'dap'.repl.pause(<q-args>)", { nargs = 1 })
-vim.api.nvim_create_user_command("DapUp", "lua require'dap'.repl.up()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapDown", "lua require'dap'.repl.down()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapGoToLine", "lua require'dap'.repl.goto_(<q-args>)", { nargs = 1 })
-vim.api.nvim_create_user_command("DapGoToCursor", "lua require'dap'.repl.run_to_cursor()", { nargs = 0 })
-vim.api.nvim_create_user_command("DapTest", function()
-	local filetype = vim.bo.filetype
-	if filetype == "go" then
-		vim.api.nvim_exec("lua require('dap-go').debug_test()", false)
-	elseif filetype == "python" then
-		vim.api.nvim_exec("lua require('dap-python').test_method()", false)
-	else
-		print("The current debugging adapter does not support debugging individual tests")
-	end
-end, { nargs = 0 })
-vim.api.nvim_create_user_command("DapClass", function()
-	local filetype = vim.bo.filetype
-	if filetype == "python" then
-		vim.api.nvim_exec("lua require('dap-python').test_class()", false)
-	else
-		print("The current debugging adapter does not support debugging individual classes")
-	end
-end, { nargs = 0 })
-vim.api.nvim_create_user_command("DapVisualSelection", function()
-	local filetype = vim.bo.filetype
-	if filetype == "python" then
-		vim.api.nvim_exec("lua require('dap-python').debug_selection()", false)
-	else
-		print("The current debugging adapter does not support debugging by visual selection")
-	end
-end, { nargs = 0 })
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStart", "lua require'dap'.continue()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapContinue", "lua require'dap'.continue()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStop", "lua require'dap'.terminate()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapToggleBreakpoint", "lua require'dap'.toggle_breakpoint()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapListBreakpoints", "lua require'dap'.list_breakpoints()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapClearBreakpoints", "lua require'dap'.clear_breakpoints()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStepOver", "lua require'dap'.step_over()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStepInto", "lua require'dap'.step_into()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStepOut", "lua require'dap'.step_out()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapStepBack", "lua require'dap'.step_back()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapToggleREPL", "lua require'dap'.repl.toggle()", {})]])
+vim.cmd(
+	[[lua vim.api.nvim_create_user_command("DapPauseThread", "lua require'dap'.repl.pause(<q-args>)", { nargs = 1 })]]
+)
+vim.cmd([[lua vim.api.nvim_create_user_command("DapUp", "lua require'dap'.repl.up()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapDown", "lua require'dap'.repl.down()", {})]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapGoToLine", "lua require'dap'.repl.goto_(<q-args>)", { nargs = 1 })]])
+vim.cmd([[lua vim.api.nvim_create_user_command("DapGoToCursor", "lua require'dap'.repl.run_to_cursor()", {})]])
+-- vim.cmd([[lua vim.api.nvim_create_user_command("DapTest", function()
+-- 	local filetype = vim.bo.filetype
+-- 	if filetype == "go" then
+-- 		vim.api.nvim_exec("lua require('dap-go').debug_test()", false)
+-- 	elseif filetype == "python" then
+-- 		vim.api.nvim_exec("lua require('dap-python').test_method()", false)
+-- 	else
+-- 		print("The current debugging adapter does not support debugging individual tests")
+-- 	end
+-- end, {})]])
+-- vim.cmd([[lua vim.api.nvim_create_user_command("DapClass", function()
+-- 	local filetype = vim.bo.filetype
+-- 	if filetype == "python" then
+-- 		vim.api.nvim_exec("lua require('dap-python').test_class()", false)
+-- 	else
+-- 		print("The current debugging adapter does not support debugging individual classes")
+-- 	end
+-- end, {})]])
+-- vim.cmd([[lua vim.api.nvim_create_user_command("DapVisualSelection", function()
+-- 	local filetype = vim.bo.filetype
+-- 	if filetype == "python" then
+-- 		vim.api.nvim_exec("lua require('dap-python').debug_selection()", false)
+-- 	else
+-- 		print("The current debugging adapter does not support debugging by visual selection")
+-- 	end
+-- end, {})]])
 
 -- Spectre
-vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", { nargs = 0 })
+vim.cmd([[lua vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", {})]])
 
 -- Python venvs
-vim.api.nvim_create_user_command("PickPythonVenv", "lua require('swenv.api').pick_venv()", { nargs = 0 })
+vim.cmd([[lua vim.api.nvim_create_user_command("PickPythonVenv", "lua require('swenv.api').pick_venv()", {})]])
+
+-- Nabla
+vim.cmd([[lua vim.api.nvim_create_user_command("Nabla", "lua require('nabla').popup()", {})]])
 
 local normal_mappings = {
 	["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
+	a = { "<cmd>BasicEasyAction<cr>", "Action with leap" },
 	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 	i = { "<cmd>Mason<cr>", "Installer" },
 	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
@@ -326,6 +329,11 @@ local normal_mappings = {
 			s = { "<cmd>Telescope git_stash<cr>", "Stashes" },
 		},
 		m = { "<cmd>GitMessenger<cr>", "Last commit message" },
+	},
+
+	l = {
+		name = "LaTeX",
+		p = { "<cmd>Nabla<cr>", "Preview formula" },
 	},
 
 	n = {

@@ -14,7 +14,7 @@ swenv.setup({
 		return utils.concat_tables(swenv_api.get_venvs(venvs_path), swenv_api.get_venvs(vim.fn.expand(".")))
 	end,
 	-- Path passed to `get_venvs`.
-	venvs_path = vim.fn.expand("~/venvs"),
+	venvs_path = vim.fn.expand("~/.envs"),
 	-- Something to do after setting an environment
 	post_set_venv = nil,
 })

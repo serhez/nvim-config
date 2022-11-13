@@ -5,8 +5,8 @@ if present then
 end
 
 require("settings")
-require("colors")
 require("plugins")
+require("colors")
 require("mappings")
 require("autocommands")
 

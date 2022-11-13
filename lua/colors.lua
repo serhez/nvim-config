@@ -4,21 +4,20 @@
 local M = {}
 
 -- Catppuccin
-vim.g.catppuccin_flavour = "frappe"
+vim.g.catppuccin_flavour = "latte"
 
 -- Github
 vim.g.github_function_style = "italic"
 vim.g.github_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Tokyonight
-vim.g.tokyonight_style = "storm"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Colorscheme
 vim.g.nvcode_termcolors = 256
 vim.g.syntax = true
-vim.g.colors_name = "tokyonight"
+vim.g.colors_name = "tokyonight-night"
 vim.o.background = "dark"
 
 -- Remove the tilde (~) after EOF
@@ -67,15 +66,22 @@ local function colors_from_theme()
 	}
 end
 
+local common_hls = function(colors)
+	return {
+		border = { fg = colors.cyan, bg = colors.statusline_bg },
+	}
+end
+
 -- This function must be called on an autocmd when the colorscheme is changed
 -- After the function is called, UI components using these highlight groups must also be reloaded
 M.gen_highlights = function()
 	local c = colors_from_theme()
 	M.colors = c
+	local common_c = common_hls(c)
 
 	M.groups = {
 		-- Native UI
-		FloatBorder = { fg = c.cyan, bg = c.statusline_bg },
+		FloatBorder = common_c.border,
 		NormalFloat = { bg = c.statusline_bg },
 		DiagnosticUnderlineError = { undercurl = true, sp = c.error },
 		DiagnosticUnderlineWarn = { undercurl = true, sp = c.warn },
@@ -127,7 +133,7 @@ M.gen_highlights = function()
 
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },
-		LspFloatWinBorder = { fg = c.cyan, bg = c.statusline_bg },
+		LspFloatWinBorder = common_c.border,
 		DiagnosticFloatingError = { fg = c.error, bg = c.statusline_bg },
 		DiagnosticFloatingWarn = { fg = c.warn, bg = c.statusline_bg },
 		DiagnosticFloatingInfo = { fg = c.info, bg = c.statusline_bg },
@@ -138,10 +144,10 @@ M.gen_highlights = function()
 		CoverageUncovered = { fg = c.bg, bg = c.red },
 
 		-- Telescope
-		TelescopeBorder = { fg = c.cyan, bg = c.statusline_bg },
-		TelescopePromptBorder = { fg = c.cyan, bg = c.statusline_bg },
-		TelescopeResultsBorder = { fg = c.cyan, bg = c.statusline_bg },
-		TelescopePreviewBorder = { fg = c.cyan, bg = c.statusline_bg },
+		TelescopeBorder = common_c.border,
+		TelescopePromptBorder = common_c.border,
+		TelescopeResultsBorder = common_c.border,
+		TelescopePreviewBorder = common_c.border,
 		TelescopeNormal = { fg = c.fg, bg = c.statusline_bg },
 		TelescopePromptNormal = { fg = c.fg, bg = c.statusline_bg },
 		TelescopePromptPrefix = { fg = c.cyan, bg = c.statusline_bg },
@@ -154,7 +160,7 @@ M.gen_highlights = function()
 		WhichKeyFloat = { bg = c.statusline_bg },
 
 		-- BQF
-		BqfPreviewBorder = { fg = c.cyan, bg = c.statusline_bg },
+		BqfPreviewBorder = common_c.border,
 		BqfPreviewFloat = { bg = c.statusline_bg },
 
 		-- Navic
@@ -191,11 +197,11 @@ M.gen_highlights = function()
 		CmpItemMenu = { default = true, italic = true },
 
 		-- Notify
-		NotifyERRORBorder = { fg = c.cyan },
-		NotifyWARNBorder = { fg = c.cyan },
-		NotifyINFOBorder = { fg = c.cyan },
-		NotifyDEBUGBorder = { fg = c.cyan },
-		NotifyTRACEBorder = { fg = c.cyan },
+		NotifyERRORBorder = common_c.border,
+		NotifyWARNBorder = common_c.border,
+		NotifyINFOBorder = common_c.border,
+		NotifyDEBUGBorder = common_c.border,
+		NotifyTRACEBorder = common_c.border,
 		NotifyERRORIcon = { fg = c.error },
 		NotifyWARNIcon = { fg = c.warn },
 		NotifyINFOIcon = { fg = c.info },
@@ -211,6 +217,20 @@ M.gen_highlights = function()
 		NotifyINFOBody = { bg = c.statusline_bg },
 		NotifyDEBUGBody = { bg = c.statusline_bg },
 		NotifyTRACEBody = { bg = c.statusline_bg },
+
+		-- Noice
+		NoiceCmdlinePopupBorder = common_c.border,
+		NoiceCmdlinePopupBorderCmdline = common_c.border,
+		NoiceCmdlinePopupBorderFilter = common_c.border,
+		NoiceCmdlinePopupBorderHelp = common_c.border,
+		NoiceCmdlinePopupBorderIncRename = common_c.border,
+		NoiceCmdlinePopupBorderInput = common_c.border,
+		NoiceCmdlinePopupBorderLua = common_c.border,
+		NoiceCmdlinePopupBorderSearch = common_c.border,
+		NoiceConfirmBorder = common_c.border,
+		NoicePopupBorder = common_c.border,
+		NoicePopupmenuBorder = common_c.border,
+		NoiceSplitBorder = common_c.border,
 	}
 
 	for k, v in pairs(M.groups) do

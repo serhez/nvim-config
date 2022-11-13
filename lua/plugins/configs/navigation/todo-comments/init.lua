@@ -2,6 +2,7 @@ local icons = require("icons")
 
 require("todo-comments").setup({
 	signs = true, -- show icons in the signs column
+	sign_priority = 5,
 	-- keywords recognized as todo comments
 	keywords = {
 		FIX = {

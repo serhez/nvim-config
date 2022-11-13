@@ -1,5 +1,5 @@
 local icons = require("icons")
-local utils = require("plugins.configs.feline.utils")
+local utils = require("plugins.configs.ui.feline.utils")
 local lsp = require("feline.providers.lsp")
 local navic_present, navic = pcall(require, "nvim-navic")
 

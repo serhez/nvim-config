@@ -4,7 +4,7 @@
 local M = {}
 
 -- Catppuccin
-vim.g.catppuccin_flavour = "latte"
+vim.g.catppuccin_flavour = "mocha"
 
 -- Github
 vim.g.github_function_style = "italic"
@@ -17,7 +17,7 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 -- Colorscheme
 vim.g.nvcode_termcolors = 256
 vim.g.syntax = true
-vim.g.colors_name = "tokyonight-night"
+vim.g.colors_name = "tokyonight-storm"
 vim.o.background = "dark"
 
 -- Remove the tilde (~) after EOF
@@ -92,7 +92,7 @@ M.gen_highlights = function()
 		NonText = { default = true, link = "LineNr" },
 		EndOfBuffer = { default = true, link = "Normal" },
 
-		-- Word under cursor (vim-illuminate)
+		-- Word under cursor
 		IlluminatedWordRead = { bg = c.alt_bg, underline = true },
 		IlluminatedWordText = { bg = c.alt_bg, underline = true },
 		IlluminatedWordWrite = { bg = c.alt_bg, underline = true },
@@ -130,6 +130,9 @@ M.gen_highlights = function()
 		FlnSep = { fg = c.statusline_fg, bg = c.statusline_bg },
 		FlnGitBranch = { fg = c.statusline_fg, bg = c.statusline_bg },
 		FlnNavic = { fg = c.statusline_fg, bg = c.statusline_bg },
+
+		-- Yank
+		YankyPut = { default = true, link = "Search" },
 
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },

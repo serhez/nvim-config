@@ -1,3 +1,6 @@
+-- BUG: This plugin is not running concurrently and creates a lot of lag on nvim's init
+--      We need to find a way to make this run async (already asked the plugin's author, but maybe I can manage this myself)
+
 require("mason-tool-installer").setup({
 	-- A list of all tools you want to ensure are installed upon
 	-- start; they should be the names Mason uses for each tool
@@ -92,11 +95,13 @@ require("mason-tool-installer").setup({
 	-- will happen on startup. You can use `:MasonToolsUpdate` to install
 	-- tools and check for updates.
 	-- Default: true
-	run_on_start = true,
+	-- BUG: It degrades performance greatly on startup for a few seconds
+	--      https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim/issues/20
+	run_on_start = false,
 
 	-- Set a delay (in ms) before the installation starts. This is only
 	-- effective if run_on_start is set to true.
 	-- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
 	-- Default: 0
-	start_delay = 5000, -- 5 seconds delay
+	start_delay = 0,
 })

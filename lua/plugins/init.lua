@@ -62,6 +62,8 @@ local plugins = {
 		config = "require('plugins.configs.ui.notify')",
 	},
 
+	-- BUG: It greatly degrades performance when quitting nvim (perhaps even in other scenarios)
+	--      https://github.com/folke/noice.nvim/issues/237#issuecomment-1322121958
 	{
 		"folke/noice.nvim",
 		config = "require('plugins.configs.ui.noice')",
@@ -103,11 +105,11 @@ local plugins = {
 		event = "BufRead",
 	},
 
-	{
-		"kevinhwang91/nvim-ufo",
-		requires = "kevinhwang91/promise-async",
-		config = "require('plugins.configs.ui.ufo')",
-	},
+	-- {
+	-- 	"kevinhwang91/nvim-ufo",
+	-- 	requires = "kevinhwang91/promise-async",
+	-- 	config = "require('plugins.configs.ui.ufo')",
+	-- },
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -118,6 +120,11 @@ local plugins = {
 	{
 		"jbyuki/nabla.nvim",
 		cmd = "Nabla",
+	},
+
+	{
+		"lukas-reineke/headlines.nvim",
+		config = "require('plugins.configs.colorschemes.headlines')",
 	},
 
 	-- Installers
@@ -177,6 +184,11 @@ local plugins = {
 	},
 
 	{
+		"RRethy/vim-illuminate",
+		config = "require('plugins.configs.treesitter.illuminate')",
+	},
+
+	{
 		"m-demare/hlargs.nvim",
 		requires = { "nvim-treesitter/nvim-treesitter" },
 		config = "require('plugins.configs.treesitter.hlargs')",
@@ -216,11 +228,6 @@ local plugins = {
 	},
 
 	{
-		"RRethy/vim-illuminate",
-		config = "require('plugins.configs.lsp.illuminate')",
-	},
-
-	{
 		"jose-elias-alvarez/null-ls.nvim",
 		config = "require('plugins.configs.lsp.null-ls')",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -241,68 +248,68 @@ local plugins = {
 	{
 		"rafamadriz/friendly-snippets",
 		module = "cmp_nvim_lsp",
-		event = { "InsertEnter", "CmdlineEnter" },
+		-- event = { "InsertEnter", "CmdlineEnter" },
 	},
 
 	{
 		"hrsh7th/nvim-cmp",
-		after = "friendly-snippets",
+		-- after = "friendly-snippets",
 		config = "require('plugins.configs.completion.cmp')",
 	},
 
 	{
 		"L3MON4D3/LuaSnip",
 		wants = "friendly-snippets",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 		config = "require('plugins.configs.completion.luasnip')",
 	},
 
 	{
 		"saadparwaiz1/cmp_luasnip",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"hrsh7th/cmp-nvim-lsp",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"hrsh7th/cmp-buffer",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"hrsh7th/cmp-path",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"rcarriga/cmp-dap",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"hrsh7th/cmp-cmdline",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"dmitmel/cmp-cmdline-history",
 		requires = "hrsh7th/nvim-cmp",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 	},
 
 	{
 		"petertriho/cmp-git",
 		requires = "nvim-lua/plenary.nvim",
-		after = "nvim-cmp",
+		-- after = "nvim-cmp",
 		config = "require('plugins.configs.completion.cmp.git')",
 	},
 
@@ -314,7 +321,7 @@ local plugins = {
 
 	{
 		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua", "nvim-cmp" },
+		-- after = { "copilot.lua", "nvim-cmp" },
 		config = function()
 			require("copilot_cmp").setup()
 		end,
@@ -323,9 +330,9 @@ local plugins = {
 	-- Motions
 
 	{
-		"ibhagwan/smartyank.nvim",
+		"gbprod/yanky.nvim",
 		event = "BufRead",
-		config = "require('plugins.configs.motions.smartyank')",
+		config = "require('plugins.configs.motions.yanky')",
 	},
 
 	{
@@ -411,17 +418,30 @@ local plugins = {
 		event = "BufRead",
 	},
 
-	-- Sessions
+	{
+		"Wansmer/treesj",
+		requires = { "nvim-treesitter" },
+		cmd = "TSJToggle",
+		config = "require('plugins.configs.motions.treesj')",
+	},
+
+	-- Projects & sessions management
 
 	{
 		"rmagatti/auto-session",
-		config = "require('plugins.configs.session.auto-session')",
+		config = "require('plugins.configs.projects.auto-session')",
 	},
 
 	{
 		"rmagatti/session-lens",
 		requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-		config = "require('plugins.configs.session.session-lens')",
+		config = "require('plugins.configs.projects.session-lens')",
+	},
+
+	{
+		"ahmedkhalf/project.nvim",
+		after = "telescope.nvim",
+		config = "require('plugins.configs.projects.project')",
 	},
 
 	-- Remote
@@ -429,7 +449,7 @@ local plugins = {
 	{
 		"chipsenkbeil/distant.nvim",
 		config = "require('plugins.configs.remote.distant')",
-		cmd = "DistantLaunch",
+		-- cmd = "DistantLaunch",
 		run = ":DistantInstall",
 	},
 
@@ -449,10 +469,8 @@ local plugins = {
 	},
 
 	{
-		"ahmedkhalf/project.nvim",
-		after = "telescope.nvim",
-		event = "BufRead",
-		config = "require('plugins.configs.navigation.project')",
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "make",
 	},
 
 	{
@@ -477,19 +495,6 @@ local plugins = {
 		"folke/todo-comments.nvim",
 		config = "require('plugins.configs.navigation.todo-comments')",
 		event = "BufRead",
-	},
-
-	{
-		"MattesGroeger/vim-bookmarks",
-		cmd = {
-			"BookmarkToggle",
-			"BookmarkAnnotate",
-			"BookmarkNext",
-			"BookmarkPrev",
-			"BookmarkShowAll",
-			"BookmarkClear",
-			"BookmarkClearAll",
-		},
 	},
 
 	{
@@ -560,30 +565,30 @@ local plugins = {
 
 	-- Refactoring
 
-	{
-		"ThePrimeagen/refactoring.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
-		after = "telescope.nvim",
-		config = "require('plugins.configs.refactoring')",
-	},
+	-- {
+	-- 	"ThePrimeagen/refactoring.nvim",
+	-- 	requires = {
+	-- 		{ "nvim-lua/plenary.nvim" },
+	-- 		{ "nvim-treesitter/nvim-treesitter" },
+	-- 	},
+	-- 	after = "telescope.nvim",
+	-- 	config = "require('plugins.configs.refactoring')",
+	-- },
 
 	-- Notebooks & Jupyter
 
-	{
-		"goerz/jupytext.vim",
-		fp = "ipynb",
-		config = "require('plugins.configs.notebooks.jupytext')",
-	},
-
-	{
-		"dccsillag/magma-nvim",
-		run = ":UpdateRemotePlugins",
-		fp = { "ipynb", "python" },
-		config = "require('plugins.configs.notebooks.magma')",
-	},
+	-- {
+	-- 	"goerz/jupytext.vim",
+	-- 	fp = "ipynb",
+	-- 	config = "require('plugins.configs.notebooks.jupytext')",
+	-- },
+	--
+	-- {
+	-- 	"dccsillag/magma-nvim",
+	-- 	run = ":UpdateRemotePlugins",
+	-- 	fp = { "ipynb", "python" },
+	-- 	config = "require('plugins.configs.notebooks.magma')",
+	-- },
 
 	--  Utils
 
@@ -617,11 +622,6 @@ local plugins = {
 	-- Colorschemes
 
 	{
-		"lukas-reineke/headlines.nvim",
-		config = "require('plugins.configs.colorschemes.headlines')",
-	},
-
-	{
 		"Shatur/neovim-ayu",
 		config = "require('plugins.configs.colorschemes.ayu')",
 	},
@@ -633,11 +633,11 @@ local plugins = {
 		config = "require('plugins.configs.colorschemes.rose-pine')",
 	},
 
-	{
-		"catppuccin/nvim",
-		as = "catppuccin",
-		config = "require('plugins.configs.colorschemes.catppuccin')",
-	},
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	as = "catppuccin",
+	-- 	config = "require('plugins.configs.colorschemes.catppuccin')",
+	-- },
 
 	{
 		"navarasu/onedark.nvim",
@@ -900,3 +900,22 @@ return packer.startup({
 -- },
 
 -- { "projekt0n/github-nvim-theme" },
+
+-- {
+-- 	"MattesGroeger/vim-bookmarks",
+-- 	cmd = {
+-- 		"BookmarkToggle",
+-- 		"BookmarkAnnotate",
+-- 		"BookmarkNext",
+-- 		"BookmarkPrev",
+-- 		"BookmarkShowAll",
+-- 		"BookmarkClear",
+-- 		"BookmarkClearAll",
+-- 	},
+-- },
+
+-- {
+--     "ibhagwan/smartyank.nvim",
+--     event = "BufRead",
+--     config = "require('plugins.configs.motions.smartyank')",
+-- },

@@ -2,6 +2,23 @@
 vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
 vim.g.mapleader = " "
 
+-- Yank
+vim.api.nvim_set_keymap("n", "y", "<Plug>(YankyYank)", { silent = true })
+vim.api.nvim_set_keymap("x", "y", "<Plug>(YankyYank)", { silent = true })
+vim.api.nvim_set_keymap("n", "p", "<Plug>(YankyPutAfter)", { silent = true })
+vim.api.nvim_set_keymap("x", "p", "<Plug>(YankyPutAfter)", { silent = true })
+vim.api.nvim_set_keymap("n", "P", "<Plug>(YankyPutBefore)", { silent = true })
+vim.api.nvim_set_keymap("x", "P", "<Plug>(YankyPutBefore)", { silent = true })
+vim.api.nvim_set_keymap("n", "gp", "<Plug>(YankyGPutAfter)", { silent = true })
+vim.api.nvim_set_keymap("x", "gp", "<Plug>(YankyGPutAfter)", { silent = true })
+vim.api.nvim_set_keymap("n", "gP", "<Plug>(YankyGPutBefore)", { silent = true })
+vim.api.nvim_set_keymap("x", "gP", "<Plug>(YankyGPutBefore)", { silent = true })
+vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", { silent = true })
+vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", { silent = true })
+
+-- Join / split
+vim.api.nvim_set_keymap("n", "J", "<cmd>TSJToggle<cr>", { silent = true })
+
 -- Better window movement
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { silent = true })
@@ -38,10 +55,6 @@ vim.api.nvim_set_keymap("n", "<S-TAB>", ":bprevious<CR>", { noremap = true, sile
 -- Move selected line / block of text in visual mode
 vim.api.nvim_set_keymap("x", "K", ":move '<-2<CR>gv-gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "J", ":move '>+1<CR>gv-gv", { noremap = true, silent = true })
-
--- Better nav for omnicomplete
-vim.cmd('inoremap <expr> <c-j> ("\\<C-n>")')
-vim.cmd('inoremap <expr> <c-k> ("\\<C-p>")')
 
 -- Incrementing and decrementing
 vim.cmd("set nrformats=")
@@ -180,17 +193,9 @@ local normal_mappings = {
 	["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
 	a = { "<cmd>BasicEasyAction<cr>", "Action with leap" },
 	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	i = { "<cmd>Mason<cr>", "Installer" },
 	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
-	s = {
-		'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
-		"Search text",
-	}, -- Shortcut
-	S = {
-		'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
-		"Search text (+ignored)",
-	}, -- Shortcut
+	s = { "<cmd>Telescope grep_string search=<cr>", "Search text" }, -- Shortcut
 	U = { "<cmd>PackerSync --preview<cr>", "Update" },
 
 	b = {
@@ -288,18 +293,17 @@ local normal_mappings = {
 		},
 		m = { "<cmd>Telescope marks<cr>", "Marks" },
 		M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
-		p = { "<cmd>Telescope session-lens search_session<cr>", "Projects" }, -- Redundancy
+		p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
 		R = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
 		r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-		t = {
-			'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
-			"Text",
-		},
+		s = { "<cmd>Telescope session-lens search_session<cr>", "Sessions" }, -- Redundancy
+		t = { "<cmd>Telescope grep_string search=<cr>", "Text" },
 		T = {
 			'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
 			"Text (+ignored)",
 		},
 		v = { "<cmd>PickPythonVenv<cr>", "Python venvs" },
+		y = { "<cmd>Telescope yank_history<cr>", "Yank history" },
 	},
 
 	g = {
@@ -331,6 +335,12 @@ local normal_mappings = {
 		m = { "<cmd>GitMessenger<cr>", "Last commit message" },
 	},
 
+	i = {
+		name = "Installer",
+		p = { "<cmd>Mason<cr>", "Panel" },
+		u = { "<cmd>MasonToolsUpdate<cr>", "Update tools" },
+	},
+
 	l = {
 		name = "LaTeX",
 		p = { "<cmd>Nabla<cr>", "Preview formula" },
@@ -348,7 +358,8 @@ local normal_mappings = {
 
 	p = {
 		name = "Projects",
-		l = { "<cmd>Telescope session-lens search_session<cr>", "List" }, -- Redundancy
+		l = { "<cmd>Telescope projects<cr>", "List" }, -- Redundancy
+		L = { "<cmd>Telescope session-lens search_session<cr>", "List (sessions)" }, -- Redundancy
 	},
 
 	r = {

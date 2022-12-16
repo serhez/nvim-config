@@ -396,15 +396,11 @@ local plugins = {
 		event = "BufRead",
 	},
 
-	{
-		"chaoren/vim-wordmotion",
-		event = "BufRead",
-	},
-
-	{
-		"sickill/vim-pasta",
-		event = "BufRead",
-	},
+	-- BUG: The performance of this plugin is horrible, particularly in Golang
+	-- {
+	-- 	"chaoren/vim-wordmotion",
+	-- 	event = "BufRead",
+	-- },
 
 	{
 		"nacro90/numb.nvim",
@@ -918,4 +914,9 @@ return packer.startup({
 --     "ibhagwan/smartyank.nvim",
 --     event = "BufRead",
 --     config = "require('plugins.configs.motions.smartyank')",
+-- },
+
+-- {
+-- 	"sickill/vim-pasta",
+-- 	event = "BufRead",
 -- },

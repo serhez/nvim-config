@@ -2,6 +2,7 @@ local notify = require("notify")
 vim.notify = notify
 
 notify.setup({
+	level = "warn",
 	stages = "fade",
 	icons = {
 		ERROR = " ",

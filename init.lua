@@ -1,15 +1,9 @@
-local present, impatient = pcall(require, "impatient")
-
-if present then
-	impatient.enable_profile()
-end
-
-require("settings")
-require("plugins")
-require("colors")
-require("mappings")
-require("autocommands")
+require("settings").setup()
+require("mappings").setup()
+require("plugins").setup()
+require("colors").setup()
+require("autocommands").setup()
 
 if vim.g.neovide then
-	require("neovide")
+	require("neovide").setup()
 end

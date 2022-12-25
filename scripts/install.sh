@@ -94,12 +94,10 @@ pip install \
   lookatme.contrib.image_ueberzug
 conda deactivate
 
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 sudo mv ~/.config/nvim ~/.config/nvim.old
 mkdir ~/.config
 mkdir ~/.config/nvim
 cp -r * ~/.config/nvim
 
 echo ""
-echo "Done! Neovim has been configured. Use the command \"nvim\" to start using it and the command :PackerSync to install all plugins."
+echo "Done! Neovim has been configured. Use the command \"nvim\" to start using it."

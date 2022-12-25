@@ -8,7 +8,9 @@ function M.init()
 end
 
 function M.config()
-	require("spectre").setup()
+	require("spectre").setup({
+		live_update = false, -- auto excute search again when you write any file in vim
+	})
 end
 
 return M

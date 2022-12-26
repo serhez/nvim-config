@@ -10,7 +10,9 @@ function M.init()
 		f = {
 			p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
 		},
-		p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
+		p = {
+			l = { "<cmd>Telescope projects<cr>", "List" }, -- Redundancy
+		},
 	})
 end
 

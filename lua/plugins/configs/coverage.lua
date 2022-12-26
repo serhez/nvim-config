@@ -17,7 +17,7 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		t = {
+		T = {
 			c = {
 				name = "Coverage",
 				c = { "<cmd>CoverageClear<cr>", "Clear" },

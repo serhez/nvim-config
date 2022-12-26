@@ -1,3 +1,5 @@
+local mappings = require("mappings")
+
 local M = {
 	"akinsho/toggleterm.nvim",
 	version = "*",
@@ -17,12 +19,30 @@ local M = {
 }
 
 function M.init()
-	vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>Lazygit<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<leader>Z", "<cmd>Mprocs<cr>", { noremap = true, silent = true })
+	mappings.register_normal({
+		t = {
+			n = { ":ToggleTermSetName ", "Change name" },
+			s = { ":ToggleTermSendCurrentLine ", "Send line" },
+			t = { "<cmd>ToggleTerm<cr>", "Toggle last" },
+			T = { "<cmd>ToggleTermToggleAll<cr>", "Toggle all" },
+		},
+		p = {
+			p = { "<cmd>Mprocs<cr>", "Panel" },
+		},
+		g = {
+			p = { "<cmd>Lazygit<cr>", "Panel" },
+		},
+	})
+	mappings.register_visual({
+		t = {
+			s = { ":ToggleTermSendVisualLines ", "Send selected lines" },
+		},
+	})
 end
 
 function M.config()
 	require("toggleterm").setup({
+		autochdir = true,
 		shade_terminals = true,
 		float_opts = {
 			border = "single",
@@ -47,10 +67,10 @@ function M.config()
 
 	-- Mprocs
 	local mprocs = Terminal:new({
-		cmd = "pm",
-		-- dir = "git_dir",
-		-- direction = "horizontal",
-		-- hidden = true,
+		cmd = "mprocs",
+		dir = "git_dir",
+		direction = "horizontal",
+		hidden = true,
 	})
 
 	function _mprocs_toggle()

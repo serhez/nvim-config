@@ -23,7 +23,7 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		t = {
+		T = {
 			d = {
 				name = "Debug",
 				f = { "<cmd>TestDebugFile<cr>", "File" },
@@ -41,6 +41,7 @@ function M.init()
 		},
 	})
 end
+
 function M.config()
 	require("neotest").setup({
 		floating = {

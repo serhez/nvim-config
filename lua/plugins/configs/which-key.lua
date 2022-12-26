@@ -59,14 +59,16 @@ local normal_mappings = {
 		name = "Notebooks",
 	},
 
-	t = {
-		name = "Tests",
+	p = {
+		name = "Projects",
 	},
 
 	T = {
-		name = "Tabs",
-		c = { "<cmd>tabclose<cr>", "Close (current)" },
-		n = { "<cmd>tabnew<cr>", "New" },
+		name = "Tests",
+	},
+
+	t = {
+		name = "Terminal",
 	},
 
 	u = {
@@ -77,6 +79,9 @@ local normal_mappings = {
 local visual_mappings = {
 	n = {
 		name = "Notebooks",
+	},
+	t = {
+		name = "Terminal",
 	},
 }
 

@@ -1,9 +1,18 @@
 local icons = require("icons")
+local mappings = require("mappings")
 
 local M = {
 	"folke/todo-comments.nvim",
 	event = "BufReadPre",
 }
+
+function M.init()
+	mappings.register_normal({
+		u = {
+			t = { "<cmd>TodoTrouble<cr>", "Todos" },
+		},
+	})
+end
 
 function M.config()
 	require("todo-comments").setup({

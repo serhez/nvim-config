@@ -1,4 +1,5 @@
 local icons = require("icons")
+local mappings = require("mappings")
 
 local M = {
 	"andythigpen/nvim-coverage",
@@ -13,6 +14,20 @@ local M = {
 		"CoverageSummary",
 	},
 }
+
+function M.init()
+	mappings.register_normal({
+		t = {
+			c = {
+				name = "Coverage",
+				c = { "<cmd>CoverageClear<cr>", "Clear" },
+				l = { "<cmd>Coverage<cr>", "Load" },
+				s = { "<cmd>CoverageSummary<cr>", "Summary" },
+				t = { "<cmd>CoverageToggle<cr>", "Toggle signs" },
+			},
+		},
+	})
+end
 
 function M.config()
 	require("coverage").setup({

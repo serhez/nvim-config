@@ -1,5 +1,35 @@
 M = {}
 
+function M.register_normal(mappings)
+	local present, which_key = pcall(require, "which-key")
+
+	if present then
+		which_key.register(mappings, {
+			mode = "n",
+			prefix = "<leader>",
+			buffer = nil,
+			silent = true,
+			noremap = true,
+			nowait = false,
+		})
+	end
+end
+
+function M.register_visual(mappings)
+	local present, which_key = pcall(require, "which-key")
+
+	if present then
+		which_key.register(mappings, {
+			mode = "v",
+			prefix = "<leader>",
+			buffer = nil,
+			silent = true,
+			noremap = true,
+			nowait = false,
+		})
+	end
+end
+
 function M.setup()
 	-- Leader
 	vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
@@ -175,248 +205,5 @@ function M.setup()
 	-- 	end
 	-- end, {})]])
 end
-
-M.normal_mappings = {
-	["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
-	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
-	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
-	s = { "<cmd>Telescope grep_string search=<cr>", "Search text" }, -- Shortcut
-
-	b = {
-		name = "Buffers",
-		c = {
-			name = "Close",
-			a = { "<cmd>%bwipeout<cr>", "All" },
-			c = { "<cmd>bwipeout<cr>", "Current" },
-			g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- Redundancy
-			l = { "<cmd>BufferLineCloseLeft<cr>", "Left of current" },
-			o = { '<cmd>%bdelete | e # | normal `"<cr>', "Others" },
-			p = { "<cmd>BufferLinePickClose<cr>", "Pick" },
-			r = { "<cmd>BufferLineCloseRight<cr>", "Right of current" },
-		},
-		g = {
-			name = "Group",
-			c = { "<cmd>BufferLineGroupClose<cr>", "Close" }, -- Redundancy
-			t = { "<cmd>BufferLineGroupToggle<cr>", "Toggle" },
-		},
-		l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
-		m = {
-			name = "Move",
-			h = { "<cmd>BufferLineMovePrev<cr>", "Previous" },
-			l = { "<cmd>BufferLineMoveNext<cr>", "Next" },
-		},
-		p = { "<cmd>BufferLinePick<cr>", "Pick" },
-		s = {
-			name = "Sort",
-			c = { "<cmd>BufferLineSortByDirectory<cr>", "By directory" },
-			t = { "<cmd>BufferLineSortByExtension<cr>", "By extension" },
-		},
-	},
-
-	c = {
-		name = "Code",
-		a = { "<cmd>CodeActionMenu<cr>", "Action" },
-		d = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Diagnostics (line)" },
-		D = {
-			'<cmd>lua vim.diagnostic.open_float({ scope = "cursor" })<cr>',
-			"Diagnostics (cursor)",
-		},
-		f = { "<cmd>lua require'lsp.formatting'.format()<cr>", "Format" },
-		F = { "<cmd>lua require'lsp.formatting'.toggle_auto_format()<cr>", "Toggle auto-format" },
-		r = { ":IncRename ", "Rename" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols (file)" },
-		S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Symbols (project)" },
-		u = { "Usages" },
-	},
-
-	d = {
-		name = "Debug",
-		b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle breakpoint" },
-		B = {
-			name = "Breakpoints",
-			c = { "<cmd>DapClearBreakpoints<cr>", "Clear" },
-			l = { "<cmd>DapListBreakpoints<cr>", "List" },
-		},
-		c = { "<cmd>DapContinue<cr>", "Continue / Start" },
-		g = {
-			name = "Go to",
-			c = { "<cmd>DapGoToCursor<cr>", "Go to cursor" },
-			l = { ":DapGoToLine", "Go to line" },
-		},
-		i = {
-			name = "Item",
-			c = { "<cmd>DapClass<cr>", "Class" },
-			s = { "<cmd>DapVisualSelection<cr>", "Selection" },
-			t = { "<cmd>DapTest<cr>", "Test" },
-		},
-		p = { ":DapPauseThread", "Pause thread" },
-		r = { "<cmd>DapToggleRepl<cr>", "REPL" },
-		s = {
-			name = "Step",
-			b = { "<cmd>DapStepOver<cr>", "Back" },
-			d = { "<cmd>DapDown<cr>", "Down" },
-			i = { "<cmd>DapStepInto<cr>", "Into" },
-			O = { "<cmd>DapStepOver<cr>", "Out" },
-			o = { "<cmd>DapStepOver<cr>", "Over" },
-			u = { "<cmd>DapUp<cr>", "Up" },
-		},
-		S = { "<cmd>DapStop<cr>", "Stop" },
-	},
-
-	f = {
-		name = "Find",
-		b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
-		c = { "<cmd>Telescope commands<cr>", "Commands" },
-		f = {
-			"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
-			"Files",
-		},
-		F = {
-			"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
-			"Files (+ignored)",
-		},
-		m = { "<cmd>Telescope marks<cr>", "Marks" },
-		M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
-		p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
-		R = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
-		r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-		t = { "<cmd>Telescope grep_string search=<cr>", "Text" },
-		T = {
-			'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
-			"Text (+ignored)",
-		},
-		v = { "<cmd>PickPythonVenv<cr>", "Python venvs" },
-		y = { "<cmd>Telescope yank_history<cr>", "Yank history" },
-	},
-
-	g = {
-		name = "Git",
-		a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author" },
-		b = {
-			name = "Buffer",
-			t = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
-			d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
-			D = { ":DiffviewOpen -- % ", "Diffs (specify commits)" },
-			r = { "<cmd>Gitsigns reset_buffer<cr>", "Revert" },
-		},
-		d = { "<cmd>DiffviewOpen<cr>", "Diffs tool" },
-		D = { ":DiffviewOpen ", "Diffs tool (specify commits)" },
-		h = {
-			name = "Hunk",
-			j = { "<cmd>Gitsigns next_hunk<cr>", "Next" },
-			k = { "<cmd>Gitsigns prev_hunk<cr>", "Prev" },
-			p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview" },
-			r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert" },
-		},
-		l = {
-			name = "List",
-			b = { "<cmd>Telescope git_branches<cr>", "Branches" },
-			c = { "<cmd>DiffviewFileHistory %<cr>", "Commits (file)" },
-			C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },
-			s = { "<cmd>Telescope git_stash<cr>", "Stashes" },
-		},
-		m = { "<cmd>GitMessenger<cr>", "Last commit message" },
-	},
-
-	i = {
-		name = "Installer",
-		p = { "<cmd>Lazy<cr>", "Plugins panel" },
-		t = { "<cmd>Mason<cr>", "Tools panel" },
-		u = { "<cmd>MasonToolsUpdate<cr>", "Update tools" },
-	},
-
-	l = {
-		name = "LaTeX",
-		p = { "<cmd>Nabla<cr>", "Preview formula" },
-	},
-
-	n = {
-		name = "Notebooks",
-		c = { "<cmd>MagmaReevaluateCell<cr>", "Run cell" },
-		d = { "<cmd>MagmaDelete<cr>", "Delete cell" },
-		i = { "<cmd>MagmaInit python3<cr>", "Init" },
-		l = { "<cmd>MagmaEvaluateLine<cr>", "Run line" },
-		o = { "<cmd>MagmaShowOutput<cr>", "Show output" },
-		r = { "<cmd>MagmaRestart!<cr>", "Restart kernel" },
-	},
-
-	p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
-
-	t = {
-		name = "Tests",
-		c = {
-			name = "Coverage",
-			c = { "<cmd>CoverageClear<cr>", "Clear" },
-			l = { "<cmd>Coverage<cr>", "Load" },
-			s = { "<cmd>CoverageSummary<cr>", "Summary" },
-			t = { "<cmd>CoverageToggle<cr>", "Toggle signs" },
-		},
-		d = {
-			name = "Debug",
-			f = { "<cmd>TestDebugFile<cr>", "File" },
-			n = { "<cmd>TestDebugNearest<cr>", "Nearest" },
-			s = { "<cmd>TestDebugSuite<cr>", "Suite" },
-		},
-		r = {
-			name = "Run",
-			f = { "<cmd>TestRunFile<cr>", "File" },
-			n = { "<cmd>TestRunNearest<cr>", "Nearest" },
-			s = { "<cmd>TestRunSuite<cr>", "Suite" },
-		},
-		p = { "<cmd>TestPanel<cr>", "Panel" },
-		s = { "<cmd>TestStopNearest<cr>", "Stop nearest" },
-	},
-
-	T = {
-		name = "Tabs",
-		c = { "<cmd>tabclose<cr>", "Close (current)" },
-		n = { "<cmd>tabnew<cr>", "New" },
-	},
-
-	u = {
-		name = "Utils",
-		d = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics (workspace)" },
-		D = { "<cmd>DogeGenerate<cr>", "Generate docs" },
-		m = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown preview" },
-		s = { "<cmd>Spectre<cr>", "Search & replace" },
-		r = { "<cmd>SnipRun<cr>", "Run code" },
-		R = { "<cmd>SnipLive<cr>", "Run code live" },
-		t = { "<cmd>TodoTrouble<cr>", "Todos" },
-	},
-}
-
-M.visual_mappings = {
-	["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" },
-
-	R = { "<cmd>SnipRun<cr>", "Run" },
-
-	f = {
-		name = "Find",
-		r = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
-		p = { "<cmd>lua require('refactoring').select_refactor()<cr>", "Pick" },
-	},
-
-	n = {
-		name = "Notebooks",
-		r = { "<cmd>MagmaEvaluateVisual<cr>", "Run" },
-	},
-
-	r = {
-		name = "Refactor",
-		l = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>", "List" }, -- Redundancy
-		f = {
-			name = "Function",
-			e = { "<cmd>lua require('refactoring').refactor('Extract Function')<cr>", "Extract" },
-			E = { "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>", "Extract to file" },
-		},
-		v = {
-			name = "Variable",
-			e = { "<cmd>lua require('refactoring').refactor('Extract Variable')<cr>", "Extract" },
-			i = { "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>", "Inline" },
-			p = { "<cmd>lua require('refactoring').debug.print_var({})<cr>", "Print" },
-		},
-	},
-}
 
 return M

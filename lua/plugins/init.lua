@@ -1,3 +1,5 @@
+local mappings = require("mappings")
+
 M = {}
 
 function M.setup()
@@ -50,6 +52,12 @@ function M.setup()
 					"matchit",
 				},
 			},
+		},
+	})
+
+	mappings.register_normal({
+		i = {
+			p = { "<cmd>Lazy<cr>", "Plugins panel" },
 		},
 	})
 end

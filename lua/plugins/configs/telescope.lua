@@ -1,4 +1,5 @@
 local icons = require("icons")
+local mappings = require("mappings")
 
 local M = {
 	"nvim-telescope/telescope.nvim",
@@ -7,6 +8,45 @@ local M = {
 	},
 	cmd = { "Telescope" },
 }
+
+function M.init()
+	mappings.register_normal({
+		s = { "<cmd>Telescope grep_string search=<cr>", "Search text" }, -- Shortcut
+		b = {
+			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
+		},
+		c = {
+			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols (file)" },
+			S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Symbols (project)" },
+		},
+		f = {
+			b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
+			c = { "<cmd>Telescope commands<cr>", "Commands" },
+			f = {
+				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
+				"Files",
+			},
+			F = {
+				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
+				"Files (+ignored)",
+			},
+			m = { "<cmd>Telescope marks<cr>", "Marks" },
+			M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
+			r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
+			t = { "<cmd>Telescope grep_string search=<cr>", "Text" },
+			T = {
+				'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
+				"Text (+ignored)",
+			},
+		},
+		g = {
+			l = {
+				b = { "<cmd>Telescope git_branches<cr>", "Branches" },
+				s = { "<cmd>Telescope git_stash<cr>", "Stashes" },
+			},
+		},
+	})
+end
 
 function M.config()
 	local actions = require("telescope.actions")

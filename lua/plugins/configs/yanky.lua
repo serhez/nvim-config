@@ -1,3 +1,5 @@
+local mappings = require("mappings")
+
 local M = {
 	"gbprod/yanky.nvim",
 	event = "VeryLazy",
@@ -16,6 +18,12 @@ function M.init()
 	vim.api.nvim_set_keymap("x", "gP", "<Plug>(YankyGPutBeforeFilter)", { silent = true })
 	vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", { silent = true })
 	vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", { silent = true })
+
+	mappings.register_normal({
+		f = {
+			y = { "<cmd>Telescope yank_history<cr>", "Yank history" },
+		},
+	})
 end
 
 function M.config()

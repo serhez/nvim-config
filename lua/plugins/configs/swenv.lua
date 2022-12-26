@@ -1,4 +1,5 @@
 local utils = require("utils")
+local mappings = require("mappings")
 
 -- FIX: This plugin (1) does not work as expected and (2) does not detect venvs from the project root folder
 --      However, there are no other plugins providing this functionality
@@ -10,6 +11,11 @@ local M = {
 
 function M.init()
 	vim.api.nvim_create_user_command("PickPythonVenv", "lua require('swenv.api').pick_venv()", {})
+	mappings.register_normal({
+		f = {
+			v = { "<cmd>PickPythonVenv<cr>", "Python venvs" },
+		},
+	})
 end
 
 function M.config()

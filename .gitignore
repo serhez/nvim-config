@@ -1,4 +1,5 @@
 plugin/
+lazy-lock.json
 dein
 tags*
 .netrwhist

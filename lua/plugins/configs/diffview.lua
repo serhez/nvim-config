@@ -3,7 +3,13 @@ local mappings = require("mappings")
 local M = {
 	"sindrets/diffview.nvim",
 	dependencies = "nvim-lua/plenary.nvim",
-	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+	cmd = {
+		"DiffviewOpen",
+		"DiffviewClose",
+		"DiffviewToggleFiles",
+		"DiffviewFocusFiles",
+		"DiffviewFileHistory",
+	},
 }
 
 function M.init()

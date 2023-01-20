@@ -19,19 +19,6 @@ function M.config()
 
 		cmdline = {
 			view = "cmdline",
-			-- FIX: IncRename works poorly due to the references window which is opened on top of the cmdline
-			-- format = {
-			-- 	IncRename = {
-			-- 		pattern = "^:%s*IncRename%s+",
-			-- 		icon = " ",
-			-- 		conceal = true,
-			-- 		opts = {
-			-- 			relative = "cursor",
-			-- 			size = { min_width = 20 },
-			-- 			position = { row = -3, col = 0 },
-			-- 		},
-			-- 	},
-			-- },
 		},
 
 		override = {
@@ -52,13 +39,24 @@ function M.config()
 			},
 		},
 
-		-- Do not show normal messages
-		routes = {
-			{
-				filter = {
-					event = "msg_show",
-				},
-				opts = { skip = true },
+		notify = {
+			enabled = true,
+			view = "mini",
+		},
+
+		messages = {
+			enabled = true, -- enables the Noice messages UI
+			view = "mini", -- default view for messages
+			view_error = "notify", -- view for errors
+			view_warn = "notify", -- view for warnings
+			view_history = "messages", -- view for :messages
+			view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+		},
+
+		lsp = {
+			message = {
+				enabled = true,
+				view = "mini",
 			},
 		},
 	})

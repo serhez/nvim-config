@@ -11,7 +11,6 @@ function M.config()
 	vim.notify = notify
 
 	notify.setup({
-		level = "warn",
 		stages = "fade",
 		icons = {
 			ERROR = " ",

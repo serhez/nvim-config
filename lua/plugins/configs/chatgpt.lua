@@ -23,6 +23,12 @@ function M.init()
 			l = { "<cmd>ChatGPTActAs<cr>", "List" },
 		},
 	})
+
+	mappings.register_visual({
+		a = {
+			e = { "<cmd>ChatGPTEditWithInstructions<cr>", "Edit" },
+		},
+	})
 end
 
 function M.config()

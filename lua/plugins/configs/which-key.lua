@@ -10,11 +10,9 @@ local M = {
 local normal_mappings = {
 	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
-
 	a = {
 		name = "Assistant",
 	},
-
 	b = {
 		name = "Buffers",
 		c = {
@@ -33,15 +31,12 @@ local normal_mappings = {
 			name = "Sort",
 		},
 	},
-
 	c = {
 		name = "Code",
 	},
-
 	f = {
 		name = "Find",
 	},
-
 	g = {
 		name = "Git",
 		b = {
@@ -51,37 +46,33 @@ local normal_mappings = {
 			name = "List",
 		},
 	},
-
 	i = {
 		name = "Installer",
 	},
-
 	l = {
 		name = "LaTeX",
 	},
-
 	n = {
 		name = "Notebooks",
 	},
-
 	p = {
 		name = "Projects",
 	},
-
 	T = {
 		name = "Tests",
 	},
-
 	t = {
 		name = "Terminal",
 	},
-
 	u = {
 		name = "Utils",
 	},
 }
 
 local visual_mappings = {
+	a = {
+		name = "Assistant",
+	},
 	n = {
 		name = "Notebooks",
 	},

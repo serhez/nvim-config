@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"andythigpen/nvim-coverage",
@@ -48,6 +49,12 @@ function M.config()
 				coverage_file = ".test_coverage.txt",
 			},
 		},
+	})
+
+	local c = hls.colors()
+	hls.register_hls({
+		CoverageCovered = { fg = c.bg, bg = c.green },
+		CoverageUncovered = { fg = c.bg, bg = c.red },
 	})
 end
 

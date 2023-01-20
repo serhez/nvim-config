@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"akinsho/bufferline.nvim",
@@ -96,6 +97,10 @@ function M.config()
 			--     return buffer_a.modified > buffer_b.modified
 			-- end
 		},
+	})
+
+	hls.register_hls({
+		BufferLineBufferSelected = { default = true, bold = true },
 	})
 end
 

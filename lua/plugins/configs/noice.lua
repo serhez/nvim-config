@@ -1,3 +1,5 @@
+local hls = require("highlights")
+
 local M = {
 	"folke/noice.nvim",
 	dependencies = {
@@ -62,6 +64,22 @@ function M.config()
 	})
 
 	require("telescope").load_extension("noice")
+
+	local common_hls = hls.common_hls()
+	hls.register_hls({
+		NoiceCmdlinePopupBorder = common_hls.border,
+		NoiceCmdlinePopupBorderCmdline = common_hls.border,
+		NoiceCmdlinePopupBorderFilter = common_hls.border,
+		NoiceCmdlinePopupBorderHelp = common_hls.border,
+		NoiceCmdlinePopupBorderIncRename = common_hls.border,
+		NoiceCmdlinePopupBorderInput = common_hls.border,
+		NoiceCmdlinePopupBorderLua = common_hls.border,
+		NoiceCmdlinePopupBorderSearch = common_hls.border,
+		NoiceConfirmBorder = common_hls.border,
+		NoicePopupBorder = common_hls.border,
+		NoicePopupmenuBorder = common_hls.border,
+		NoiceSplitBorder = common_hls.border,
+	})
 end
 
 return M

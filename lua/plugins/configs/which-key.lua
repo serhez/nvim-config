@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"folke/which-key.nvim",
@@ -9,6 +10,10 @@ local M = {
 local normal_mappings = {
 	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
+
+	a = {
+		name = "Assistant",
+	},
 
 	b = {
 		name = "Buffers",
@@ -125,6 +130,11 @@ function M.config()
 
 	mappings.register_normal(normal_mappings)
 	mappings.register_visual(visual_mappings)
+
+	local c = hls.colors()
+	hls.register_hls({
+		WhichKeyFloat = { bg = c.statusline_bg },
+	})
 end
 
 return M

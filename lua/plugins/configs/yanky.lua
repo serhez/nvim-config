@@ -1,4 +1,5 @@
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"gbprod/yanky.nvim",
@@ -34,6 +35,10 @@ function M.config()
 	})
 
 	require("telescope").load_extension("yank_history")
+
+	hls.register_hls({
+		YankyPut = { default = true, link = "Search" },
+	})
 end
 
 return M

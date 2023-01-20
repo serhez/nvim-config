@@ -1,4 +1,5 @@
 plugin/
+env.lua
 lazy-lock.json
 dein
 tags*

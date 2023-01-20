@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"nvim-telescope/telescope.nvim",
@@ -112,6 +113,22 @@ function M.config()
 			},
 			noice = {},
 		},
+	})
+
+	local c = hls.colors()
+	local common_hls = hls.common_hls()
+	hls.register_hls({
+		TelescopeBorder = common_hls.border,
+		TelescopePromptBorder = common_hls.border,
+		TelescopeResultsBorder = common_hls.border,
+		TelescopePreviewBorder = common_hls.border,
+		TelescopeNormal = { fg = c.fg, bg = c.statusline_bg },
+		TelescopePromptNormal = { fg = c.fg, bg = c.statusline_bg },
+		TelescopePromptPrefix = { fg = c.cyan, bg = c.statusline_bg },
+		TelescopePromptCounter = { fg = c.fg, bg = c.statusline_bg },
+		TelescopeSelection = { default = true, link = "Visual" },
+		TelescopeSelectionCaret = { default = true, link = "Visual" },
+		TelescopeMultiSelection = { default = true, link = "Visual" },
 	})
 end
 

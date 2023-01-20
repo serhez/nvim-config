@@ -1,3 +1,5 @@
+local hls = require("highlights")
+
 local M = {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
@@ -204,6 +206,10 @@ function M.config()
 			},
 		})
 	end
+
+	hls.register_hls({
+		CmpItemMenu = { default = true, italic = true },
+	})
 end
 
 return M

@@ -1,4 +1,5 @@
 local icons = require("icons")
+local hls = require("highlights")
 
 local M = {
 	"feline-nvim/feline.nvim",
@@ -70,7 +71,7 @@ end
 function M.config()
 	local navic_present, navic = pcall(require, "nvim-navic")
 
-	local c = {
+	local components = {
 		default = { -- needed to pass the parent StatusLine hl group to right hand side
 			provider = "",
 			hl = "StatusLine",
@@ -174,7 +175,7 @@ function M.config()
 	}
 
 	if navic_present then
-		c.navic = {
+		components.navic = {
 			provider = function()
 				return get_navic_location()
 			end,
@@ -187,34 +188,34 @@ function M.config()
 
 	local statusline_active = {
 		{ -- left
-			c.vimode.left,
-			c.git.branch,
-			c.git.add,
-			c.git.change,
-			c.git.remove,
+			components.vimode.left,
+			components.git.branch,
+			components.git.add,
+			components.git.change,
+			components.git.remove,
 		},
 		{ -- center
-			c.fileinfo,
+			components.fileinfo,
 		},
 		{ -- right
-			c.diagnostics.error,
-			c.diagnostics.warning,
-			c.diagnostics.info,
-			c.diagnostics.hint,
-			c.cursor.position,
-			c.cursor.percentage,
-			c.vimode.right,
+			components.diagnostics.error,
+			components.diagnostics.warning,
+			components.diagnostics.info,
+			components.diagnostics.hint,
+			components.cursor.position,
+			components.cursor.percentage,
+			components.vimode.right,
 		},
 	}
 
 	if navic_present then
-		table.insert(statusline_active[2], c.navic)
+		table.insert(statusline_active[2], components.navic)
 	end
 
 	local statusline_inactive = {
-		{ c.default }, -- left
-		{ c.in_fileinfo }, -- center
-		{ c.default }, -- right
+		{ components.default }, -- left
+		{ components.in_fileinfo }, -- center
+		{ components.default }, -- right
 	}
 
 	-- local winbar_active = {
@@ -249,6 +250,39 @@ function M.config()
 	})
 
 	-- require("feline").winbar.setup()
+
+	local c = hls.colors()
+	hls.register_hls({
+		FlnViBlack = { fg = c.white, bg = c.black, bold = true },
+		FlnViRed = { fg = c.statusline_bg, bg = c.red, bold = true },
+		FlnViGreen = { fg = c.statusline_bg, bg = c.green, bold = true },
+		FlnViYellow = { fg = c.statusline_bg, bg = c.yellow, bold = true },
+		FlnViBlue = { fg = c.statusline_bg, bg = c.blue, bold = true },
+		FlnViMagenta = { fg = c.statusline_bg, bg = c.magenta, bold = true },
+		FlnViCyan = { fg = c.statusline_bg, bg = c.cyan, bold = true },
+		FlnViWhite = { fg = c.statusline_bg, bg = c.white, bold = true },
+
+		FlnBlack = { fg = c.black, bg = c.white },
+		FlnRed = { fg = c.red, bg = c.statusline_bg },
+		FlnGreen = { fg = c.green, bg = c.statusline_bg },
+		FlnYellow = { fg = c.yellow, bg = c.statusline_bg },
+		FlnBlue = { fg = c.blue, bg = c.statusline_bg },
+		FlnMagenta = { fg = c.magenta, bg = c.statusline_bg },
+		FlnCyan = { fg = c.cyan, bg = c.statusline_bg },
+		FlnWhite = { fg = c.white, bg = c.statusline_bg },
+
+		FlnHint = { fg = c.hint, bg = c.statusline_bg },
+		FlnInfo = { fg = c.info, bg = c.statusline_bg },
+		FlnWarn = { fg = c.warn, bg = c.statusline_bg },
+		FlnError = { fg = c.error, bg = c.statusline_bg },
+		FlnStatus = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
+
+		FlnText = { fg = c.statusline_fg, bg = c.statusline_bg },
+		FlnBoldText = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
+		FlnSep = { fg = c.statusline_fg, bg = c.statusline_bg },
+		FlnGitBranch = { fg = c.statusline_fg, bg = c.statusline_bg },
+		FlnNavic = { fg = c.statusline_fg, bg = c.statusline_bg },
+	})
 end
 
 return M

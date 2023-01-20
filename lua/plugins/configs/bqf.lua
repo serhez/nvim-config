@@ -1,3 +1,5 @@
+local hls = require("highlights")
+
 local M = {
 	"kevinhwang91/nvim-bqf",
 	event = "VeryLazy",
@@ -23,6 +25,13 @@ function M.config()
 				return ret
 			end,
 		},
+	})
+
+	local c = hls.colors()
+	local common_hls = hls.common_hls()
+	hls.register_hls({
+		BqfPreviewBorder = common_hls.border,
+		BqfPreviewFloat = { bg = c.statusline_bg },
 	})
 end
 

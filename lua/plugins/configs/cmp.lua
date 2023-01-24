@@ -209,21 +209,22 @@ function M.config()
 	end
 
 	-- Autocmd to enable Copilot on InsertEnter (without any character being written)
+	-- NOTE: We are disabling this behaviour because we are using copilot.lua's ghost text for now
 	-- NOTE: We can remove this when keyword_length = 0 is possible
-	vim.api.nvim_create_autocmd("InsertEnter", {
-		pattern = "*",
-		callback = function()
-			vim.schedule(function()
-				cmp.complete({
-					config = {
-						sources = {
-							{ name = "copilot" },
-						},
-					},
-				})
-			end)
-		end,
-	})
+	-- vim.api.nvim_create_autocmd("InsertEnter", {
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		vim.schedule(function()
+	-- 			cmp.complete({
+	-- 				config = {
+	-- 					sources = {
+	-- 						{ name = "copilot" },
+	-- 					},
+	-- 				},
+	-- 			})
+	-- 		end)
+	-- 	end,
+	-- })
 
 	hls.register_hls({
 		CmpItemMenu = { default = true, italic = true },

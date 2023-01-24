@@ -1,8 +1,18 @@
+local mappings = require("mappings")
+
 local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
 }
+
+function M.init()
+	mappings.register_normal({
+		a = {
+			p = { "<cmd>Copilot panel<cr>", "Panel" },
+		},
+	})
+end
 
 function M.config()
 	require("copilot").setup({

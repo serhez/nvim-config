@@ -140,12 +140,13 @@ function M.config()
 
 		-- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
 		sources = {
-			{ name = "copilot", keyword_length = 0 },
+			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
+			{ name = "copilot" },
 			{ name = "luasnip" },
 			{ name = "nvim_lsp" },
 			-- { name = "cmp_tabnine" },
-			{ name = "buffer" },
 			{ name = "path" },
+			{ name = "buffer" },
 			{ name = "dap" },
 		},
 
@@ -206,6 +207,23 @@ function M.config()
 			},
 		})
 	end
+
+	-- Autocmd to enable Copilot on InsertEnter (without any character being written)
+	-- NOTE: We can remove this when keyword_length = 0 is possible
+	vim.api.nvim_create_autocmd("InsertEnter", {
+		pattern = "*",
+		callback = function()
+			vim.schedule(function()
+				cmp.complete({
+					config = {
+						sources = {
+							{ name = "copilot" },
+						},
+					},
+				})
+			end)
+		end,
+	})
 
 	hls.register_hls({
 		CmpItemMenu = { default = true, italic = true },

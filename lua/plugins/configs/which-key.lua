@@ -79,6 +79,9 @@ local visual_mappings = {
 	t = {
 		name = "Terminal",
 	},
+	u = {
+		name = "Utils",
+	},
 }
 
 function M.config()

@@ -69,7 +69,7 @@ local function diag_of(f, s)
 end
 
 function M.config()
-	local navic_present, navic = pcall(require, "nvim-navic")
+	-- local navic_present, navic = pcall(require, "nvim-navic")
 
 	local components = {
 		default = { -- needed to pass the parent StatusLine hl group to right hand side
@@ -174,17 +174,17 @@ function M.config()
 		},
 	}
 
-	if navic_present then
-		components.navic = {
-			provider = function()
-				return get_navic_location()
-			end,
-			enabled = function()
-				return navic.is_available()
-			end,
-			hl = "FlnNavic",
-		}
-	end
+	-- if navic_present then
+	-- 	components.navic = {
+	-- 		provider = function()
+	-- 			return get_navic_location()
+	-- 		end,
+	-- 		enabled = function()
+	-- 			return navic.is_available()
+	-- 		end,
+	-- 		hl = "FlnNavic",
+	-- 	}
+	-- end
 
 	local statusline_active = {
 		{ -- left
@@ -208,9 +208,9 @@ function M.config()
 		},
 	}
 
-	if navic_present then
-		table.insert(statusline_active[2], components.navic)
-	end
+	-- if navic_present then
+	-- 	table.insert(statusline_active[2], components.navic)
+	-- end
 
 	local statusline_inactive = {
 		{ components.default }, -- left

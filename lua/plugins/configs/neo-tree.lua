@@ -60,7 +60,7 @@ function M.config()
 			},
 		},
 		window = {
-			width = 40,
+			width = 30,
 			auto_expand_width = true,
 			mappings = {
 				-- ["l"] = {

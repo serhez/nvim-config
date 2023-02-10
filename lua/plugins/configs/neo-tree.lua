@@ -105,14 +105,14 @@ function M.config()
 			hijack_netrw_behavior = "open_default",
 			use_libuv_file_watcher = true,
 			filtered_items = {
-				visible = true,
+				visible = false,
 				hide_dotfiles = false,
 				hide_gitignored = true,
 			},
 			never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
 				".DS_Store",
 				"thumbs.db",
-				".git",
+				".git/",
 			},
 			window = {
 				mappings = {

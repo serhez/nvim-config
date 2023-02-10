@@ -54,7 +54,7 @@ function M.config()
 				icon = icons.bar.vertical_left,
 			},
 			buffer_close_icon = icons.cross,
-			modified_icon = icons.small_circle,
+			modified_icon = icons.circle,
 			close_icon = icons.fat_cross,
 			left_trunc_marker = icons.arrow.left_circled,
 			right_trunc_marker = icons.arrow.right_circled,

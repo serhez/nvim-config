@@ -21,7 +21,10 @@ M.brackets = ""
 M.braces = ""
 M.pointy_brackets = ""
 M.shapes = "ﴯ"
+M.empty_square = ""
 M.circle = "●"
+M.small_circle = ""
+M.add = ""
 M.cross = ""
 M.fat_cross = ""
 M.check = ""
@@ -111,12 +114,17 @@ M.diagnostics = {
 }
 
 M.git = {
+	added = M.add,
+	modified = M.small_circle,
 	branch = "",
-	unstaged = "",
-	staged = "✓",
+	unstaged = M.empty_square,
+	staged = M.check,
 	unmerged = "",
-	renamed = "",
+	renamed = M.arrow.right,
 	untracked = "",
+	conflict = "",
+	ignored = "",
+	deleted = M.cross,
 }
 
 M.cmp = {

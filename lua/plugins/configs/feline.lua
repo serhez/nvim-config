@@ -117,6 +117,7 @@ function M.config()
 				opts = {
 					type = "unique",
 					file_readonly_icon = icons.lock .. icons.single_space,
+					file_modified_icon = icons.small_circle,
 				},
 			},
 			hl = "FlnBoldText",

@@ -81,7 +81,10 @@ function M.config()
 			--         return true
 			--     end
 			-- end,
-			offsets = { { filetype = "NvimTree", text = "Explorer", text_align = "center" } },
+			offsets = {
+				{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
+				{ filetype = "neo-tree", text = "Explorer", text_align = "center" },
+			},
 			show_buffer_icons = true, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
 			show_close_icon = false,

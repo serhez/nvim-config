@@ -95,6 +95,7 @@ M.file = {
 	filled = "",
 	page = "",
 	symlink = "",
+	files = "",
 }
 
 M.folder = {
@@ -114,6 +115,9 @@ M.diagnostics = {
 }
 
 M.git = {
+	github = "",
+	gitlab = "",
+	logo = "",
 	added = M.add,
 	modified = M.small_circle,
 	branch = "",

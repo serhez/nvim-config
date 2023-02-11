@@ -31,15 +31,23 @@ function M.config()
 			winbar = true,
 			content_layout = "center",
 			tab_labels = {
-				filesystem = " File",
-				buffers = "➜ Buffs",
-				git_status = " Git",
+				filesystem = icons.folder.default .. " File",
+				buffers = icons.file.files .. " Buffer",
+				git_status = icons.git.github .. " Git",
 				diagnostics = "",
 			},
 		},
 		default_component_configs = {
 			indent = {
 				padding = 1,
+			},
+			icon = {
+				folder_closed = icons.folder.default,
+				folder_open = icons.folder.open,
+				folder_empty = icons.folder.empty,
+				-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
+				-- then these will never be used.
+				default = icons.file.page,
 			},
 			modified = {
 				symbol = icons.git.modified,

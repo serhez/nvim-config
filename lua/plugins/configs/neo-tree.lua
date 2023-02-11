@@ -45,6 +45,7 @@ function M.config()
 				folder_closed = icons.folder.default,
 				folder_open = icons.folder.open,
 				folder_empty = icons.folder.empty,
+				folder_empty_open = icons.folder.empty_open,
 				-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
 				-- then these will never be used.
 				default = icons.file.page,
@@ -166,15 +167,6 @@ function M.config()
 					["gc"] = "git_commit",
 					["gp"] = "git_push",
 					["gg"] = "git_commit_and_push",
-				},
-			},
-		},
-		example = {
-			window = {
-				mappings = {
-					["<cr>"] = "toggle_node",
-					["<C-e>"] = "example_command",
-					["d"] = "show_debug_info",
 				},
 			},
 		},

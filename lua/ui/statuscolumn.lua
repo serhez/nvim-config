@@ -1,3 +1,5 @@
+-- By: Folke
+
 local M = {}
 _G.Status = M
 

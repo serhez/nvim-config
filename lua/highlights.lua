@@ -31,6 +31,7 @@ function M.colors()
 		alt_fg = fromhl("CursorLine").bg,
 		statusline_bg = fromhl("StatusLine").bg,
 		statusline_fg = fromhl("StatusLine").fg,
+		dim = fromhl("Conceal").fg,
 		hint = fromhl("DiagnosticHint").fg or "#5E81AC",
 		info = fromhl("DiagnosticInfo").fg or "#81A1C1",
 		warn = fromhl("DiagnosticWarn").fg or "#EBCB8B",

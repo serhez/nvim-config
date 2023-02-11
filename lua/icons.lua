@@ -76,6 +76,7 @@ M.arrow = {
 	right = "→",
 	down_left = "",
 	right_short = "",
+	right_tall = "",
 	down_short = "",
 	double_right_short = "»",
 	left_circled = "",

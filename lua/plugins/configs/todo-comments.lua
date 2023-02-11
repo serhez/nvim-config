@@ -17,7 +17,7 @@ end
 function M.config()
 	require("todo-comments").setup({
 		signs = true, -- show icons in the signs column
-		sign_priority = 5,
+		sign_priority = 90,
 		-- keywords recognized as todo comments
 		keywords = {
 			FIX = {

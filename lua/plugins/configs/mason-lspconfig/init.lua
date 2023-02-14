@@ -88,7 +88,7 @@ custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- Provide custom settings that should only apply to the following servers
 local enhance_server_opts = {
 	["eslint_d"] = require("plugins.configs.mason-lspconfig.servers.eslint_d"),
-	["sumneko_lua"] = require("plugins.configs.mason-lspconfig.servers.sumneko_lua"),
+	["lua"] = require("plugins.configs.mason-lspconfig.servers.lua"),
 	["volar"] = require("plugins.configs.mason-lspconfig.servers.volar"),
 }
 

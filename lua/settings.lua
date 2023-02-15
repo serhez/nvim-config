@@ -70,6 +70,7 @@ function M.setup()
 	opt.guicursor = "i:ver100-blinkoff700-blinkon700"
 
 	o.splitkeep = "screen"
+	o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 	-- Improve quickfix window UI
 	local fn = vim.fn

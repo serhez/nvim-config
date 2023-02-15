@@ -6,7 +6,7 @@ local M = {
 		"jmbuhr/otter.nvim",
 		"neovim/nvim-lspconfig",
 	},
-	ft = { "rmd", "qmd", "md" },
+	ft = { "markdown", "quarto", "rmd" },
 }
 
 function M.init()

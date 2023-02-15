@@ -9,10 +9,12 @@ local M = {
 		"zbirenbaum/copilot-cmp",
 		"rcarriga/cmp-dap",
 		"petertriho/cmp-git",
+		"kdheepak/cmp-latex-symbols",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"L3MON4D3/LuaSnip",
+		"jc-doyle/cmp-pandoc-references",
 	},
 	event = "InsertEnter",
 }
@@ -78,6 +80,9 @@ function M.config()
 				copilot = "Copilot",
 				path = "Path",
 				luasnip = "Snippet",
+				latex_symbols = "LaTeX",
+				pandoc_references = "Pandoc",
+				otter = "Otter",
 				dap = "DAP",
 				git = "Git",
 			})[entry.source.name]
@@ -143,6 +148,14 @@ function M.config()
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
 			{ name = "copilot" },
 			{ name = "luasnip" },
+			{
+				name = "latex_symbols",
+				option = {
+					strategy = 0, -- mixed
+				},
+			},
+			{ name = "pandoc_references" },
+			{ name = "otter" },
 			{ name = "nvim_lsp" },
 			-- { name = "cmp_tabnine" },
 			{ name = "path" },

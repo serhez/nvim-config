@@ -2,6 +2,7 @@ local mappings = require("mappings")
 
 local M = {
 	"windwp/nvim-spectre",
+	dependencies = { "nvim-lua/plenary.nvim" },
 	cmd = "Spectre",
 }
 
@@ -17,7 +18,8 @@ end
 
 function M.config()
 	require("spectre").setup({
-		live_update = false, -- auto excute search again when you write any file in vim
+		open_cmd = "vnew",
+		live_update = true, -- auto excute search again when you write any file in vim
 	})
 end
 

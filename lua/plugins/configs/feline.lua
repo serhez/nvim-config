@@ -68,7 +68,7 @@ local function diag_of(f, s)
 	end
 end
 
-local function file_path(_, opts)
+local function file_path_provider(_, opts)
 	local winnr = vim.api.nvim_get_current_win()
 	local bufnr = vim.api.nvim_win_get_buf(winnr)
 	local separator = opts.separator or icons.arrow.right_tall
@@ -104,6 +104,20 @@ local function file_path(_, opts)
 	return str
 end
 
+local function venv_provider()
+	local present, swenv = pcall(require, "swenv.api")
+	if not present then
+		return ""
+	end
+
+	local venv = swenv.get_current_venv()
+	if venv == nil or venv.name == "" then
+		return ""
+	end
+
+	return icons.language.python .. icons.single_space .. venv.name
+end
+
 function M.config()
 	-- local navic_present, navic = pcall(require, "nvim-navic")
 
@@ -123,6 +137,11 @@ function M.config()
 				hl = vi_mode_hl,
 				left_sep = { str = icons.double_space, hl = "FlnSep" },
 			},
+		},
+		venv = {
+			provider = "venv",
+			hl = "FlnText",
+			right_sep = { str = icons.single_space, hl = "FlnSep" },
 		},
 		git = {
 			branch = {
@@ -238,6 +257,7 @@ function M.config()
 	local statusline_active = {
 		{ -- left
 			components.vimode.left,
+			components.venv,
 			components.git.branch,
 			components.git.add,
 			components.git.change,
@@ -276,7 +296,8 @@ function M.config()
 		components = { active = statusline_active, inactive = statusline_inactive },
 		highlight_reset_triggers = {},
 		custom_providers = {
-			file_path = file_path,
+			file_path = file_path_provider,
+			venv = venv_provider,
 		},
 		force_inactive = {
 			filetypes = {

@@ -4,15 +4,14 @@ local hls = require("highlights")
 
 local M = {
 	"nvim-telescope/telescope.nvim",
-	dependencies = {
-		"nvim-telescope/telescope-fzf-native.nvim",
-	},
+	dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
 	cmd = { "Telescope" },
 }
 
 function M.init()
 	mappings.register_normal({
-		s = { "<cmd>Telescope grep_string search=<cr>", "Search text" }, -- Shortcut
+		s = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
+		S = { "<cmd>Telescope grep_string search=<cr>", "Search text (fuzzy)" }, -- Shortcut
 		b = {
 			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
 		},
@@ -34,11 +33,8 @@ function M.init()
 			m = { "<cmd>Telescope marks<cr>", "Marks" },
 			M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
 			r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-			t = { "<cmd>Telescope grep_string search=<cr>", "Text" },
-			T = {
-				'<cmd>lua require("telescope.builtin").live_grep({ additional_args = function() return { "--no-ignore", "--hidden", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--glob=!.git/" } end })<cr>',
-				"Text (+ignored)",
-			},
+			t = { "<cmd>Telescope live_grep<cr>", "Text" },
+			T = { "<cmd>Telescope grep_string search=<cr>", "Text (fuzzy)" },
 		},
 		g = {
 			l = {
@@ -83,6 +79,18 @@ function M.config()
 			grep_previewer = previewers.vim_buffer_vimgrep.new,
 			qflist_previewer = previewers.vim_buffer_qflist.new,
 
+			vimgrep_arguments = {
+				"rg",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+				"--hidden",
+				"--trim",
+			},
+
 			mappings = {
 				i = {
 					["<esc>"] = actions.close,
@@ -104,6 +112,13 @@ function M.config()
 				},
 			},
 		},
+
+		pickers = {
+			find_files = {
+				find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+			},
+		},
+
 		extensions = {
 			fzf = {
 				fuzzy = true, -- false will only do exact matching
@@ -114,6 +129,8 @@ function M.config()
 			noice = {},
 		},
 	})
+
+	require("telescope").load_extension("fzf")
 
 	local c = hls.colors()
 	local common_hls = hls.common_hls()

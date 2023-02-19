@@ -1,7 +1,12 @@
 local icons = require("icons")
+local mappings = require("mappings")
 
 local M = {
 	"rcarriga/nvim-dap-ui",
+	dependencies = {
+		"mfussenegger/nvim-dap",
+		"theHamsta/nvim-dap-virtual-text",
+	},
 }
 
 local debug_win = nil
@@ -16,11 +21,11 @@ local function open_in_tab()
 	vim.cmd("tabedit %")
 	debug_win = vim.fn.win_getid()
 	debug_tab = vim.api.nvim_win_get_tabpage(debug_win)
-	require("dap_ui").open()
+	require("dapui").open()
 end
 
 local function close_tab()
-	require("dap_ui").close()
+	require("dapui").close()
 
 	if debug_tab and vim.api.nvim_tabpage_is_valid(debug_tab) then
 		vim.api.nvim_exec("tabclose " .. debug_tab, false)
@@ -30,46 +35,84 @@ local function close_tab()
 	debug_tab = nil
 end
 
+function M.init()
+	mappings.register_normal({
+		d = {
+			name = "Debug",
+			e = { "<cmd>lua require('dapui').eval()<cr>", "Evaluate" },
+		},
+	})
+end
+
 function M.config()
 	local dap, dap_ui = require("dap"), require("dapui")
 
 	dap_ui.setup({
+		expand_lines = vim.fn.has("nvim-0.7"),
+		force_buffers = true,
 		icons = {
 			expanded = icons.arrow.down_short,
 			collapsed = icons.arrow.right_short,
-			circular = icons.arrow.circular,
+			current_frame = icons.arrow.double_right_short,
 		},
 		mappings = {
 			-- Use a table to apply multiple mappings
-			expand = { "<CR>", "<2-LeftMouse>" },
+			expand = { "<CR>", "<2-LeftMouse>", "l" },
 			open = "o",
 			remove = "d",
 			edit = "e",
 			repl = "r",
 			toggle = "t",
 		},
-		expand_lines = vim.fn.has("nvim-0.7"),
 		layouts = {
 			{
 				elements = {
-					-- You can change the order of elements in the sidebar
-					{ id = "scopes", size = 0.35 },
-					{ id = "stacks", size = 0.35 },
-					{ id = "breakpoints", size = 0.15 },
-					{ id = "watches", size = 0.15 },
+					{
+						id = "scopes",
+						size = 0.60,
+					},
+					{
+						id = "breakpoints",
+						size = 0.15,
+					},
+					{
+						id = "stacks",
+						size = 0.15,
+					},
+					{
+						id = "watches",
+						size = 0.10,
+					},
 				},
+				position = "left",
 				size = 0.33,
-				position = "left", -- Can be "left" or "right"
+			},
+			{
+				elements = {
+					{
+						id = "console",
+						size = 1.0,
+					},
+				},
+				position = "right",
+				size = 0.33,
 			},
 		},
 		floating = {
-			max_height = nil, -- These can be integers or a float between 0 and 1.
-			max_width = nil, -- Floats will be treated as percentage of your screen.
+			max_height = 0.8, -- These can be integers or a float between 0 and 1.
+			max_width = 0.8, -- Floats will be treated as percentage of your screen.
+			border = "single",
 			mappings = {
 				close = { "q", "<Esc>" },
 			},
 		},
-		windows = { indent = 1 },
+		controls = {
+			enabled = true,
+			element = "console",
+		},
+		render = {
+			indent = 1,
+		},
 	})
 
 	-- Attach DAP UI to DAP events

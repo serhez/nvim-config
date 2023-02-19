@@ -63,6 +63,10 @@ M.color_palette = ""
 M.key = ""
 M.ruler = "塞"
 
+M.language = {
+	python = "",
+}
+
 M.bar = {
 	vertical_block = "█",
 	vertical_center = "┃",

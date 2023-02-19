@@ -75,6 +75,7 @@ fi
 # Generic installs for all OS's
 npm install -g neovim
 
+# Create nvim conda env
 conda create -n nvim python
 conda activate nvim
 pip install --upgrade pip

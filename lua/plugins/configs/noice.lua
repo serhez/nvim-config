@@ -3,7 +3,6 @@ local hls = require("highlights")
 local M = {
 	"folke/noice.nvim",
 	dependencies = {
-		-- If you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
 	},
 	event = "VeryLazy",
@@ -34,6 +33,9 @@ function M.config()
 					style = "single",
 				},
 				position = { row = 2, col = 2 },
+			},
+			mini = {
+				timeout = 4000, -- Duration between show() and hide(), in milliseconds
 			},
 		},
 

@@ -39,6 +39,9 @@ function M.config()
 			},
 		},
 		default_component_configs = {
+			container = {
+				enable_character_fade = false,
+			},
 			indent = {
 				padding = 1,
 			},
@@ -110,11 +113,17 @@ function M.config()
 				visible = false,
 				hide_dotfiles = false,
 				hide_gitignored = true,
-			},
-			never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-				".DS_Store",
-				"thumbs.db",
-				".git/",
+				hide_by_name = {
+					"node_modules",
+					".git",
+				},
+				always_show = { -- remains visible even if other settings would normally hide it
+					".gitignored",
+				},
+				never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+					".DS_Store",
+					"thumbs.db",
+				},
 			},
 			window = {
 				mappings = {

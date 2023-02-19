@@ -42,11 +42,19 @@ end
 
 function M.config()
 	require("toggleterm").setup({
+		size = function(term)
+			if term.direction == "horizontal" then
+				return 15
+			elseif term.direction == "vertical" then
+				return vim.o.columns * 0.4
+			end
+		end,
 		autochdir = true,
 		shade_terminals = true,
 		float_opts = {
 			border = "single",
 		},
+		direction = "vertical",
 	})
 
 	local Terminal = require("toggleterm.terminal").Terminal

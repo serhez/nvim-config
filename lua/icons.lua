@@ -62,6 +62,7 @@ M.exit = ""
 M.color_palette = ""
 M.key = ""
 M.ruler = "塞"
+M.wifi = ""
 
 M.language = {
 	python = "",

@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"nvim-neo-tree/neo-tree.nvim",
@@ -8,6 +9,7 @@ local M = {
 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 		"MunifTanjim/nui.nvim",
 		"s1n7ax/nvim-window-picker",
+		"miversen33/netman.nvim",
 	},
 	cmd = "Neotree",
 }
@@ -28,6 +30,12 @@ function M.config()
 		popup_border_style = "single",
 		enable_git_status = true,
 		enable_diagnostics = true,
+		sources = {
+			"filesystem",
+			-- "buffers",
+			"git_status",
+			"netman.ui.neo-tree",
+		},
 		source_selector = {
 			winbar = true,
 			content_layout = "center",
@@ -35,7 +43,7 @@ function M.config()
 				filesystem = icons.folder.default .. " File",
 				buffers = icons.file.files .. " Buffer",
 				git_status = icons.git.github .. " Git",
-				diagnostics = "",
+				["netman.ui.neo-tree"] = icons.wifi .. " Remote",
 			},
 		},
 		default_component_configs = {
@@ -173,6 +181,14 @@ function M.config()
 				},
 			},
 		},
+	})
+
+	local c = hls.colors()
+	hls.register_hls({
+		NeoTreeTabActive = { fg = c.fg, bg = c.alt_bg },
+		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
+		NeoTreeTabSeparatorInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
+		NeoTreeTabSeparatorActive = { fg = c.fg, bg = c.alt_bg },
 	})
 end
 

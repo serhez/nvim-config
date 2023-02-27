@@ -32,10 +32,16 @@ function M.colors()
 		statusline_bg = fromhl("StatusLine").bg,
 		statusline_fg = fromhl("StatusLine").fg,
 		dim = fromhl("Conceal").fg,
-		hint = fromhl("DiagnosticHint").fg or "#5E81AC",
-		info = fromhl("DiagnosticInfo").fg or "#81A1C1",
-		warn = fromhl("DiagnosticWarn").fg or "#EBCB8B",
-		error = fromhl("DiagnosticError").fg or "#EC5F67",
+		hint_fg = fromhl("DiagnosticHint").fg,
+		hint_bg = fromhl("DiagnosticHint").bg,
+		info_fg = fromhl("DiagnosticInfo").fg,
+		info_bg = fromhl("DiagnosticInfo").bg,
+		warn_fg = fromhl("DiagnosticWarn").fg,
+		warn_bg = fromhl("DiagnosticWarn").bg,
+		error_fg = fromhl("DiagnosticError").fg,
+		error_bg = fromhl("DiagnosticError").bg,
+		identifier_fg = fromhl("Identifier").fg,
+		identifier_bg = fromhl("Identifier").bg,
 		black = term(0, "#434C5E"),
 		red = term(1, "#EC5F67"),
 		green = term(2, "#8FBCBB"),
@@ -78,7 +84,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-mocha"
+	vim.g.colors_name = "tokyonight-night"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF
@@ -91,10 +97,10 @@ function M.setup()
 		-- Native UI
 		FloatBorder = common_c.border,
 		NormalFloat = { bg = c.statusline_bg },
-		DiagnosticUnderlineError = { undercurl = true, sp = c.error },
-		DiagnosticUnderlineWarn = { undercurl = true, sp = c.warn },
-		DiagnosticUnderlineHint = { undercurl = true, sp = c.hint },
-		DiagnosticUnderlineInfo = { undercurl = true, sp = c.info },
+		DiagnosticUnderlineError = { undercurl = true, sp = c.error_fg },
+		DiagnosticUnderlineWarn = { undercurl = true, sp = c.warn_fg },
+		DiagnosticUnderlineHint = { undercurl = true, sp = c.hint_fg },
+		DiagnosticUnderlineInfo = { undercurl = true, sp = c.info_fg },
 
 		-- End of buffer
 		NonText = { default = true, link = "LineNr" },
@@ -103,10 +109,10 @@ function M.setup()
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },
 		LspFloatWinBorder = common_c.border,
-		DiagnosticFloatingError = { fg = c.error, bg = c.statusline_bg },
-		DiagnosticFloatingWarn = { fg = c.warn, bg = c.statusline_bg },
-		DiagnosticFloatingInfo = { fg = c.info, bg = c.statusline_bg },
-		DiagnosticFloatingHint = { fg = c.hint, bg = c.statusline_bg },
+		DiagnosticFloatingError = { fg = c.error_fg, bg = c.statusline_bg },
+		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
+		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },
+		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
 	}
 
 	M.register_hls(groups)

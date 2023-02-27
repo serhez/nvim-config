@@ -345,10 +345,10 @@ function M.config()
 		FlnCyan = { fg = c.cyan, bg = c.statusline_bg },
 		FlnWhite = { fg = c.white, bg = c.statusline_bg },
 
-		FlnHint = { fg = c.hint, bg = c.statusline_bg },
-		FlnInfo = { fg = c.info, bg = c.statusline_bg },
-		FlnWarn = { fg = c.warn, bg = c.statusline_bg },
-		FlnError = { fg = c.error, bg = c.statusline_bg },
+		FlnHint = { fg = c.hint_fg, bg = c.statusline_bg },
+		FlnInfo = { fg = c.info_fg, bg = c.statusline_bg },
+		FlnWarn = { fg = c.warn_fg, bg = c.statusline_bg },
+		FlnError = { fg = c.error_fg, bg = c.statusline_bg },
 		FlnStatus = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
 
 		FlnText = { fg = c.statusline_fg, bg = c.statusline_bg },

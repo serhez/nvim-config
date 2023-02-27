@@ -1,75 +1,91 @@
 local M = {
-    "catppuccin/nvim",
-    name = "catppuccin",
+	"catppuccin/nvim",
+	name = "catppuccin",
 }
 
 function M.config()
-    require("catppuccin").setup({
-        dim_inactive = {
-            enabled = true,
-            shade = "dark",
-            percentage = 0.15,
-        },
-        transparent_background = true,
-        compile = {
-            enabled = true,
-        },
-        integrations = {
-            treesitter = true,
-            native_lsp = {
-                enabled = true,
-                virtual_text = {
-                    errors = "italic",
-                    hints = "italic",
-                    warnings = "italic",
-                    information = "italic",
-                },
-                underlines = {
-                    errors = "undercurl",
-                    hints = "undercurl",
-                    warnings = "undercurl",
-                    information = "undercurl",
-                },
-            },
-            coc_nvim = false,
-            lsp_trouble = true,
-            cmp = true,
-            lsp_saga = false,
-            gitgutter = false,
-            gitsigns = true,
-            telescope = true,
-            nvimtree = {
-                enabled = true,
-                show_root = false,
-                transparent_panel = true,
-            },
-            neotree = {
-                enabled = false,
-                show_root = false,
-                transparent_panel = false,
-            },
-            which_key = true,
-            indent_blankline = {
-                enabled = true,
-                colored_indent_levels = false,
-            },
-            dashboard = false,
-            neogit = false,
-            vim_sneak = false,
-            fern = false,
-            barbar = false,
-            bufferline = true,
-            markdown = true,
-            lightspeed = false,
-            leap = true,
-            ts_rainbow = false,
-            hop = false,
-            notify = true,
-            telekasten = false,
-            symbols_outline = false,
-            mini = false,
-        },
-    })
+	require("catppuccin").setup({
+		dim_inactive = {
+			enabled = false,
+			shade = "dark",
+			percentage = 0.15,
+		},
+		transparent_background = false,
+		integrations = {
+			aerial = false,
+			barbar = false,
+			beacon = false,
+			cmp = true,
+			coc_nvim = false,
+			dashboard = false,
+			fern = false,
+			fidget = false,
+			gitgutter = false,
+			gitsigns = true,
+			harpoon = true,
+			hop = false,
+			illuminate = true,
+			leap = true,
+			lightspeed = false,
+			lsp_saga = false,
+			lsp_trouble = true,
+			markdown = true,
+			mason = true,
+			mini = false,
+			neogit = false,
+			neotest = true,
+			neotree = true,
+			noice = true,
+			notify = false,
+			nvimtree = false,
+			overseer = false,
+			pounce = false,
+			sandwich = false,
+			semantic_tokens = false,
+			symbols_outline = false,
+			telekasten = false,
+			telescope = true,
+			treesitter = true,
+			treesitter_context = true,
+			ts_rainbow = false,
+			ts_rainbow2 = false,
+			vim_sneak = false,
+			vimwiki = false,
+			which_key = true,
+
+			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
+			barbecue = {
+				dim_dirname = true,
+			},
+			dap = {
+				enabled = true,
+				enable_ui = true,
+			},
+			indent_blankline = {
+				enabled = true,
+				colored_indent_levels = false,
+			},
+			native_lsp = {
+				enabled = true,
+				virtual_text = {
+					errors = { "italic" },
+					hints = { "italic" },
+					warnings = { "italic" },
+					information = { "italic" },
+				},
+				underlines = {
+					errors = { "underline" },
+					hints = { "underline" },
+					warnings = { "underline" },
+					information = { "underline" },
+				},
+			},
+			navic = {
+				enabled = false,
+				custom_bg = "NONE",
+			},
+		},
+	})
 end
 
 return M

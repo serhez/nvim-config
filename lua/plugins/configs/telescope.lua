@@ -52,6 +52,9 @@ function M.config()
 	require("telescope").setup({
 		defaults = {
 			prompt_prefix = icons.single_space .. icons.lupa .. icons.single_space,
+			prompt_title = false,
+			results_title = false,
+			dynamic_preview_title = false,
 			selection_caret = icons.single_space .. icons.arrow.right_upper_curved .. icons.single_space,
 			entry_prefix = icons.triple_space,
 			initial_mode = "insert",

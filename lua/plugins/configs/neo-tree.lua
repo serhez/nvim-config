@@ -185,10 +185,10 @@ function M.config()
 
 	local c = hls.colors()
 	hls.register_hls({
-		NeoTreeTabActive = { fg = c.fg, bg = c.alt_bg },
+		NeoTreeTabActive = { fg = c.statusline_bg, bg = c.statusline_fg },
 		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
 		NeoTreeTabSeparatorInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabSeparatorActive = { fg = c.fg, bg = c.alt_bg },
+		NeoTreeTabSeparatorActive = { fg = c.statusline_fg, bg = c.statusline_fg },
 	})
 end
 

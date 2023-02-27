@@ -2,7 +2,7 @@ local icons = require("icons")
 local hls = require("highlights")
 
 local M = {
-	"feline-nvim/feline.nvim",
+	"freddiehaddad/feline.nvim",
 	event = "VeryLazy",
 }
 

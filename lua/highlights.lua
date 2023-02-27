@@ -65,7 +65,7 @@ end
 -- After the function is called, UI components using these highlight groups must also be reloaded
 function M.setup()
 	-- Catppuccin
-	vim.g.catppuccin_flavour = "mocha"
+	vim.g.catppuccin_flavour = "macchiato"
 
 	-- Github
 	vim.g.github_function_style = "italic"
@@ -78,7 +78,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "tokyonight-storm"
+	vim.g.colors_name = "catppuccin-mocha"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF

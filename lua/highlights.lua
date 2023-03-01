@@ -84,7 +84,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "tokyonight-night"
+	vim.g.colors_name = "onedark"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF

@@ -4,7 +4,7 @@ local M = {
 
 function M.config()
     require("onedark").setup({
-        style = "dark",
+        style = "cool",
     })
 end
 

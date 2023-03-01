@@ -39,6 +39,7 @@ function M.config()
 		source_selector = {
 			winbar = true,
 			content_layout = "center",
+			separator = { left = "", right = "" },
 			tab_labels = {
 				filesystem = icons.folder.default .. " File",
 				buffers = icons.file.files .. " Buffer",
@@ -187,8 +188,6 @@ function M.config()
 	hls.register_hls({
 		NeoTreeTabActive = { fg = c.statusline_bg, bg = c.statusline_fg },
 		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabSeparatorInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabSeparatorActive = { fg = c.statusline_fg, bg = c.statusline_fg },
 	})
 end
 

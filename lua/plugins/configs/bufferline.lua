@@ -47,8 +47,9 @@ function M.config()
 		options = {
 			numbers = "none",
 			indicator = {
-				style = "icon",
-				icon = icons.bar.vertical_left,
+				style = "none",
+				-- style = "underline",
+				-- icon = icons.bar.vertical_left,
 			},
 			buffer_close_icon = icons.cross,
 			modified_icon = icons.circle,
@@ -74,6 +75,7 @@ function M.config()
 			separator_style = { "" }, -- "slant" | "thick" | "thin" | { 'any', 'any' },
 			enforce_regular_tabs = false,
 			always_show_bufferline = true,
+
 			hover = {
 				enabled = true,
 				delay = 200,
@@ -82,8 +84,12 @@ function M.config()
 		},
 	})
 
+	-- local c = hls.colors()
 	hls.register_hls({
-		BufferLineBufferSelected = { default = true, bold = true },
+		BufferLineBufferSelected = { default = true, bold = true, italic = false },
+		-- BufferLineIndicator = { default = true, fg = c.red },
+		-- BufferLineIndicatorSelected = { default = true, fg = c.yellow },
+		-- BufferLineIndicatorVisible = { default = true, fg = c.green },
 	})
 end
 

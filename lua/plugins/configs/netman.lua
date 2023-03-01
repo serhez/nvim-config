@@ -2,7 +2,6 @@ local mappings = require("mappings")
 
 local M = {
 	"miversen33/netman.nvim",
-	branch = "v1.1",
 	cmd = {
 		"Neotree",
 		"NmloadProvider",

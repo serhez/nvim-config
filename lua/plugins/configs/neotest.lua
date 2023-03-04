@@ -45,7 +45,7 @@ end
 function M.config()
 	require("neotest").setup({
 		floating = {
-			border = "single",
+			border = "none",
 		},
 		adapters = {
 			require("neotest-python")({

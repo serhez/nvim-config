@@ -7,18 +7,13 @@ local M = {
 }
 
 function M.init()
-	vim.api.nvim_set_keymap("n", "y", "<Plug>(YankyYank)", { silent = true })
-	vim.api.nvim_set_keymap("x", "y", "<Plug>(YankyYank)", { silent = true })
-	vim.api.nvim_set_keymap("n", "p", "<Plug>(YankyPutAfterFilter)", { silent = true })
-	vim.api.nvim_set_keymap("x", "p", "<Plug>(YankyPutAfterFilter)", { silent = true })
-	vim.api.nvim_set_keymap("n", "P", "<Plug>(YankyPutBeforeFilter)", { silent = true })
-	vim.api.nvim_set_keymap("x", "P", "<Plug>(YankyPutBeforeFilter)", { silent = true })
-	vim.api.nvim_set_keymap("n", "gp", "<Plug>(YankyGPutAfterFilter)", { silent = true })
-	vim.api.nvim_set_keymap("x", "gp", "<Plug>(YankyGPutAfterFilter)", { silent = true })
-	vim.api.nvim_set_keymap("n", "gP", "<Plug>(YankyGPutBeforeFilter)", { silent = true })
-	vim.api.nvim_set_keymap("x", "gP", "<Plug>(YankyGPutBeforeFilter)", { silent = true })
-	vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", { silent = true })
-	vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", { silent = true })
+	vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+	vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+	vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+	vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+	vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+	vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+	vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 	mappings.register_normal({
 		f = {

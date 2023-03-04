@@ -15,6 +15,33 @@ local function lspSymbol(name, icon)
 	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
+---Filters diagnostigs leaving only the most severe per line.
+---@param diagnostics table[]
+---@return table[]
+---@see https://www.reddit.com/r/neovim/comments/mvhfw7/can_built_in_lsp_diagnostics_be_limited_to_show_a/gvd8rb9/
+---@see https://github.com/neovim/neovim/issues/15770
+---@see https://github.com/akinsho/dotfiles/blob/d3526289627b72e4b6a3ddcbfe0411b5217a4a88/.config/nvim/plugin/lsp.lua#L83-L132
+---@see `:h diagnostic-handlers`
+local function filter_diagnostics(diagnostics)
+	if not diagnostics then
+		return {}
+	end
+
+	-- find the "worst" diagnostic per line
+	local most_severe = {}
+	for _, cur in pairs(diagnostics) do
+		local max = most_severe[cur.lnum]
+
+		-- higher severity has lower value (`:h diagnostic-severity`)
+		if not max or cur.severity < max.severity then
+			most_severe[cur.lnum] = cur
+		end
+	end
+
+	-- return list of diagnostics
+	return vim.tbl_values(most_severe)
+end
+
 local function custom_attach(client, bufnr)
 	local present, navic = pcall(require, "nvim-navic")
 	if present and client.server_capabilities.documentSymbolProvider then
@@ -61,7 +88,7 @@ custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- Provide custom settings that should only apply to the following servers
 local enhance_server_opts = {
 	["eslint_d"] = require("plugins.configs.mason-lspconfig.servers.eslint_d"),
-	["sumneko_lua"] = require("plugins.configs.mason-lspconfig.servers.sumneko_lua"),
+	["lua_ls"] = require("plugins.configs.mason-lspconfig.servers.lua_ls"),
 	["volar"] = require("plugins.configs.mason-lspconfig.servers.volar"),
 }
 
@@ -80,7 +107,7 @@ function M.config()
 		float = {
 			show_header = true,
 			source = true,
-			border = "single",
+			border = "none",
 			focusable = false,
 		},
 		update_in_insert = false,
@@ -88,10 +115,10 @@ function M.config()
 	})
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "single",
+		border = "none",
 	})
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "single",
+		border = "none",
 	})
 
 	-- Suppress error messages from lang servers
@@ -127,6 +154,34 @@ function M.config()
 			vim.cmd([[ do User LspAttachBuffers ]])
 		end,
 	})
+
+	-- Sign column
+
+	-- Custom namespace
+	local ns = vim.api.nvim_create_namespace("severe-diagnostics")
+
+	-- Reference to the original handler
+	local orig_signs_handler = vim.diagnostic.handlers.signs
+
+	-- Overriden diagnostics signs helper to only show the single most relevant sign
+	---@see `:h diagnostic-handlers`
+	vim.diagnostic.handlers.signs = {
+		show = function(_, bufnr, _, opts)
+			-- get all diagnostics from the whole buffer rather
+			-- than just the diagnostics passed to the handler
+			local diagnostics = vim.diagnostic.get(bufnr)
+
+			local filtered_diagnostics = filter_diagnostics(diagnostics)
+
+			-- pass the filtered diagnostics (with the
+			-- custom namespace) to the original handler
+			orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+		end,
+
+		hide = function(_, bufnr)
+			orig_signs_handler.hide(ns, bufnr)
+		end,
+	}
 end
 
 return M

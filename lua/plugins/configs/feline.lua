@@ -2,7 +2,7 @@ local icons = require("icons")
 local hls = require("highlights")
 
 local M = {
-	"feline-nvim/feline.nvim",
+	"freddiehaddad/feline.nvim",
 	event = "VeryLazy",
 }
 
@@ -35,7 +35,7 @@ local function get_navic_location()
 	if location == "" then
 		return location
 	else
-		return icons.single_space .. icons.arrow.right_short .. icons.single_space .. location
+		return icons.single_space .. icons.arrow.right_tall .. icons.single_space .. location
 	end
 end
 
@@ -68,6 +68,56 @@ local function diag_of(f, s)
 	end
 end
 
+local function file_path_provider(_, opts)
+	local winnr = vim.api.nvim_get_current_win()
+	local bufnr = vim.api.nvim_win_get_buf(winnr)
+	local separator = opts.separator or icons.arrow.right_tall
+
+	if vim.api.nvim_buf_get_name(bufnr) == "" then
+		return ""
+	end
+
+	local filename = vim.api.nvim_buf_get_name(bufnr)
+	local dirname = vim.fn.fnamemodify(filename, ":~:.:h")
+
+	local str = ""
+
+	if dirname == "." then
+		return str
+	end
+	if dirname:sub(1, 1) == "/" then
+		str = str .. "/"
+	end
+
+	local protocol_start_index = dirname:find("://")
+	if protocol_start_index ~= nil then
+		local protocol = dirname:sub(1, protocol_start_index + 2)
+		str = str .. protocol
+		dirname = dirname:sub(protocol_start_index + 3)
+	end
+
+	local dirs = vim.split(dirname, "/", { trimempty = true })
+	for _, dir in ipairs(dirs) do
+		str = str .. dir .. " " .. separator .. " "
+	end
+
+	return str
+end
+
+local function venv_provider()
+	local present, swenv = pcall(require, "swenv.api")
+	if not present then
+		return ""
+	end
+
+	local venv = swenv.get_current_venv()
+	if venv == nil or venv.name == "" then
+		return ""
+	end
+
+	return icons.language.python .. icons.single_space .. venv.name
+end
+
 function M.config()
 	-- local navic_present, navic = pcall(require, "nvim-navic")
 
@@ -87,6 +137,11 @@ function M.config()
 				hl = vi_mode_hl,
 				left_sep = { str = icons.double_space, hl = "FlnSep" },
 			},
+		},
+		venv = {
+			provider = "venv",
+			hl = "FlnText",
+			right_sep = { str = icons.single_space, hl = "FlnSep" },
 		},
 		git = {
 			branch = {
@@ -111,11 +166,23 @@ function M.config()
 				hl = "FlnRed",
 			},
 		},
-		fileinfo = {
+		file_path = {
+			provider = {
+				name = "file_path",
+				opts = {
+					separator = icons.arrow.right_tall,
+				},
+			},
+			hl = "FlnDimText",
+			left_sep = { hl = "FlnSep" },
+			right_sep = { hl = "FlnSep" },
+		},
+		file_info = {
 			provider = {
 				name = "file_info",
 				opts = {
-					type = "unique",
+					type = "base-only",
+					path_sep = " " .. icons.arrow.right_tall .. " ",
 					file_readonly_icon = icons.lock .. icons.single_space,
 					file_modified_icon = icons.small_circle,
 				},
@@ -161,7 +228,7 @@ function M.config()
 				hl = "FlnText",
 			},
 		},
-		in_fileinfo = {
+		in_file_info = {
 			provider = {
 				name = "file_info",
 				opts = {
@@ -190,13 +257,15 @@ function M.config()
 	local statusline_active = {
 		{ -- left
 			components.vimode.left,
+			components.venv,
 			components.git.branch,
 			components.git.add,
 			components.git.change,
 			components.git.remove,
 		},
 		{ -- center
-			components.fileinfo,
+			components.file_path,
+			components.file_info,
 		},
 		{ -- right
 			components.diagnostics.error,
@@ -215,17 +284,21 @@ function M.config()
 
 	local statusline_inactive = {
 		{ components.default }, -- left
-		{ components.in_fileinfo }, -- center
+		{ components.in_file_info }, -- center
 		{ components.default }, -- right
 	}
 
 	-- local winbar_active = {
-	--     { c.fileinfo },
+	--     { c.file_info },
 	-- }
 
 	require("feline").setup({
 		components = { active = statusline_active, inactive = statusline_inactive },
 		highlight_reset_triggers = {},
+		custom_providers = {
+			file_path = file_path_provider,
+			venv = venv_provider,
+		},
 		force_inactive = {
 			filetypes = {
 				"help",
@@ -272,13 +345,14 @@ function M.config()
 		FlnCyan = { fg = c.cyan, bg = c.statusline_bg },
 		FlnWhite = { fg = c.white, bg = c.statusline_bg },
 
-		FlnHint = { fg = c.hint, bg = c.statusline_bg },
-		FlnInfo = { fg = c.info, bg = c.statusline_bg },
-		FlnWarn = { fg = c.warn, bg = c.statusline_bg },
-		FlnError = { fg = c.error, bg = c.statusline_bg },
+		FlnHint = { fg = c.hint_fg, bg = c.statusline_bg },
+		FlnInfo = { fg = c.info_fg, bg = c.statusline_bg },
+		FlnWarn = { fg = c.warn_fg, bg = c.statusline_bg },
+		FlnError = { fg = c.error_fg, bg = c.statusline_bg },
 		FlnStatus = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
 
 		FlnText = { fg = c.statusline_fg, bg = c.statusline_bg },
+		FlnDimText = { fg = c.dim, bg = c.statusline_bg, italic = true },
 		FlnBoldText = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
 		FlnSep = { fg = c.statusline_fg, bg = c.statusline_bg },
 		FlnGitBranch = { fg = c.statusline_fg, bg = c.statusline_bg },

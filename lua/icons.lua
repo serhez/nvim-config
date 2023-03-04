@@ -4,7 +4,7 @@ M.none = ""
 M.single_space = " "
 M.double_space = "  "
 M.triple_space = "   "
-M.lupa = ""
+M.lupa = ""
 M.lock = ""
 M.menu = "☰"
 M.line_number = ""
@@ -17,9 +17,11 @@ M.fire = ""
 M.fast = ""
 M.message = ""
 M.circled_check = "﫠"
-M.brackets = ""
+M.brackets = ""
 M.braces = ""
 M.pointy_brackets = ""
+M.models = "⊨"
+M.empty_set = "∅"
 M.shapes = "ﴯ"
 M.empty_square = ""
 M.circle = "●"
@@ -33,6 +35,7 @@ M.cube = ""
 M.prism = ""
 M.bracketed_prism = ""
 M.box = ""
+M.package = ""
 M.settings = ""
 M.tool = ""
 M.func = ""
@@ -62,12 +65,23 @@ M.exit = ""
 M.color_palette = ""
 M.key = ""
 M.ruler = "塞"
+M.wifi = ""
+M.question = ""
+M.filter = ""
+
+M.language = {
+	python = "",
+	lua = "",
+}
 
 M.bar = {
 	vertical_block = "█",
 	vertical_center = "┃",
 	vertical_center_thin = "│",
 	vertical_left = "▎",
+	vertical_left_thin = "▏",
+	vertical_right = "▎",
+	vertical_right_thin = "▕",
 	upper_right_corner = "┐",
 	lower_left_corner = "└",
 }
@@ -76,8 +90,12 @@ M.arrow = {
 	right = "→",
 	down_left = "",
 	right_short = "",
+	right_short_thick = "",
+	right_tall = "",
 	down_short = "",
 	double_right_short = "»",
+	double_up_short = "",
+	double_down_short = "",
 	left_circled = "",
 	right_circled = "",
 	right_down_curved = "⤷",
@@ -87,7 +105,7 @@ M.arrow = {
 
 M.greek = {
 	alpha = "",
-	pi = "",
+	pi = "",
 }
 
 M.file = {
@@ -95,6 +113,7 @@ M.file = {
 	filled = "",
 	page = "",
 	symlink = "",
+	files = "",
 }
 
 M.folder = {
@@ -114,6 +133,9 @@ M.diagnostics = {
 }
 
 M.git = {
+	github = "",
+	gitlab = "",
+	logo = "",
 	added = M.add,
 	modified = M.small_circle,
 	branch = "",
@@ -127,7 +149,7 @@ M.git = {
 	deleted = M.cross,
 }
 
-M.cmp = {
+M.lsp = {
 	Text = M.text,
 	Method = M.cube,
 	Function = M.func,
@@ -153,11 +175,24 @@ M.cmp = {
 	Event = M.filled_lightning,
 	Operator = M.plus_minus,
 	TypeParameter = M.letter,
+	Namespace = M.braces,
+	Package = M.package,
+	String = M.text,
+	Boolean = M.models,
+	Array = M.brackets,
+	Object = M.shapes,
+	Component = M.pointy_brackets,
+	Fragment = M.pointy_brackets,
+	Null = M.empty_set,
+	Number = "#",
 	Copilot = "",
 }
 
-M.borders = {
+M.border = {
 	straight = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+	straight_bqf = { "│", "│", "─", "─", "┌", "┐", "└", "┘", "│" },
+	empty = { " ", " ", " ", " ", " ", " ", " ", " " },
+	none = { "", "", "", "", "", "", "", "" },
 }
 
 return M

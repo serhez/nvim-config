@@ -1,3 +1,5 @@
+local mappings = require("mappings")
+
 local M = {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
@@ -10,6 +12,14 @@ local M = {
 	event = "BufReadPost",
 }
 
+function M.init()
+	mappings.register_normal({
+		i = {
+			t = { "<cmd>TSUpdate<cr>", "Update treesitter" },
+		},
+	})
+end
+
 function M.config()
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = "all",
@@ -19,9 +29,9 @@ function M.config()
 			enable = true,
 			use_languagetree = true,
 		},
-		-- indent = {enable = true, disable = {"python", "html", "javascript"}}, -- FIX: LSP indenting seems to be broken
-		indent = { enable = false },
-		-- autotag = {enable = true},
+
+		indent = { enable = true },
+		autotag = { enable = true },
 
 		context_commentstring = {
 			enable = true,
@@ -92,10 +102,6 @@ function M.config()
 				["."] = "textsubjects-smart",
 				[";"] = "textsubjects-container-outer",
 			},
-		},
-
-		autotag = {
-			enable = true,
 		},
 	})
 end

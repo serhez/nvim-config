@@ -1,4 +1,5 @@
 local hls = require("highlights")
+local icons = require("icons")
 
 local M = {
 	"kevinhwang91/nvim-bqf",
@@ -9,7 +10,7 @@ function M.config()
 	require("bqf").setup({
 		auto_resize_height = true,
 		preview = {
-			border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+			border_chars = icons.border.straight_bqf,
 			wrap = false,
 			should_preview_cb = function(bufnr, _)
 				local ret = true
@@ -30,7 +31,7 @@ function M.config()
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({
-		BqfPreviewBorder = common_hls.border,
+		BqfPreviewBorder = common_hls.no_border_statusline,
 		BqfPreviewFloat = { bg = c.statusline_bg },
 	})
 end

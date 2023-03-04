@@ -27,7 +27,7 @@ function M.setup()
 			path = "~/dev",
 		},
 		ui = {
-			border = "single",
+			border = "none",
 		},
 		performance = {
 			rtp = {
@@ -57,7 +57,7 @@ function M.setup()
 
 	mappings.register_normal({
 		i = {
-			p = { "<cmd>Lazy<cr>", "Plugins panel" },
+			p = { "<cmd>Lazy<cr>", "Plugins" },
 		},
 	})
 end

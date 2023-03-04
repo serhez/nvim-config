@@ -1,4 +1,5 @@
 local hls = require("highlights")
+local icons = require("icons")
 
 local M = {
 	"hrsh7th/nvim-cmp",
@@ -9,10 +10,12 @@ local M = {
 		"zbirenbaum/copilot-cmp",
 		"rcarriga/cmp-dap",
 		"petertriho/cmp-git",
+		"kdheepak/cmp-latex-symbols",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"L3MON4D3/LuaSnip",
+		"jc-doyle/cmp-pandoc-references",
 	},
 	event = "InsertEnter",
 }
@@ -64,24 +67,33 @@ function M.config()
 	}
 
 	local normal_formatting = {
-		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			local icons = require("icons").cmp
-			vim_item.kind = string.format("%s", icons[vim_item.kind])
+		-- fields = { "kind", "abbr", "menu" },
+		-- format = function(entry, vim_item)
+		-- 	local icons = require("icons").lsp
+		-- 	vim_item.kind = string.format("%s", icons[vim_item.kind])
+		-- 	vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
+		-- 	vim_item.menu = ({
+		-- 		cmdline_history = "History",
+		-- 		cmdline = "Command",
+		-- 		buffer = "Buffer",
+		-- 		nvim_lsp = "LSP",
+		-- 		cmp_tabnine = "Tabnine",
+		-- 		copilot = "Copilot",
+		-- 		path = "Path",
+		-- 		luasnip = "Snippet",
+		-- 		latex_symbols = "LaTeX",
+		-- 		pandoc_references = "Pandoc",
+		-- 		otter = "Otter",
+		-- 		dap = "DAP",
+		-- 		git = "Git",
+		-- 	})[entry.source.name]
+		--
+		-- 	return vim_item
+		-- end,
+		format = function(_, vim_item)
+			local icons = require("icons").lsp
+			vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 			vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
-			vim_item.menu = ({
-				cmdline_history = "History",
-				cmdline = "Command",
-				buffer = "Buffer",
-				nvim_lsp = "LSP",
-				cmp_tabnine = "Tabnine",
-				copilot = "Copilot",
-				path = "Path",
-				luasnip = "Snippet",
-				dap = "DAP",
-				git = "Git",
-			})[entry.source.name]
-
 			return vim_item
 		end,
 	}
@@ -89,10 +101,11 @@ function M.config()
 	local normal_window = {
 		-- https://github.com/hrsh7th/nvim-cmp/issues/1080
 		completion = {
-			border = "none",
+			border = icons.border.none,
+			scrollbar = false,
 		},
 		documentation = {
-			border = "single",
+			border = icons.border.empty,
 		},
 	}
 
@@ -143,6 +156,14 @@ function M.config()
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
 			{ name = "copilot" },
 			{ name = "luasnip" },
+			{
+				name = "latex_symbols",
+				option = {
+					strategy = 0, -- mixed
+				},
+			},
+			{ name = "pandoc_references" },
+			{ name = "otter" },
 			{ name = "nvim_lsp" },
 			-- { name = "cmp_tabnine" },
 			{ name = "path" },
@@ -226,8 +247,10 @@ function M.config()
 	-- 	end,
 	-- })
 
+	local common_hls = hls.common_hls()
 	hls.register_hls({
 		CmpItemMenu = { default = true, italic = true },
+		CmpDocumentationBorder = common_hls.no_border_dim,
 	})
 end
 

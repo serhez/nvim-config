@@ -60,24 +60,6 @@ function M.config()
 		numhl = "",
 	})
 
-	dap.adapters.python = {
-		type = "executable",
-		command = "/usr/bin/python",
-		args = { "-m", "debugpy.adapter" },
-	}
-
-	dap.configurations.python = {
-		{
-			type = "python",
-			request = "launch",
-			name = "Launch file",
-			program = "${file}",
-			pythonPath = function()
-				return "/usr/bin/python"
-			end,
-		},
-	}
-
 	dap.adapters.cpp = {
 		type = "executable",
 		attach = {

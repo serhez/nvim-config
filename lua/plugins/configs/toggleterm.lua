@@ -52,7 +52,7 @@ function M.config()
 		autochdir = true,
 		shade_terminals = true,
 		float_opts = {
-			border = "single",
+			border = "none",
 		},
 		direction = "vertical",
 	})

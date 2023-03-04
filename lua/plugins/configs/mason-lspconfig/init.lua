@@ -107,7 +107,7 @@ function M.config()
 		float = {
 			show_header = true,
 			source = true,
-			border = "single",
+			border = "none",
 			focusable = false,
 		},
 		update_in_insert = false,
@@ -115,10 +115,10 @@ function M.config()
 	})
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "single",
+		border = "none",
 	})
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "single",
+		border = "none",
 	})
 
 	-- Suppress error messages from lang servers

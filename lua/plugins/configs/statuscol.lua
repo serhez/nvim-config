@@ -15,6 +15,7 @@ function M.config()
 		ft_ignore = {
 			"neo-tree",
 			"nvim-tree",
+			"Outline",
 			"spectre_panel",
 			"toggleterm",
 			"dapui_scopes",

@@ -101,7 +101,7 @@ function M.config()
 		floating = {
 			max_height = 0.8, -- These can be integers or a float between 0 and 1.
 			max_width = 0.8, -- Floats will be treated as percentage of your screen.
-			border = "single",
+			border = "none",
 			mappings = {
 				close = { "q", "<Esc>" },
 			},

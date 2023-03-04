@@ -107,7 +107,7 @@ function M.config()
 			group = icons.folder.open .. icons.single_space, -- symbol prepended to a group
 		},
 		window = {
-			border = "single", -- none, single, double, shadow
+			border = "none", -- none, single, double, shadow
 			position = "bottom", -- bottom, top
 			margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
 			padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
@@ -119,15 +119,17 @@ function M.config()
 			align = "center", -- align columns left, center or right
 		},
 		hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-		show_help = true, -- show help message on the command line when the popup is visible
+		show_help = false, -- show help message on the command line when the popup is visible
 	})
 
 	mappings.register_normal(normal_mappings)
 	mappings.register_visual(visual_mappings)
 
 	local c = hls.colors()
+	local common_hls = hls.common_hls()
 	hls.register_hls({
-		WhichKeyFloat = { bg = c.statusline_bg },
+		WhichKeyFloat = { fg = c.statusline_fg, bg = c.statusline_bg },
+		WhichKeyBorder = common_hls.no_border_statusline,
 	})
 end
 

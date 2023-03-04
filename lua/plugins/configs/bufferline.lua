@@ -84,9 +84,9 @@ function M.config()
 		},
 	})
 
-	-- local c = hls.colors()
+	local c = hls.colors()
 	hls.register_hls({
-		BufferLineBufferSelected = { default = true, bold = true, italic = false },
+		BufferLineBufferSelected = { default = true, bg = c.alt_bg, bold = true, italic = false },
 		-- BufferLineIndicator = { default = true, fg = c.red },
 		-- BufferLineIndicatorSelected = { default = true, fg = c.yellow },
 		-- BufferLineIndicatorVisible = { default = true, fg = c.green },

@@ -51,7 +51,7 @@ function M.config()
 			ts_rainbow2 = false,
 			vim_sneak = false,
 			vimwiki = false,
-			which_key = true,
+			which_key = false,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
 			barbecue = {

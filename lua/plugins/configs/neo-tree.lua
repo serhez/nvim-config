@@ -30,16 +30,21 @@ function M.config()
 		popup_border_style = "single",
 		enable_git_status = true,
 		enable_diagnostics = true,
+
 		sources = {
 			"filesystem",
 			-- "buffers",
 			"git_status",
 			"netman.ui.neo-tree",
 		},
+
 		source_selector = {
 			winbar = true,
 			content_layout = "center",
-			separator = { left = "", right = "" },
+			separator = {
+				left = icons.bar.vertical_left_thin,
+				right = icons.bar.vertical_right_thin,
+			},
 			tab_labels = {
 				filesystem = icons.folder.default .. " File",
 				buffers = icons.file.files .. " Buffer",
@@ -47,12 +52,14 @@ function M.config()
 				["netman.ui.neo-tree"] = icons.wifi .. " Remote",
 			},
 		},
+
 		default_component_configs = {
 			container = {
 				enable_character_fade = false,
 			},
 			indent = {
 				padding = 1,
+				with_markers = false,
 			},
 			icon = {
 				folder_closed = icons.folder.default,
@@ -80,6 +87,7 @@ function M.config()
 				},
 			},
 		},
+
 		window = {
 			width = 30,
 			auto_expand_width = true,
@@ -114,6 +122,7 @@ function M.config()
 				[">"] = "next_source",
 			},
 		},
+
 		filesystem = {
 			follow_current_file = true,
 			hijack_netrw_behavior = "open_default",
@@ -148,6 +157,7 @@ function M.config()
 				},
 			},
 		},
+
 		event_handlers = {
 			{
 				event = "neo_tree_buffer_enter",
@@ -156,6 +166,7 @@ function M.config()
 				end,
 			},
 		},
+
 		buffers = {
 			bind_to_cwd = true,
 			follow_current_file = true, -- This will find and focus the file in the active buffer every time
@@ -169,6 +180,7 @@ function M.config()
 				},
 			},
 		},
+
 		git_status = {
 			window = {
 				mappings = {
@@ -186,8 +198,11 @@ function M.config()
 
 	local c = hls.colors()
 	hls.register_hls({
-		NeoTreeTabActive = { fg = c.statusline_bg, bg = c.statusline_fg },
-		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
+		NeoTreeNormal = { fg = c.statusline_fg, bg = c.statusline_bg },
+		NeoTreeTabActive = { fg = c.fg, bg = c.alt_bg },
+		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.bg },
+		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.alt_bg },
+		NeoTreeTabSeparatorInactive = { fg = c.statusline_bg, bg = c.bg },
 	})
 end
 

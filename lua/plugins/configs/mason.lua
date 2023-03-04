@@ -7,7 +7,7 @@ local M = {
 function M.init()
 	mappings.register_normal({
 		i = {
-			t = { "<cmd>Mason<cr>", "Tools panel" },
+			s = { "<cmd>Mason<cr>", "Servers" },
 		},
 	})
 end
@@ -16,7 +16,7 @@ function M.config()
 	require("mason").setup({
 		ui = {
 			-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-			border = "single",
+			border = "none",
 		},
 	})
 end

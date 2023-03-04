@@ -7,14 +7,6 @@ local M = {
 	event = "VeryLazy",
 }
 
-function M.init()
-	mappings.register_normal({
-		i = {
-			u = { "<cmd>MasonToolsUpdate<cr>", "Update tools" },
-		},
-	})
-end
-
 function M.config()
 	require("mason-tool-installer").setup({
 		-- A list of all tools you want to ensure are installed upon

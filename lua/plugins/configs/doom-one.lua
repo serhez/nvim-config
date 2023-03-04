@@ -28,7 +28,7 @@ function M.config()
 	vim.g.doom_one_plugin_nvim_tree = false
 	vim.g.doom_one_plugin_dashboard = false
 	vim.g.doom_one_plugin_startify = false
-	vim.g.doom_one_plugin_whichkey = true
+	vim.g.doom_one_plugin_whichkey = false
 	vim.g.doom_one_plugin_indent_blankline = true
 	vim.g.doom_one_plugin_vim_illuminate = true
 	vim.g.doom_one_plugin_lspsaga = false

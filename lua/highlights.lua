@@ -32,6 +32,7 @@ function M.colors()
 		statusline_bg = M.fromhl("StatusLine").bg,
 		statusline_fg = M.fromhl("StatusLine").fg,
 		dim = M.fromhl("Conceal").fg,
+		line_nr = M.fromhl("LineNr").fg,
 		hint_fg = M.fromhl("DiagnosticHint").fg,
 		hint_bg = M.fromhl("DiagnosticHint").bg,
 		info_fg = M.fromhl("DiagnosticInfo").fg,
@@ -57,9 +58,9 @@ function M.common_hls()
 	local colors = M.colors()
 
 	return {
-		border_dim = { fg = colors.fg, bg = colors.dim },
-		border_statusline = { fg = colors.fg, bg = colors.statusline_bg },
-		border_alt = { fg = colors.fg, bg = colors.alt_bg },
+		border_dim = { fg = colors.line_nr, bg = colors.dim },
+		border_statusline = { fg = colors.line_nr, bg = colors.statusline_bg },
+		border_alt = { fg = colors.line_nr, bg = colors.alt_bg },
 		no_border_dim = { fg = colors.dim, bg = colors.dim },
 		no_border_statusline = { fg = colors.statusline_bg, bg = colors.statusline_bg },
 		no_border_alt = { fg = colors.alt_bg, bg = colors.alt_bg },
@@ -95,12 +96,11 @@ function M.setup()
 	-- Remove the tilde (~) after EOF
 	vim.cmd([[let &fcs='eob: ']])
 
-	local common_c = M.common_hls()
+	local common_hls = M.common_hls()
 	local c = M.colors()
-
 	local groups = {
 		-- Native UI
-		FloatBorder = common_c.border,
+		FloatBorder = common_hls.no_border_statusline,
 		NormalFloat = { bg = c.statusline_bg },
 		DiagnosticUnderlineError = { undercurl = true, sp = c.error_fg },
 		DiagnosticUnderlineWarn = { undercurl = true, sp = c.warn_fg },
@@ -113,7 +113,7 @@ function M.setup()
 
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },
-		LspFloatWinBorder = common_c.border,
+		LspFloatWinBorder = common_hls.no_border_statusline,
 		DiagnosticFloatingError = { fg = c.error_fg, bg = c.statusline_bg },
 		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
 		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },

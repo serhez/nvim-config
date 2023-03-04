@@ -105,17 +105,17 @@ local function file_path_provider(_, opts)
 end
 
 local function venv_provider()
-	local present, swenv = pcall(require, "swenv.api")
+	local present, venv = pcall(require, "venv")
 	if not present then
 		return ""
 	end
 
-	local venv = swenv.get_current_venv()
-	if venv == nil or venv.name == "" then
+	local current_venv = venv.get_current_venv()
+	if current_venv == nil or current_venv.name == "" then
 		return ""
 	end
 
-	return icons.language.python .. icons.single_space .. venv.name
+	return icons.language.python .. " " .. current_venv.name .. " "
 end
 
 function M.config()

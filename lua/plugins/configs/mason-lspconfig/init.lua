@@ -105,20 +105,31 @@ function M.config()
 			severity = vim.diagnostic.severity.WARN,
 		},
 		float = {
-			show_header = true,
-			source = true,
-			border = "none",
-			focusable = false,
+			focusable = true,
+			style = "minimal",
+			border = "single",
+			source = "always",
+			header = "",
+			prefix = "",
+			format = function(d)
+				local code = d.code or (d.user_data and d.user_data.lsp.code)
+				if code then
+					return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+				end
+				return d.message
+			end,
 		},
 		update_in_insert = false,
 		severity_sort = true,
 	})
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "none",
+		border = "single",
+		position = { row = 2, col = 2 },
 	})
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "none",
+		border = "single",
+		position = { row = 2, col = 2 },
 	})
 
 	-- Suppress error messages from lang servers

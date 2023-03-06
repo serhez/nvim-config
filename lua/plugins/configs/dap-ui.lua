@@ -69,10 +69,10 @@ function M.config()
 				elements = {
 					{
 						id = "scopes",
-						size = 0.60,
+						size = 0.55,
 					},
 					{
-						id = "breakpoints",
+						id = "watches",
 						size = 0.15,
 					},
 					{
@@ -80,8 +80,8 @@ function M.config()
 						size = 0.15,
 					},
 					{
-						id = "watches",
-						size = 0.10,
+						id = "breakpoints",
+						size = 0.15,
 					},
 				},
 				position = "left",

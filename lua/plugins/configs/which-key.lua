@@ -8,7 +8,6 @@ local M = {
 }
 
 local normal_mappings = {
-	q = { "<cmd>bwipeout<cr>", "Close buffer" }, -- Shortcut
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
 	a = {
 		name = "Assistant",
@@ -17,9 +16,6 @@ local normal_mappings = {
 		name = "Buffers",
 		c = {
 			name = "Close",
-			a = { "<cmd>%bwipeout<cr>", "All" },
-			c = { "<cmd>bwipeout<cr>", "Current" },
-			o = { '<cmd>%bdelete | e # | normal `"<cr>', "Others" },
 		},
 		g = {
 			name = "Group",

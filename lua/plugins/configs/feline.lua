@@ -115,7 +115,7 @@ local function venv_provider()
 		return ""
 	end
 
-	return icons.language.python .. " " .. current_venv.name .. " "
+	return icons.tool.venv .. " " .. current_venv.name .. " "
 end
 
 function M.config()

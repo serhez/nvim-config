@@ -4,6 +4,9 @@ local hls = require("highlights")
 
 local M = {
 	"akinsho/bufferline.nvim",
+	dependencies = {
+		"famiu/bufdelete.nvim",
+	},
 	event = "VeryLazy",
 }
 
@@ -46,6 +49,11 @@ function M.config()
 	require("bufferline").setup({
 		options = {
 			numbers = "none",
+
+			-- These two commands depend on the bufdelete.nvim plugin
+			close_command = "Bwipeout! %d",
+			right_mouse_command = "Bwipeout! %d",
+
 			indicator = {
 				style = "none",
 				-- style = "underline",

@@ -105,7 +105,7 @@ function M.config()
 			severity = vim.diagnostic.severity.WARN,
 		},
 		float = {
-			focusable = true,
+			focusable = false,
 			style = "minimal",
 			border = "single",
 			source = "always",

@@ -69,9 +69,19 @@ M.wifi = ""
 M.question = ""
 M.filter = ""
 
+M.geometry = {
+	shadow_cube = "",
+	cube = "",
+}
+
 M.language = {
 	python = "",
 	lua = "",
+}
+
+M.tool = {
+	docker = "󰡨",
+	venv = M.geometry.cube,
 }
 
 M.bar = {

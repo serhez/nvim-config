@@ -16,7 +16,7 @@ end
 
 function M.config()
 	require("symbols-outline").setup({
-		show_guides = false,
+		show_guides = true,
 		auto_preview = false,
 		width = 25,
 		show_numbers = true,
@@ -38,7 +38,6 @@ function M.config()
 			unfold_all = "E",
 			fold_reset = "R",
 		},
-		lsp_blacklist = {},
 		symbol_blacklist = {
 			"Variable",
 			"String",

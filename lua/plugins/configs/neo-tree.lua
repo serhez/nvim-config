@@ -96,7 +96,7 @@ function M.config()
 				["<cr>"] = "open_with_window_picker",
 				["l"] = "open_with_window_picker",
 				["<esc>"] = "revert_preview",
-				["<tab>"] = { "toggle_preview", config = { use_float = true } },
+				["K"] = { "toggle_preview", config = { use_float = true } },
 				["f"] = "focus_preview",
 				["S"] = "split_with_window_picker",
 				["s"] = "vsplit_with_window_picker",

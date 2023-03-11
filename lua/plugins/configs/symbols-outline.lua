@@ -19,7 +19,7 @@ function M.config()
 		show_guides = false,
 		auto_preview = false,
 		width = 25,
-		auto_close = true,
+		show_numbers = true,
 		preview_bg_highlight = "Pmenu",
 		auto_unfold_hover = true,
 		fold_markers = { icons.arrow.right_short, icons.arrow.down_short },

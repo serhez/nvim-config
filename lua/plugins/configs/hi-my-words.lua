@@ -29,23 +29,23 @@ function M.config()
 		hl_grps = {
 			{
 				"HiMyWordsHLG0",
-				{ fg = c.fg, bg = c.info_fg, bold = true, italic = false },
+				{ fg = c.bg, bg = c.info_fg, bold = true, italic = false },
 			},
 			{
 				"HiMyWordsHLG1",
-				{ fg = c.fg, bg = c.hint_fg, bold = true, italic = false },
+				{ fg = c.bg, bg = c.hint_fg, bold = true, italic = false },
 			},
 			{
 				"HiMyWordsHLG2",
-				{ fg = c.fg, bg = c.identifier_fg, bold = true, italic = false },
+				{ fg = c.bg, bg = c.identifier_fg, bold = true, italic = false },
 			},
 			{
 				"HiMyWordsHLG3",
-				{ fg = c.fg, bg = c.warn_fg, bold = true, italic = false },
+				{ fg = c.bg, bg = c.warn_fg, bold = true, italic = false },
 			},
 			{
 				"HiMyWordsHLG4",
-				{ fg = c.fg, bg = c.error_fg, bold = true, italic = false },
+				{ fg = c.bg, bg = c.error_fg, bold = true, italic = false },
 			},
 		},
 	})

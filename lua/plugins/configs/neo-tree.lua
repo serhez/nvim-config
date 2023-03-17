@@ -59,7 +59,7 @@ function M.config()
 			},
 			indent = {
 				padding = 1,
-				with_markers = false,
+				with_markers = true,
 			},
 			icon = {
 				folder_closed = icons.folder.default,

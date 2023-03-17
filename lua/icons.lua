@@ -16,7 +16,7 @@ M.mathematical_L = "𝑳"
 M.fire = ""
 M.fast = ""
 M.message = ""
-M.circled_check = "﫠"
+M.circled_check = ""
 M.brackets = ""
 M.braces = ""
 M.pointy_brackets = ""
@@ -24,8 +24,12 @@ M.models = "⊨"
 M.empty_set = "∅"
 M.shapes = "ﴯ"
 M.empty_square = ""
-M.circle = "●"
+M.circle = ""
+M.double_circle = ""
+M.empty_circle = ""
 M.small_circle = ""
+M.circled_info = ""
+M.circled_error = ""
 M.add = ""
 M.cross = ""
 M.fat_cross = ""
@@ -196,6 +200,15 @@ M.lsp = {
 	Null = M.empty_set,
 	Number = "#",
 	Copilot = "",
+}
+
+M.dap = {
+	breakpoint = M.circle,
+	breakpoint_disabled = M.empty_circle,
+	breakpoint_conditional = M.double_circle,
+	breakpoint_log = M.circled_info,
+	breakpoint_rejected = M.circled_error,
+	stopped = M.arrow.right,
 }
 
 M.border = {

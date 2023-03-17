@@ -24,17 +24,18 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
 	require("gitsigns").setup({
 		signs = {
 			add = {
 				hl = "GitSignsAdd",
-				text = "▎",
+				text = icons.bar.vertical_center,
 				numhl = "GitSignsAddNr",
 				linehl = "GitSignsAddLn",
 			},
 			change = {
 				hl = "GitSignsChange",
-				text = "▎",
+				text = icons.bar.vertical_center,
 				numhl = "GitSignsChangeNr",
 				linehl = "GitSignsChangeLn",
 			},
@@ -52,7 +53,7 @@ function M.config()
 			},
 			changedelete = {
 				hl = "GitSignsChange",
-				text = "▎",
+				text = icons.bar.vertical_center,
 				numhl = "GitSignsChangeNr",
 				linehl = "GitSignsChangeLn",
 			},

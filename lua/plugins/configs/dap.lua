@@ -1,5 +1,6 @@
 local icons = require("icons")
 local mappings = require("mappings")
+local hls = require("highlights")
 
 local M = {
 	"mfussenegger/nvim-dap",
@@ -8,6 +9,24 @@ local M = {
 		"rcarriga/nvim-dap-ui",
 		"mfussenegger/nvim-dap-python",
 		"leoluz/nvim-dap-go",
+	},
+	cmd = {
+		"DapToggleBreakpoint",
+		"DapClearBreakpoints",
+		"DapListBreakpoints",
+		"DapContinue",
+		"DapTest",
+		"DapClass",
+		"DapVisualSelection",
+		"DapGoToCursor",
+		"DapGoToLine",
+		"DapPauseThread",
+		"DapToggleRepl",
+		"DapStepOver",
+		"DapDown",
+		"DapStepInto",
+		"DapUp",
+		"DapStop",
 	},
 }
 
@@ -51,13 +70,42 @@ end
 
 function M.config()
 	local dap = require("dap")
+	local c = hls.colors()
 
-	-- DAP breakpoint icon
+	hls.register_hls({
+		DapBreakpointText = { fg = c.red },
+		DapBreakpointLine = {},
+		DapBreakpointNum = {},
+	})
 	vim.fn.sign_define("DapBreakpoint", {
-		text = icons.circle,
-		texthl = "",
-		linehl = "",
-		numhl = "",
+		text = icons.dap.breakpoint,
+		texthl = "DapBreakpointText",
+		linehl = "DapBreakpointLine",
+		numhl = "DapBreakpointNum",
+	})
+	vim.fn.sign_define("DapBreakpointCondition", {
+		text = icons.dap.breakpoint_conditional,
+		texthl = "DapBreakpointText",
+		linehl = "DapBreakpointLine",
+		numhl = "DapBreakpointNum",
+	})
+	vim.fn.sign_define("DapLogPoint", {
+		text = icons.dap.breakpoint_log,
+		texthl = "DapBreakpointText",
+		linehl = "DapBreakpointLine",
+		numhl = "DapBreakpointNum",
+	})
+	vim.fn.sign_define("DapStopped", {
+		text = icons.dap.stopped,
+		texthl = "DapBreakpointText",
+		linehl = "DapBreakpointLine",
+		numhl = "DapBreakpointNum",
+	})
+	vim.fn.sign_define("DapBreakpointRejected", {
+		text = icons.dap.breakpoint_rejected,
+		texthl = "DapBreakpointText",
+		linehl = "DapBreakpointLine",
+		numhl = "DapBreakpointNum",
 	})
 
 	dap.adapters.cpp = {

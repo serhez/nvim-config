@@ -29,7 +29,7 @@ function M.config()
 				click = "v:lua.ScLa",
 			},
 			{
-				sign = { name = { ".*" }, maxwidth = 1, colwidth = 1, auto = true },
+				sign = { name = { ".*" }, maxwidth = 1, colwidth = 1 },
 				click = "v:lua.ScSa",
 			},
 			{
@@ -43,6 +43,9 @@ function M.config()
 			"neo-tree",
 			"nvim-tree",
 			"Outline",
+			"Trouble",
+			"lazy",
+			"help",
 			"spectre_panel",
 			"toggleterm",
 			"dapui_scopes",
@@ -52,6 +55,7 @@ function M.config()
 			"dapui_console",
 			"dapui_repl",
 		},
+		bt_ignore = { "nofile" },
 	})
 end
 

@@ -7,8 +7,11 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		u = {
-			d = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics (workspace)" },
+		c = {
+			d = {
+				w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace" },
+				f = { "<cmd>TroubleToggle document_diagnostics<cr>", "File" },
+			},
 		},
 	})
 end

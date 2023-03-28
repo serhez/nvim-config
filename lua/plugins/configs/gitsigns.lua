@@ -41,13 +41,13 @@ function M.config()
 			},
 			delete = {
 				hl = "GitSignsDelete",
-				text = "契",
+				text = icons.bar.lower_horizontal,
 				numhl = "GitSignsDeleteNr",
 				linehl = "GitSignsDeleteLn",
 			},
 			topdelete = {
 				hl = "GitSignsDelete",
-				text = "契",
+				text = icons.bar.lower_horizontal,
 				numhl = "GitSignsDeleteNr",
 				linehl = "GitSignsDeleteLn",
 			},

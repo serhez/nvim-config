@@ -29,6 +29,9 @@ local normal_mappings = {
 	},
 	c = {
 		name = "Code",
+		d = {
+			name = "Diagnostics",
+		},
 	},
 	f = {
 		name = "Find",

@@ -1,6 +1,5 @@
 -- BUG: This plugin is not running concurrently and creates a lot of lag on nvim's init
 --      We need to find a way to make this run async (already asked the plugin's author, but maybe I can manage this myself)
-local mappings = require("mappings")
 
 local M = {
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -61,13 +60,17 @@ function M.config()
 
 			-- CSS
 			"css-lsp",
+			"cssmodules-language-server",
 			"tailwindcss-language-server",
 
 			-- JSON
 			"json-lsp",
+			"jsonlint",
+			"jq",
 
 			-- YAML
 			"yaml-language-server",
+			"yamlfmt",
 			"yamllint",
 
 			-- XML
@@ -86,11 +89,10 @@ function M.config()
 			"sqls",
 			"sqlfluff",
 
-			-- Markdown
+			-- Markdown / LaTeX
 			"markdownlint",
-
-			-- LaTeX
 			"texlab",
+			"latexindent",
 		},
 
 		-- If set to true this will check each tool for updates. If updates

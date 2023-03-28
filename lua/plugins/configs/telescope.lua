@@ -16,8 +16,11 @@ function M.init()
 			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
 		},
 		c = {
-			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols (file)" },
-			S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Symbols (project)" },
+			s = {
+				name = "Symbols",
+				f = { "<cmd>Telescope lsp_document_symbols<cr>", "File" },
+				w = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace" },
+			},
 		},
 		f = {
 			b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
@@ -98,21 +101,21 @@ function M.config()
 				i = {
 					["<esc>"] = actions.close,
 					["<C-c>"] = actions.close,
-					["<tab>"] = actions.move_selection_next,
-					["<s-tab>"] = actions.move_selection_previous,
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
 					["<C-s>"] = actions.toggle_selection,
-					["<C-j>"] = actions.toggle_selection + actions.move_selection_next,
-					["<C-k>"] = actions.toggle_selection + actions.move_selection_previous,
+					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 					["<CR>"] = actions.select_default + actions.center,
 				},
 				n = {
 					["<esc>"] = actions.close,
-					["<tab>"] = actions.move_selection_next,
-					["<s-tab>"] = actions.move_selection_previous,
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
 					["<C-s>"] = actions.toggle_selection,
-					["<C-j>"] = actions.toggle_selection + actions.move_selection_next,
-					["<C-k>"] = actions.toggle_selection + actions.move_selection_previous,
+					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				},
 			},

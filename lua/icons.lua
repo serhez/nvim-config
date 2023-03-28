@@ -98,6 +98,7 @@ M.bar = {
 	vertical_right_thin = "▕",
 	upper_right_corner = "┐",
 	lower_left_corner = "└",
+	lower_horizontal = "▁",
 }
 
 M.arrow = {
@@ -113,7 +114,7 @@ M.arrow = {
 	left_circled = "",
 	right_circled = "",
 	right_down_curved = "⤷",
-	circular = "↺",
+	circular = "",
 	right_upper_curved = "",
 }
 
@@ -209,6 +210,15 @@ M.dap = {
 	breakpoint_log = M.circled_info,
 	breakpoint_rejected = M.circled_error,
 	stopped = M.arrow.right,
+	disconnect = "",
+	pause = "",
+	play = "",
+	run_last = "",
+	step_back = "",
+	step_into = "",
+	step_out = "",
+	step_over = "",
+	terminate = "",
 }
 
 M.border = {

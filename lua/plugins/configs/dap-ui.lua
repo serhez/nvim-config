@@ -109,6 +109,17 @@ function M.config()
 		controls = {
 			enabled = true,
 			element = "console",
+			icons = {
+				disconnect = icons.dap.disconnect,
+				pause = icons.dap.pause,
+				play = icons.dap.play,
+				run_last = icons.dap.run_last,
+				step_back = icons.dap.step_back,
+				step_into = icons.dap.step_into,
+				step_out = icons.dap.step_out,
+				step_over = icons.dap.step_over,
+				terminate = icons.dap.terminate,
+			},
 		},
 		render = {
 			indent = 1,

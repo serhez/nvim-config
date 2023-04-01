@@ -20,11 +20,11 @@ function M.config()
 				click = "v:lua.ScLa",
 			},
 			{
-				sign = { name = { "Diagnostic" }, maxwidth = 1 },
-				click = "v:lua.ScSa",
+				sign = { name = { "todo*" }, maxwidth = 1 },
 			},
 			{
-				sign = { name = { "todo*" }, maxwidth = 1 },
+				sign = { name = { "Diagnostic" }, maxwidth = 1 },
+				click = "v:lua.ScSa",
 			},
 			{
 				text = { builtin.lnumfunc, " " },

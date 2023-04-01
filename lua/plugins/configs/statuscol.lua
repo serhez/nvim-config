@@ -13,7 +13,6 @@ function M.config()
 		relculright = true, -- whether to right-align the cursor line number with 'relativenumber' set
 		-- Builtin 'statuscolumn' options
 		setopt = true, -- whether to set the 'statuscolumn', providing builtin click actions
-		order = "FSNs", -- order of the fold, sign, line number and separator segments
 
 		segments = {
 			{
@@ -25,7 +24,11 @@ function M.config()
 				click = "v:lua.ScSa",
 			},
 			{
-				text = { builtin.lnumfunc },
+				sign = { name = { "todo*" }, maxwidth = 1 },
+			},
+			{
+				text = { builtin.lnumfunc, " " },
+				condition = { true, builtin.not_empty },
 				click = "v:lua.ScLa",
 			},
 			{
@@ -33,8 +36,8 @@ function M.config()
 				click = "v:lua.ScSa",
 			},
 			{
-				text = { builtin.foldfunc },
-				condition = { true },
+				text = { builtin.foldfunc, "" },
+				condition = { true, builtin.not_empty },
 				click = "v:lua.ScFa",
 			},
 		},

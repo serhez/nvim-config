@@ -8,12 +8,12 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		u = {
+		c = {
 			D = { "<cmd>Neogen<cr>", "Generate docs" },
 		},
 	})
 	mappings.register_visual({
-		u = {
+		c = {
 			D = { "<cmd>Neogen<cr>", "Generate docs" },
 		},
 	})

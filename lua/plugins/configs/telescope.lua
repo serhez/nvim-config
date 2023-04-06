@@ -11,7 +11,6 @@ local M = {
 function M.init()
 	mappings.register_normal({
 		s = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
-		S = { "<cmd>Telescope grep_string search=<cr>", "Search text (fuzzy)" }, -- Shortcut
 		b = {
 			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
 		},
@@ -24,7 +23,7 @@ function M.init()
 		},
 		f = {
 			b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
-			c = { "<cmd>Telescope commands<cr>", "Commands" },
+			C = { "<cmd>Telescope commands<cr>", "Commands" },
 			f = {
 				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
 				"Files",
@@ -37,7 +36,6 @@ function M.init()
 			M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
 			r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
 			t = { "<cmd>Telescope live_grep<cr>", "Text" },
-			T = { "<cmd>Telescope grep_string search=<cr>", "Text (fuzzy)" },
 		},
 		g = {
 			l = {

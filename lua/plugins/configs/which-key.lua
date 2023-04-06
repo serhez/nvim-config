@@ -63,9 +63,6 @@ local normal_mappings = {
 	t = {
 		name = "Terminal",
 	},
-	u = {
-		name = "Utils",
-	},
 }
 
 local visual_mappings = {

@@ -2,14 +2,7 @@ local mappings = require("mappings")
 
 local M = {
 	"miversen33/netman.nvim",
-	cmd = {
-		"Neotree",
-		"NmloadProvider",
-		"Nmlogs",
-		"Nmdelete",
-		"Nmread",
-		"Nmwrite",
-	},
+	-- NOTE: Currently loaded as a dependency of neo-tree
 }
 
 function M.init()

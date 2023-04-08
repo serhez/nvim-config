@@ -86,7 +86,7 @@ function M.config()
 			"dockerfile-language-server",
 
 			-- SQL
-			"sqls",
+			"sqlls",
 			"sqlfluff",
 
 			-- Markdown / LaTeX

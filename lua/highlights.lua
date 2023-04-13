@@ -27,11 +27,11 @@ function M.colors()
 	return {
 		bg = M.fromhl("Normal").bg,
 		fg = M.fromhl("Normal").fg,
-		alt_bg = M.fromhl("CursorLine").bg,
-		alt_fg = M.fromhl("CursorLine").bg,
+		dim = M.fromhl("Conceal").fg,
 		statusline_bg = M.fromhl("StatusLine").bg,
 		statusline_fg = M.fromhl("StatusLine").fg,
-		dim = M.fromhl("Conceal").fg,
+		cursor_line_bg = M.fromhl("CursorLine").bg,
+		cursor_line_fg = M.fromhl("CursorLine").fg,
 		line_nr = M.fromhl("LineNr").fg,
 		hint_fg = M.fromhl("DiagnosticHint").fg,
 		hint_bg = M.fromhl("DiagnosticHint").bg,
@@ -60,10 +60,10 @@ function M.common_hls()
 	return {
 		border_dim = { fg = colors.line_nr, bg = colors.dim },
 		border_statusline = { fg = colors.line_nr, bg = colors.statusline_bg },
-		border_alt = { fg = colors.line_nr, bg = colors.alt_bg },
+		border_alt = { fg = colors.line_nr, bg = colors.cursor_line_bg },
 		no_border_dim = { fg = colors.dim, bg = colors.dim },
 		no_border_statusline = { fg = colors.statusline_bg, bg = colors.statusline_bg },
-		no_border_alt = { fg = colors.alt_bg, bg = colors.alt_bg },
+		no_border_alt = { fg = colors.cursor_line_bg, bg = colors.cursor_line_bg },
 	}
 end
 
@@ -90,7 +90,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "ayu-mirage"
+	vim.g.colors_name = "tokyonight-storm"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF

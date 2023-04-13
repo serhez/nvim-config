@@ -1,13 +1,11 @@
-local hls = require("highlights")
-local icons = require("icons")
-
 local M = {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
 		"hrsh7th/cmp-buffer",
 		"dmitmel/cmp-cmdline-history",
 		"hrsh7th/cmp-cmdline",
-		"zbirenbaum/copilot-cmp",
+		-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
+		-- "zbirenbaum/copilot-cmp",
 		"rcarriga/cmp-dap",
 		"petertriho/cmp-git",
 		"kdheepak/cmp-latex-symbols",
@@ -21,10 +19,15 @@ local M = {
 }
 
 function M.config()
+	local hls = require("highlights")
+	local icons = require("icons")
+
 	local cmp = require("cmp")
 	local present, luasnip = pcall(require, "luasnip")
 
 	local has_words_before = function()
+		-- table.unpack for Lua >= 5.1
+		---@diagnostic disable-next-line: deprecated
 		local unpack = table.unpack or unpack
 		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 
@@ -67,32 +70,8 @@ function M.config()
 	}
 
 	local normal_formatting = {
-		-- fields = { "kind", "abbr", "menu" },
-		-- format = function(entry, vim_item)
-		-- 	local icons = require("icons").lsp
-		-- 	vim_item.kind = string.format("%s", icons[vim_item.kind])
-		-- 	vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
-		-- 	vim_item.menu = ({
-		-- 		cmdline_history = "History",
-		-- 		cmdline = "Command",
-		-- 		buffer = "Buffer",
-		-- 		nvim_lsp = "LSP",
-		-- 		cmp_tabnine = "Tabnine",
-		-- 		copilot = "Copilot",
-		-- 		path = "Path",
-		-- 		luasnip = "Snippet",
-		-- 		latex_symbols = "LaTeX",
-		-- 		pandoc_references = "Pandoc",
-		-- 		otter = "Otter",
-		-- 		dap = "DAP",
-		-- 		git = "Git",
-		-- 	})[entry.source.name]
-		--
-		-- 	return vim_item
-		-- end,
 		format = function(_, vim_item)
-			local icons = require("icons").lsp
-			vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+			vim_item.kind = string.format("%s %s", icons.lsp[vim_item.kind], vim_item.kind)
 			vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
 			return vim_item
 		end,
@@ -151,10 +130,12 @@ function M.config()
 		formatting = normal_formatting,
 		mapping = normal_mappings,
 
-		-- Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
+		-- NOTE: Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
 		sources = {
+			-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
-			{ name = "copilot" },
+			{ name = "buffer" },
+			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{
 				name = "latex_symbols",
@@ -164,18 +145,16 @@ function M.config()
 			},
 			{ name = "pandoc_references" },
 			{ name = "otter" },
-			{ name = "nvim_lsp" },
-			-- { name = "cmp_tabnine" },
 			{ name = "path" },
-			{ name = "buffer" },
 			{ name = "dap" },
 		},
 
 		sorting = {
 			priority_weight = 2,
 			comparators = {
-				require("copilot_cmp.comparators").prioritize,
-				require("copilot_cmp.comparators").score,
+				-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
+				-- require("copilot_cmp.comparators").prioritize,
+				-- require("copilot_cmp.comparators").score,
 
 				-- Below is the default comparitor list and order for nvim-cmp
 				cmp.config.compare.offset,

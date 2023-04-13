@@ -12,6 +12,7 @@ local M = {
 		"miversen33/netman.nvim",
 	},
 	cmd = "Neotree",
+	branch = "main",
 }
 
 function M.init()
@@ -30,6 +31,7 @@ function M.config()
 		popup_border_style = "single",
 		enable_git_status = true,
 		enable_diagnostics = true,
+		enable_opened_markers = true,
 
 		sources = {
 			"filesystem",
@@ -72,6 +74,9 @@ function M.config()
 			},
 			modified = {
 				symbol = icons.git.modified,
+			},
+			name = {
+				highlight_opened_files = "all",
 			},
 			git_status = {
 				symbols = {
@@ -199,10 +204,11 @@ function M.config()
 	local c = hls.colors()
 	hls.register_hls({
 		NeoTreeNormal = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabActive = { fg = c.fg, bg = c.alt_bg },
+		NeoTreeTabActive = { fg = c.fg, bg = c.cursor_line_bg },
 		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.bg },
-		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.alt_bg },
+		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.cursor_line_bg },
 		NeoTreeTabSeparatorInactive = { fg = c.statusline_bg, bg = c.bg },
+		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.cursor_line_bg },
 	})
 end
 

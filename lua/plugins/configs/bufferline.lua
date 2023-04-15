@@ -8,6 +8,7 @@ local M = {
 		"famiu/bufdelete.nvim",
 	},
 	event = "VeryLazy",
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

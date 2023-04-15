@@ -130,6 +130,14 @@ function M.config()
 		formatting = normal_formatting,
 		mapping = normal_mappings,
 
+		matching = {
+			disallow_fuzzy_matching = false,
+			disallow_fullfuzzy_matching = false,
+			disallow_partial_fuzzy_matching = true,
+			disallow_partial_matching = false,
+			disallow_prefix_unmatching = false,
+		},
+
 		-- NOTE: Order matters: it will determine the prioritization of sources when showing autocomplete suggestions
 		sources = {
 			-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source

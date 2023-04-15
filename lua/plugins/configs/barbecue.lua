@@ -9,6 +9,7 @@ local M = {
 		"nvim-tree/nvim-web-devicons", -- optional dependency
 	},
 	event = "BufReadPost",
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.config()

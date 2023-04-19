@@ -8,7 +8,7 @@ I'm using a lot of plugins (+100!). This can be scary as it generally correlates
 
 After performing some startup time tests, these are the results obtained in an M1 Pro 2021 MacBook Pro (note that there will be variance in your experiences, based on a variety of factors):
 
-- Starting up nvim without opening a file: `~100 ms`
+- Starting up nvim without opening a file: `~50 ms`
 - Starting up nvim opening a ~100 lines file: `~150 ms`
 
 ## Acknowledgments

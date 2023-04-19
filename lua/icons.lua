@@ -71,6 +71,8 @@ M.color_palette = ""
 M.key = ""
 M.ruler = "塞"
 M.wifi = ""
+M.globe = ""
+M.earth = ""
 M.question = ""
 M.filter = ""
 

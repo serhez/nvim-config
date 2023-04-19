@@ -10,7 +10,22 @@ function M.config()
 		current_only = true,
 		winblend = 50,
 		zindex = 40,
-		excluded_filetypes = {},
+		excluded_filetypes = {
+			"neo-tree",
+			"nvim-tree",
+			"Outline",
+			"Trouble",
+			"lazy",
+			"help",
+			"spectre_panel",
+			"toggleterm",
+			"dapui_scopes",
+			"dapui_breakpoints",
+			"dapui_stacks",
+			"dapui_watches",
+			"dapui_console",
+			"dapui_repl",
+		},
 		width = 2,
 		handlers = {
 			search = {

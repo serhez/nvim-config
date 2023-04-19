@@ -25,19 +25,19 @@ local vi_colors = {
 	t = "FlnViBlue",
 }
 
-local function get_navic_location()
-	local navic_present, navic = pcall(require, "nvim-navic")
-
-	if not navic_present then
-		return ""
-	end
-	local location = navic.get_location()
-	if location == "" then
-		return location
-	else
-		return icons.single_space .. icons.arrow.right_tall .. icons.single_space .. location
-	end
-end
+-- local function get_navic_location()
+-- 	local navic_present, navic = pcall(require, "nvim-navic")
+--
+-- 	if not navic_present then
+-- 		return ""
+-- 	end
+-- 	local location = navic.get_location()
+-- 	if location == "" then
+-- 		return location
+-- 	else
+-- 		return icons.single_space .. icons.arrow.right_tall .. icons.single_space .. location
+-- 	end
+-- end
 
 local function vi_mode_hl()
 	return vi_colors[vim.fn.mode()] or "FlnViBlack"

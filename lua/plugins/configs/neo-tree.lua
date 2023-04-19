@@ -36,8 +36,8 @@ function M.config()
 		sources = {
 			"filesystem",
 			-- "buffers",
-			"git_status",
 			"netman.ui.neo-tree",
+			"git_status",
 		},
 
 		source_selector = {
@@ -53,16 +53,16 @@ function M.config()
 					display_name = icons.folder.default .. " File",
 				},
 				{
+					source = "remote",
+					display_name = icons.globe .. " Remote",
+				},
+				{
 					source = "buffers",
 					display_name = icons.file.files .. " Buffer",
 				},
 				{
 					source = "git_status",
 					display_name = icons.git.github .. " Git",
-				},
-				{
-					source = "remote",
-					display_name = icons.globe .. " Remote",
 				},
 			},
 		},

@@ -47,11 +47,23 @@ function M.config()
 				left = icons.bar.vertical_left_thin,
 				right = icons.bar.vertical_right_thin,
 			},
-			tab_labels = {
-				filesystem = icons.folder.default .. " File",
-				buffers = icons.file.files .. " Buffer",
-				git_status = icons.git.github .. " Git",
-				["netman.ui.neo-tree"] = icons.wifi .. " Remote",
+			sources = {
+				{
+					source = "filesystem",
+					display_name = icons.folder.default .. " File",
+				},
+				{
+					source = "buffers",
+					display_name = icons.file.files .. " Buffer",
+				},
+				{
+					source = "git_status",
+					display_name = icons.git.github .. " Git",
+				},
+				{
+					source = "remote",
+					display_name = icons.globe .. " Remote",
+				},
 			},
 		},
 
@@ -123,8 +135,8 @@ function M.config()
 				["q"] = "close_window",
 				["R"] = "refresh",
 				["?"] = "show_help",
-				["<"] = "prev_source",
-				[">"] = "next_source",
+				["<S-tab>"] = "prev_source",
+				["<tab>"] = "next_source",
 			},
 		},
 

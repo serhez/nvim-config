@@ -20,8 +20,8 @@ function M.config()
 			"shfmt",
 
 			-- Python
-			-- "pyright",
 			"python-lsp-server",
+			"pyright",
 			"pylint",
 			"pydocstyle",
 			"black",

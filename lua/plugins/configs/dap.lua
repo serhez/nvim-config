@@ -1,6 +1,4 @@
-local icons = require("icons")
-local mappings = require("mappings")
-local hls = require("highlights")
+-- NOTE: DAP is currently loaded by the dap-persistent-breakpoints plugin, which may be inneficient
 
 local M = {
 	"mfussenegger/nvim-dap",
@@ -26,25 +24,22 @@ local M = {
 		"DapDown",
 		"DapStepInto",
 		"DapUp",
-		"DapStop",
+		"DapTerminate",
 	},
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		d = {
-			name = "Debug",
-			b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle breakpoint" },
 			B = {
-				name = "Breakpoints",
-				c = { "<cmd>DapClearBreakpoints<cr>", "Clear" },
-				l = { "<cmd>DapListBreakpoints<cr>", "List" },
+				l = { "<cmd>lua require('dap').list_breakpoints()<cr>", "List" },
 			},
 			c = { "<cmd>DapContinue<cr>", "Continue / Start" },
 			g = {
 				name = "Go to",
 				c = { "<cmd>DapGoToCursor<cr>", "Go to cursor" },
-				l = { ":DapGoToLine", "Go to line" },
+				l = { ":DapGoToLine ", "Go to line" },
 			},
 			i = {
 				name = "Item",
@@ -52,7 +47,7 @@ function M.init()
 				s = { "<cmd>DapVisualSelection<cr>", "Selection" },
 				t = { "<cmd>DapTest<cr>", "Test" },
 			},
-			p = { ":DapPauseThread", "Pause thread" },
+			p = { ":DapPauseThread ", "Pause thread" },
 			r = { "<cmd>DapToggleRepl<cr>", "REPL" },
 			s = {
 				name = "Step",
@@ -63,13 +58,16 @@ function M.init()
 				o = { "<cmd>DapStepOver<cr>", "Over" },
 				u = { "<cmd>DapUp<cr>", "Up" },
 			},
-			S = { "<cmd>DapStop<cr>", "Stop" },
+			t = { "<cmd>DapTerminate<cr>", "Terminate" },
 		},
 	})
 end
 
 function M.config()
 	local dap = require("dap")
+
+	local icons = require("icons")
+	local hls = require("highlights")
 	local c = hls.colors()
 
 	hls.register_hls({

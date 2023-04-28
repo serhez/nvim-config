@@ -25,6 +25,7 @@ function M.config()
 			restore_upcoming_session = true,
 		},
 		pre_save_cmds = { _G.close_all_floating_wins },
+		auto_session_suppress_dirs = { "~/", "~/.config" },
 	})
 end
 

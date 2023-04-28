@@ -11,6 +11,7 @@ local M = {
 
 local debug_win = nil
 local debug_tab = nil
+local debug_tabnr = nil
 
 local function open_in_tab()
 	if debug_win and vim.api.nvim_win_is_valid(debug_win) then
@@ -21,6 +22,8 @@ local function open_in_tab()
 	vim.cmd("tabedit %")
 	debug_win = vim.fn.win_getid()
 	debug_tab = vim.api.nvim_win_get_tabpage(debug_win)
+	debug_tabnr = vim.api.nvim_tabpage_get_number(debug_tab)
+
 	require("dapui").open()
 end
 
@@ -28,11 +31,12 @@ local function close_tab()
 	require("dapui").close()
 
 	if debug_tab and vim.api.nvim_tabpage_is_valid(debug_tab) then
-		vim.api.nvim_exec("tabclose " .. debug_tab, false)
+		vim.api.nvim_exec("tabclose " .. debug_tabnr, false)
 	end
 
 	debug_win = nil
 	debug_tab = nil
+	debug_tabnr = nil
 end
 
 function M.init()
@@ -85,7 +89,7 @@ function M.config()
 					},
 				},
 				position = "left",
-				size = 0.33,
+				size = 0.25,
 			},
 			{
 				elements = {
@@ -95,7 +99,7 @@ function M.config()
 					},
 				},
 				position = "right",
-				size = 0.33,
+				size = 0.2,
 			},
 		},
 		floating = {
@@ -130,9 +134,10 @@ function M.config()
 	dap.listeners.after.event_initialized["dapui_config"] = function()
 		open_in_tab()
 	end
-	dap.listeners.before.event_terminated["dapui_config"] = function()
-		close_tab()
-	end
+	-- BUG: This event triggers several times, which causes flickering and dap-ui eventually closing
+	-- dap.listeners.before.event_terminated["dapui_config"] = function()
+	-- 	close_tab()
+	-- end
 	dap.listeners.before.event_exited["dapui_config"] = function()
 		close_tab()
 	end

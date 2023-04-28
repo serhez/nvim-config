@@ -33,6 +33,12 @@ local normal_mappings = {
 			name = "Diagnostics",
 		},
 	},
+	d = {
+		name = "Debug",
+		B = {
+			name = "Breakpoints",
+		},
+	},
 	f = {
 		name = "Find",
 	},

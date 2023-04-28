@@ -16,7 +16,7 @@ function M.config()
 
 		segments = {
 			{
-				sign = { name = { "DapBreakpoint" }, maxwidth = 2, colwidth = 2, auto = true },
+				sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 1, auto = true },
 				click = "v:lua.ScLa",
 			},
 			{

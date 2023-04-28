@@ -42,9 +42,14 @@ local function filter_diagnostics(diagnostics)
 	return vim.tbl_values(most_severe)
 end
 
+-- Servers that we want navic to ignore
+local no_navic_servers = {
+	pyright = true,
+}
+
 local function custom_attach(client, bufnr)
 	local present, navic = pcall(require, "nvim-navic")
-	if present and client.server_capabilities.documentSymbolProvider then
+	if present and client.server_capabilities.documentSymbolProvider and no_navic_servers[client.name] == nil then
 		navic.attach(client, bufnr)
 	end
 
@@ -83,13 +88,6 @@ custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 		"detail",
 		"additionalTextEdits",
 	},
-}
-
--- Provide custom settings that should only apply to the following servers
-local enhance_server_opts = {
-	["eslint_d"] = require("plugins.configs.mason-lspconfig.servers.eslint_d"),
-	["lua_ls"] = require("plugins.configs.mason-lspconfig.servers.lua_ls"),
-	["volar"] = require("plugins.configs.mason-lspconfig.servers.volar"),
 }
 
 function M.config()
@@ -133,16 +131,16 @@ function M.config()
 	})
 
 	-- Suppress error messages from lang servers
-	vim.notify = function(msg, log_level)
-		if msg:match("exit code") then
-			return
-		end
-		if log_level == vim.log.levels.ERROR then
-			vim.api.nvim_err_writeln(msg)
-		else
-			vim.api.nvim_echo({ { msg } }, true, {})
-		end
-	end
+	-- vim.notify = function(msg, log_level)
+	-- 	if msg:match("exit code") then
+	-- 		return
+	-- 	end
+	-- 	if log_level == vim.log.levels.ERROR then
+	-- 		vim.api.nvim_err_writeln(msg)
+	-- 	else
+	-- 		vim.api.nvim_echo({ { msg } }, true, {})
+	-- 	end
+	-- end
 
 	require("mason-lspconfig").setup()
 
@@ -156,9 +154,11 @@ function M.config()
 				},
 			}
 
-			if enhance_server_opts[server_name] then
+			local has_custom_opts, custom_opts =
+				pcall(require, "plugins.configs.mason-lspconfig.servers." .. server_name)
+			if has_custom_opts then
 				-- Enhance the default opts with the server-specific ones
-				opts.settings = enhance_server_opts[server_name]
+				opts.settings = custom_opts
 			end
 
 			require("lspconfig")[server_name].setup(opts)

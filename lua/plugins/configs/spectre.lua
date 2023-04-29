@@ -1,7 +1,7 @@
 local mappings = require("mappings")
 
 local M = {
-	"windwp/nvim-spectre",
+	"nvim-pack/nvim-spectre",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	cmd = "Spectre",
 }

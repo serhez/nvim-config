@@ -33,15 +33,15 @@ function M.config()
 			},
 			diagnostic = {
 				enable = true,
-				signs = { icons.rhombus },
+				signs = { icons.small_circle },
 				min_severity = vim.diagnostic.severity.HINT,
 			},
 			gitsigns = {
 				enable = true,
 				signs = { -- can only be a single character (multibyte is okay)
-					add = icons.bar.vertical_center,
-					change = icons.bar.vertical_center,
-					delete = icons.bar.lower_horizontal,
+					add = icons.bar.vertical_center_thin,
+					change = icons.bar.vertical_center_thin,
+					delete = icons.bar.lower_horizontal_thin,
 				},
 			},
 			marks = {

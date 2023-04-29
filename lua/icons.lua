@@ -102,6 +102,7 @@ M.bar = {
 	upper_right_corner = "┐",
 	lower_left_corner = "└",
 	lower_horizontal = "▁",
+	lower_horizontal_thin = "_",
 }
 
 M.arrow = {

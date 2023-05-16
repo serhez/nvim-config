@@ -1,6 +1,3 @@
-local icons = require("icons")
-local mappings = require("mappings")
-
 local M = {
 	"rcarriga/nvim-dap-ui",
 	dependencies = {
@@ -40,7 +37,7 @@ local function close_tab()
 end
 
 function M.init()
-	mappings.register_normal({
+	require("mappings").register_normal({
 		d = {
 			name = "Debug",
 			e = { "<cmd>lua require('dapui').eval()<cr>", "Evaluate" },
@@ -49,6 +46,7 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
 	local dap, dap_ui = require("dap"), require("dapui")
 
 	dap_ui.setup({
@@ -141,6 +139,55 @@ function M.config()
 	dap.listeners.before.event_exited["dapui_config"] = function()
 		close_tab()
 	end
+
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		DapUINormal = { bg = c.statusline_bg },
+		DapUINormalNC = { bg = c.statusline_bg },
+		DapUIFloatNormal = { bg = c.statusline_bg },
+		DapUIFloatBorder = { bg = c.statusline_bg },
+		DapUIEndofBuffer = { bg = c.statusline_bg },
+		-- DapUIWinSelect = { bg = c.statusline_bg },
+		DapUILineNumber = { bg = c.statusline_bg },
+		-- DapUIDecoration = { bg = c.statusline_bg },
+
+		-- NOTE: Testing
+		-- DapUIVariable = { bg = c.red },
+		-- DapUIScope = { bg = c.red },
+		-- DapUIType = { bg = c.red },
+		-- DapUIValue = { bg = c.red },
+		-- DapUIModifiedValue = { bg = c.red },
+		-- DapUIThread = { bg = c.red },
+		-- DapUIStoppedThread = { bg = c.red },
+		-- DapUIFrameName = { bg = c.red },
+		-- DapUISource = { bg = c.red },
+		-- DapUIWatchesEmpty = { bg = c.red },
+		-- DapUIWatchesValue = { bg = c.red },
+		-- DapUIWatchesError = { bg = c.red },
+		-- DapUIBreakpointsPath = { bg = c.red },
+		-- DapUIBreakpointsInfo = { bg = c.red },
+		-- DapUIBreakpointsCurrentLine = { bg = c.red },
+		-- DapUIBreakpointsLine = { bg = c.red },
+		-- DapUIBreakpointsDisabledLine = { bg = c.red },
+		-- DapUICurrentFrameName = { bg = c.red },
+		-- DapUIStepOver = { bg = c.red },
+		-- DapUIStepInto = { bg = c.red },
+		-- DapUIStepBack = { bg = c.red },
+		-- DapUIStepOut = { bg = c.red },
+		-- DapUIStop = { bg = c.red },
+		-- DapUIPlayPause = { bg = c.red },
+		-- DapUIRestart = { bg = c.red },
+		-- DapUIUnavailable = { bg = c.red },
+		-- DapUIPlayPauseNC = { bg = c.red },
+		-- DapUIRestartNC = { bg = c.red },
+		-- DapUIStopNC = { bg = c.red },
+		-- DapUIUnavailableNC = { bg = c.red },
+		-- DapUIStepOverNC = { bg = c.red },
+		-- DapUIStepIntoNC = { bg = c.red },
+		-- DapUIStepBackNC = { bg = c.red },
+		-- DapUIStepOutNC = { bg = c.red },
+	})
 end
 
 return M

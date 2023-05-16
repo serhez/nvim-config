@@ -33,7 +33,7 @@ function M.init()
 	mappings.register_normal({
 		d = {
 			B = {
-				l = { "<cmd>lua require('dap').list_breakpoints()<cr>", "List" },
+				l = { "<cmd>execute 'lua require(\"dap\").list_breakpoints()' | cope<cr>", "List" },
 			},
 			c = { "<cmd>DapContinue<cr>", "Continue / Start" },
 			g = {
@@ -118,6 +118,11 @@ function M.config()
 		},
 		name = "lldb",
 	}
+
+	-- Load launch.json files
+	local vscode = require("dap.ext.vscode")
+	vscode.load_launchjs("launch.json")
+	vscode.load_launchjs(".vscode/launch.json")
 end
 
 return M

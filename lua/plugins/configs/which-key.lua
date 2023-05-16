@@ -54,6 +54,9 @@ local normal_mappings = {
 	i = {
 		name = "Installer",
 	},
+	l = {
+		name = "Language",
+	},
 	n = {
 		name = "Notebooks",
 	},

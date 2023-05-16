@@ -74,6 +74,8 @@ local function custom_attach(client, bufnr)
 end
 
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
+custom_capabilities.offsetEncoding = "utf-8"
+custom_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
 custom_capabilities.textDocument.completion.completionItem.preselectSupport = true

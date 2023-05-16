@@ -104,13 +104,14 @@ local function file_path_provider(_, opts)
 	return str
 end
 
+-- TODO: Make this a global variable and only change it when the venv changes, to avoid all this logic on every redraw
 local function venv_provider()
-	local present, venv = pcall(require, "venv")
+	local present, swenv = pcall(require, "swenv.api")
 	if not present then
 		return ""
 	end
 
-	local current_venv = venv.get_current_venv()
+	local current_venv = swenv.get_current_venv()
 	if current_venv == nil or current_venv.name == "" then
 		return ""
 	end

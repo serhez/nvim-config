@@ -90,8 +90,8 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "tokyonight-storm"
-	vim.o.background = "dark"
+	vim.g.colors_name = "catppuccin-latte"
+	vim.o.background = "light"
 
 	-- Remove the tilde (~) after EOF
 	vim.cmd([[let &fcs='eob: ']])

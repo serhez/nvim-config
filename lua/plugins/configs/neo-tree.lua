@@ -1,7 +1,3 @@
-local icons = require("icons")
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"nvim-neo-tree/neo-tree.nvim",
 	dependencies = {
@@ -16,12 +12,14 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
+	require("mappings").register_normal({
 		e = { "<cmd>Neotree toggle<cr>", "Explorer" },
 	})
 end
 
 function M.config()
+	local icons = require("icons")
+
 	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 	require("neo-tree").setup({
@@ -213,6 +211,7 @@ function M.config()
 		},
 	})
 
+	local hls = require("highlights")
 	local c = hls.colors()
 	hls.register_hls({
 		NeoTreeNormal = { fg = c.statusline_fg, bg = c.statusline_bg },

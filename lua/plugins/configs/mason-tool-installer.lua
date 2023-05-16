@@ -71,7 +71,6 @@ function M.config()
 
 			-- YAML
 			"yaml-language-server",
-			"yamlfmt",
 			"yamllint",
 
 			-- XML

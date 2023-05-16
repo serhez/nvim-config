@@ -15,13 +15,13 @@ function M.init()
 	mappings.register_normal({
 		b = {
 			c = {
-				g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- Redundancy
+				g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- cursor_line_bgundancy
 				l = { "<cmd>BufferLineCloseLeft<cr>", "Left of current" },
 				p = { "<cmd>BufferLinePickClose<cr>", "Pick" },
 				r = { "<cmd>BufferLineCloseRight<cr>", "Right of current" },
 			},
 			g = {
-				c = { "<cmd>BufferLineGroupClose<cr>", "Close" }, -- Redundancy
+				c = { "<cmd>BufferLineGroupClose<cr>", "Close" }, -- cursor_line_bgundancy
 				t = { "<cmd>BufferLineGroupToggle<cr>", "Toggle" },
 			},
 			m = {
@@ -95,10 +95,26 @@ function M.config()
 
 	local c = hls.colors()
 	hls.register_hls({
-		BufferLineBufferSelected = { default = true, bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineIndicator = { default = true, fg = c.red },
-		-- BufferLineIndicatorSelected = { default = true, fg = c.yellow },
-		-- BufferLineIndicatorVisible = { default = true, fg = c.green },
+		BufferLineFill = { bg = c.statusline_bg, fg = c.statusline_bg },
+
+		BufferLineBufferSelected = { bg = c.bg, bold = true, italic = false },
+		-- BufferLineTabSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
+		-- BufferLineIndicatorSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
+		-- BufferLineSeparatorSelected = { bg = c.statusline_bg, fg = c.statusline_bg, bold = true, italic = false },
+		-- BufferLineDevIconLuaSelected = { default = true, bg = c.cursor_line_bg, bold = true, italic = false },
+		-- BufferLineCloseButtonSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
+		-- BufferLineTabSeparatorSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
+		-- BufferLineModifiedSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
+		--
+		-- BufferLineBackground = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineBuffer = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineTab = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineIndicator = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineSeparator = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineDevIconLua = { default = true, bg = c.bg, bold = false, italic = false },
+		-- BufferLineCloseButton = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineTabSeparator = { bg = c.bg, bold = false, italic = false },
+		-- BufferLineModified = { bg = c.bg, bold = false, italic = false },
 	})
 end
 

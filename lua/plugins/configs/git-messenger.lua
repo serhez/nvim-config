@@ -1,11 +1,11 @@
-local mappings = require("mappings")
-
 local M = {
 	"rhysd/git-messenger.vim",
 	cmd = "GitMessenger",
 }
 
 function M.init()
+	local mappings = require("mappings")
+
 	mappings.register_normal({
 		g = {
 			m = { "<cmd>GitMessenger<cr>", "Last commit message" },

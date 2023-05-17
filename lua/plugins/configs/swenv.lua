@@ -23,7 +23,7 @@ function M.config()
 		-- By default just lists the entries in `venvs_path`
 		get_venvs = function(venvs_path)
 			local global_venvs = require("swenv.api").get_venvs(venvs_path)
-			local workspace_venvs = require("swenv.api").get_venvs(vim.fn.getcwd())
+			local workspace_venvs = require("swenv.api").get_venvs(vim.fn.getcwd() .. "/venv")
 			return vim.tbl_deep_extend("force", global_venvs, workspace_venvs)
 		end,
 		-- Path passed to `get_venvs`

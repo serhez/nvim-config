@@ -2,7 +2,7 @@ local mappings = require("mappings")
 
 local M = {
 	"smjonas/inc-rename.nvim",
-	cmd = "IncRename",
+	event = "BufRead",
 }
 
 function M.init()

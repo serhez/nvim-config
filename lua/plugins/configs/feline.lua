@@ -6,6 +6,13 @@ local M = {
 	event = "VeryLazy",
 }
 
+M.venv = nil
+
+M.set_venv = function(venv)
+	local path = vim.split(venv, "/", { trimempty = true })
+	M.venv = path[#path]
+end
+
 local vi_colors = {
 	n = "FlnViCyan",
 	no = "FlnViCyan",
@@ -104,19 +111,12 @@ local function file_path_provider(_, opts)
 	return str
 end
 
--- TODO: Make this a global variable and only change it when the venv changes, to avoid all this logic on every redraw
 local function venv_provider()
-	local present, swenv = pcall(require, "swenv.api")
-	if not present then
+	if M.venv == nil or M.venv == "" or M.venv == "base" then
 		return ""
 	end
 
-	local current_venv = swenv.get_current_venv()
-	if current_venv == nil or current_venv.name == "" then
-		return ""
-	end
-
-	return icons.tool.venv .. " " .. current_venv.name .. " "
+	return icons.tool.venv .. " " .. M.venv .. " "
 end
 
 function M.config()

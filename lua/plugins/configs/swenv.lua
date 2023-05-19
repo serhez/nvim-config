@@ -2,7 +2,7 @@ local mappings = require("mappings")
 
 local M = {
 	"AckslD/swenv.nvim",
-	-- TODO: This is currently loaded by feline on startup always; do it only when an env is picked
+	event = "VeryLazy",
 }
 
 function M.init()
@@ -17,6 +17,7 @@ function M.init()
 end
 
 function M.config()
+	local feline_config = require("plugins.configs.feline")
 	require("swenv").setup({
 		-- Should return a list of tables with a `name` and a `path` entry each
 		-- Gets the argument `venvs_path` set below
@@ -29,8 +30,13 @@ function M.config()
 		-- Path passed to `get_venvs`
 		venvs_path = vim.fn.expand("~/.envs"),
 		-- Something to do after setting an environment, for example call vim.cmd.LspRestart
-		post_set_venv = nil,
+		post_set_venv = function(venv)
+			vim.cmd("LspRestart")
+			feline_config.set_venv(venv.name)
+		end,
 	})
+
+	feline_config.set_venv(require("swenv.api").get_current_venv().name)
 end
 
 return M

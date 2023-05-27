@@ -3,6 +3,7 @@ local M = {
 	dependencies = {
 		"mfussenegger/nvim-dap",
 		"theHamsta/nvim-dap-virtual-text",
+		"LiadOz/nvim-dap-repl-highlights",
 	},
 }
 

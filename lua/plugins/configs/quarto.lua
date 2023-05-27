@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {
 	"quarto-dev/quarto-nvim",
 	dependencies = {
@@ -10,8 +8,9 @@ local M = {
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
-		m = {
+		M = {
 			name = "Markdown",
 			p = { "<cmd>QuartoPreview<cr>", "Preview" },
 			P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },

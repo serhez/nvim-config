@@ -11,6 +11,7 @@ function M.config()
 			percentage = 0.15,
 		},
 		transparent_background = false,
+
 		integrations = {
 			aerial = false,
 			barbar = false,
@@ -19,10 +20,11 @@ function M.config()
 			coc_nvim = false,
 			dashboard = false,
 			fern = false,
-			fidget = false,
+			fidget = true,
 			gitgutter = false,
 			gitsigns = true,
 			harpoon = true,
+			headlines = true,
 			hop = false,
 			illuminate = true,
 			leap = true,
@@ -31,13 +33,14 @@ function M.config()
 			lsp_trouble = true,
 			markdown = true,
 			mason = true,
-			mini = false,
+			mini = true,
 			neogit = false,
 			neotest = true,
 			neotree = true,
 			noice = true,
 			notify = false,
 			nvimtree = false,
+			octo = false,
 			overseer = false,
 			pounce = false,
 			sandwich = false,
@@ -51,11 +54,13 @@ function M.config()
 			ts_rainbow2 = false,
 			vim_sneak = false,
 			vimwiki = false,
-			which_key = false,
+			which_key = true,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
 			barbecue = {
 				dim_dirname = true,
+				bold_basename = true,
+				dim_context = false,
 			},
 			dap = {
 				enabled = true,
@@ -81,7 +86,7 @@ function M.config()
 				},
 			},
 			navic = {
-				enabled = false,
+				enabled = true,
 				custom_bg = "NONE",
 			},
 		},

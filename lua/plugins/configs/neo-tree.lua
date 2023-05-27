@@ -13,7 +13,10 @@ local M = {
 
 function M.init()
 	require("mappings").register_normal({
-		e = { "<cmd>Neotree toggle<cr>", "Explorer" },
+		e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true<cr>", "Explorer" },
+		c = {
+			o = { "<cmd>Neotree action=focus source=document_symbols position=right toggle=true<cr>", "Outline" },
+		},
 	})
 end
 
@@ -36,6 +39,7 @@ function M.config()
 			-- "buffers",
 			"netman.ui.neo-tree",
 			"git_status",
+			"document_symbols",
 		},
 
 		source_selector = {
@@ -61,6 +65,10 @@ function M.config()
 				{
 					source = "git_status",
 					display_name = icons.git.github .. " Git",
+				},
+				{
+					source = "document_symbols",
+					display_name = icons.abc .. " Symbols",
 				},
 			},
 		},
@@ -121,20 +129,21 @@ function M.config()
 				["C"] = "close_node",
 				["z"] = "close_all_nodes",
 				["Z"] = "expand_all_nodes",
-				["a"] = "add",
-				["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
-				["d"] = "delete",
 				["r"] = "rename",
-				["y"] = "copy_to_clipboard",
-				["x"] = "cut_to_clipboard",
-				["p"] = "paste_from_clipboard",
-				["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
-				["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
 				["q"] = "close_window",
 				["R"] = "refresh",
 				["?"] = "show_help",
 				["<S-tab>"] = "prev_source",
 				["<tab>"] = "next_source",
+				["<S-cr>"] = function(state)
+					local node = state.tree:get_node()
+					if require("neo-tree.utils").is_expandable(node) then
+						state.commands["toggle_node"](state)
+					else
+						state.commands["open"](state)
+						vim.cmd("Neotree reveal")
+					end
+				end,
 			},
 		},
 
@@ -162,22 +171,62 @@ function M.config()
 				mappings = {
 					["<bs>"] = "navigate_up",
 					["."] = "set_root",
+					["a"] = "add",
+					["A"] = "add_directory",
+					["c"] = "copy",
+					["d"] = "delete",
 					["H"] = "toggle_hidden",
+					["m"] = "move",
+					["p"] = "paste_from_clipboard",
+					["x"] = "cut_to_clipboard",
+					["y"] = "copy_to_clipboard",
 					["/"] = "fuzzy_finder",
-					["D"] = "fuzzy_finder_directory",
+					["?"] = "fuzzy_finder_directory",
 					["f"] = "filter_on_submit",
 					["<c-x>"] = "clear_filter",
 					["[g"] = "prev_git_modified",
 					["]g"] = "next_git_modified",
+					["o"] = "system_open",
+					["D"] = "diff_files",
 				},
 			},
-		},
-
-		event_handlers = {
-			{
-				event = "neo_tree_buffer_enter",
-				handler = function(_)
-					vim.opt_local.signcolumn = "auto"
+			commands = {
+				system_open = function(state)
+					local node = state.tree:get_node()
+					local path = node:get_id()
+					-- macOs: open file in default application in the background.
+					-- Probably you need to adapt the Linux recipe for manage path with spaces. I don't have a mac to try.
+					vim.api.nvim_command("silent !open -g " .. path)
+					-- Linux: open file in default application
+					vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+				end,
+				diff_files = function(state)
+					local node = state.tree:get_node()
+					local log = require("neo-tree.log")
+					state.clipboard = state.clipboard or {}
+					if diff_Node and diff_Node ~= tostring(node.id) then
+						local current_Diff = node.id
+						require("neo-tree.utils").open_file(state, diff_Node, open)
+						vim.cmd("vert diffs " .. current_Diff)
+						log.info("Diffing " .. diff_Name .. " against " .. node.name)
+						diff_Node = nil
+						current_Diff = nil
+						state.clipboard = {}
+						require("neo-tree.ui.renderer").redraw(state)
+					else
+						local existing = state.clipboard[node.id]
+						if existing and existing.action == "diff" then
+							state.clipboard[node.id] = nil
+							diff_Node = nil
+							require("neo-tree.ui.renderer").redraw(state)
+						else
+							state.clipboard[node.id] = { action = "diff", node = node }
+							diff_Name = state.clipboard[node.id].node.name
+							diff_Node = tostring(state.clipboard[node.id].node.id)
+							log.info("Diff source file " .. diff_Name)
+							require("neo-tree.ui.renderer").redraw(state)
+						end
+					end
 				end,
 			},
 		},
@@ -208,6 +257,31 @@ function M.config()
 					["gg"] = "git_commit_and_push",
 				},
 			},
+		},
+
+		document_symbols = {
+			follow_cursor = false,
+			window = {
+				mappings = {
+					["l"] = "toggle_node",
+				},
+			},
+		},
+
+		event_handlers = {
+			{
+				event = "neo_tree_buffer_enter",
+				handler = function(_)
+					vim.opt_local.signcolumn = "auto"
+				end,
+			},
+			-- {
+			-- 	event = "file_opened",
+			-- 	handler = function(file_path)
+			-- 		--auto close
+			-- 		vim.cmd("Neotree close")
+			-- 	end,
+			-- },
 		},
 	})
 

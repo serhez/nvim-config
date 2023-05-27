@@ -3,10 +3,11 @@
 local M = {
 	"mfussenegger/nvim-dap",
 	dependencies = {
-		"theHamsta/nvim-dap-virtual-text",
-		"rcarriga/nvim-dap-ui",
 		"mfussenegger/nvim-dap-python",
 		"leoluz/nvim-dap-go",
+		"rcarriga/nvim-dap-ui",
+		"theHamsta/nvim-dap-virtual-text",
+		"LiadOz/nvim-dap-repl-highlights",
 	},
 	cmd = {
 		"DapToggleBreakpoint",

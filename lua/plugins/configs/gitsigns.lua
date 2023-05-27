@@ -9,18 +9,14 @@ function M.init()
 	mappings.register_normal({
 		g = {
 			a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author" },
-			b = {
-				r = { "<cmd>Gitsigns reset_buffer<cr>", "Revert" },
-			},
-			h = {
-				name = "Hunk",
-				j = { "<cmd>Gitsigns next_hunk<cr>", "Next" },
-				k = { "<cmd>Gitsigns prev_hunk<cr>", "Prev" },
-				p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview" },
-				r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert" },
-			},
+			R = { "<cmd>Gitsigns reset_buffer<cr>", "Revert buffer" },
+			h = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
+			r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert hunk" },
 		},
 	})
+
+	vim.api.nvim_set_keymap("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { noremap = true, silent = true })
 end
 
 function M.config()

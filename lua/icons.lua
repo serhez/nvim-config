@@ -7,6 +7,7 @@ M.triple_space = "   "
 M.lupa = ""
 M.lock = ""
 M.menu = "☰"
+M.window = ""
 M.line_number = ""
 M.connected = ""
 M.windows = ""
@@ -136,11 +137,12 @@ M.greek = {
 }
 
 M.file = {
-	empty = "",
-	filled = "",
+	empty = "󰈤",
+	blank = "󰈔",
+	filled = "󰈙",
 	page = "",
-	symlink = "",
-	files = "",
+	symlink = "󰈪",
+	files = "󱔗",
 }
 
 M.folder = {

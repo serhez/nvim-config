@@ -9,8 +9,8 @@ function M.init()
 		d = {
 			b = { "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", "Toggle breakpoint" },
 			B = {
-				c = { "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", "Clear" },
-				C = {
+				d = { "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", "Delete all" },
+				c = {
 					"<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>",
 					"Set conditional breakpoint",
 				},

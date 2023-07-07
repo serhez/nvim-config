@@ -34,7 +34,7 @@ function M.config()
 
 		left = {
 			{
-				title = icons.folder.default .. " Files",
+				title = icons.file.filled .. " Files",
 				ft = "neo-tree",
 				filter = function(buf)
 					return vim.b[buf].neo_tree_source == "filesystem"
@@ -54,7 +54,7 @@ function M.config()
 				size = { height = 0.3 },
 			},
 			{
-				title = icons.file.files .. " Buffers",
+				title = icons.window .. " Buffers",
 				ft = "neo-tree",
 				filter = function(buf)
 					return vim.b[buf].neo_tree_source == "buffers"

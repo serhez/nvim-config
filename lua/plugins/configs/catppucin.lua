@@ -57,6 +57,10 @@ function M.config()
 			which_key = true,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
+			dropbar = {
+				enabled = true,
+				color_mode = false, -- enable color for kind's texts, not just kind's icons
+			},
 			barbecue = {
 				dim_dirname = true,
 				bold_basename = true,

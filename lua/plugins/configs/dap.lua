@@ -6,7 +6,7 @@ local M = {
 		"mfussenegger/nvim-dap-python",
 		"leoluz/nvim-dap-go",
 		"rcarriga/nvim-dap-ui",
-		"theHamsta/nvim-dap-virtual-text",
+		-- "theHamsta/nvim-dap-virtual-text",
 		"LiadOz/nvim-dap-repl-highlights",
 	},
 	cmd = {

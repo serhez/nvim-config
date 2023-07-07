@@ -69,10 +69,10 @@ function M.config()
 			max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
 			tab_size = 18,
 			diagnostics = false,
-			offsets = {
-				{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
-				{ filetype = "neo-tree", text = "Explorer", text_align = "center" },
-			},
+			-- offsets = {
+			-- 	{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
+			-- 	{ filetype = "neo-tree", text = "", text_align = "center" },
+			-- },
 			color_icons = true,
 			show_buffer_icons = true, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
@@ -92,6 +92,32 @@ function M.config()
 			},
 		},
 	})
+
+	-- Edgy offsets
+	local Offset = require("bufferline.offset")
+	if not Offset.edgy then
+		local get = Offset.get
+		Offset.get = function()
+			if package.loaded.edgy then
+				local layout = require("edgy.config").layout
+				local ret = { left = "", left_size = 0, right = "", right_size = 0 }
+				for _, pos in ipairs({ "left", "right" }) do
+					local sb = layout[pos]
+					if sb and #sb.wins > 0 then
+						local title = "" .. string.rep(" ", sb.bounds.width)
+						ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
+						ret[pos .. "_size"] = sb.bounds.width
+					end
+				end
+				ret.total_size = ret.left_size + ret.right_size
+				if ret.total_size > 0 then
+					return ret
+				end
+			end
+			return get()
+		end
+		Offset.edgy = true
+	end
 
 	local c = hls.colors()
 	hls.register_hls({

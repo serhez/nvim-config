@@ -4,10 +4,52 @@ local settings = {
 	},
 	python = {
 		analysis = {
-			autoSearchPaths = true,
-			diagnosticMode = "openFileOnly", -- instead of "workspace"
+			typeCheckingMode = "basic", -- "off", "basic" or "strict"
+			indexing = true,
+			userFileIndexingLimit = 2000,
+			diagnosticMode = "openFilesOnly", -- instead of "workspace"
 			useLibraryCodeForTypes = true, -- could be set to false to be faster
-			-- typeCheckingMode = "off",
+			autoImportCompletions = true,
+			autoSearchPaths = true,
+			gotoDefinitionInStringLiteral = true,
+			packageIndexDepths = {
+				{
+					name = "sklearn",
+					depth = 2,
+				},
+				{
+					name = "matplotlib",
+					depth = 2,
+				},
+				{
+					name = "scipy",
+					depth = 2,
+				},
+				{
+					name = "django",
+					depth = 2,
+				},
+				{
+					name = "flask",
+					depth = 2,
+				},
+				{
+					name = "pytorch",
+					depth = 2,
+				},
+				{
+					name = "torch",
+					depth = 2,
+				},
+				{
+					name = "numpy",
+					depth = 2,
+				},
+				{
+					name = "gym",
+					depth = 2,
+				},
+			},
 		},
 	},
 }

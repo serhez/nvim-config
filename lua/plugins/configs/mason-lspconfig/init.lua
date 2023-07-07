@@ -42,17 +42,7 @@ local function filter_diagnostics(diagnostics)
 	return vim.tbl_values(most_severe)
 end
 
--- Servers that we want navic to ignore
-local no_navic_servers = {
-	pyright = true,
-}
-
 local function custom_attach(client, bufnr)
-	local present, navic = pcall(require, "nvim-navic")
-	if present and client.server_capabilities.documentSymbolProvider and no_navic_servers[client.name] == nil then
-		navic.attach(client, bufnr)
-	end
-
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
@@ -168,8 +158,6 @@ function M.config()
 			vim.cmd([[ do User LspAttachBuffers ]])
 		end,
 	})
-
-	-- Sign column
 
 	-- Custom namespace
 	local ns = vim.api.nvim_create_namespace("severe-diagnostics")

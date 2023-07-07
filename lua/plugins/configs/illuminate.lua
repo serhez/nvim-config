@@ -8,7 +8,7 @@ local M = {
 function M.config()
 	require("illuminate").configure({
 		-- delay: delay in milliseconds
-		delay = 0,
+		delay = 250,
 	})
 
 	local c = hls.colors()

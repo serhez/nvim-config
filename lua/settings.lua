@@ -3,7 +3,6 @@ M = {}
 function M.setup()
 	local cmd = vim.cmd
 	local opt = vim.opt
-	local o = vim.o
 	local icons = require("icons")
 	local TERMINAL = vim.fn.expand("$TERMINAL")
 	local CACHE_PATH = vim.fn.stdpath("cache")
@@ -68,9 +67,8 @@ function M.setup()
 	opt.wrap = true -- display lines as one long line
 	opt.laststatus = 3 -- display one statusline for all windows
 	opt.guicursor = "i:ver100-blinkoff700-blinkon700"
-
-	o.splitkeep = "screen"
-	o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+	opt.splitkeep = "screen"
+	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 	-- Improve quickfix window UI
 	local fn = vim.fn
@@ -117,7 +115,7 @@ function M.setup()
 		return ret
 	end
 
-	o.qftf = "{info -> v:lua._G.qftf(info)}"
+	opt.qftf = "{info -> v:lua._G.qftf(info)}"
 end
 
 return M

@@ -99,8 +99,15 @@ M.bar = {
 	vertical_left_thin = "▏",
 	vertical_right = "▎",
 	vertical_right_thin = "▕",
-	upper_right_corner = "┐",
-	lower_left_corner = "└",
+	upper_right_corner = "┓",
+	upper_right_corner_thin = "┐",
+	upper_left_corner = "┏",
+	upper_left_corner_thin = "┌",
+	lower_left_corner = "┗",
+	lower_left_corner_thin = "└",
+	lower_right_corner = "┛",
+	horizontal = "━",
+	horizontal_thin = "─",
 	lower_horizontal = "▁",
 	lower_horizontal_thin = "_",
 }
@@ -110,6 +117,7 @@ M.arrow = {
 	down_left = "",
 	right_short = "",
 	right_short_thick = "",
+	down_short_thick = "",
 	right_tall = "",
 	down_short = "",
 	double_right_short = "»",
@@ -136,11 +144,16 @@ M.file = {
 }
 
 M.folder = {
-	default = "",
-	open = "",
-	empty = "",
-	empty_open = "",
-	symlink = "",
+	-- default = "",
+	-- open = "",
+	-- empty = "",
+	-- empty_open = "",
+	-- symlink = "",
+	default = "󰉋",
+	open = "󰝰",
+	empty = "󰉖",
+	empty_open = "󰷏",
+	symlink = "󰉒",
 }
 
 M.diagnostics = {

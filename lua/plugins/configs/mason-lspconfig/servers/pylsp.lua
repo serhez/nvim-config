@@ -12,7 +12,7 @@ local settings = {
 				enabled = false,
 			},
 			jedi_hover = {
-				enabled = false, -- pyright hover is better
+				enabled = true, -- pyright hover is better
 			},
 		},
 	},

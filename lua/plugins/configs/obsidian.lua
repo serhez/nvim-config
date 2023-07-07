@@ -19,6 +19,7 @@ local M = {
 		"ObsidianLinkNew",
 		"ObsidianFollowLink",
 	},
+	enabled = false,
 }
 
 function M.init()

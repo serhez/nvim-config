@@ -32,6 +32,8 @@ function M.colors()
 		statusline_fg = M.fromhl("StatusLine").fg,
 		cursor_line_bg = M.fromhl("CursorLine").bg,
 		cursor_line_fg = M.fromhl("CursorLine").fg,
+		comment_bg = M.fromhl("Comment").bg,
+		comment_fg = M.fromhl("Comment").fg,
 		line_nr = M.fromhl("LineNr").fg,
 		hint_fg = M.fromhl("DiagnosticHint").fg,
 		hint_bg = M.fromhl("DiagnosticHint").bg,

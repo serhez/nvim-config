@@ -5,59 +5,61 @@ local M = {
 }
 
 function M.config()
-	require("null-ls").setup({
+	local null_ls = require("null-ls")
+	null_ls.setup({
 		sources = {
 			-- Shell
-			require("null-ls").builtins.diagnostics.shellcheck,
-			require("null-ls").builtins.formatting.shfmt,
+			null_ls.builtins.diagnostics.shellcheck,
+			null_ls.builtins.formatting.shfmt,
 
 			-- Lua
-			require("null-ls").builtins.formatting.stylua,
+			null_ls.builtins.formatting.stylua,
 
 			-- Python
-			-- require("null-ls").builtins.diagnostics.pylint, -- Too much noise!
-			-- require("null-ls").builtins.diagnostics.pydocstyle, -- Too much noise!
-			require("null-ls").builtins.formatting.isort,
-			require("null-ls").builtins.formatting.black,
+			-- null_ls.builtins.diagnostics.pylint, -- Too much noise!
+			-- null_ls.builtins.diagnostics.pydocstyle, -- Too much noise!
+			null_ls.builtins.diagnostics.mypy,
+			null_ls.builtins.formatting.isort,
+			null_ls.builtins.formatting.black,
 
 			-- C/C++
-			require("null-ls").builtins.diagnostics.cppcheck,
-			require("null-ls").builtins.formatting.clang_format,
+			null_ls.builtins.diagnostics.cppcheck,
+			null_ls.builtins.formatting.clang_format,
 
 			-- Golang
-			require("null-ls").builtins.diagnostics.golangci_lint,
-			require("null-ls").builtins.formatting.goimports,
+			null_ls.builtins.diagnostics.golangci_lint,
+			null_ls.builtins.formatting.goimports,
 
 			-- Javascript/Typescript
-			require("null-ls").builtins.code_actions.eslint_d.with({
+			null_ls.builtins.code_actions.eslint_d.with({
 				disabled_filetypes = { "vue" }, -- use Volar for Vue
 			}),
-			require("null-ls").builtins.diagnostics.eslint_d.with({
+			null_ls.builtins.diagnostics.eslint_d.with({
 				disabled_filetypes = { "vue" }, -- use Volar for Vue
 			}),
-			require("null-ls").builtins.formatting.prettierd, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
+			null_ls.builtins.formatting.prettierd, -- Also Markdown, JSON, YAML, CSS, HTML, etc.
 
 			-- Markdown
 			-- formatting: prettierd
-			-- require("null-ls").builtins.diagnostics.markdownlint, -- Too much noise!
+			-- null_ls.builtins.diagnostics.markdownlint, -- Too much noise!
 
 			-- JSON
 			-- formatting: prettierd
-			require("null-ls").builtins.diagnostics.jsonlint,
+			null_ls.builtins.diagnostics.jsonlint,
 
 			-- YAML
 			-- formatting: prettierd
-			require("null-ls").builtins.diagnostics.yamllint,
+			null_ls.builtins.diagnostics.yamllint,
 
 			-- TOML
-			require("null-ls").builtins.formatting.taplo,
+			null_ls.builtins.formatting.taplo,
 
 			-- Make/CMake
-			require("null-ls").builtins.formatting.cmake_format,
+			null_ls.builtins.formatting.cmake_format,
 
 			-- SQL
-			require("null-ls").builtins.diagnostics.sqlfluff,
-			require("null-ls").builtins.formatting.sqlfluff,
+			null_ls.builtins.diagnostics.sqlfluff,
+			null_ls.builtins.formatting.sqlfluff,
 		},
 	})
 end

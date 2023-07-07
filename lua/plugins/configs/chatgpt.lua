@@ -1,6 +1,3 @@
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"jackMort/ChatGPT.nvim",
 	dependencies = {
@@ -13,9 +10,12 @@ local M = {
 		"ChatGPTActAs",
 		"ChatGPTEditWithInstructions",
 	},
+	enabled = false,
 }
 
 function M.init()
+	local mappings = require("mappings")
+
 	mappings.register_normal({
 		a = {
 			c = { "<cmd>ChatGPT<cr>", "Chat" },
@@ -32,6 +32,8 @@ function M.init()
 end
 
 function M.config()
+	local hls = require("highlights")
+
 	require("chatgpt").setup({
 		settings_window = {
 			border = {

@@ -10,10 +10,12 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		M = {
-			name = "Markdown",
-			p = { "<cmd>QuartoPreview<cr>", "Preview" },
-			P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
+		l = {
+			m = {
+				name = "Markdown",
+				p = { "<cmd>QuartoPreview<cr>", "Preview" },
+				P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
+			},
 		},
 	})
 end

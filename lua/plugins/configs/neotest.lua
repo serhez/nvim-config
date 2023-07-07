@@ -64,8 +64,8 @@ function M.config()
 		},
 		icons = {
 			running = icons.three_dots,
-			expanded = icons.bar.upper_right_corner,
-			final_child_prefix = icons.bar.lower_left_corner,
+			expanded = icons.bar.upper_right_corner_thin,
+			final_child_prefix = icons.bar.lower_left_corner_thin,
 		},
 	})
 end

@@ -18,7 +18,7 @@ function M.config()
 			-- Python
 			-- null_ls.builtins.diagnostics.pylint, -- Too much noise!
 			-- null_ls.builtins.diagnostics.pydocstyle, -- Too much noise!
-			null_ls.builtins.diagnostics.mypy,
+			-- null_ls.builtins.diagnostics.mypy,
 			null_ls.builtins.formatting.isort,
 			null_ls.builtins.formatting.black,
 

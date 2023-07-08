@@ -137,12 +137,18 @@ M.greek = {
 }
 
 M.file = {
-	empty = "󰈤",
-	blank = "󰈔",
-	filled = "󰈙",
+	empty = "",
+	blank = "",
+	filled = "",
 	page = "",
-	symlink = "󰈪",
-	files = "󱔗",
+	symlink = "",
+	files = "",
+	-- empty = "󰈤",
+	-- blank = "󰈔",
+	-- filled = "󰈙",
+	-- page = "",
+	-- symlink = "󰈪",
+	-- files = "󱔗",
 }
 
 M.folder = {

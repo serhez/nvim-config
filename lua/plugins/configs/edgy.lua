@@ -34,14 +34,14 @@ function M.config()
 
 		left = {
 			{
-				title = icons.file.filled .. " Files",
+				title = icons.file.files .. " Files",
 				ft = "neo-tree",
 				filter = function(buf)
 					return vim.b[buf].neo_tree_source == "filesystem"
 				end,
 				pinned = true,
 				open = "Neotree position=left filesystem",
-				size = { height = 0.5 },
+				size = { height = 0.6 },
 			},
 			{
 				title = icons.git.github .. " Git",
@@ -51,7 +51,7 @@ function M.config()
 				end,
 				pinned = true,
 				open = "Neotree position=right git_status",
-				size = { height = 0.3 },
+				size = { height = 0.2 },
 			},
 			{
 				title = icons.window .. " Buffers",

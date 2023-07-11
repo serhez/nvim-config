@@ -156,14 +156,17 @@ function M.config()
 			},
 			add = {
 				provider = "git_diff_added",
+				icon = " " .. icons.git.added .. " ",
 				hl = "FlnGreen",
 			},
 			change = {
 				provider = "git_diff_changed",
+				icon = " " .. icons.git.changed .. " ",
 				hl = "FlnYellow",
 			},
 			remove = {
 				provider = "git_diff_removed",
+				icon = " " .. icons.git.removed .. " ",
 				hl = "FlnRed",
 			},
 		},

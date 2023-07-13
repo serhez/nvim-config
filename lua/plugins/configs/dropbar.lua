@@ -5,9 +5,9 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register_normal({
-		m = { "<cmd>lua require('dropbar.api').pick()<cr>", "Move" },
-	})
+	vim.keymap.set({ "n", "x", "o" }, "m", function()
+		require("dropbar.api").pick()
+	end)
 end
 
 function M.config()
@@ -77,7 +77,8 @@ function M.config()
 						return
 					end
 					local cursor = vim.api.nvim_win_get_cursor(menu.win)
-					local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+					local entry = menu.entries[cursor[1]]
+					local component = entry:first_clickable(entry:displaywidth())
 					if component then
 						menu:click_on(component, nil, 1, "l")
 					end
@@ -88,7 +89,7 @@ function M.config()
 						return
 					end
 					local cursor = vim.api.nvim_win_get_cursor(menu.win)
-					local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+					local component = menu.entries[cursor[1]]:first_clickable(0)
 					if component then
 						menu:click_on(component, nil, 1, "l")
 					end

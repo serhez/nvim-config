@@ -3,15 +3,15 @@ local M = {
 	event = "VeryLazy",
 	keys = {
 		{
-			"m",
-			mode = { "n", "x", "o" },
+			"f",
+			mode = { "n", "o", "x" },
 			function()
 				require("flash").jump()
 			end,
 			desc = "Flash",
 		},
 		{
-			"M",
+			"F",
 			mode = { "n", "o", "x" },
 			function()
 				require("flash").treesitter()
@@ -46,7 +46,15 @@ local M = {
 }
 
 function M.config()
-	require("flash").setup()
+	local flash = require("flash")
+	flash.setup()
+
+	vim.keymap.set({ "n", "x", "o" }, "f", function()
+		flash.jump()
+	end)
+	vim.keymap.set({ "n", "x", "o" }, "F", function()
+		flash.treesitter()
+	end)
 end
 
 return M

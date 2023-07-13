@@ -26,7 +26,7 @@ function M.config()
 			"dapui_console",
 			"dapui_repl",
 		},
-		width = 2,
+		width = 1,
 		handlers = {
 			search = {
 				enable = true,

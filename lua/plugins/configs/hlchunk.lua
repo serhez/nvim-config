@@ -24,6 +24,16 @@ function M.config()
 					fg = c.info_fg,
 				},
 			},
+			exclude_filetypes = {
+				qf = true,
+				help = true,
+				dapui_scopes = true,
+				dapui_watches = true,
+				dapui_stacks = true,
+				dapui_breakpoints = true,
+				dapui_console = true,
+				["dap-repl"] = true,
+			},
 		},
 
 		indent = {

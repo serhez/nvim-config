@@ -71,6 +71,11 @@ local normal_mappings = {
 	},
 	u = {
 		name = "UI",
+		s = {
+			name = "Split",
+			h = { "<cmd>split<cr>", "Horizontal" },
+			v = { "<cmd>vsplit<cr>", "Vertical" },
+		},
 	},
 }
 

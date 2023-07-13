@@ -142,9 +142,9 @@ function M.config()
 		sources = {
 			-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
-			{ name = "buffer" },
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
+			{ name = "buffer" },
 			{
 				name = "latex_symbols",
 				option = {

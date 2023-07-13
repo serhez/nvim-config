@@ -64,7 +64,7 @@ local function custom_attach(client, bufnr)
 end
 
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
-custom_capabilities.offsetEncoding = "utf-8"
+-- custom_capabilities.offsetEncoding = "utf-8"
 custom_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -122,18 +122,6 @@ function M.config()
 		border = "single",
 		position = { row = 2, col = 2 },
 	})
-
-	-- Suppress error messages from lang servers
-	-- vim.notify = function(msg, log_level)
-	-- 	if msg:match("exit code") then
-	-- 		return
-	-- 	end
-	-- 	if log_level == vim.log.levels.ERROR then
-	-- 		vim.api.nvim_err_writeln(msg)
-	-- 	else
-	-- 		vim.api.nvim_echo({ { msg } }, true, {})
-	-- 	end
-	-- end
 
 	require("mason-lspconfig").setup()
 

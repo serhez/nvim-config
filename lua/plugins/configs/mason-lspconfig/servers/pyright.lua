@@ -4,7 +4,7 @@ local settings = {
 	},
 	python = {
 		analysis = {
-			typeCheckingMode = "basic", -- "off", "basic" or "strict"
+			typeCheckingMode = "off", -- "off", "basic" or "strict"
 			indexing = true,
 			userFileIndexingLimit = 2000,
 			diagnosticMode = "openFilesOnly", -- instead of "workspace"

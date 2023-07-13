@@ -72,11 +72,11 @@ function M.config()
 				elements = {
 					{
 						id = "scopes",
-						size = 0.55,
+						size = 0.50,
 					},
 					{
 						id = "watches",
-						size = 0.15,
+						size = 0.20,
 					},
 					{
 						id = "stacks",
@@ -133,10 +133,6 @@ function M.config()
 	dap.listeners.after.event_initialized["dapui_config"] = function()
 		open_in_tab()
 	end
-	-- BUG: This event triggers several times, which causes flickering and dap-ui eventually closing
-	-- dap.listeners.before.event_terminated["dapui_config"] = function()
-	-- 	close_tab()
-	-- end
 	dap.listeners.before.event_exited["dapui_config"] = function()
 		close_tab()
 	end

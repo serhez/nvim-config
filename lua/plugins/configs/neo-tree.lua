@@ -100,7 +100,7 @@ function M.config()
 			git_status = {
 				symbols = {
 					added = icons.git.added,
-					modified = icons.git.modified,
+					modified = "",
 					deleted = icons.git.deleted,
 					renamed = icons.git.renamed,
 					untracked = icons.git.untracked,
@@ -149,7 +149,9 @@ function M.config()
 		},
 
 		filesystem = {
-			follow_current_file = true,
+			follow_current_file = {
+				enabled = true,
+			},
 			hijack_netrw_behavior = "open_default",
 			use_libuv_file_watcher = true,
 			filtered_items = {
@@ -234,8 +236,9 @@ function M.config()
 
 		buffers = {
 			bind_to_cwd = true,
-			follow_current_file = true, -- This will find and focus the file in the active buffer every time
-			-- the current file is changed while the tree is open.
+			follow_current_file = {
+				enabled = true,
+			},
 			group_empty_dirs = true, -- when true, empty directories will be grouped together
 			window = {
 				mappings = {

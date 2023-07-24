@@ -34,6 +34,7 @@ function M.config()
 		enable_diagnostics = true,
 		enable_opened_markers = true,
 		open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+		hide_root_node = true,
 
 		sources = {
 			"filesystem",
@@ -150,7 +151,7 @@ function M.config()
 
 		filesystem = {
 			follow_current_file = {
-				enabled = true,
+				enabled = false,
 			},
 			hijack_netrw_behavior = "open_default",
 			use_libuv_file_watcher = true,

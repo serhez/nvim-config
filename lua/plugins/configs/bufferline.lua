@@ -1,7 +1,3 @@
-local icons = require("icons")
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"akinsho/bufferline.nvim",
 	dependencies = {
@@ -12,6 +8,7 @@ local M = {
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		b = {
 			c = {
@@ -38,6 +35,9 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
+	local hls = require("highlights")
+
 	-- These commands will navigate through buffers in order regardless of which mode you are using
 	-- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
 	vim.api.nvim_set_keymap("n", "<TAB>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
@@ -104,7 +104,11 @@ function M.config()
 				for _, pos in ipairs({ "left", "right" }) do
 					local sb = layout[pos]
 					if sb and #sb.wins > 0 then
-						local title = "" .. string.rep(" ", sb.bounds.width)
+						local cwd = " "
+							.. icons.home
+							.. " "
+							.. require("utils").truncate_path(vim.fn.getcwd(), sb.bounds.width)
+						local title = cwd .. string.rep(" ", sb.bounds.width - #cwd)
 						ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
 						ret[pos .. "_size"] = sb.bounds.width
 					end

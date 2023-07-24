@@ -29,4 +29,31 @@ function M.define_augroups(definitions) -- {{{
 	end
 end
 
+function M.split_path(path)
+	local components = {}
+	for component in path:gmatch("[^/]+") do
+		table.insert(components, component)
+	end
+	return components
+end
+
+-- TODO: Improve, this is garbage
+function M.truncate_path(path, width)
+	local components = M.split_path(path)
+	local truncated = {}
+	local total_length = 0
+	for i = #components, 1, -1 do
+		local component = components[i]
+		if total_length + #component + 1 > width then
+			break
+		end
+		table.insert(truncated, 1, component)
+		total_length = total_length + #component + 1
+	end
+	if #truncated == #components then
+		return path
+	end
+	return table.concat(truncated, "/")
+end
+
 return M

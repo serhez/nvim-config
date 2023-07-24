@@ -36,6 +36,7 @@ function M.config()
 				click = "v:lua.ScSa",
 			},
 			{
+				sign = { wrap = false },
 				text = { builtin.foldfunc, "" },
 				condition = { true, builtin.not_empty },
 				click = "v:lua.ScFa",
@@ -57,6 +58,7 @@ function M.config()
 			"dapui_watches",
 			"dapui_console",
 			"dapui_repl",
+			"dap-repl",
 		},
 		bt_ignore = { "nofile" },
 	})

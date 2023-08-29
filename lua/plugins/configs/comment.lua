@@ -1,11 +1,10 @@
-local mappings = require("mappings")
-
 local M = {
 	"numToStr/Comment.nvim",
 	event = "BufReadPre",
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
 	})

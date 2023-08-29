@@ -1,6 +1,5 @@
 local M = {
 	"echasnovski/mini.bracketed",
-	version = false,
 	event = "BufReadPost",
 }
 

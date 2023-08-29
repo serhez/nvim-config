@@ -31,6 +31,7 @@ function M.config()
 			restore_upcoming_session = true,
 		},
 		pre_save_cmds = { _G.close_all_wins },
+		post_restore_cmds = { require("vuffers").on_session_loaded() },
 		auto_session_suppress_dirs = { "~/", "~/.config", "~/Downloads" },
 	})
 end

@@ -3,33 +3,29 @@ local mappings = require("mappings")
 local M = {
 	"ThePrimeagen/harpoon",
 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- event = "VeryLazy", -- FIX: Use cmd instead
-	cmd = {
-		"HarpoonMark",
-		"HarpoonNext",
-		"HarpoonPrev",
-		"HarpoonMenu",
-		"Telescope harpoon marks",
-	},
+	event = "VeryLazy",
 }
 
 function M.init()
-	vim.api.nvim_create_user_command("HarpoonMark", "lua require('harpoon.mark').add_file()", {})
-	vim.api.nvim_create_user_command("HarpoonNext", "lua require('harpoon.ui').nav_next()", {})
-	vim.api.nvim_create_user_command("HarpoonPrev", "lua require('harpoon.ui').nav_prev()", {})
-	vim.api.nvim_create_user_command("HarpoonMenu", "lua require('harpoon.ui').toggle_quick_menu()", {})
+	vim.api.nvim_set_keymap(
+		"n",
+		"<TAB>",
+		"<cmd>lua require('harpoon.ui').nav_next()<cr>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<S-TAB>",
+		"<cmd>lua require('harpoon.ui').nav_prev()<cr>",
+		{ noremap = true, silent = true }
+	)
 
 	mappings.register_normal({
 		f = {
 			h = { "<cmd>Telescope harpoon marks<cr>", "Harpoon" },
 		},
-		h = {
-			name = "Harpoon",
-			f = { "<cmd>HarpoonMark<cr>", "Mark file" },
-			n = { "<cmd>HarpoonNext<cr>", "Next file" },
-			p = { "<cmd>HarpoonPrev<cr>", "Previous file" },
-			m = { "<cmd>Telescope harpoon marks<cr>", "Menu" },
-		},
+		h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Harpoon menu" },
+		H = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Harpoon file" },
 	})
 end
 
@@ -58,6 +54,13 @@ function M.confit()
 	if present then
 		telescope.load_extension("harpoon")
 	end
+
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		HarpoonWindow = { bg = c.statusline_bg },
+		HarpoonBorder = { fg = c.statusline_bg, bg = c.statusline_bg },
+	})
 end
 
 return M

@@ -1,7 +1,3 @@
-local icons = require("icons")
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"nvim-telescope/telescope.nvim",
 	dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
@@ -9,6 +5,7 @@ local M = {
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		s = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
 		b = {
@@ -47,6 +44,7 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
 	local actions = require("telescope.actions")
 	local previewers = require("telescope.previewers")
 
@@ -138,6 +136,7 @@ function M.config()
 
 	require("telescope").load_extension("fzf")
 
+	local hls = require("highlights")
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({

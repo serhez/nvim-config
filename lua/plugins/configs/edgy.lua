@@ -26,9 +26,9 @@ function M.config()
 		},
 
 		options = {
-			left = { size = 40 },
+			left = { size = 45 },
 			bottom = { size = 10 },
-			right = { size = 40 },
+			right = { size = 45 },
 			top = { size = 10 },
 		},
 
@@ -55,15 +55,22 @@ function M.config()
 			},
 			{
 				title = icons.window .. " Buffers",
-				ft = "neo-tree",
-				filter = function(buf)
-					return vim.b[buf].neo_tree_source == "buffers"
-				end,
+				ft = "vuffers",
 				pinned = true,
-				open = "Neotree position=top buffers",
+				open = "lua require('vuffers').open()",
 				size = { height = 0.2 },
 			},
 		},
+	})
+
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		EdgyNormal = { fg = c.statusline_fg, bg = c.statusline_bg },
+		EdgyWinBar = { bg = c.statusline_bg },
+		EdgyTitle = { bg = c.bg, fg = c.title_fg },
+		EdgyIcon = { bg = c.bg, fg = c.signcolumn_fg },
+		EdgyIconActive = { bg = c.bg, fg = c.constant_fg },
 	})
 end
 

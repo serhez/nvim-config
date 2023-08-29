@@ -187,8 +187,33 @@ function M.config()
 		mapping = normal_mappings,
 		sources = {
 			{ name = "git" },
-			{ name = "path" },
+			{
+				name = "path",
+				option = {
+					get_cwd = function()
+						return vim.fn.getcwd()
+					end,
+				},
+			},
 			{ name = "buffer" },
+		},
+	})
+
+	cmp.setup.filetype("harpoon", {
+		completion = normal_completion,
+		preselect = normal_preselect,
+		window = normal_window,
+		formatting = normal_formatting,
+		mapping = normal_mappings,
+		sources = {
+			{
+				name = "path",
+				option = {
+					get_cwd = function()
+						return vim.fn.getcwd()
+					end,
+				},
+			},
 		},
 	})
 
@@ -197,7 +222,14 @@ function M.config()
 		mapping = cmp.mapping.preset.cmdline(),
 		window = normal_window,
 		sources = {
-			{ name = "path" },
+			{
+				name = "path",
+				option = {
+					get_cwd = function()
+						return vim.fn.getcwd()
+					end,
+				},
+			},
 			{ name = "buffer" },
 			{ name = "cmdline_history" },
 		},
@@ -209,7 +241,14 @@ function M.config()
 			mapping = cmp.mapping.preset.cmdline(),
 			window = normal_window,
 			sources = {
-				{ name = "path" },
+				{
+					name = "path",
+					option = {
+						get_cwd = function()
+							return vim.fn.getcwd()
+						end,
+					},
+				},
 				{ name = "cmdline" },
 				{ name = "cmdline_history" },
 			},

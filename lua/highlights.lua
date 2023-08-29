@@ -45,6 +45,12 @@ function M.colors()
 		error_bg = M.fromhl("DiagnosticError").bg,
 		identifier_fg = M.fromhl("Identifier").fg,
 		identifier_bg = M.fromhl("Identifier").bg,
+		constant_fg = M.fromhl("Constant").fg,
+		constant_bg = M.fromhl("Constant").bg,
+		title_fg = M.fromhl("Title").fg,
+		title_bg = M.fromhl("Title").bg,
+		signcolumn_fg = M.fromhl("SignColumn").fg,
+		signcolumn_bg = M.fromhl("SignColumn").bg,
 		black = term(0, "#434C5E"),
 		red = term(1, "#EC5F67"),
 		green = term(2, "#8FBCBB"),
@@ -70,8 +76,19 @@ function M.common_hls()
 end
 
 function M.register_hls(groups)
-	for k, v in pairs(groups) do
-		vim.api.nvim_set_hl(0, k, v)
+	for group, attrs in pairs(groups) do
+		local hl = vim.api.nvim_get_hl(0, { name = group })
+		while hl["link"] do
+			hl = vim.api.nvim_get_hl(0, { name = hl["link"] })
+		end
+		if hl then
+			for k, v in pairs(attrs) do
+				hl[k] = v
+			end
+			vim.api.nvim_set_hl(0, group, hl)
+		else
+			vim.api.nvim_set_hl(0, group, attrs)
+		end
 	end
 end
 
@@ -92,7 +109,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "kanagawa"
+	vim.g.colors_name = "catppuccin-frappe"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF
@@ -120,6 +137,9 @@ function M.setup()
 		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
 		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },
 		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
+
+		-- Winbar
+		WinBar = { fg = c.statusline_fg, bg = c.statusline_bg },
 	}
 
 	M.register_hls(groups)

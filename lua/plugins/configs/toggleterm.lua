@@ -2,7 +2,6 @@ local mappings = require("mappings")
 
 local M = {
 	"akinsho/toggleterm.nvim",
-	version = "*",
 	cmd = {
 		"ToggleTerm",
 		"ToggleTermToggleAll",

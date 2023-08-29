@@ -1,12 +1,11 @@
-local hls = require("highlights")
-local icons = require("icons")
-
 local M = {
 	"kevinhwang91/nvim-bqf",
 	event = "VeryLazy",
 }
 
 function M.config()
+	local icons = require("icons")
+
 	require("bqf").setup({
 		auto_resize_height = true,
 		preview = {
@@ -28,6 +27,7 @@ function M.config()
 		},
 	})
 
+	local hls = require("highlights")
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({

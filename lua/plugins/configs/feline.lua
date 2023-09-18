@@ -268,7 +268,7 @@ function M.config()
 			components.git.remove,
 		},
 		{ -- center
-			components.file_path,
+			-- components.file_path,
 			components.file_info,
 		},
 		{ -- right

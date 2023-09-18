@@ -17,12 +17,27 @@ function M.init()
 			U = { "<cmd>DevdocsUninstall ", "Uninstall" },
 		},
 	})
+
+	vim.api.nvim_set_keymap(
+		"n",
+		"<TAB>",
+		"<cmd>lua require('vuffers').go_to_next_pinned_buffer()<cr>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<S-TAB>",
+		"<cmd>lua require('vuffers').go_to_prev_pinned_buffer()<cr>",
+		{ noremap = true, silent = true }
+	)
 end
 
 function M.config()
+	local icons = require("icons")
+
 	require("vuffers").setup({
 		debug = {
-			enabled = true,
+			enabled = false,
 			level = "error", -- "error" | "warn" | "info" | "debug" | "trace"
 		},
 		exclude = {
@@ -52,8 +67,8 @@ function M.config()
 			direction = "asc", -- "asc" | "desc"
 		},
 		view = {
-			modified_icon = "󰛿", -- when a buffer is modified, this icon will be shown
-			pinned_icon = "󰐾",
+			modified_icon = icons.small_circle,
+			pinned_icon = icons.pin,
 			window = {
 				auto_resize = false,
 				width = 35,

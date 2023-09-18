@@ -66,6 +66,7 @@ function M.config()
 				DressingInput = true,
 				spectre_panel = true,
 				zsh = true,
+				vuffers = true,
 			},
 		},
 

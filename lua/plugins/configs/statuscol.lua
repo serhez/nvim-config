@@ -59,6 +59,7 @@ function M.config()
 			"dapui_console",
 			"dapui_repl",
 			"dap-repl",
+			"vuffers",
 		},
 		bt_ignore = { "nofile" },
 	})

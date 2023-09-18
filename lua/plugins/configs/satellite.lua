@@ -25,6 +25,7 @@ function M.config()
 			"dapui_watches",
 			"dapui_console",
 			"dapui_repl",
+			"vuffers",
 		},
 		width = 1,
 		handlers = {

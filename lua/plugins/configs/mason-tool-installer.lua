@@ -35,6 +35,9 @@ function M.config()
 			-- R
 			"r-languageserver",
 
+			-- Julia
+			"julia-lsp",
+
 			-- Rust
 			"rust-analyzer",
 
@@ -88,6 +91,7 @@ function M.config()
 			-- SQL
 			"sqlls",
 			"sqlfluff",
+			"sql_formatter",
 
 			-- Markdown / LaTeX
 			"markdownlint",

@@ -139,7 +139,7 @@ function M.setup()
 		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
 
 		-- Winbar
-		WinBar = { fg = c.statusline_fg, bg = c.statusline_bg },
+		-- WinBar = { fg = c.statusline_fg, bg = c.statusline_bg },
 	}
 
 	M.register_hls(groups)

@@ -93,10 +93,9 @@ function M.config()
 				{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
 				{
 					filetype = "neo-tree",
-					text = " " .. icons.home .. " " .. require("utils").truncate_path(
-						vim.fn.getcwd(),
-						neotree_offset_width - 5
-					),
+					text = icons.home
+						.. " "
+						.. require("utils").truncate_path(vim.fn.getcwd(), neotree_offset_width - 5),
 					text_align = "center",
 				},
 			},
@@ -129,34 +128,34 @@ function M.config()
 	})
 
 	-- Edgy offsets
-	local Offset = require("bufferline.offset")
-	if not Offset.edgy then
-		local get = Offset.get
-		Offset.get = function()
-			if package.loaded.edgy then
-				local layout = require("edgy.config").layout
-				local ret = { left = "", left_size = 0, right = "", right_size = 0 }
-				for _, pos in ipairs({ "left", "right" }) do
-					local sb = layout[pos]
-					if sb and #sb.wins > 0 then
-						local cwd = " "
-							.. icons.home
-							.. " "
-							.. require("utils").truncate_path(vim.fn.getcwd(), sb.bounds.width)
-						local title = cwd .. string.rep(" ", sb.bounds.width - #cwd)
-						ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
-						ret[pos .. "_size"] = sb.bounds.width
-					end
-				end
-				ret.total_size = ret.left_size + ret.right_size
-				if ret.total_size > 0 then
-					return ret
-				end
-			end
-			return get()
-		end
-		Offset.edgy = true
-	end
+	-- local Offset = require("bufferline.offset")
+	-- if not Offset.edgy then
+	-- 	local get = Offset.get
+	-- 	Offset.get = function()
+	-- 		if package.loaded.edgy then
+	-- 			local layout = require("edgy.config").layout
+	-- 			local ret = { left = "", left_size = 0, right = "", right_size = 0 }
+	-- 			for _, pos in ipairs({ "left", "right" }) do
+	-- 				local sb = layout[pos]
+	-- 				if sb and #sb.wins > 0 then
+	-- 					local cwd = " "
+	-- 						.. icons.home
+	-- 						.. " "
+	-- 						.. require("utils").truncate_path(vim.fn.getcwd(), sb.bounds.width)
+	-- 					local title = cwd .. string.rep(" ", sb.bounds.width - #cwd)
+	-- 					ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
+	-- 					ret[pos .. "_size"] = sb.bounds.width
+	-- 				end
+	-- 			end
+	-- 			ret.total_size = ret.left_size + ret.right_size
+	-- 			if ret.total_size > 0 then
+	-- 				return ret
+	-- 			end
+	-- 		end
+	-- 		return get()
+	-- 	end
+	-- 	Offset.edgy = true
+	-- end
 
 	local c = hls.colors()
 	hls.register_hls({

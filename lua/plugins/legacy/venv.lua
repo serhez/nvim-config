@@ -13,7 +13,7 @@ function M.init()
 	vim.api.nvim_create_user_command("GetVenv", "lua require('venv').get_current_venv()", {})
 
 	mappings.register_normal({
-		f = {
+		F = {
 			v = { "<cmd>PickVenv<cr>", "Virtual environments" },
 		},
 	})

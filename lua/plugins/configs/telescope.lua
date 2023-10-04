@@ -7,37 +7,41 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		s = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
+		s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search text" }, -- Shortcut
 		B = {
-			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
+			l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
 		},
 		c = {
 			s = {
 				name = "Symbols",
-				f = { "<cmd>Telescope lsp_document_symbols<cr>", "File" },
-				w = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace" },
+				f = { "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", "File" },
+				w = { "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", "Workspace" },
 			},
 		},
 		f = {
-			b = { "<cmd>Telescope buffers<cr>", "Buffers" }, -- Redundancy
-			C = { "<cmd>Telescope commands<cr>", "Commands" },
+			"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
+			"Find files",
+		},
+		F = {
+			b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
+			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
 			f = {
-				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
-				"Files",
-			},
+				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
+				"Find files",
+			}, -- Redundancy
 			F = {
-				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/<cr>",
+				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 				"Files (+ignored)",
 			},
-			m = { "<cmd>Telescope marks<cr>", "Marks" },
-			M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
-			r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-			t = { "<cmd>Telescope live_grep<cr>", "Text" },
+			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
+			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
+			r = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Recent files" },
+			t = { "<cmd>Telescope live_grep theme=ivy<cr>", "Text" },
 		},
 		g = {
 			l = {
-				b = { "<cmd>Telescope git_branches<cr>", "Branches" },
-				s = { "<cmd>Telescope git_stash<cr>", "Stashes" },
+				b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
+				s = { "<cmd>Telescope git_stash theme=ivy<cr>", "Stashes" },
 			},
 		},
 	})
@@ -119,19 +123,28 @@ function M.config()
 
 		pickers = {
 			find_files = {
+				theme = "ivy",
 				find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
 			},
 		},
 
 		extensions = {
+			file_browser = {
+				theme = "ivy",
+				hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
+			},
 			fzf = {
+				theme = "ivy",
 				fuzzy = true, -- false will only do exact matching
 				override_generic_sorter = true, -- override the generic sorter
 				override_file_sorter = true, -- override the file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
-			noice = {},
+			noice = {
+				theme = "ivy",
+			},
 			undo = {
+				theme = "ivy",
 				use_delta = true,
 				side_by_side = false,
 			},

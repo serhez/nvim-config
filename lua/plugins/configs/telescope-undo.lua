@@ -9,8 +9,8 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		f = {
-			u = { "<cmd>Telescope undo<cr>", "Undo" },
+		F = {
+			u = { "<cmd>Telescope undo theme=ivy<cr>", "Undo" },
 		},
 	})
 end

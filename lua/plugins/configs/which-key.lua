@@ -27,7 +27,7 @@ local normal_mappings = {
 			name = "Breakpoints",
 		},
 	},
-	f = {
+	F = {
 		name = "Find",
 	},
 	g = {

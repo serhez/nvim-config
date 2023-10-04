@@ -21,8 +21,8 @@ function M.init()
 	)
 
 	mappings.register_normal({
-		f = {
-			h = { "<cmd>Telescope harpoon marks<cr>", "Harpoon" },
+		F = {
+			h = { "<cmd>Telescope harpoon marks theme=ivy<cr>", "Harpoon" },
 		},
 		h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Harpoon menu" },
 		H = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Harpoon file" },

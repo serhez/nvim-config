@@ -7,11 +7,11 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		f = {
-			p = { "<cmd>Telescope projects<cr>", "Projects" }, -- Redundancy
+		F = {
+			p = { "<cmd>Telescope projects theme=ivy<cr>", "Projects" }, -- Redundancy
 		},
 		p = {
-			l = { "<cmd>Telescope projects<cr>", "List" }, -- Redundancy
+			l = { "<cmd>Telescope projects theme=ivy<cr>", "List" }, -- Redundancy
 		},
 	})
 end

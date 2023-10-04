@@ -44,7 +44,7 @@ function M.init()
 			s = { "<cmd>ObsidianSearch<cr>", "Search text" },
 			t = { "<cmd>ObsidianToday<cr>", "Today" },
 		},
-		f = {
+		F = {
 			o = { "<cmd>ObsidianSearch<cr>", "Obsidian note" },
 		},
 	})

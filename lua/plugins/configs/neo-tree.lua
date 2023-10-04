@@ -15,9 +15,10 @@ M.window_width = 40
 
 function M.init()
 	require("mappings").register_normal({
-		e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true<cr>", "Explorer" },
-		c = {
-			o = { "<cmd>Neotree action=focus source=document_symbols position=right toggle=true<cr>", "Outline" },
+		e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true reveal=true<cr>", "Explorer" },
+		o = {
+			"<cmd>Neotree action=focus source=document_symbols position=right toggle=true reveal=true<cr>",
+			"Outline",
 		},
 	})
 end

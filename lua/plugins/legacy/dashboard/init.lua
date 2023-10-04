@@ -21,14 +21,14 @@ vim.g.dashboard_default_executive = "telescope"
 
 vim.g.dashboard_custom_section = {
 	a = { description = { "  Restore last session" }, command = "RestoreSession" },
-	b = { description = { "  Recent projects     " }, command = "Telescope projects" },
-	c = { description = { "  Recent files        " }, command = "Telescope oldfiles" },
-	d = { description = { "  Find file           " }, command = "Telescope find_files" },
-	e = { description = { "  Find word           " }, command = "Telescope live_grep" },
-	f = { description = { "  Marks               " }, command = "Telescope marks" },
+	b = { description = { "  Recent projects     " }, command = "Telescope projects theme=ivy" },
+	c = { description = { "  Recent files        " }, command = "Telescope oldfiles theme=ivy" },
+	d = { description = { "  Find file           " }, command = "Telescope find_files theme=ivy" },
+	e = { description = { "  Find word           " }, command = "Telescope live_grep theme=ivy" },
+	f = { description = { "  Marks               " }, command = "Telescope marks theme=ivy" },
 }
 
--- file_browser = {description = {' File Browser'}, command = 'Telescope find_files'},
+-- file_browser = {description = {' File Browser'}, command = 'Telescope find_files theme=ivy'},
 
 -- vim.g.dashboard_custom_shortcut = {
 --     a = 'f',

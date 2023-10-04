@@ -9,6 +9,11 @@ function M.config()
 	require("illuminate").configure({
 		-- delay: delay in milliseconds
 		delay = 250,
+		filetypes_denylist = {
+			"dropbar_menu",
+			"neo-tree",
+			"TelescopePrompt",
+		},
 	})
 
 	local c = hls.colors()

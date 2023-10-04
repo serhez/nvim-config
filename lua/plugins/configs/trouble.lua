@@ -3,6 +3,7 @@ local mappings = require("mappings")
 
 local M = {
 	"folke/trouble.nvim",
+	cmd = "TroubleToggle",
 }
 
 function M.init()

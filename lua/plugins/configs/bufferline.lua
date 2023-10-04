@@ -2,32 +2,53 @@ local M = {
 	"akinsho/bufferline.nvim",
 	dependencies = {
 		"famiu/bufdelete.nvim",
+		"axkirillov/hbac.nvim",
+		"roobert/bufferline-cycle-windowless.nvim",
 	},
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
-	enabled = false,
 }
 
 function M.init()
+	-- These commands will navigate through buffers in order regardless of which mode you are using
+	-- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+	-- vim.api.nvim_set_keymap("n", "<TAB>", "<cmd>BufferLineCycleNext<cr>", { noremap = true, silent = true })
+	-- vim.api.nvim_set_keymap("n", "<S-TAB>", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, silent = true })
+
+	-- These commands will move the current buffer backwards or forwards in the bufferline
+	-- vim.api.nvim_set_keymap("n", "<C-TAB>", "<cmd>BufferLineMoveNext<cr>", { noremap = true, silent = true })
+	-- vim.api.nvim_set_keymap("n", "<C-S-TAB>", "<cmd>BufferLineMovePrev<cr>", { noremap = true, silent = true })
+
 	local mappings = require("mappings")
 	mappings.register_normal({
-		b = {
-			c = {
+		b = { "<cmd>BufferLinePick<cr>", "Buffer picker" },
+		B = {
+			C = {
+				name = "Close",
 				g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- cursor_line_bgundancy
 				l = { "<cmd>BufferLineCloseLeft<cr>", "Left of current" },
 				p = { "<cmd>BufferLinePickClose<cr>", "Pick" },
 				r = { "<cmd>BufferLineCloseRight<cr>", "Right of current" },
 			},
 			g = {
+				name = "Group",
 				c = { "<cmd>BufferLineGroupClose<cr>", "Close" }, -- cursor_line_bgundancy
 				t = { "<cmd>BufferLineGroupToggle<cr>", "Toggle" },
 			},
 			m = {
+				name = "Move",
 				h = { "<cmd>BufferLineMovePrev<cr>", "Previous" },
 				l = { "<cmd>BufferLineMoveNext<cr>", "Next" },
 			},
-			p = { "<cmd>BufferLinePick<cr>", "Pick" },
+			p = {
+				function()
+					require("hbac").toggle_pin()
+					require("bufferline.groups").toggle_pin()
+				end,
+				"Toggle pin",
+			},
 			s = {
+				name = "Sort",
 				c = { "<cmd>BufferLineSortByDirectory<cr>", "By directory" },
 				t = { "<cmd>BufferLineSortByExtension<cr>", "By extension" },
 			},
@@ -39,14 +60,12 @@ function M.config()
 	local icons = require("icons")
 	local hls = require("highlights")
 
-	-- These commands will navigate through buffers in order regardless of which mode you are using
-	-- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-	vim.api.nvim_set_keymap("n", "<TAB>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<S-TAB>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
-
-	-- These commands will move the current buffer backwards or forwards in the bufferline
-	vim.api.nvim_set_keymap("n", "<C-TAB>", ":BufferLineMoveNext<CR>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-S-TAB>", ":BufferLineMovePrev<CR>", { noremap = true, silent = true })
+	local present, neotree_config = pcall(require, "plugins.configs.neo-tree")
+	if present then
+		neotree_offset_width = neotree_config.window_width
+	else
+		neotree_offset_width = 0
+	end
 
 	require("bufferline").setup({
 		options = {
@@ -70,10 +89,17 @@ function M.config()
 			max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
 			tab_size = 18,
 			diagnostics = false,
-			-- offsets = {
-			-- 	{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
-			-- 	{ filetype = "neo-tree", text = "", text_align = "center" },
-			-- },
+			offsets = {
+				{ filetype = "NvimTree", text = "Explorer", text_align = "center" },
+				{
+					filetype = "neo-tree",
+					text = " " .. icons.home .. " " .. require("utils").truncate_path(
+						vim.fn.getcwd(),
+						neotree_offset_width - 5
+					),
+					text_align = "center",
+				},
+			},
 			color_icons = true,
 			show_buffer_icons = true, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
@@ -90,6 +116,14 @@ function M.config()
 				enabled = true,
 				delay = 200,
 				reveal = { "close" },
+			},
+
+			groups = {
+				items = {
+					require("bufferline.groups").builtin.pinned:with({
+						icon = icons.filled_pin,
+					}),
+				},
 			},
 		},
 	})

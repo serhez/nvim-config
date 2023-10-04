@@ -11,14 +11,16 @@ local M = {
 	branch = "main",
 }
 
--- function M.init()
--- require("mappings").register_normal({
--- 	e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true<cr>", "Explorer" },
--- c = {
--- 	o = { "<cmd>Neotree action=focus source=document_symbols position=right toggle=true<cr>", "Outline" },
--- },
--- })
--- end
+M.window_width = 40
+
+function M.init()
+	require("mappings").register_normal({
+		e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true<cr>", "Explorer" },
+		c = {
+			o = { "<cmd>Neotree action=focus source=document_symbols position=right toggle=true<cr>", "Outline" },
+		},
+	})
+end
 
 function M.config()
 	local icons = require("icons")
@@ -40,12 +42,12 @@ function M.config()
 			"filesystem",
 			-- "netman.ui.neo-tree",
 			"git_status",
-			"buffers",
-			-- "document_symbols",
+			-- "buffers",
+			"document_symbols",
 		},
 
 		source_selector = {
-			winbar = false,
+			winbar = true,
 			content_layout = "center",
 			separator = {
 				left = icons.bar.vertical_left_thin,
@@ -61,12 +63,12 @@ function M.config()
 					display_name = icons.globe .. " Remote",
 				},
 				{
-					source = "buffers",
-					display_name = icons.file.files .. " Buffers",
-				},
-				{
 					source = "git_status",
 					display_name = icons.git.github .. " Git",
+				},
+				{
+					source = "buffers",
+					display_name = icons.file.files .. " Buffers",
 				},
 				{
 					source = "document_symbols",
@@ -114,7 +116,7 @@ function M.config()
 		},
 
 		window = {
-			width = 30,
+			width = M.window_width,
 			auto_expand_width = false,
 			mappings = {
 				["<2-LeftMouse>"] = "open_with_window_picker",

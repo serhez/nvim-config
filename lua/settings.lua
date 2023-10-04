@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 function M.setup()
 	local cmd = vim.cmd
@@ -69,7 +69,8 @@ function M.setup()
 	opt.laststatus = 3 -- display one statusline for all windows
 	opt.guicursor = "i:ver100-blinkoff700-blinkon700"
 	opt.splitkeep = "screen"
-	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+	opt.sessionoptions =
+		{ "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
 
 	-- Improve quickfix window UI
 	local fn = vim.fn

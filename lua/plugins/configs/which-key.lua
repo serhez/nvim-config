@@ -12,20 +12,8 @@ local normal_mappings = {
 	a = {
 		name = "Assistant",
 	},
-	b = {
+	B = {
 		name = "Buffers",
-		c = {
-			name = "Close",
-		},
-		g = {
-			name = "Group",
-		},
-		m = {
-			name = "Move",
-		},
-		s = {
-			name = "Sort",
-		},
 	},
 	c = {
 		name = "Code",

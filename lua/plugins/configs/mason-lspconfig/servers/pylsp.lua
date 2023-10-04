@@ -12,10 +12,10 @@ local settings = {
 				resolve_at_most = 25,
 			},
 			jedi_hover = {
-				enabled = true, -- pyright hover is better
+				enabled = false, -- pyright hover is better
 			},
 			jedi_definition = {
-				enabled = true, -- faster than pyright, but can't disable pyright
+				enabled = false, -- faster than pyright, but can't disable pyright
 				follow_imports = true,
 				follow_builtin_imports = true,
 				follow_builtin_definitions = true,

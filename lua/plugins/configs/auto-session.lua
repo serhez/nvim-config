@@ -1,6 +1,10 @@
 local M = {
 	"rmagatti/auto-session",
 	event = "VimEnter",
+	dependencies = { -- These plugins are loaded before the session is restored, so that they can properly restore buffers (pinned, etc.)
+		"akinsho/bufferline.nvim",
+		"axkirillov/hbac.nvim",
+	},
 	cond = not vim.g.started_by_firenvim,
 }
 
@@ -18,6 +22,13 @@ function _G.close_all_wins()
 	end
 end
 
+function _G.session_load_third_parties()
+	local present, vuffers = pcall(require, "vuffers")
+	if present then
+		vuffers.on_session_loaded()
+	end
+end
+
 function M.config()
 	require("auto-session").setup({
 		log_level = "error",
@@ -31,7 +42,7 @@ function M.config()
 			restore_upcoming_session = true,
 		},
 		pre_save_cmds = { _G.close_all_wins },
-		post_restore_cmds = { require("vuffers").on_session_loaded() },
+		post_restore_cmds = { _G.session_load_third_parties },
 		auto_session_suppress_dirs = { "~/", "~/.config", "~/Downloads" },
 	})
 end

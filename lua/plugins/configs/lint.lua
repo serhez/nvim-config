@@ -1,6 +1,7 @@
 local M = {
 	"mfussenegger/nvim-lint",
 	event = "BufReadPre",
+	enabled = false,
 }
 
 function M.config()

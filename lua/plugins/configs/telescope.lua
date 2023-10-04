@@ -8,7 +8,7 @@ function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
 		s = { "<cmd>Telescope live_grep<cr>", "Search text" }, -- Shortcut
-		b = {
+		B = {
 			l = { "<cmd>Telescope buffers<cr>", "List" }, -- Redundancy
 		},
 		c = {
@@ -131,6 +131,10 @@ function M.config()
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
 			noice = {},
+			undo = {
+				use_delta = true,
+				side_by_side = false,
+			},
 		},
 	})
 

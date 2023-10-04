@@ -2,6 +2,7 @@ local M = {
 	"folke/edgy.nvim",
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.init()
@@ -53,13 +54,13 @@ function M.config()
 				open = "Neotree position=right git_status",
 				size = { height = 0.2 },
 			},
-			{
-				title = icons.window .. " Buffers",
-				ft = "vuffers",
-				pinned = true,
-				open = "lua require('vuffers').open()",
-				size = { height = 0.2 },
-			},
+			-- {
+			-- 	title = icons.window .. " Buffers",
+			-- 	ft = "vuffers",
+			-- 	pinned = true,
+			-- 	open = "lua require('vuffers').open()",
+			-- 	size = { height = 0.2 },
+			-- },
 		},
 	})
 

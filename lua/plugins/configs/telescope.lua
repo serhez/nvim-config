@@ -76,7 +76,7 @@ function M.config()
 			file_ignore_patterns = {},
 			path_display = { "truncate" },
 			winblend = 0,
-			border = true,
+			border = false,
 			borderchars = icons.border.straight,
 			color_devicons = true,
 			use_less = true,
@@ -99,11 +99,12 @@ function M.config()
 
 			mappings = {
 				i = {
-					["<esc>"] = actions.close,
+					["<S-esc>"] = actions.close,
 					["<C-c>"] = actions.close,
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<C-s>"] = actions.toggle_selection,
+					["<C-a>"] = actions.toggle_all,
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -114,6 +115,7 @@ function M.config()
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<C-s>"] = actions.toggle_selection,
+					["<C-a>"] = actions.toggle_all,
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -150,8 +152,6 @@ function M.config()
 			},
 		},
 	})
-
-	require("telescope").load_extension("fzf")
 
 	local hls = require("highlights")
 	local c = hls.colors()

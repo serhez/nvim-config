@@ -72,7 +72,7 @@ function M.config()
 
 		indent = {
 			enable = true,
-			use_treesitter = false,
+			use_treesitter = true,
 			chars = {
 				icons.bar.vertical_center_thin,
 			},

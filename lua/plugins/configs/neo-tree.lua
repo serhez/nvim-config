@@ -279,7 +279,7 @@ function M.config()
 		event_handlers = {
 			{
 				event = "neo_tree_buffer_enter",
-				handler = function(_)
+				handler = function()
 					vim.opt_local.signcolumn = "auto"
 				end,
 			},

@@ -1,5 +1,4 @@
----@diagnostic disable: duplicate-set-field
-M = {}
+local M = {}
 
 function M.setup()
 	require("utils").define_augroups({

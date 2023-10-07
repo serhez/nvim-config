@@ -85,7 +85,8 @@ function M.setup()
 	vim.cmd("nnoremap <expr> k v:count ? (v:count > 5 ? \"m'\" . v:count : '') . 'k' : 'gk'")
 
 	-- Switch to previous buffer with backspace
-	vim.api.nvim_set_keymap("n", "<Backspace>", "<C-^>", { noremap = true, silent = true })
+	-- Now managed by cybu
+	-- vim.api.nvim_set_keymap("n", "<Backspace>", "<C-^>", { noremap = true, silent = true })
 
 	-- Always center the cursor
 	vim.api.nvim_set_keymap("n", "{", "{zz", { noremap = true, silent = true })

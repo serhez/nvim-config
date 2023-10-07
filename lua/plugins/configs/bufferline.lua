@@ -59,12 +59,13 @@ end
 function M.config()
 	local icons = require("icons")
 	local hls = require("highlights")
+	local c = hls.colors()
+
+	local neotree_offset_width = 0
 
 	local present, neotree_config = pcall(require, "plugins.configs.neo-tree")
 	if present then
 		neotree_offset_width = neotree_config.window_width
-	else
-		neotree_offset_width = 0
 	end
 
 	require("bufferline").setup({
@@ -102,7 +103,7 @@ function M.config()
 			color_icons = true,
 			show_buffer_icons = true, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
-			show_close_icon = false,
+			show_close_icon = true,
 			show_tab_indicators = true,
 			persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
 			-- can also be a table containing 2 custom separators
@@ -123,6 +124,55 @@ function M.config()
 						icon = icons.filled_pin,
 					}),
 				},
+			},
+		},
+
+		highlights = {
+			fill = {
+				fg = c.statusline_fg,
+				bg = c.statusline_bg,
+			},
+			buffer_visible = {
+				fg = c.comment_fg,
+				bg = c.dark_bg,
+				bold = false,
+				italic = false,
+			},
+			buffer = {
+				fg = c.comment_fg,
+				bg = c.dark_bg,
+				bold = false,
+				italic = false,
+			},
+			buffer_selected = {
+				fg = c.fg,
+				bg = c.bg,
+				bold = true,
+				italic = false,
+			},
+			tab = {
+				fg = c.comment_fg,
+				bg = c.dark_bg,
+			},
+			tab_selected = {
+				fg = c.fg,
+				bg = c.bg,
+				bold = true,
+				italic = false,
+			},
+			tab_separator = {
+				fg = c.dark_bg,
+				bg = c.dark_bg,
+			},
+			tab_separator_selected = {
+				fg = c.bg,
+				bg = c.bg,
+				sp = c.bg,
+				underline = false,
+			},
+			tab_close = {
+				fg = c.comment_fg,
+				bg = c.dark_bg,
 			},
 		},
 	})
@@ -156,30 +206,6 @@ function M.config()
 	-- 	end
 	-- 	Offset.edgy = true
 	-- end
-
-	local c = hls.colors()
-	hls.register_hls({
-		BufferLineFill = { bg = c.statusline_bg, fg = c.statusline_bg },
-
-		BufferLineBufferSelected = { bg = c.bg, bold = true, italic = false },
-		-- BufferLineTabSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineIndicatorSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineSeparatorSelected = { bg = c.statusline_bg, fg = c.statusline_bg, bold = true, italic = false },
-		-- BufferLineDevIconLuaSelected = { default = true, bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineCloseButtonSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineTabSeparatorSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
-		-- BufferLineModifiedSelected = { bg = c.cursor_line_bg, bold = true, italic = false },
-		--
-		-- BufferLineBackground = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineBuffer = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineTab = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineIndicator = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineSeparator = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineDevIconLua = { default = true, bg = c.bg, bold = false, italic = false },
-		-- BufferLineCloseButton = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineTabSeparator = { bg = c.bg, bold = false, italic = false },
-		-- BufferLineModified = { bg = c.bg, bold = false, italic = false },
-	})
 end
 
 return M

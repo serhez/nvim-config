@@ -6,8 +6,8 @@ local M = {
 }
 
 function M.init()
-	vim.api.nvim_set_keymap("n", "<TAB>", "<cmd>BufferLineCycleWindowlessNext<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<S-TAB>", "<cmd>BufferLineCycleWindowlessPrev<cr>", { noremap = true, silent = true })
+	vim.keymap.set("n", "<TAB>", "<cmd>BufferLineCycleWindowlessNext<cr>", { noremap = true, silent = true })
+	vim.keymap.set("n", "<S-TAB>", "<cmd>BufferLineCycleWindowlessPrev<cr>", { noremap = true, silent = true })
 end
 
 function M.config()

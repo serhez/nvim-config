@@ -1,8 +1,6 @@
 local M = {
 	"meatballs/notebook.nvim",
-	build = ":UpdateRemotePlugins",
-	dependencies = { "meatballs/magma-nvim" },
-	event = "BufReadPost *.ipynb",
+	event = "BufReadPost",
 }
 
 function _G.define_cell(extmark)
@@ -47,16 +45,28 @@ function M.init()
 end
 
 function M.config()
-	require("notebook")
+	require("notebook").setup({
+		-- Whether to insert a blank line at the top of the notebook
+		insert_blank_line = false,
 
-	vim.api.nvim_create_autocmd({ "BufRead" }, { pattern = { "*.ipynb" }, command = "MagmaInit" })
-	vim.api.nvim_create_autocmd(
-		"User",
-		{ pattern = { "MagmaInitPost", "NBPostRender" }, callback = _G.define_all_cells }
-	)
+		-- Whether to display the index number of a cell
+		show_index = true,
+
+		-- Whether to display the type of a cell
+		show_cell_type = true,
+
+		-- Style for the virtual text at the top of a cell
+		virtual_text_style = { fg = "lightblue", italic = true },
+	})
+
+	-- vim.api.nvim_create_autocmd({ "BufRead" }, { pattern = { "*.ipynb" }, command = "MagmaInit" })
+	-- vim.api.nvim_create_autocmd(
+	-- 	"User",
+	-- 	{ pattern = { "NBPostRender" }, callback = _G.define_all_cells }
+	-- )
 
 	-- Run MagmaInit for the first time (assuming we are lazy loading this plugin on BufRead of an ipynb file)
-	vim.cmd("MagmaInit")
+	-- vim.cmd("MagmaInit")
 end
 
 return M

@@ -23,7 +23,7 @@ end
 function M.config()
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = "all",
-		ignore_install = { "liquidsoap" }, -- it's bugged (06.10.2023)
+		ignore_install = { "liquidsoap", "beancount", "norg" }, -- they are bugged (06.10.2023)
 
 		highlight = {
 			enable = true,

@@ -8,26 +8,26 @@ local M = {
 	cond = not vim.g.started_by_firenvim,
 }
 
-function _G.close_all_wins()
-	local present, edgy = pcall(require, "edgy")
-	if present then
-		edgy.close()
-	end
+-- function _G.close_all_wins()
+-- 	local present, edgy = pcall(require, "edgy")
+-- 	if present then
+-- 		edgy.close()
+-- 	end
+--
+-- 	for _, win in ipairs(vim.api.nvim_list_wins()) do
+-- 		local config = vim.api.nvim_win_get_config(win)
+-- 		if config.relative ~= "" then
+-- 			vim.api.nvim_win_close(win, false)
+-- 		end
+-- 	end
+-- end
 
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local config = vim.api.nvim_win_get_config(win)
-		if config.relative ~= "" then
-			vim.api.nvim_win_close(win, false)
-		end
-	end
-end
-
-function _G.session_load_third_parties()
-	local present, vuffers = pcall(require, "vuffers")
-	if present then
-		vuffers.on_session_loaded()
-	end
-end
+-- function _G.session_load_third_parties()
+-- 	local present, vuffers = pcall(require, "vuffers")
+-- 	if present then
+-- 		vuffers.on_session_loaded()
+-- 	end
+-- end
 
 function M.config()
 	require("auto-session").setup({

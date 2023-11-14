@@ -46,6 +46,10 @@ function M.config()
 			},
 			mini = {
 				timeout = 4000, -- Duration between show() and hide(), in milliseconds
+				win_options = {
+					winblend = 0,
+				},
+				winhighlight = {},
 			},
 		},
 
@@ -56,7 +60,7 @@ function M.config()
 
 		messages = {
 			enabled = true, -- enables the Noice messages UI
-			view = "mini", -- default view for messages
+			view = false, -- default view for messages
 			view_error = "mini", -- view for errors
 			view_warn = "mini", -- view for warnings
 			view_history = "messages", -- view for :messages
@@ -105,7 +109,7 @@ function M.config()
 			-- Send long messages (>10 lines) to a split window
 			{
 				view = "split",
-				filter = { event = "msg_show", min_height = 10 },
+				filter = { event = "msg_show", min_height = 5 },
 			},
 		},
 	})
@@ -115,7 +119,8 @@ function M.config()
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({
-		NoiceCmdline = { fg = c.statusline_fg, bg = c.statusline_bg },
+		-- NoiceCmdline = { fg = c.statusline_fg, bg = c.statusline_bg },
+		NoiceCmdline = { fg = c.statusline_fg, bg = c.bg },
 		NoiceCmdlinePopupBorder = common_hls.no_border_statusline,
 		NoiceCmdlinePopupBorderCmdline = common_hls.no_border_statusline,
 		NoiceCmdlinePopupBorderFilter = common_hls.no_border_statusline,

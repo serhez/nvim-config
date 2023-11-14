@@ -5,7 +5,7 @@ local M = {
 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 		"MunifTanjim/nui.nvim",
 		"s1n7ax/nvim-window-picker",
-		"miversen33/netman.nvim",
+		-- "miversen33/netman.nvim",
 	},
 	cmd = "Neotree",
 	branch = "main",

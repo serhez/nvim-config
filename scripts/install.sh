@@ -82,6 +82,7 @@ pip install --upgrade pip
 pip install pynvim
 pip install jupyter
 pip install jupyter_client
+pip install jupytext
 pip install Pillow
 pip install cairosvg
 pip install pnglatex

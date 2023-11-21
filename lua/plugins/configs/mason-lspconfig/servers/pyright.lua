@@ -8,6 +8,9 @@ local settings = {
 			indexing = true,
 			userFileIndexingLimit = 2000,
 			diagnosticMode = "openFilesOnly", -- instead of "workspace"
+			diagnosticSeverityOverrides = {
+				reportUnusedExpression = "none", -- this removes a really annoying warning in notebook type files
+			},
 			useLibraryCodeForTypes = false, -- could be set to false to be faster
 			autoImportCompletions = true,
 			autoSearchPaths = true,

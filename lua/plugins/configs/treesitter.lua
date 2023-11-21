@@ -4,7 +4,6 @@ local M = {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	dependencies = {
-		"JoosepAlviste/nvim-ts-context-commentstring",
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"RRethy/nvim-treesitter-textsubjects",
 		"windwp/nvim-ts-autotag",
@@ -32,11 +31,6 @@ function M.config()
 
 		indent = { enable = true },
 		autotag = { enable = true },
-
-		context_commentstring = {
-			enable = true,
-			config = { css = "// %s" },
-		},
 
 		textobjects = {
 			select = {

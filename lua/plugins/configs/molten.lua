@@ -2,7 +2,7 @@ local M = {
 	"benlubas/molten-nvim",
 	dependencies = {
 		"quarto-dev/quarto-nvim",
-		"goerz/jupytext.vim",
+		"GCBallesteros/jupytext.nvim",
 		"3rd/image.nvim",
 	},
 	build = ":UpdateRemotePlugins",

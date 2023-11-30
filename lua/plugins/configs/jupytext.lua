@@ -1,14 +1,12 @@
 local M = {
-	"goerz/jupytext.vim",
+	"GCBallesteros/jupytext.nvim",
 	event = "VimEnter",
 }
 
 function M.config()
-	vim.g.jupytext_fmt = "md" -- "md" for markdown
-	vim.g.jupytext_filetype_map = { md = "pandoc" }
-
-	-- Run initially
-	-- vim.cmd("jupytext")
+	require("jupytext").setup({
+		style = "hydrogen",
+	})
 end
 
 return M

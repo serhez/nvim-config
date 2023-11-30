@@ -12,7 +12,7 @@ local M = {
 		"ToggleTermSetName",
 
 		-- Custom terminals
-		"Lazygit",
+		-- "Lazygit",
 		"Mprocs",
 	},
 }
@@ -28,9 +28,9 @@ function M.init()
 		p = {
 			p = { "<cmd>Mprocs<cr>", "Panel" },
 		},
-		g = {
-			p = { "<cmd>Lazygit<cr>", "Panel" },
-		},
+		-- g = {
+		-- 	p = { "<cmd>Lazygit<cr>", "Panel" },
+		-- },
 	})
 	mappings.register_visual({
 		t = {
@@ -59,18 +59,18 @@ function M.config()
 	local Terminal = require("toggleterm.terminal").Terminal
 
 	-- Lazygit
-	local lazygit = Terminal:new({
-		cmd = "lazygit",
-		dir = "git_dir",
-		direction = "float",
-		hidden = true,
-	})
+	-- local lazygit = Terminal:new({
+	-- 	cmd = "lazygit",
+	-- 	dir = "git_dir",
+	-- 	direction = "float",
+	-- 	hidden = true,
+	-- })
+	--
+	-- function _lazygit_toggle()
+	-- 	lazygit:toggle()
+	-- end
 
-	function _lazygit_toggle()
-		lazygit:toggle()
-	end
-
-	vim.api.nvim_create_user_command("Lazygit", "lua _lazygit_toggle()", {})
+	-- vim.api.nvim_create_user_command("Lazygit", "lua _lazygit_toggle()", {})
 
 	-- Mprocs
 	local mprocs = Terminal:new({

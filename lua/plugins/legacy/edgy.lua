@@ -2,7 +2,6 @@ local M = {
 	"folke/edgy.nvim",
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
-	enabled = false,
 }
 
 function M.init()

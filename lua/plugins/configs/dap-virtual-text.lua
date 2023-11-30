@@ -1,6 +1,5 @@
 local M = {
 	"theHamsta/nvim-dap-virtual-text",
-	enabled = false,
 }
 
 function M.config()

@@ -1,6 +1,7 @@
 local M = {
 	"luukvbaal/statuscol.nvim",
-	event = "VimEnter",
+	branch = "main",
+	event = "BufRead",
 }
 
 function M.config()

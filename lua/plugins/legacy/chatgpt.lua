@@ -10,7 +10,6 @@ local M = {
 		"ChatGPTActAs",
 		"ChatGPTEditWithInstructions",
 	},
-	enabled = false,
 }
 
 function M.init()

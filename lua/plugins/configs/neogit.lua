@@ -22,6 +22,7 @@ function M.config()
 	local icons = require("icons")
 
 	require("neogit").setup({
+		disable_hint = true,
 		disable_insert_on_commit = false,
 		kind = "auto",
 		use_default_keymaps = false,

@@ -6,8 +6,23 @@ local M = {
 		"3rd/image.nvim",
 	},
 	build = ":UpdateRemotePlugins",
-	event = "VimEnter",
+	ft = { "ipynb", "markdown", "quarto", "rmd" },
 }
+
+function _G.init_notebook()
+	vim.notify("Initializing notebook...")
+	vim.cmd("QuartoActivate")
+	vim.cmd("MoltenInit")
+
+	-- TODO: Define notebook cells using vim.fn.MoltenDefineCell(start_col, end_col, kernel_name), which are in the form of:
+	-- ```
+	-- cell
+	-- ```
+	-- or
+	-- ```{language}
+	-- cell
+	-- ```
+end
 
 function M.init()
 	local molten_output_open = false
@@ -45,51 +60,51 @@ function M.init()
 				},
 				r = { "<cmd>MoltenInit rust<cr>", "Initialize Rust" },
 			},
-			r = {
-				function()
-					require("quarto.runner").run_cell()
-				end,
-				"Run cell",
-			},
-			R = {
-				name = "Run",
-				a = {
-					function()
-						require("quarto.runner").run_all()
-					end,
-					"Run all cells",
-				},
-				A = {
-					function()
-						require("quarto.runner").run_all(true)
-					end,
-					"Run all cells (all langs)",
-				},
-				d = {
-					function()
-						require("quarto.runner").run_below()
-					end,
-					"Run cell and below",
-				},
-				l = {
-					function()
-						require("quarto.runner").run_line()
-					end,
-					"Run line",
-				},
-				u = {
-					function()
-						require("quarto.runner").run_above()
-					end,
-					"Run cell and above",
-				},
-			},
-			e = { "<cmd>MoltenEvaluateOperator<cr>", "Evaluate operator" },
-			E = {
-				name = "Evaluate",
-				c = { "<cmd>MoltenReevaluateCell<cr>", "Re-evaluate cell" },
-				v = { "<cmd>MoltenEvaluateVisual<cr>", "Evaluate visual" },
-			},
+			-- r = {
+			-- 	function()
+			-- 		require("quarto.runner").run_cell()
+			-- 	end,
+			-- 	"Run cell",
+			-- },
+			-- R = {
+			-- 	name = "Run",
+			-- 	a = {
+			-- 		function()
+			-- 			require("quarto.runner").run_all()
+			-- 		end,
+			-- 		"Run all cells",
+			-- 	},
+			-- 	A = {
+			-- 		function()
+			-- 			require("quarto.runner").run_all(true)
+			-- 		end,
+			-- 		"Run all cells (all langs)",
+			-- 	},
+			-- 	d = {
+			-- 		function()
+			-- 			require("quarto.runner").run_below()
+			-- 		end,
+			-- 		"Run cell and below",
+			-- 	},
+			-- 	l = {
+			-- 		function()
+			-- 			require("quarto.runner").run_line()
+			-- 		end,
+			-- 		"Run line",
+			-- 	},
+			-- 	u = {
+			-- 		function()
+			-- 			require("quarto.runner").run_above()
+			-- 		end,
+			-- 		"Run cell and above",
+			-- 	},
+			-- },
+			-- r = { "<cmd>MoltenEvaluateOperator<cr>", "Run cell" },
+			-- R = {
+			-- 	name = "Run",
+			-- 	c = { "<cmd>MoltenReevaluateCell<cr>", "Re-run cell" },
+			-- 	v = { "<cmd>MoltenEvaluateVisual<cr>", "Run visual" },
+			-- },
 			o = {
 				function()
 					molten_output_open = not molten_output_open
@@ -99,11 +114,23 @@ function M.init()
 			},
 		},
 	})
-end
 
-function M.config()
-	vim.api.nvim_create_autocmd({ "BufReadPost" }, { pattern = { "*.ipynb" }, command = "MoltenInit" })
-	vim.api.nvim_create_autocmd({ "BufReadPost" }, { pattern = { "*.ipynb" }, command = "QuartoActivate" })
+	vim.api.nvim_create_autocmd(
+		{ "BufReadPost" },
+		{ pattern = { "*.ipynb", "*.qmd", "*.rmd" }, callback = _G.init_notebook }
+	)
+
+	-- Set the kernel variable for the statusline
+	-- vim.api.nvim_create_autocmd({ "MoltenInitPost" }, {
+	-- 	callback = function()
+	-- 		require("plugins.configs.feline").set_kernel(require("molten.status").kernels())
+	-- 	end,
+	-- })
+	-- vim.api.nvim_create_autocmd({ "MoltenDeinitPost" }, {
+	-- 	callback = function()
+	-- 		require("plugins.configs.feline").set_kernel(nil)
+	-- 	end,
+	-- })
 end
 
 return M

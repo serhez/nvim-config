@@ -7,11 +7,16 @@ local M = {
 }
 
 M.venv = nil
+-- M.kernel = nil
 
 M.set_venv = function(venv)
 	local path = vim.split(venv, "/", { trimempty = true })
 	M.venv = path[#path]
 end
+
+-- M.set_kernel = function(kernel)
+-- 	M.kernel = kernel
+-- end
 
 local vi_colors = {
 	n = "FlnViCyan",
@@ -119,6 +124,27 @@ local function venv_provider()
 	return icons.tool.venv .. " " .. M.venv .. " "
 end
 
+local function kernel_provider()
+	-- if M.kernel == nil or M.kernel == "" then
+	-- 	return ""
+	-- end
+	--
+	-- return icons.tool.kernel .. " " .. M.kernel .. " "
+
+	local present, molten_status = pcall(require, "molten.status")
+	if present and molten_status.initialized() == "Molten" then
+		local kernels = molten_status.kernels()
+
+		if kernels == nil or kernels == "" then
+			return ""
+		end
+
+		return icons.tool.kernel .. " " .. kernels .. " "
+	end
+
+	return ""
+end
+
 function M.config()
 	-- local navic_present, navic = pcall(require, "nvim-navic")
 
@@ -141,6 +167,11 @@ function M.config()
 		},
 		venv = {
 			provider = "venv",
+			hl = "FlnText",
+			right_sep = { str = icons.single_space, hl = "FlnSep" },
+		},
+		kernel = {
+			provider = "kernel",
 			hl = "FlnText",
 			right_sep = { str = icons.single_space, hl = "FlnSep" },
 		},
@@ -262,6 +293,7 @@ function M.config()
 		{ -- left
 			components.vimode.left,
 			components.venv,
+			-- components.kernel, -- FIX: this breaks everything (???)
 			components.git.branch,
 			components.git.add,
 			components.git.change,
@@ -302,6 +334,7 @@ function M.config()
 		custom_providers = {
 			file_path = file_path_provider,
 			venv = venv_provider,
+			kernel = kernel_provider,
 		},
 		force_inactive = {
 			filetypes = {

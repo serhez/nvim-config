@@ -31,7 +31,7 @@ function M.init()
 	end, { noremap = false, expr = true })
 
 	mappings.register_normal({
-		o = {
+		O = {
 			name = "Obsidian",
 			b = { "<cmd>ObsidianBacklinks<cr>", "Backlinks" },
 			f = { "<cmd>ObsidianQuickSwitch<cr>", "Find notes" },

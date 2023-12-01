@@ -97,6 +97,7 @@ M.language = {
 M.tool = {
 	docker = "󰡨",
 	venv = M.geometry.cube,
+	kernel = "󰑮",
 }
 
 M.bar = {

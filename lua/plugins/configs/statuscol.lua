@@ -1,6 +1,6 @@
 local M = {
 	"luukvbaal/statuscol.nvim",
-	branch = "main",
+	branch = "0.10", -- TODO: remove when merged
 	event = "BufRead",
 }
 

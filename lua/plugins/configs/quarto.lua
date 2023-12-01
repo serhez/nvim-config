@@ -19,8 +19,47 @@ function M.init()
 			},
 		},
 		n = {
-			n = { "i```{}\r```<up><right>", "New code cell" },
-			s = { "i```\r\r```{}<left>", "Split code cell" },
+			n = { "o<esc>o```{}\r```<esc>o<esc><up><up><right><right><right>a", "New code cell" },
+			s = { "o```\r\r```{}<left>", "Split code cell" },
+			r = {
+				function()
+					require("quarto.runner").run_cell()
+				end,
+				"Run cell",
+			},
+			R = {
+				name = "Run",
+				a = {
+					function()
+						require("quarto.runner").run_all()
+					end,
+					"Run all cells",
+				},
+				A = {
+					function()
+						require("quarto.runner").run_all(true)
+					end,
+					"Run all cells (all langs)",
+				},
+				d = {
+					function()
+						require("quarto.runner").run_below()
+					end,
+					"Run cell and below",
+				},
+				l = {
+					function()
+						require("quarto.runner").run_line()
+					end,
+					"Run line",
+				},
+				u = {
+					function()
+						require("quarto.runner").run_above()
+					end,
+					"Run cell and above",
+				},
+			},
 		},
 	})
 end
@@ -36,11 +75,11 @@ function M.config()
 		closePreviewOnExit = true,
 		lspFeatures = {
 			enabled = true,
-			languages = { "r", "python", "julia", "rust" },
+			languages = { "r", "python", "julia", "rust", "bash" },
 			chunks = "all", -- 'curly' or 'all'
 			diagnostics = {
 				enabled = true,
-				triggers = { "BufReadPost" },
+				triggers = { "InsertLeave" },
 			},
 			completion = {
 				enabled = true,
@@ -52,11 +91,10 @@ function M.config()
 				references = "gr",
 				format = "<leader>cf",
 			},
-			codeRunner = {
-				enabled = true,
-				default_method = "molten",
-				ft_runners = { python = "molten", julia = "molten", rust = "molten" },
-			},
+		},
+		codeRunner = {
+			enabled = true,
+			default_method = "molten",
 		},
 	})
 

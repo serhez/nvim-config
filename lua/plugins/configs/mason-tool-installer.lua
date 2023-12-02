@@ -75,7 +75,7 @@ function M.config()
 			-- YAML
 			"yaml-language-server",
 			"yamllint",
-			"hydra-lsp",
+			-- "hydra-lsp", -- too slow
 
 			-- XML
 			"lemminx",

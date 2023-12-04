@@ -32,6 +32,9 @@ function M.config()
 			item = { icons.arrow.right_short_thick, icons.arrow.down_short_thick },
 			section = { icons.arrow.right_short_thick, icons.arrow.down_short_thick },
 		},
+		commit_editor = {
+			kind = "split",
+		},
 		mappings = {
 			finder = {
 				["<cr>"] = "Select",

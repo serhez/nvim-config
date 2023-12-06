@@ -23,10 +23,11 @@ function M.config()
 		sh = { "shellcheck" },
 
 		-- Python
-		python = { --[[ "pylint", ]]
-			"pydocstyle",
-			"mypy",
-		},
+		-- python = {
+		--  "pylint",
+		-- 	"pydocstyle",
+		-- 	"mypy",
+		-- },
 
 		-- C/C++
 		c = { "cppcheck" },

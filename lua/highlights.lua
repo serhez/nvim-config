@@ -141,7 +141,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-macchiato"
+	vim.g.colors_name = "catppuccin-mocha"
 	vim.o.background = "dark"
 
 	-- Remove the tilde (~) after EOF

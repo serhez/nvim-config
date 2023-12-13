@@ -51,8 +51,8 @@ function M.config()
 			winbar = true,
 			content_layout = "center",
 			separator = {
-				left = icons.bar.vertical_left_thin,
-				right = icons.bar.vertical_right_thin,
+				left = "",
+				right = "",
 			},
 			sources = {
 				{
@@ -297,8 +297,8 @@ function M.config()
 	local c = hls.colors()
 	hls.register_hls({
 		NeoTreeNormal = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabActive = { fg = c.fg, bg = c.cursor_line_bg },
-		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.bg },
+		NeoTreeTabActive = { fg = c.fg, bg = c.statusline_bg },
+		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.cursor_line_bg },
 		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.cursor_line_bg },
 		NeoTreeTabSeparatorInactive = { fg = c.statusline_bg, bg = c.bg },
 		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.cursor_line_bg },

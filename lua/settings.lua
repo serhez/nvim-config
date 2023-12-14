@@ -62,7 +62,7 @@ function M.setup()
 	opt.tabstop = 4 -- insert 4 spaces for a tab
 	opt.cursorline = true -- highlight the current line
 	opt.number = true -- set numbered lines
-	opt.relativenumber = true -- set relative numbered lines
+	opt.relativenumber = false -- set relative numbered lines
 	opt.signcolumn = "yes:2" -- always show the sign column, otherwise it would shift the text each time
 	opt.foldcolumn = "auto" -- always show the sign column, otherwise it would shift the text each time
 	opt.wrap = true -- display lines as one long line

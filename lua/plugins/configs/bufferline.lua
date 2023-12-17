@@ -130,20 +130,12 @@ function M.config()
 		highlights = {
 			fill = {
 				fg = c.statusline_fg,
-				-- bg = c.statusline_bg,
 				bg = c.bg,
 			},
 			buffer_visible = {
 				fg = c.fg,
-				-- bg = c.dark_bg,
-				bg = c.statusline_bg,
+				bg = c.bg,
 				bold = true,
-				italic = false,
-			},
-			buffer = {
-				fg = c.comment_fg,
-				bg = c.green,
-				bold = false,
 				italic = false,
 			},
 			buffer_selected = {
@@ -154,7 +146,6 @@ function M.config()
 			},
 			tab = {
 				fg = c.comment_fg,
-				-- bg = c.dark_bg,
 				bg = c.statusline_bg,
 			},
 			tab_selected = {
@@ -164,8 +155,6 @@ function M.config()
 				italic = false,
 			},
 			tab_separator = {
-				-- fg = c.dark_bg,
-				-- bg = c.dark_bg,
 				fg = c.statusline_bg,
 				bg = c.statusline_bg,
 			},
@@ -177,7 +166,6 @@ function M.config()
 			},
 			tab_close = {
 				fg = c.comment_fg,
-				-- bg = c.dark_bg,
 				bg = c.statusline_bg,
 			},
 		},

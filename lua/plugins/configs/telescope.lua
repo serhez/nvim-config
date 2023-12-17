@@ -54,12 +54,13 @@ function M.config()
 
 	require("telescope").setup({
 		defaults = {
-			prompt_prefix = icons.single_space .. icons.lupa .. icons.single_space,
+			prompt_prefix = " " .. icons.lupa .. " ",
 			prompt_title = false,
 			results_title = false,
+			preview_title = false,
 			dynamic_preview_title = false,
-			selection_caret = icons.single_space .. icons.arrow.right_upper_curved .. icons.single_space,
-			entry_prefix = icons.triple_space,
+			selection_caret = " " .. icons.arrow.right_upper_curved .. " ",
+			entry_prefix = "   ",
 			initial_mode = "insert",
 			selection_strategy = "reset",
 			sorting_strategy = "ascending",

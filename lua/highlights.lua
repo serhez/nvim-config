@@ -104,6 +104,7 @@ function M.common_hls()
 		no_border_dim = { fg = colors.dim, bg = colors.dim },
 		no_border_statusline = { fg = colors.statusline_bg, bg = colors.statusline_bg },
 		no_border_alt = { fg = colors.cursor_line_bg, bg = colors.cursor_line_bg },
+		no_border_dark = { fg = colors.dark_bg, bg = colors.dark_bg },
 	}
 end
 

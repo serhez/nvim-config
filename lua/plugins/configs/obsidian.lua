@@ -19,6 +19,7 @@ local M = {
 		"ObsidianLinkNew",
 		"ObsidianFollowLink",
 	},
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

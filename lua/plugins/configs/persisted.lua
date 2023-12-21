@@ -5,7 +5,7 @@ local M = {
 	-- 	"akinsho/bufferline.nvim",
 	-- 	"axkirillov/hbac.nvim",
 	-- },
-	cond = not vim.g.started_by_firenvim,
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function _G.close_all_wins()

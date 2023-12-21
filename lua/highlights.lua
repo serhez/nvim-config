@@ -144,6 +144,10 @@ function M.setup()
 	vim.g.syntax = true
 	vim.g.colors_name = "catppuccin-mocha"
 	vim.o.background = "dark"
+	vim.cmd.colorscheme({
+		args = { vim.g.colors_name },
+		mods = { emsg_silent = true },
+	})
 
 	-- Remove the tilde (~) after EOF
 	vim.cmd([[let &fcs='eob: ']])

@@ -4,6 +4,7 @@ local M = {
 	"nvim-pack/nvim-spectre",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	cmd = "Spectre",
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.init()

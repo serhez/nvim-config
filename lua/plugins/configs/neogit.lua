@@ -7,6 +7,7 @@ local M = {
 		-- "ibhagwan/fzf-lua", -- optional
 	},
 	cmd = "Neogit",
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

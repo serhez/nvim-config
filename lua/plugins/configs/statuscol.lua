@@ -2,6 +2,7 @@ local M = {
 	"luukvbaal/statuscol.nvim",
 	branch = "0.10", -- TODO: remove when merged
 	event = "BufRead",
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.config()

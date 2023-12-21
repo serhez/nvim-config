@@ -16,6 +16,7 @@ local M = {
 		"DevdocsUpdate",
 		"DevdocsUpdateAll",
 	},
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

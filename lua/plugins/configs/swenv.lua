@@ -3,6 +3,7 @@ local mappings = require("mappings")
 local M = {
 	"AckslD/swenv.nvim",
 	event = "VeryLazy",
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.init()

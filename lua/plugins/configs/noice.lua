@@ -7,7 +7,7 @@ local M = {
 		"MunifTanjim/nui.nvim",
 	},
 	event = "VeryLazy",
-	cond = not vim.g.started_by_firenvim,
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.config()

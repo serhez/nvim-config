@@ -5,6 +5,7 @@ local M = {
 		-- "theHamsta/nvim-dap-virtual-text",
 		"LiadOz/nvim-dap-repl-highlights",
 	},
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 local debug_win = nil

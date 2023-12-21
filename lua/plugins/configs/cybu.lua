@@ -8,6 +8,7 @@ local M = {
 		"CybuLastusedNext",
 		"CybuLastusedPrev",
 	},
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

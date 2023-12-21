@@ -12,8 +12,19 @@ end
 
 function M.config()
 	local icons = require("icons")
+	local disabled_fts = { oil = "" }
 
 	require("dropbar").setup({
+		general = {
+			---@type boolean|fun(buf: integer, win: integer, info: table?): boolean
+			enable = function(buf, win, _)
+				return not vim.api.nvim_win_get_config(win).zindex
+					and (vim.bo[buf].buftype == "" or vim.bo[buf].buftype == "terminal")
+					and vim.api.nvim_buf_get_name(buf) ~= ""
+					and not vim.wo[win].diff
+					and disabled_fts[vim.bo[buf].filetype] == nil
+			end,
+		},
 		icons = {
 			kinds = {
 				use_devicons = true,

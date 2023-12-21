@@ -9,6 +9,7 @@ local M = {
 	},
 	cmd = "Neotree",
 	branch = "main",
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 M.window_width = 40

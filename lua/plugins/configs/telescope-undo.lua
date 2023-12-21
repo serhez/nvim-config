@@ -4,6 +4,7 @@ local M = {
 		"nvim-telescope/telescope.nvim",
 	},
 	cmd = { "Telescope undo" },
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

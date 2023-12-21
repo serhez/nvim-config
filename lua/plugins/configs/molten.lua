@@ -7,6 +7,7 @@ local M = {
 	},
 	build = ":UpdateRemotePlugins",
 	ft = { "ipynb", "markdown", "quarto", "rmd" },
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function _G.init_notebook()

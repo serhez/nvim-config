@@ -19,6 +19,7 @@ local M = {
 		"TestPanel",
 		"TestStopNearest",
 	},
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.init()

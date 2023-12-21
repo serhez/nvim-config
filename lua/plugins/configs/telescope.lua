@@ -2,6 +2,7 @@ local M = {
 	"nvim-telescope/telescope.nvim",
 	dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
 	cmd = { "Telescope" },
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()

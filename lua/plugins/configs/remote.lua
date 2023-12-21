@@ -2,6 +2,8 @@ local M = {
 	"niuiic/remote.nvim",
 	dependencies = { "niuiic/core.nvim" },
 	cmd = "RemoteConnect",
+	enabled = false,
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.init()

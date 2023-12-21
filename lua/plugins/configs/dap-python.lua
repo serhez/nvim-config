@@ -1,5 +1,6 @@
 local M = {
 	"mfussenegger/nvim-dap-python",
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 function M.config()

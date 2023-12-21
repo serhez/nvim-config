@@ -6,6 +6,7 @@ local M = {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"RRethy/nvim-treesitter-textsubjects",
+		"RRethy/nvim-treesitter-endwise",
 		"windwp/nvim-ts-autotag",
 	},
 	event = "BufReadPost",
@@ -22,7 +23,7 @@ end
 function M.config()
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = "all",
-		ignore_install = { "liquidsoap", "beancount", "norg" }, -- they are bugged (06.10.2023)
+		ignore_install = { "liquidsoap", "beancount", "norg" }, -- NOTE: they are bugged (06.10.2023)
 
 		highlight = {
 			enable = true,
@@ -31,6 +32,7 @@ function M.config()
 
 		indent = { enable = true },
 		autotag = { enable = true },
+		endwise = { enable = true },
 
 		textobjects = {
 			select = {

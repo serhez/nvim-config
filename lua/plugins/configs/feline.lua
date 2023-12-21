@@ -4,6 +4,7 @@ local hls = require("highlights")
 local M = {
 	"freddiehaddad/feline.nvim",
 	event = "VeryLazy",
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
 M.venv = nil

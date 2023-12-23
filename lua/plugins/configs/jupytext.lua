@@ -17,21 +17,10 @@ function M.config()
 			julia = {
 				extension = "qmd",
 				style = "quarto",
+				force_ft = true,
 			},
 		},
 	})
 end
 
 return M
-
--- local M = {
--- 	"goerz/jupytext.vim",
--- 	ft = { "ipynb" },
--- }
---
--- function M.config()
--- 	vim.g.jupytext_fmt = "md" -- "md" for markdown
--- 	vim.g.jupytext_filetype_map = { md = "pandoc" }
--- end
---
--- return M

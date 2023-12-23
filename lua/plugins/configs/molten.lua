@@ -14,15 +14,6 @@ function _G.init_notebook()
 	vim.notify("Initializing notebook...")
 	vim.cmd("QuartoActivate")
 	vim.cmd("MoltenInit")
-
-	-- TODO: Define notebook cells using vim.fn.MoltenDefineCell(start_col, end_col, kernel_name), which are in the form of:
-	-- ```
-	-- cell
-	-- ```
-	-- or
-	-- ```{language}
-	-- cell
-	-- ```
 end
 
 function M.init()

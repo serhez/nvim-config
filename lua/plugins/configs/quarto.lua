@@ -3,7 +3,6 @@ local M = {
 	dependencies = {
 		"jmbuhr/otter.nvim",
 		"neovim/nvim-lspconfig",
-		"anuvyklack/hydra.nvim",
 	},
 	ft = { "markdown", "quarto", "rmd" },
 }
@@ -11,16 +10,14 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		l = {
-			m = {
-				name = "Markdown",
-				p = { "<cmd>QuartoPreview<cr>", "Preview" },
-				P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
-			},
+		m = {
+			name = "Markdown",
+			p = { "<cmd>QuartoPreview<cr>", "Preview" },
+			P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
 		},
 		n = {
-			n = { "o<esc>o```{}\r```<esc>o<esc><up><up><right><right><right>a", "New code cell" },
-			s = { "o```\r\r```{}<left>", "Split code cell" },
+			n = { "o<esc>o```{}\r```<esc>o<esc><up><up><right><right><right>a", "New cell" },
+			s = { "o```\r\r```{}<left>", "Split cell" },
 			r = {
 				function()
 					require("quarto.runner").run_cell()
@@ -33,31 +30,31 @@ function M.init()
 					function()
 						require("quarto.runner").run_all()
 					end,
-					"Run all cells",
+					"All cells",
 				},
 				A = {
 					function()
 						require("quarto.runner").run_all(true)
 					end,
-					"Run all cells (all langs)",
+					"All cells (all langs)",
 				},
-				d = {
+				j = {
 					function()
 						require("quarto.runner").run_below()
 					end,
-					"Run cell and below",
+					"Cell and below",
+				},
+				k = {
+					function()
+						require("quarto.runner").run_above()
+					end,
+					"Cell and above",
 				},
 				l = {
 					function()
 						require("quarto.runner").run_line()
 					end,
-					"Run line",
-				},
-				u = {
-					function()
-						require("quarto.runner").run_above()
-					end,
-					"Run cell and above",
+					"Line",
 				},
 			},
 		},
@@ -84,41 +81,17 @@ function M.config()
 			completion = {
 				enabled = true,
 			},
-			keymap = {
-				hover = "K",
-				definition = "gd",
-				rename = "<leader>cn",
-				references = "gr",
-				format = "<leader>cf",
-			},
 		},
 		codeRunner = {
 			enabled = true,
 			default_method = "molten",
 		},
-	})
-
-	require("hydra")({
-		name = "QuartoNavigator",
-		hint = false,
-		config = {
-			color = "pink",
-			invoke_on_body = true,
-			hint = false,
-		},
-		mode = { "n" },
-		body = "<localleader>j",
-		heads = {
-			{ "j", keys("]b"), { desc = "↓", remap = true, noremap = false } },
-			{ "k", keys("[b"), { desc = "↑", remap = true, noremap = false } },
-			{ "o", keys("/```<CR>:nohl<CR>o<CR>`<c-j>"), { desc = "new cell ↓", exit = true } },
-			{ "O", keys("?```{<CR>:nohl<CR><leader>kO<CR>`<c-j>"), { desc = "new cell ↑", exit = true } },
-			{ "l", ":QuartoSend<CR>", { desc = "run" } },
-			{ "s", ":noautocmd MoltenEnterOutput<CR>", { desc = "show" } },
-			{ "h", ":MoltenHideOutput<CR>", { desc = "hide" } },
-			{ "a", ":QuartoSendAbove<CR>", { desc = "run above" } },
-			{ "<esc>", nil, { exit = true } },
-			{ "q", nil, { exit = true } },
+		keymap = {
+			hover = "K",
+			definition = "gd",
+			rename = "<leader>cn",
+			references = "gr",
+			format = "<leader>cf",
 		},
 	})
 end

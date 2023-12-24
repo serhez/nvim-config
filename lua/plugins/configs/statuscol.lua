@@ -1,6 +1,5 @@
 local M = {
 	"luukvbaal/statuscol.nvim",
-	branch = "0.10", -- TODO: remove when merged
 	event = "BufRead",
 	cond = not vim.g.started_by_firenvim,
 }
@@ -10,12 +9,10 @@ function M.config()
 
 	require("statuscol").setup({
 		separator = " ", -- separator between line number and buffer text ("│" or extra " " padding)
-		-- Builtin line number string options for ScLn() segment
 		thousands = false, -- or line number thousands separator string ("." / ",")
 		relculright = true, -- whether to right-align the cursor line number with 'relativenumber' set
-		-- Builtin 'statuscolumn' options
 		setopt = true, -- whether to set the 'statuscolumn', providing builtin click actions
-
+		clickmod = "c", -- modifier used for certain actions: "a" for Alt, "c" for Ctrl and "m" for Meta
 		segments = {
 			{
 				sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 1, auto = true },
@@ -44,7 +41,6 @@ function M.config()
 				click = "v:lua.ScFa",
 			},
 		},
-
 		ft_ignore = {
 			"neo-tree",
 			"nvim-tree",

@@ -24,8 +24,8 @@ function M.config()
 			"pyright",
 			"pylint",
 			"pydocstyle",
-			"black",
-			"isort",
+			"ruff",
+			"ruff-lsp",
 			"debugpy",
 
 			-- C/C++

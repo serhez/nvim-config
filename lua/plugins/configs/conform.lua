@@ -13,7 +13,7 @@ function M.config()
 			lua = { "stylua" },
 
 			-- Python
-			python = { "isort", "black" },
+			python = { "ruff_fix", "ruff_format" },
 
 			-- C/C++
 			c = { "clang_format" },
@@ -58,6 +58,13 @@ function M.config()
 			sql = { "sql_formatter" },
 		},
 	})
+
+	-- Use isort with ruff
+	require("conform").formatters.ruff_fix = {
+		prepend_args = { "--select", "I" },
+	}
+
+	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 end
 
 return M

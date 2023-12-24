@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 function M.register_normal(mappings)
 	local present, which_key = pcall(require, "which-key")

@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 function M.setup()
 	vim.opt.guifont = "JetBrainsMono Nerd Font Mono Light:h16:#h-none:#e-subpixelantialias"

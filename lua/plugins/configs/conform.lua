@@ -56,6 +56,9 @@ function M.config()
 
 			-- SQL
 			sql = { "sql_formatter" },
+
+			-- Injected
+			["*"] = { "injected" },
 		},
 	})
 

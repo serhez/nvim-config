@@ -37,10 +37,7 @@ function M.config()
 		textobjects = {
 			select = {
 				enable = true,
-
-				-- Automatically jump forward to textobj, similar to targets.vim
-				lookahead = true,
-
+				lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
 				keymaps = {
 					-- You can use the capture groups defined in textobjects.scm
 					["af"] = "@function.outer",
@@ -66,10 +63,10 @@ function M.config()
 				enable = true,
 				set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
-					["]]"] = "@function.outer",
-					["]f"] = "@function.outer",
-					["]c"] = "@class.outer",
-					["]p"] = "@parameter.outer",
+					["]]"] = "@function.inner",
+					["]f"] = "@function.inner",
+					["]c"] = "@class.inner",
+					["]p"] = "@parameter.inner",
 				},
 				goto_next_end = {
 					["]["] = "@function.outer",
@@ -78,10 +75,10 @@ function M.config()
 					["]P"] = "@parameter.outer",
 				},
 				goto_previous_start = {
-					["[["] = "@function.outer",
-					["[f"] = "@function.outer",
-					["[c"] = "@class.outer",
-					["[p"] = "@parameter.outer",
+					["[["] = "@function.inner",
+					["[f"] = "@function.inner",
+					["[c"] = "@class.inner",
+					["[p"] = "@parameter.inner",
 				},
 				goto_previous_end = {
 					["[]"] = "@function.outer",

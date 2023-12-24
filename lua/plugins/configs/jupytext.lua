@@ -1,7 +1,6 @@
 local M = {
 	"GCBallesteros/jupytext.nvim",
 	event = "VimEnter",
-	branch = "support-more-than-just-auto",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 

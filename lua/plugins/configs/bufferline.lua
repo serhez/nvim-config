@@ -144,6 +144,14 @@ function M.config()
 				bold = true,
 				italic = false,
 			},
+			indicator_visible = {
+				fg = c.fg,
+				bg = c.bg,
+			},
+			indicator_selected = {
+				fg = c.fg,
+				bg = c.bg,
+			},
 			tab = {
 				fg = c.comment_fg,
 				bg = c.statusline_bg,

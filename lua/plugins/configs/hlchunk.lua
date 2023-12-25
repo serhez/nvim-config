@@ -67,6 +67,7 @@ function M.config()
 				spectre_panel = true,
 				zsh = true,
 				vuffers = true,
+				oil = true,
 			},
 		},
 

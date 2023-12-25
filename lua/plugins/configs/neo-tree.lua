@@ -33,7 +33,7 @@ function M.config()
 		use_default_mappings = false,
 		close_if_last_window = true,
 		use_popups_for_input = false,
-		popup_border_style = "single",
+		popup_border_style = "solid",
 		enable_git_status = true,
 		enable_diagnostics = true,
 		enable_opened_markers = true,

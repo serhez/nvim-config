@@ -175,6 +175,9 @@ function M.setup()
 		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },
 		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
 
+		-- Borders and separators
+		WinSeparator = common_hls.no_border_statusline,
+
 		-- Winbar
 		-- WinBar = { fg = c.statusline_fg, bg = c.statusline_bg },
 	}

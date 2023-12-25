@@ -7,6 +7,21 @@ local M = {
 	lazy = false,
 }
 
+local noremap_silent = { noremap = true, silent = true }
+
+local function toggle_locationlist()
+	local win = vim.api.nvim_get_current_win()
+	local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+	local action = qf_winid > 0 and "lclose" or "lopen"
+	vim.cmd(action)
+end
+
+local function toggle_quicklist()
+	local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+	local action = qf_winid > 0 and "cclose" or "copen"
+	vim.cmd("botright " .. action)
+end
+
 local normal_mappings = {
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
 	a = {
@@ -59,6 +74,8 @@ local normal_mappings = {
 	},
 	u = {
 		name = "UI",
+		l = { toggle_locationlist, "Location list" },
+		q = { toggle_quicklist, "Quickfix list" },
 		s = {
 			name = "Split",
 			h = { "<cmd>split<cr>", "Horizontal" },

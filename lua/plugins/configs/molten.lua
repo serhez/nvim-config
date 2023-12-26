@@ -51,6 +51,7 @@ function M.init()
 					"Initialize Python",
 				},
 				r = { "<cmd>MoltenInit rust<cr>", "Initialize Rust" },
+				s = { "<cmd>MoltenInterrupt<cr>", "Stop cell" },
 			},
 			-- r = {
 			-- 	function()

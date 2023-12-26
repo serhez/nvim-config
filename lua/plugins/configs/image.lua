@@ -1,6 +1,6 @@
 local M = {
 	"3rd/image.nvim",
-	event = "BufReadPre",
+	ft = { "markdown", "quarto", "rmd", "ipynb" },
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 

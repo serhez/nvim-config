@@ -9,7 +9,7 @@ function M.config()
 
 	require("statuscol").setup({
 		separator = " ", -- separator between line number and buffer text ("│" or extra " " padding)
-		thousands = false, -- or line number thousands separator string ("." / ",")
+		thousands = false, -- false or line number thousands separator string ("." / ",")
 		relculright = true, -- whether to right-align the cursor line number with 'relativenumber' set
 		setopt = true, -- whether to set the 'statuscolumn', providing builtin click actions
 		clickmod = "c", -- modifier used for certain actions: "a" for Alt, "c" for Ctrl and "m" for Meta
@@ -18,9 +18,9 @@ function M.config()
 				sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 1, auto = true },
 				click = "v:lua.ScLa",
 			},
-			{
-				sign = { name = { "todo*" }, maxwidth = 1 },
-			},
+			-- {
+			-- 	sign = { name = { "todo*" }, maxwidth = 1 },
+			-- },
 			{
 				sign = { name = { "Diagnostic" }, maxwidth = 1 },
 				click = "v:lua.ScSa",
@@ -35,7 +35,6 @@ function M.config()
 				click = "v:lua.ScSa",
 			},
 			{
-				sign = { wrap = false },
 				text = { builtin.foldfunc, "" },
 				condition = { true, builtin.not_empty },
 				click = "v:lua.ScFa",

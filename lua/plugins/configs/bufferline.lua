@@ -7,6 +7,7 @@ local M = {
 	},
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.init()
@@ -21,9 +22,8 @@ function M.init()
 
 	local mappings = require("mappings")
 	mappings.register_normal({
-		b = { "<cmd>BufferLinePick<cr>", "Buffer picker" },
-		B = {
-			C = {
+		b = {
+			c = {
 				name = "Close",
 				g = { "<cmd>BufferLineGroupClose<cr>", "Group" }, -- cursor_line_bgundancy
 				l = { "<cmd>BufferLineCloseLeft<cr>", "Left of current" },
@@ -40,13 +40,7 @@ function M.init()
 				h = { "<cmd>BufferLineMovePrev<cr>", "Previous" },
 				l = { "<cmd>BufferLineMoveNext<cr>", "Next" },
 			},
-			p = {
-				function()
-					require("hbac").toggle_pin()
-					require("bufferline.groups").toggle_pin()
-				end,
-				"Toggle pin",
-			},
+			P = { "<cmd>BufferLinePick<cr>", "Buffer picker" },
 			s = {
 				name = "Sort",
 				c = { "<cmd>BufferLineSortByDirectory<cr>", "By directory" },

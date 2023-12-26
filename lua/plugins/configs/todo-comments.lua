@@ -21,20 +21,20 @@ function M.config()
 		-- keywords recognized as todo comments
 		keywords = {
 			FIX = {
-				icon = icons.diagnostics.bug .. icons.single_space, -- icon used for the sign, and in search results
+				icon = icons.diagnostics.bug .. " ", -- icon used for the sign, and in search results
 				color = "error", -- can be a hex color, or a named color (see below)
 				alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
 				-- signs = false, -- configure signs for some keywords individually
 			},
-			TODO = { icon = icons.check .. icons.single_space, color = "info" },
-			HACK = { icon = icons.fire .. icons.single_space, color = "warning" },
+			TODO = { icon = icons.check .. " ", color = "info" },
+			HACK = { icon = icons.fire .. " ", color = "warning" },
 			WARN = {
-				icon = icons.diagnostics.warning .. icons.single_space,
+				icon = icons.diagnostics.warning .. " ",
 				color = "warning",
 				alt = { "WARNING", "XXX" },
 			},
-			PERF = { icon = icons.fast .. icons.single_space, alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-			NOTE = { icon = icons.message .. icons.single_space, color = "hint", alt = { "INFO" } },
+			PERF = { icon = icons.fast .. " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+			NOTE = { icon = icons.message .. " ", color = "hint", alt = { "INFO" } },
 		},
 		-- highlighting of the line containing the todo comment
 		-- * before: highlights before the keyword (typically comment characters)

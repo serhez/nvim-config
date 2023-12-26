@@ -298,11 +298,11 @@ function M.config()
 	local c = hls.colors()
 	hls.register_hls({
 		NeoTreeNormal = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NeoTreeTabActive = { fg = c.fg, bg = c.statusline_bg },
-		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.cursor_line_bg },
+		NeoTreeTabActive = { fg = c.fg, bg = c.cursor_line_bg },
 		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.cursor_line_bg },
+		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
 		NeoTreeTabSeparatorInactive = { fg = c.statusline_bg, bg = c.bg },
-		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.cursor_line_bg },
+		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.statusline_bg },
 	})
 end
 

@@ -25,6 +25,15 @@ function M.config()
 					and disabled_fts[vim.bo[buf].filetype] == nil
 			end,
 		},
+		sources = {
+			path = {
+				modified = function(sym)
+					return sym:merge({
+						name_hl = "DiagnosticSignWarn",
+					})
+				end,
+			},
+		},
 		icons = {
 			kinds = {
 				use_devicons = true,

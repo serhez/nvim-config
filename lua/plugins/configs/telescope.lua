@@ -9,9 +9,10 @@ function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
 		s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search text" }, -- Shortcut
-		B = {
-			l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
-		},
+		-- Now handled by hbac
+		-- b = {
+		-- 	l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
+		-- },
 		c = {
 			s = {
 				name = "Symbols",
@@ -24,7 +25,8 @@ function M.init()
 			"Find files",
 		},
 		F = {
-			b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
+			-- Now handled by hbac
+			-- b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
 			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
 			f = {
 				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",

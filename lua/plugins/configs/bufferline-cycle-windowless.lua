@@ -3,11 +3,12 @@ local M = {
 	dependencies = {
 		"akinsho/bufferline.nvim",
 	},
+	enabled = false,
 }
 
 function M.init()
-	vim.keymap.set("n", "<TAB>", "<cmd>BufferLineCycleWindowlessNext<cr>", { noremap = true, silent = true })
-	vim.keymap.set("n", "<S-TAB>", "<cmd>BufferLineCycleWindowlessPrev<cr>", { noremap = true, silent = true })
+	-- vim.keymap.set("n", "<TAB>", "<cmd>BufferLineCycleWindowlessNext<cr>", { noremap = true, silent = true })
+	-- vim.keymap.set("n", "<S-TAB>", "<cmd>BufferLineCycleWindowlessPrev<cr>", { noremap = true, silent = true })
 end
 
 function M.config()

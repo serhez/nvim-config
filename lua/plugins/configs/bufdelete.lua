@@ -8,10 +8,10 @@ local M = {
 function M.init()
 	mappings.register_normal({
 		q = { "<cmd>Bwipeout<cr>", "Quit buffer" }, -- Shortcut
-		B = {
-			C = {
+		b = {
+			c = {
 				name = "Close",
-				a = { "<cmd>%Bwipeout<cr>", "All" },
+				A = { "<cmd>%Bwipeout<cr>", "All" },
 				c = { "<cmd>Bwipeout<cr>", "Current" },
 				o = { '<cmd>%Bdelete | e # | normal `"<cr>', "Others" },
 			},

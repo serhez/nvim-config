@@ -1,7 +1,6 @@
-local mappings = require("mappings")
-
 local M = {
 	"ThePrimeagen/harpoon",
+	branch = "harpoon2",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	event = "VeryLazy",
 }
@@ -9,57 +8,39 @@ local M = {
 function M.init()
 	vim.api.nvim_set_keymap(
 		"n",
-		"<TAB>",
-		"<cmd>lua require('harpoon.ui').nav_next()<cr>",
+		"]a",
+		"<cmd>lua require('harpoon'):list():next()<cr>",
 		{ noremap = true, silent = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"<S-TAB>",
-		"<cmd>lua require('harpoon.ui').nav_prev()<cr>",
+		"[a",
+		"<cmd>lua require('harpoon'):list():prev()<cr>",
 		{ noremap = true, silent = true }
 	)
 
+	local mappings = require("mappings")
 	mappings.register_normal({
-		F = {
-			h = { "<cmd>Telescope harpoon marks theme=ivy<cr>", "Harpoon" },
-		},
-		h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Harpoon menu" },
-		H = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Harpoon file" },
+		h = { "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>", "Harpoon menu" },
+		H = { "<cmd>lua require('harpoon'):list():append()<cr>", "Harpoon file" },
 	})
 end
 
 function M.confit()
-	require("harpoon").setup({
-		-- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+	require("harpoon"):setup({
+		-- any time the ui menu is closed then we will save the state back to the backing list, not to the fs
 		save_on_toggle = true,
 
-		-- saves the harpoon file upon every change. disabling is unrecommended.
-		save_on_change = true,
-
-		-- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
-		enter_on_sendcmd = false,
-
-		-- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-		tmux_autoclose_windows = false,
-
-		-- filetypes that you want to prevent from adding to the harpoon list menu.
-		excluded_filetypes = { "harpoon" },
-
-		-- set marks specific to each git branch inside git repository
-		mark_branch = true,
+		-- any time the ui menu is closed then the state of the list will be sync'd back to the fs
+		sync_on_ui_close = true,
 	})
-
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.load_extension("harpoon")
-	end
 
 	local hls = require("highlights")
 	local c = hls.colors()
 	hls.register_hls({
 		HarpoonWindow = { bg = c.statusline_bg },
 		HarpoonBorder = { fg = c.statusline_bg, bg = c.statusline_bg },
+		HarpoonCurrentFile = { fg = c.cursor_line_fg, bg = c.cursor_line_bg },
 	})
 end
 

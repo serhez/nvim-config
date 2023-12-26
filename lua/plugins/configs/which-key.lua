@@ -27,7 +27,7 @@ local normal_mappings = {
 	a = {
 		name = "Assistant",
 	},
-	B = {
+	b = {
 		name = "Buffers",
 	},
 	c = {
@@ -65,9 +65,6 @@ local normal_mappings = {
 	},
 	p = {
 		name = "Projects",
-	},
-	T = {
-		name = "Tests",
 	},
 	t = {
 		name = "Terminal",
@@ -119,7 +116,7 @@ function M.config()
 		icons = {
 			breadcrumb = icons.arrow.double_right_short, -- symbol used in the command line area that shows your active key combo
 			separator = icons.arrow.right, -- symbol used between a key and it's label
-			group = icons.folder.open .. icons.single_space, -- symbol prepended to a group
+			group = icons.folder.open .. " ", -- symbol prepended to a group
 		},
 		window = {
 			border = "none", -- none, single, double, shadow

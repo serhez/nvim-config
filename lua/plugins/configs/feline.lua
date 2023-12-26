@@ -48,7 +48,7 @@ local vi_colors = {
 -- 	if location == "" then
 -- 		return location
 -- 	else
--- 		return icons.single_space .. icons.arrow.right_tall .. icons.single_space .. location
+-- 		return " " .. icons.arrow.right_tall .. " " .. location
 -- 	end
 -- end
 
@@ -77,7 +77,7 @@ local function diag_of(f, s)
 	local icon = icons.diagnostics[s]
 	return function()
 		local diag = f()[s]
-		return icon .. icons.single_space .. diag
+		return icon .. " " .. diag
 	end
 end
 
@@ -146,6 +146,19 @@ local function kernel_provider()
 	return ""
 end
 
+local function tabs_provider()
+	local valid_tabs = vim.tbl_filter(function(t)
+		return vim.api.nvim_tabpage_is_valid(t)
+	end, vim.api.nvim_list_tabpages())
+
+	if #valid_tabs < 2 then
+		return ""
+	end
+
+	local current_tab = vim.fn.tabpagenr()
+	return current_tab .. icons.bar.vertical_center_thin .. #valid_tabs
+end
+
 function M.config()
 	-- local navic_present, navic = pcall(require, "nvim-navic")
 
@@ -156,32 +169,32 @@ function M.config()
 		},
 		vimode = {
 			left = {
-				provider = icons.double_space,
+				provider = "  ",
 				hl = vi_mode_hl,
-				right_sep = { str = icons.double_space, hl = "FlnSep" },
+				right_sep = { str = "  ", hl = "FlnSep" },
 			},
 			right = {
-				provider = icons.double_space,
+				provider = "  ",
 				hl = vi_mode_hl,
-				left_sep = { str = icons.double_space, hl = "FlnSep" },
+				left_sep = { str = "  ", hl = "FlnSep" },
 			},
 		},
 		venv = {
 			provider = "venv",
 			hl = "FlnText",
-			right_sep = { str = icons.single_space, hl = "FlnSep" },
+			right_sep = { str = " ", hl = "FlnSep" },
 		},
 		kernel = {
 			provider = "kernel",
 			hl = "FlnText",
-			right_sep = { str = icons.single_space, hl = "FlnSep" },
+			right_sep = { str = " ", hl = "FlnSep" },
 		},
 		git = {
 			branch = {
 				provider = "git_branch",
-				icon = icons.git.branch .. icons.single_space,
+				icon = icons.git.branch .. " ",
 				hl = "FlnGitBranch",
-				right_sep = { str = icons.single_space, hl = "FlnSep" },
+				right_sep = { str = " ", hl = "FlnSep" },
 				enabled = function()
 					return vim.b.gitsigns_status_dict ~= nil
 				end,
@@ -219,7 +232,7 @@ function M.config()
 				opts = {
 					type = "base-only",
 					path_sep = " " .. icons.arrow.right_tall .. " ",
-					file_readonly_icon = icons.lock .. icons.single_space,
+					file_readonly_icon = icons.lock .. " ",
 					file_modified_icon = icons.small_circle,
 				},
 			},
@@ -236,31 +249,36 @@ function M.config()
 			warning = {
 				provider = diag_of(lsp_diagnostics_info, "warning"),
 				enabled = lsp_diagnostics_show("WARN"),
-				left_sep = { str = icons.single_space, hl = "FlnSep" },
+				left_sep = { str = " ", hl = "FlnSep" },
 				hl = "FlnWarn",
 			},
 			info = {
 				provider = diag_of(lsp_diagnostics_info, "info"),
 				enabled = lsp_diagnostics_show("INFO"),
-				left_sep = { str = icons.single_space, hl = "FlnSep" },
+				left_sep = { str = " ", hl = "FlnSep" },
 				hl = "FlnInfo",
 			},
 			hint = {
 				provider = diag_of(lsp_diagnostics_info, "hint"),
 				enabled = lsp_diagnostics_show("HINT"),
-				left_sep = { str = icons.single_space, hl = "FlnSep" },
+				left_sep = { str = " ", hl = "FlnSep" },
 				hl = "FlnHint",
 			},
+		},
+		tabs = {
+			provider = "tabs",
+			hl = "FlnText",
+			left_sep = { str = "  ", hl = "FlnSep" },
 		},
 		cursor = {
 			position = {
 				provider = "position",
 				hl = "FlnText",
-				left_sep = { str = icons.double_space, hl = "FlnSep" },
+				left_sep = { str = "  ", hl = "FlnSep" },
 			},
 			percentage = {
 				provider = "line_percentage",
-				left_sep = { str = icons.double_space, hl = "FlnSep" },
+				left_sep = { str = "  ", hl = "FlnSep" },
 				hl = "FlnText",
 			},
 		},
@@ -269,7 +287,7 @@ function M.config()
 				name = "file_info",
 				opts = {
 					type = "relative",
-					file_readonly_icon = icons.lock .. icons.single_space,
+					file_readonly_icon = icons.lock .. " ",
 				},
 			},
 			hl = "StatusLine",
@@ -311,6 +329,7 @@ function M.config()
 			components.diagnostics.hint,
 			components.cursor.position,
 			components.cursor.percentage,
+			components.tabs,
 			components.vimode.right,
 		},
 	}
@@ -336,6 +355,7 @@ function M.config()
 			file_path = file_path_provider,
 			venv = venv_provider,
 			kernel = kernel_provider,
+			tabs = tabs_provider,
 		},
 		force_inactive = {
 			filetypes = {

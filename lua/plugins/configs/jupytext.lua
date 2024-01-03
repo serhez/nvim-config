@@ -11,12 +11,12 @@ function M.config()
 			python = {
 				extension = "qmd",
 				style = "quarto",
-				force_ft = true,
+				force_ft = "quarto",
 			},
 			julia = {
 				extension = "qmd",
 				style = "quarto",
-				force_ft = true,
+				force_ft = "quarto",
 			},
 		},
 	})

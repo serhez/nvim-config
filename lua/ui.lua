@@ -2,6 +2,9 @@ local M = {}
 
 function M.setup()
 	M.set_separators()
+
+	-- Statuscolumn (for when plugin `statuscol` is buggy)
+	-- vim.o.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%r│%T"
 end
 
 function M.set_separators()

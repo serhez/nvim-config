@@ -1,11 +1,10 @@
-local mappings = require("mappings")
-
 local M = {
 	"lewis6991/gitsigns.nvim",
-	event = "BufReadPre",
+	event = "BufReadPost",
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		g = {
 			a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author" },

@@ -11,7 +11,7 @@ function M.init()
 	vim.api.nvim_create_user_command("Spectre", "lua require('spectre').open()", {})
 
 	mappings.register_normal({
-		S = { "<cmd>Spectre<cr>", "Search & replace" },
+		r = { "<cmd>Spectre<cr>", "Replace text" },
 	})
 end
 

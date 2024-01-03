@@ -14,20 +14,26 @@ local M = {
 
 M.window_width = 40
 
+function _G.get_neotree_winbar()
+	if vim.bo.filetype == "neo-tree" then
+		return require("icons").home .. " " .. require("utils").truncate_path(vim.fn.getcwd(), M.window_width - 5)
+	end
+end
+
 function M.init()
 	require("mappings").register_normal({
-		e = { "<cmd>Neotree action=focus source=filesystem position=left toggle=true reveal=true<cr>", "Explorer" },
-		o = {
-			"<cmd>Neotree action=focus source=document_symbols position=right toggle=true reveal=true<cr>",
-			"Outline",
-		},
+		e = { "<cmd>Neotree action=focus source=last position=left toggle=true reveal=true<cr>", "Explorer" },
+		-- o = {
+		-- 	"<cmd>Neotree action=focus source=document_symbols position=right toggle=true reveal=true<cr>",
+		-- 	"Outline",
+		-- },
 	})
 end
 
 function M.config()
 	local icons = require("icons")
 
-	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+	vim.g.neo_tree_remove_legacy_commands = 1
 
 	require("neo-tree").setup({
 		use_default_mappings = false,
@@ -45,7 +51,7 @@ function M.config()
 			-- "netman.ui.neo-tree",
 			"git_status",
 			-- "buffers",
-			"document_symbols",
+			-- "document_symbols",
 		},
 
 		source_selector = {
@@ -302,8 +308,11 @@ function M.config()
 		NeoTreeTabSeparatorActive = { fg = c.statusline_bg, bg = c.cursor_line_bg },
 		NeoTreeTabInactive = { fg = c.statusline_fg, bg = c.statusline_bg },
 		NeoTreeTabSeparatorInactive = { fg = c.statusline_bg, bg = c.bg },
-		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.statusline_bg },
+		NeoTreeFileNameOpened = { fg = c.cursor_line_fg, bg = c.cursor_line_bg },
 	})
+
+	-- Statusline for neo-tree
+	-- vim.o.winbar = "%{%v:_G.get_neotree_winbar()%}"
 end
 
 return M

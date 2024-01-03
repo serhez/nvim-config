@@ -11,7 +11,7 @@ local M = {
 		"kdheepak/cmp-latex-symbols",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-path",
+		"tzachar/cmp-fuzzy-path",
 		"L3MON4D3/LuaSnip",
 		"jc-doyle/cmp-pandoc-references",
 	},
@@ -158,7 +158,7 @@ function M.config()
 			},
 			{ name = "pandoc_references" },
 			{ name = "otter" },
-			{ name = "path" },
+			{ name = "fuzzy_path" },
 			{ name = "dap" },
 		},
 
@@ -168,6 +168,8 @@ function M.config()
 				-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 				-- require("copilot_cmp.comparators").prioritize,
 				-- require("copilot_cmp.comparators").score,
+
+				require("cmp_fuzzy_path.compare"),
 
 				-- Below is the default comparitor list and order for nvim-cmp
 				cmp.config.compare.offset,
@@ -192,14 +194,7 @@ function M.config()
 		mapping = normal_mappings,
 		sources = {
 			{ name = "git" },
-			{
-				name = "path",
-				option = {
-					get_cwd = function()
-						return vim.fn.getcwd()
-					end,
-				},
-			},
+			{ name = "fuzzy_path" },
 			{ name = "buffer" },
 		},
 	})
@@ -211,14 +206,7 @@ function M.config()
 		formatting = normal_formatting,
 		mapping = normal_mappings,
 		sources = {
-			{
-				name = "path",
-				option = {
-					get_cwd = function()
-						return vim.fn.getcwd()
-					end,
-				},
-			},
+			{ name = "fuzzy_path" },
 		},
 	})
 
@@ -227,14 +215,7 @@ function M.config()
 		mapping = cmp.mapping.preset.cmdline(),
 		window = normal_window,
 		sources = {
-			{
-				name = "path",
-				option = {
-					get_cwd = function()
-						return vim.fn.getcwd()
-					end,
-				},
-			},
+			{ name = "fuzzy_path" },
 			{ name = "buffer" },
 			{ name = "cmdline_history" },
 		},
@@ -246,14 +227,7 @@ function M.config()
 			mapping = cmp.mapping.preset.cmdline(),
 			window = normal_window,
 			sources = {
-				{
-					name = "path",
-					option = {
-						get_cwd = function()
-							return vim.fn.getcwd()
-						end,
-					},
-				},
+				{ name = "fuzzy_path" },
 				{ name = "cmdline" },
 				{ name = "cmdline_history" },
 			},

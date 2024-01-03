@@ -1,9 +1,5 @@
 local M = {}
 
-M.none = ""
-M.single_space = " "
-M.double_space = "  "
-M.triple_space = "   "
 M.lupa = ""
 M.lock = ""
 M.menu = "☰"
@@ -15,7 +11,6 @@ M.windows = ""
 M.unix = ""
 M.mac = ""
 M.pin = ""
-M.filled_pin = "󰐃"
 M.mathematical_L = "𝑳"
 M.fire = ""
 M.fast = "󰅒"
@@ -97,7 +92,7 @@ M.language = {
 M.tool = {
 	docker = "󰡨",
 	venv = M.geometry.cube,
-	kernel = "󰑮",
+	kernel = "",
 }
 
 M.bar = {
@@ -119,6 +114,11 @@ M.bar = {
 	horizontal_thin = "─",
 	lower_horizontal = "▁",
 	lower_horizontal_thin = "_",
+	lower_horizontal_thick = "▄", -- lower half block (unicode)
+	lower_right_corner_thick = "▟",
+	lower_left_corner_thick = "▙",
+	upper_right_corner_thick = "▜",
+	upper_left_corner_thick = "▛",
 }
 
 M.arrow = {

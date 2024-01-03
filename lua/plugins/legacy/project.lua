@@ -41,7 +41,10 @@ function M.config()
 		silent_chdir = true,
 	})
 
-	require("telescope").load_extension("projects")
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("projects")
+	end
 end
 
 return M

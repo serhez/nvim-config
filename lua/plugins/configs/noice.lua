@@ -114,7 +114,10 @@ function M.config()
 		},
 	})
 
-	require("telescope").load_extension("noice")
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("noice")
+	end
 
 	local c = hls.colors()
 	local common_hls = hls.common_hls()

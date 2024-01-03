@@ -36,7 +36,10 @@ function M.config()
 		close_buffers_with_windows = true, -- hbac will close buffers with associated windows if this option is `true`
 	})
 
-	require("telescope").load_extension("hbac")
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("hbac")
+	end
 end
 
 return M

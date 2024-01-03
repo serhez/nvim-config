@@ -29,7 +29,10 @@ function M.config()
 		},
 	})
 
-	require("telescope").load_extension("yank_history")
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("yank_history")
+	end
 
 	hls.register_hls({
 		YankyPut = { default = true, link = "Search" },

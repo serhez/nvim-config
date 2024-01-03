@@ -16,7 +16,10 @@ function M.init()
 end
 
 function M.setup()
-	require("telescope").load_extension("file_browser")
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("file_browser")
+	end
 end
 
 return M

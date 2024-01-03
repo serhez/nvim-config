@@ -1,6 +1,8 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
-	dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
+	dependencies = {
+		"nvim-telescope/telescope-fzf-native.nvim",
+	},
 	cmd = { "Telescope" },
 	cond = not vim.g.started_by_firenvim,
 }
@@ -8,7 +10,7 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search text" }, -- Shortcut
+		s = { "<cmd>Telescope grep_string theme=ivy search=<cr>", "Search text" }, -- Shortcut
 		-- Now handled by hbac
 		-- b = {
 		-- 	l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
@@ -20,18 +22,20 @@ function M.init()
 				w = { "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", "Workspace" },
 			},
 		},
-		f = {
-			"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
-			"Find files",
-		},
+		-- Now handled by telescope-frecency
+		-- f = {
+		-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
+		-- 	"Find files",
+		-- },
 		F = {
 			-- Now handled by hbac
 			-- b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
 			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
-			f = {
-				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
-				"Find files",
-			}, -- Redundancy
+			-- Now handled by telescope-frecency
+			-- f = {
+			-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
+			-- 	"Find files",
+			-- }, -- Redundancy
 			F = {
 				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 				"Files (+ignored)",
@@ -39,7 +43,7 @@ function M.init()
 			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
 			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
 			r = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Recent files" },
-			t = { "<cmd>Telescope live_grep theme=ivy<cr>", "Text" },
+			t = { "<cmd>Telescope grep_string theme=ivy search=<cr>", "Text" },
 		},
 		g = {
 			l = {
@@ -62,7 +66,7 @@ function M.config()
 			results_title = false,
 			preview_title = false,
 			dynamic_preview_title = false,
-			selection_caret = " " .. icons.arrow.right_upper_curved .. " ",
+			selection_caret = "   ",
 			entry_prefix = "   ",
 			initial_mode = "insert",
 			selection_strategy = "reset",
@@ -155,8 +159,16 @@ function M.config()
 				use_delta = true,
 				side_by_side = false,
 			},
+			frecency = {
+				theme = "ivy",
+				default_workspace = "CWD",
+				show_filter_column = false,
+				sorter = require("telescope.sorters").fuzzy_with_index_bias(),
+			},
 		},
 	})
+
+	require("telescope").load_extension("fzf")
 
 	local hls = require("highlights")
 	local c = hls.colors()

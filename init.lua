@@ -6,6 +6,7 @@ require("mappings").setup()
 require("plugins").setup()
 require("highlights").setup()
 require("autocommands").setup()
+require("ui").setup()
 
 if vim.g.neovide then
 	require("neovide").setup()

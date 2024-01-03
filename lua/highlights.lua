@@ -100,6 +100,7 @@ function M.common_hls()
 	return {
 		border_dim = { fg = colors.line_nr, bg = colors.dim },
 		border_statusline = { fg = colors.line_nr, bg = colors.statusline_bg },
+		border_statusline_rev = { fg = colors.statusline_bg },
 		border_alt = { fg = colors.line_nr, bg = colors.cursor_line_bg },
 		no_border_dim = { fg = colors.dim, bg = colors.dim },
 		no_border_statusline = { fg = colors.statusline_bg, bg = colors.statusline_bg },
@@ -142,7 +143,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-mocha"
+	vim.g.colors_name = "catppuccin-macchiato"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },
@@ -176,7 +177,7 @@ function M.setup()
 		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
 
 		-- Borders and separators
-		WinSeparator = common_hls.no_border_statusline,
+		WinSeparator = common_hls.border_statusline_rev,
 
 		-- Winbar
 		-- WinBar = { fg = c.statusline_fg, bg = c.statusline_bg },

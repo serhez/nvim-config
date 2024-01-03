@@ -23,7 +23,8 @@ function M.config()
 	local icons = require("icons")
 
 	local cmp = require("cmp")
-	local present, luasnip = pcall(require, "luasnip")
+	local luasnip_present, luasnip = pcall(require, "luasnip")
+	local neotab_present, neotab = pcall(require, "neotab")
 
 	local has_words_before = function()
 		-- table.unpack for Lua >= 5.1
@@ -50,12 +51,16 @@ function M.config()
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif present and luasnip.expand_or_jumpable() then
+			elseif luasnip_present and luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
+			-- elseif has_words_before() then
+			-- 	cmp.complete()
 			else
-				fallback()
+				if neotab_present then
+					neotab.tabout()
+				else
+					fallback()
+				end
 			end
 		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
@@ -120,7 +125,7 @@ function M.config()
 		completion = normal_completion,
 		preselect = normal_preselect,
 		window = normal_window,
-		snippet = (present and {
+		snippet = (luasnip_present and {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
 			end,

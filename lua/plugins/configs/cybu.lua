@@ -44,7 +44,7 @@ function M.config()
 			border = "double", -- single, double, rounded, none
 			separator = " ", -- string used as separator
 			prefix = icons.three_dots, -- string used as prefix for truncated paths
-			padding = 3, -- left & right padding in number of spaces
+			padding = 4, -- left & right padding in number of spaces
 			hide_buffer_id = true, -- hide buffer IDs in window
 			devicons = {
 				enabled = true, -- enable or disable web dev icons

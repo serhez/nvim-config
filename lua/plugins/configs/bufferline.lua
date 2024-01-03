@@ -115,7 +115,7 @@ function M.config()
 			groups = {
 				items = {
 					require("bufferline.groups").builtin.pinned:with({
-						icon = icons.filled_pin,
+						icon = icons.pin,
 					}),
 				},
 			},

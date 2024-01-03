@@ -17,7 +17,7 @@ function M.init()
 	mappings.register_normal({
 		g = {
 			b = {
-				t = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
+				c = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
 				d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
 				D = { ":DiffviewOpen -- % ", "Diffs (specify commits)" },
 			},

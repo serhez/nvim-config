@@ -8,21 +8,16 @@ local M = {
 }
 
 M.venv = nil
--- M.kernel = nil
 
 M.set_venv = function(venv)
 	local path = vim.split(venv, "/", { trimempty = true })
 	M.venv = path[#path]
 end
 
--- M.set_kernel = function(kernel)
--- 	M.kernel = kernel
--- end
-
 local vi_colors = {
 	n = "FlnViCyan",
 	no = "FlnViCyan",
-	i = "FlnStatus",
+	i = "FlnViYellow",
 	v = "FlnViMagenta",
 	V = "FlnViMagenta",
 	[""] = "FlnViMagenta",
@@ -122,16 +117,10 @@ local function venv_provider()
 		return ""
 	end
 
-	return icons.tool.venv .. " " .. M.venv .. " "
+	return icons.tool.venv .. " " .. M.venv
 end
 
 local function kernel_provider()
-	-- if M.kernel == nil or M.kernel == "" then
-	-- 	return ""
-	-- end
-	--
-	-- return icons.tool.kernel .. " " .. M.kernel .. " "
-
 	local present, molten_status = pcall(require, "molten.status")
 	if present and molten_status.initialized() == "Molten" then
 		local kernels = molten_status.kernels()
@@ -140,10 +129,39 @@ local function kernel_provider()
 			return ""
 		end
 
-		return icons.tool.kernel .. " " .. kernels .. " "
+		return icons.tool.kernel .. " " .. kernels
 	end
 
 	return ""
+end
+
+local function venv_kernel_provider()
+	local venv = venv_provider()
+	local kernel = kernel_provider()
+
+	if venv == "" and kernel == "" then
+		return ""
+	elseif venv == "" then
+		return "  " .. kernel
+	elseif kernel == "" then
+		return "  " .. venv
+	else
+		return "  " .. venv .. "  " .. kernel
+	end
+end
+
+local function pinned_provider()
+	local present, hbac_state = pcall(require, "hbac.state")
+	if not present then
+		return " "
+	end
+
+	local cur_buf = vim.api.nvim_get_current_buf()
+	if hbac_state.is_pinned(cur_buf) then
+		return require("icons").pin
+	else
+		return " "
+	end
 end
 
 local function tabs_provider()
@@ -156,7 +174,7 @@ local function tabs_provider()
 	end
 
 	local current_tab = vim.fn.tabpagenr()
-	return current_tab .. icons.bar.vertical_center_thin .. #valid_tabs
+	return "  " .. current_tab .. icons.bar.vertical_center_thin .. #valid_tabs .. "  "
 end
 
 function M.config()
@@ -171,30 +189,23 @@ function M.config()
 			left = {
 				provider = "  ",
 				hl = vi_mode_hl,
-				right_sep = { str = "  ", hl = "FlnSep" },
 			},
 			right = {
 				provider = "  ",
 				hl = vi_mode_hl,
-				left_sep = { str = "  ", hl = "FlnSep" },
 			},
 		},
-		venv = {
-			provider = "venv",
+		venv_kernel = {
+			provider = "venv_kernel",
 			hl = "FlnText",
-			right_sep = { str = " ", hl = "FlnSep" },
-		},
-		kernel = {
-			provider = "kernel",
-			hl = "FlnText",
-			right_sep = { str = " ", hl = "FlnSep" },
 		},
 		git = {
 			branch = {
 				provider = "git_branch",
 				icon = icons.git.branch .. " ",
-				hl = "FlnGitBranch",
-				right_sep = { str = " ", hl = "FlnSep" },
+				hl = "FlnText",
+				right_sep = { str = " ", hl = "FlnText" },
+				left_sep = { str = "  ", hl = "FlnText" },
 				enabled = function()
 					return vim.b.gitsigns_status_dict ~= nil
 				end,
@@ -214,6 +225,10 @@ function M.config()
 				icon = " " .. icons.git.removed .. " ",
 				hl = "FlnRed",
 			},
+		},
+		pinned = {
+			provider = "pinned",
+			hl = "FlnText",
 		},
 		file_path = {
 			provider = {
@@ -237,8 +252,8 @@ function M.config()
 				},
 			},
 			hl = "FlnBoldText",
-			left_sep = { hl = "FlnSep" },
-			right_sep = { hl = "FlnSep" },
+			left_sep = { str = " ", hl = "FlnSep" },
+			right_sep = { str = " ", hl = "FlnSep" },
 		},
 		diagnostics = {
 			error = {
@@ -268,17 +283,17 @@ function M.config()
 		tabs = {
 			provider = "tabs",
 			hl = "FlnText",
-			left_sep = { str = "  ", hl = "FlnSep" },
 		},
 		cursor = {
 			position = {
 				provider = "position",
 				hl = "FlnText",
-				left_sep = { str = "  ", hl = "FlnSep" },
+				left_sep = { str = "  ", hl = "FlnText" },
 			},
 			percentage = {
 				provider = "line_percentage",
-				left_sep = { str = "  ", hl = "FlnSep" },
+				left_sep = { str = " ", hl = "FlnText" },
+				right_sep = { str = "  ", hl = "FlnText" },
 				hl = "FlnText",
 			},
 		},
@@ -311,8 +326,7 @@ function M.config()
 	local statusline_active = {
 		{ -- left
 			components.vimode.left,
-			components.venv,
-			-- components.kernel, -- FIX: this breaks everything (???)
+			components.venv_kernel,
 			components.git.branch,
 			components.git.add,
 			components.git.change,
@@ -320,6 +334,7 @@ function M.config()
 		},
 		{ -- center
 			-- components.file_path,
+			components.pinned,
 			components.file_info,
 		},
 		{ -- right
@@ -353,8 +368,8 @@ function M.config()
 		highlight_reset_triggers = {},
 		custom_providers = {
 			file_path = file_path_provider,
-			venv = venv_provider,
-			kernel = kernel_provider,
+			venv_kernel = venv_kernel_provider,
+			pinned = pinned_provider,
 			tabs = tabs_provider,
 		},
 		force_inactive = {
@@ -384,68 +399,37 @@ function M.config()
 	-- require("feline").winbar.setup()
 
 	local c = hls.colors()
-	hls.register_hls({
-		-- FlnViBlack = { fg = c.white, bg = c.black, bold = true },
-		-- FlnViRed = { fg = c.statusline_bg, bg = c.red, bold = true },
-		-- FlnViGreen = { fg = c.statusline_bg, bg = c.green, bold = true },
-		-- FlnViYellow = { fg = c.statusline_bg, bg = c.yellow, bold = true },
-		-- FlnViBlue = { fg = c.statusline_bg, bg = c.blue, bold = true },
-		-- FlnViMagenta = { fg = c.statusline_bg, bg = c.magenta, bold = true },
-		-- FlnViCyan = { fg = c.statusline_bg, bg = c.cyan, bold = true },
-		-- FlnViWhite = { fg = c.statusline_bg, bg = c.white, bold = true },
-		--
-		-- FlnBlack = { fg = c.black, bg = c.white },
-		-- FlnRed = { fg = c.red, bg = c.statusline_bg },
-		-- FlnGreen = { fg = c.green, bg = c.statusline_bg },
-		-- FlnYellow = { fg = c.yellow, bg = c.statusline_bg },
-		-- FlnBlue = { fg = c.blue, bg = c.statusline_bg },
-		-- FlnMagenta = { fg = c.magenta, bg = c.statusline_bg },
-		-- FlnCyan = { fg = c.cyan, bg = c.statusline_bg },
-		-- FlnWhite = { fg = c.white, bg = c.statusline_bg },
-		--
-		-- FlnHint = { fg = c.hint_fg, bg = c.statusline_bg },
-		-- FlnInfo = { fg = c.info_fg, bg = c.statusline_bg },
-		-- FlnWarn = { fg = c.warn_fg, bg = c.statusline_bg },
-		-- FlnError = { fg = c.error_fg, bg = c.statusline_bg },
-		-- FlnStatus = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
-		--
-		-- FlnText = { fg = c.statusline_fg, bg = c.statusline_bg },
-		-- FlnDimText = { fg = c.dim, bg = c.statusline_bg, italic = true },
-		-- FlnBoldText = { fg = c.statusline_fg, bg = c.statusline_bg, bold = true },
-		-- FlnSep = { fg = c.statusline_fg, bg = c.statusline_bg },
-		-- FlnGitBranch = { fg = c.statusline_fg, bg = c.statusline_bg },
-		-- FlnNavic = { fg = c.statusline_fg, bg = c.statusline_bg },
+	local statusline_bg = c.statusline_bg
 
+	hls.register_hls({
 		FlnViBlack = { fg = c.white, bg = c.black, bold = true },
 		FlnViRed = { fg = c.statusline_bg, bg = c.red, bold = true },
 		FlnViGreen = { fg = c.statusline_bg, bg = c.green, bold = true },
 		FlnViYellow = { fg = c.statusline_bg, bg = c.yellow, bold = true },
-		FlnViBlue = { fg = c.statusline_bg, bg = c.blue, bold = true },
+		FlnViBlue = { fg = c.white, bg = c.blue, bold = true },
 		FlnViMagenta = { fg = c.statusline_bg, bg = c.magenta, bold = true },
 		FlnViCyan = { fg = c.statusline_bg, bg = c.cyan, bold = true },
 		FlnViWhite = { fg = c.statusline_bg, bg = c.white, bold = true },
 
 		FlnBlack = { fg = c.black, bg = c.white },
-		FlnRed = { fg = c.red, bg = c.bg },
-		FlnGreen = { fg = c.green, bg = c.bg },
-		FlnYellow = { fg = c.yellow, bg = c.bg },
-		FlnBlue = { fg = c.blue, bg = c.bg },
-		FlnMagenta = { fg = c.magenta, bg = c.bg },
-		FlnCyan = { fg = c.cyan, bg = c.bg },
-		FlnWhite = { fg = c.white, bg = c.bg },
+		FlnRed = { fg = c.red, bg = statusline_bg },
+		FlnGreen = { fg = c.green, bg = statusline_bg },
+		FlnYellow = { fg = c.yellow, bg = statusline_bg },
+		FlnBlue = { fg = c.blue, bg = statusline_bg },
+		FlnMagenta = { fg = c.magenta, bg = statusline_bg },
+		FlnCyan = { fg = c.cyan, bg = statusline_bg },
+		FlnWhite = { fg = c.white, bg = statusline_bg },
 
-		FlnHint = { fg = c.hint_fg, bg = c.bg },
-		FlnInfo = { fg = c.info_fg, bg = c.bg },
-		FlnWarn = { fg = c.warn_fg, bg = c.bg },
-		FlnError = { fg = c.error_fg, bg = c.bg },
-		FlnStatus = { fg = c.statusline_fg, bg = c.bg, bold = true },
+		FlnHint = { fg = c.hint_fg, bg = statusline_bg },
+		FlnInfo = { fg = c.info_fg, bg = statusline_bg },
+		FlnWarn = { fg = c.warn_fg, bg = statusline_bg },
+		FlnError = { fg = c.error_fg, bg = statusline_bg },
+		FlnStatus = { fg = c.statusline_fg, bg = statusline_bg, bold = true },
 
-		FlnText = { fg = c.statusline_fg, bg = c.bg },
-		FlnDimText = { fg = c.dim, bg = c.bg, italic = true },
-		FlnBoldText = { fg = c.statusline_fg, bg = c.bg, bold = true },
-		FlnSep = { fg = c.statusline_fg, bg = c.bg },
-		FlnGitBranch = { fg = c.statusline_fg, bg = c.bg },
-		FlnNavic = { fg = c.statusline_fg, bg = c.bg },
+		FlnText = { fg = c.statusline_fg, bg = statusline_bg },
+		FlnDimText = { fg = c.dim, bg = statusline_bg, italic = true },
+		FlnBoldText = { fg = c.statusline_fg, bg = statusline_bg, bold = true },
+		FlnSep = { fg = c.statusline_fg, bg = statusline_bg },
 	})
 end
 

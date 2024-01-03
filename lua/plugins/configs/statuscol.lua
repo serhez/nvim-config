@@ -2,6 +2,7 @@ local M = {
 	"luukvbaal/statuscol.nvim",
 	event = "BufRead",
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.config()
@@ -47,6 +48,7 @@ function M.config()
 			"Trouble",
 			"lazy",
 			"help",
+			"spectre",
 			"spectre_panel",
 			"toggleterm",
 			"dapui_scopes",
@@ -60,6 +62,9 @@ function M.config()
 		},
 		bt_ignore = { "nofile" },
 	})
+
+	local ui = require("ui")
+	ui.set_separators()
 end
 
 return M

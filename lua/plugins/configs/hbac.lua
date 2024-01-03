@@ -12,7 +12,7 @@ function M.init()
 			p = {
 				function()
 					require("hbac"):toggle_pin()
-					present, bufferline = pcall(require, "bufferline")
+					local present, bufferline = pcall(require, "bufferline")
 					if present then
 						bufferline.groups:toggle_pin()
 					end

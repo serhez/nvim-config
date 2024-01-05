@@ -121,6 +121,20 @@ function M.config()
 					conflict = icons.git.conflict,
 				},
 			},
+			diagnostics = {
+				symbols = {
+					hint = icons.diagnostics.hint,
+					info = icons.diagnostics.info,
+					warn = icons.diagnostics.warning,
+					error = icons.diagnostics.error,
+				},
+				highlights = {
+					hint = "DiagnosticSignHint",
+					info = "DiagnosticSignInfo",
+					warn = "DiagnosticSignWarn",
+					error = "DiagnosticSignError",
+				},
+			},
 		},
 
 		window = {

@@ -74,7 +74,10 @@ function M.config()
 			up_and_jump = "<C-k>",
 		},
 		symbols = {
-			filter = { "String", "Variable", exclude = true },
+			filter = {
+				default = { "String", exclude = true },
+				python = { "String", "Variable", exclude = true },
+			},
 			icons = {
 				File = { icon = icons.lsp.File, hl = "Identifier" },
 				Module = { icon = icons.lsp.Module, hl = "Include" },

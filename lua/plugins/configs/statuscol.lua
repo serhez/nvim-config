@@ -6,6 +6,7 @@ local M = {
 	event = "BufReadPre",
 	branch = "0.10",
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.config()
@@ -18,33 +19,33 @@ function M.config()
 		setopt = true, -- whether to set the 'statuscolumn', providing builtin click actions
 		clickmod = "c", -- modifier used for certain actions: "a" for Alt, "c" for Ctrl and "m" for Meta
 		-- BUG:
-		-- segments = {
-		-- 	{
-		-- 		sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 1, auto = true },
-		-- 		click = "v:lua.ScLa",
-		-- 	},
-		-- 	{
-		-- 		sign = { name = { "todo*" }, maxwidth = 1 },
-		-- 	},
-		-- 	{
-		-- 		sign = { name = { "Diagnostic" }, maxwidth = 1 },
-		-- 		click = "v:lua.ScSa",
-		-- 	},
-		-- 	{
-		-- 		text = { builtin.lnumfunc, "" },
-		-- 		-- condition = { true, builtin.not_empty },
-		-- 		click = "v:lua.ScLa",
-		-- 	},
-		-- 	{
-		-- 		sign = { name = { ".*" }, maxwidth = 1, colwidth = 1 },
-		-- 		click = "v:lua.ScSa",
-		-- 	},
-		-- 	{
-		-- 		text = { builtin.foldfunc, "" },
-		-- 		condition = { true, builtin.not_empty },
-		-- 		click = "v:lua.ScFa",
-		-- 	},
-		-- },
+		segments = {
+			{
+				sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 1, auto = true },
+				-- click = "v:lua.ScLa",
+			},
+			-- {
+			-- 	sign = { name = { "todo*" }, maxwidth = 1 },
+			-- },
+			{
+				sign = { name = { "Diagnostic" }, maxwidth = 1 },
+				click = "v:lua.ScSa",
+			},
+			{
+				text = { builtin.lnumfunc, "" },
+				condition = { true, builtin.not_empty },
+				click = "v:lua.ScLa",
+			},
+			-- {
+			-- 	sign = { name = { ".*" }, maxwidth = 1, colwidth = 1 },
+			-- 	click = "v:lua.ScSa",
+			-- },
+			{
+				text = { builtin.foldfunc, "" },
+				condition = { true, builtin.not_empty },
+				click = "v:lua.ScFa",
+			},
+		},
 		ft_ignore = {
 			"neo-tree",
 			"nvim-tree",

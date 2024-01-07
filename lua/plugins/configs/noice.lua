@@ -40,7 +40,7 @@ function M.config()
 		views = {
 			hover = {
 				border = {
-					style = "single",
+					style = "solid",
 				},
 				position = { row = 2, col = 2 },
 			},
@@ -122,8 +122,7 @@ function M.config()
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({
-		-- NoiceCmdline = { fg = c.statusline_fg, bg = c.statusline_bg },
-		NoiceCmdline = { fg = c.statusline_fg, bg = c.bg },
+		NoiceCmdline = { fg = c.statusline_fg, bg = c.statusline_bg, blend = 0 },
 		NoiceCmdlinePopupBorder = common_hls.no_border_statusline,
 		NoiceCmdlinePopupBorderCmdline = common_hls.no_border_statusline,
 		NoiceCmdlinePopupBorderFilter = common_hls.no_border_statusline,

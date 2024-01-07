@@ -1,6 +1,6 @@
 local mappings = require("mappings")
 
-M = {}
+local M = {}
 
 function M.setup()
 	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

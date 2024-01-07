@@ -14,6 +14,7 @@ local M = {
 		"CoverageClear",
 		"CoverageSummary",
 	},
+	enabled = false,
 }
 
 function M.init()

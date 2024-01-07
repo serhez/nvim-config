@@ -20,7 +20,7 @@ local M = {
 		"TestStopNearest",
 	},
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
-	enable = false,
+	enabled = false,
 }
 
 function M.init()

@@ -1,7 +1,7 @@
 local M = {
 	"3rd/image.nvim",
 	ft = { "markdown", "quarto", "rmd", "ipynb" },
-	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.neovide,
 }
 
 function M.init()

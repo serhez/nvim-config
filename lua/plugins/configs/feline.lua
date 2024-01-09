@@ -174,7 +174,7 @@ local function tabs_provider()
 	end
 
 	local current_tab = vim.fn.tabpagenr()
-	return "  " .. current_tab .. icons.bar.vertical_center_thin .. #valid_tabs .. "  "
+	return current_tab .. icons.bar.vertical_center_thin .. #valid_tabs .. "  "
 end
 
 function M.config()

@@ -12,11 +12,8 @@ local M = {
 function M.init()
 	mappings.register_normal({
 		c = {
-			h = {
-				name = "Highlight",
-				t = { "<cmd>HiMyWordsToggle<cr>", "Toggle word" },
-				c = { "<cmd>HiMyWordsClear<cr>", "Clear" },
-			},
+			h = { "<cmd>HiMyWordsToggle<cr>", "Highlight word (toggle)" },
+			H = { "<cmd>HiMyWordsClear<cr>", "Clear highlights" },
 		},
 	})
 end

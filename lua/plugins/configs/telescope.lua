@@ -59,7 +59,9 @@ function M.config()
 	local actions = require("telescope.actions")
 	local previewers = require("telescope.previewers")
 
-	require("telescope").setup({
+	local telescope = require("telescope")
+
+	telescope.setup({
 		defaults = {
 			prompt_prefix = " " .. icons.lupa .. " ",
 			prompt_title = false,
@@ -168,7 +170,14 @@ function M.config()
 		},
 	})
 
-	require("telescope").load_extension("fzf")
+	-- Load extensions
+	-- Load them here to prevent other plugins from loading telescope before it is needed
+	telescope.load_extension("fzf")
+	telescope.load_extension("hbac")
+	telescope.load_extension("noice")
+	telescope.load_extension("yank_history")
+	telescope.load_extension("undo")
+	telescope.load_extension("frecency")
 
 	local hls = require("highlights")
 	local c = hls.colors()

@@ -1,12 +1,10 @@
-local icons = require("icons")
-local mappings = require("mappings")
-
 local M = {
 	"folke/trouble.nvim",
 	cmd = "TroubleToggle",
 }
 
 function M.init()
+	local mappings = require("mappings")
 	mappings.register_normal({
 		c = {
 			d = {
@@ -18,6 +16,8 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
+
 	require("trouble").setup({
 		position = "bottom", -- position of the list can be: bottom, top, left, right
 		height = 10, -- height of the trouble list when position is top or bottom

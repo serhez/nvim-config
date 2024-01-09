@@ -16,11 +16,4 @@ function M.init()
 	})
 end
 
-function M.config()
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.load_extension("undo")
-	end
-end
-
 return M

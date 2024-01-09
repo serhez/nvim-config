@@ -35,11 +35,6 @@ function M.config()
 		threshold = 6, -- hbac will start closing unedited buffers once that number is reached
 		close_buffers_with_windows = true, -- hbac will close buffers with associated windows if this option is `true`
 	})
-
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.load_extension("hbac")
-	end
 end
 
 return M

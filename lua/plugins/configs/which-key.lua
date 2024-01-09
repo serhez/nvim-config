@@ -1,13 +1,7 @@
-local icons = require("icons")
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"folke/which-key.nvim",
-	lazy = false,
+	event = "VimEnter",
 }
-
-local noremap_silent = { noremap = true, silent = true }
 
 local function toggle_locationlist()
 	local win = vim.api.nvim_get_current_win()
@@ -97,6 +91,9 @@ local visual_mappings = {
 }
 
 function M.config()
+	local icons = require("icons")
+	local mappings = require("mappings")
+
 	require("which-key").setup({
 		plugins = {
 			marks = true, -- shows a list of your marks on ' and `
@@ -137,6 +134,7 @@ function M.config()
 	mappings.register_normal(normal_mappings)
 	mappings.register_visual(visual_mappings)
 
+	local hls = require("highlights")
 	local c = hls.colors()
 	local common_hls = hls.common_hls()
 	hls.register_hls({

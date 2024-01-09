@@ -1,12 +1,11 @@
-local mappings = require("mappings")
-local hls = require("highlights")
-
 local M = {
 	"gbprod/yanky.nvim",
 	event = "VeryLazy",
 }
 
 function M.init()
+	local mappings = require("mappings")
+
 	vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
 	vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 	vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
@@ -29,11 +28,7 @@ function M.config()
 		},
 	})
 
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.load_extension("yank_history")
-	end
-
+	local hls = require("highlights")
 	hls.register_hls({
 		YankyPut = { default = true, link = "Search" },
 	})

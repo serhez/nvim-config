@@ -121,15 +121,17 @@ local function venv_provider()
 end
 
 local function kernel_provider()
-	local present, molten_status = pcall(require, "molten.status")
-	if present and molten_status.initialized() == "Molten" then
-		local kernels = molten_status.kernels()
+	if package.loaded.molten then
+		local present, molten_status = pcall(require, "molten.status")
+		if present and molten_status.initialized() == "Molten" then
+			local kernels = molten_status.kernels()
 
-		if kernels == nil or kernels == "" then
-			return ""
+			if kernels == nil or kernels == "" then
+				return ""
+			end
+
+			return icons.tool.kernel .. " " .. kernels
 		end
-
-		return icons.tool.kernel .. " " .. kernels
 	end
 
 	return ""

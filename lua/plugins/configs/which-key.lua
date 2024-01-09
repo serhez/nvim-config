@@ -72,6 +72,7 @@ local normal_mappings = {
 			h = { "<cmd>split<cr>", "Horizontal" },
 			v = { "<cmd>vsplit<cr>", "Vertical" },
 		},
+		t = { "<cmd>tabnew<cr>", "New tab" },
 	},
 }
 

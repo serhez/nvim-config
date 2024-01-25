@@ -37,7 +37,7 @@ end
 function M.config()
 	require("nvim-devdocs").setup({
 		dir_path = vim.fn.stdpath("data") .. "/devdocs", -- installation directory
-		telescope = {}, -- passed to the telescope picker
+		telescope = { theme = "ivy" }, -- passed to the telescope picker
 		wrap = true, -- text wrap, only applies to floating window
 		previewer_cmd = "glow", -- for example: "glow"
 		cmd_args = { "-s", "dark", "-w", "80" }, -- example using glow: { "-s", "dark", "-w", "80" }

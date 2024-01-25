@@ -43,6 +43,7 @@ function M.config()
 		enable_git_status = true,
 		enable_diagnostics = true,
 		enable_opened_markers = true,
+		enable_cursor_hijack = true,
 		open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
 		hide_root_node = true,
 

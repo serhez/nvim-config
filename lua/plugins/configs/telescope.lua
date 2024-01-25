@@ -62,7 +62,7 @@ function M.config()
 	local telescope = require("telescope")
 
 	telescope.setup({
-		defaults = {
+		defaults = require("telescope.themes").get_ivy({
 			prompt_prefix = " " .. icons.lupa .. " ",
 			prompt_title = false,
 			results_title = false,
@@ -132,7 +132,7 @@ function M.config()
 					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				},
 			},
-		},
+		}),
 
 		pickers = {
 			find_files = {

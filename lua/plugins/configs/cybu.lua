@@ -41,7 +41,7 @@ function M.config()
 		style = {
 			path = "tail", -- absolute, relative, tail (filename only)
 			path_abbreviation = "none", -- none, shortened
-			border = "double", -- single, double, rounded, none
+			border = "solid", -- single, double, rounded, none
 			separator = " ", -- string used as separator
 			prefix = icons.three_dots, -- string used as prefix for truncated paths
 			padding = 4, -- left & right padding in number of spaces

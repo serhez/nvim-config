@@ -39,13 +39,14 @@ function M.init()
 			g = { "<cmd>ObsidianFollowLink<cr>", "Go to link" },
 			l = { "<cmd>ObsidianLink<cr>", "Link" },
 			L = { "<cmd>ObsidianLinkNew<cr>", "Link (new note)" },
-			n = { ":ObsidianNew ", "New note" },
-			o = { ":ObsidianOpen ", "Open note" },
+			n = { "<cmd>ObsidianNew ", "New note" },
+			o = { "<cmd>ObsidianOpen ", "Open note" },
 			s = { "<cmd>ObsidianSearch<cr>", "Search text" },
 			t = { "<cmd>ObsidianToday<cr>", "Today" },
 		},
 		F = {
-			o = { "<cmd>ObsidianSearch<cr>", "Obsidian note" },
+			o = { "<cmd>ObsidianQuickSwitch<cr>", "Obsidian (note)" },
+			O = { "<cmd>ObsidianSearch<cr>", "Obsidian (text)" },
 		},
 	})
 end
@@ -70,6 +71,12 @@ function M.config()
 			end
 			return out
 		end,
+
+		-- Optional, by default commands like `:ObsidianSearch` will attempt to use
+		-- telescope.nvim, fzf-lua, fzf.vim, or mini.pick (in that order), and use the
+		-- first one they find. You can set this option to tell obsidian.nvim to always use this
+		-- finder.
+		finder = "telescope.nvim",
 	})
 end
 

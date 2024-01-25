@@ -22,12 +22,30 @@ end
 
 function M.config()
 	require("nvim-treesitter.configs").setup({
-		ensure_installed = "all",
-		ignore_install = { "liquidsoap", "beancount", "norg" }, -- NOTE: they are bugged (06.10.2023)
+		-- ensure_installed = "all", -- NOTE: this makes startup slow
+		-- ignore_install = { "liquidsoap", "beancount", "norg" }, -- NOTE: they are bugged (06.10.2023)
 
 		highlight = {
 			enable = true,
-			use_languagetree = true,
+			additional_vim_regex_highlighting = false,
+			-- disable = function(_, bufnr)
+			-- 	local buf_name = vim.api.nvim_buf_get_name(bufnr)
+			-- 	local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+			-- 	return file_size > 256 * 1024
+			-- end,
+			is_supported = function()
+				-- Since `ibhagwan/fzf-lua` returns `bufnr/path` like `117/lua/plugins/colors.lua`.
+				local cur_path = (vim.fn.expand("%"):gsub("^%d+/", ""))
+				print(cur_path)
+				if
+					cur_path:match("term://")
+					or vim.fn.getfsize(cur_path) > 1024 * 1024 -- file size > 1 MB.
+					or vim.fn.strwidth(vim.fn.getline(".")) > 300 -- width > 300 chars.
+				then
+					return false
+				end
+				return true
+			end,
 		},
 
 		indent = { enable = true },

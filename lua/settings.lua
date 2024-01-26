@@ -30,7 +30,7 @@ function M.setup()
 	opt.confirm = true -- asks for confirmation instead of giving errors (e.g., on quitting without saving)
 	opt.backup = false -- creates a backup file
 	opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-	opt.cmdheight = 1 -- space in the neovim command line for displaying messages
+	opt.cmdheight = 2 -- space in the neovim command line for displaying messages
 	opt.completeopt = { "menuone", "noselect" }
 	opt.conceallevel = 2 -- so that `` is visible in markdown files
 	opt.fileencoding = "utf-8" -- the encoding written to a file

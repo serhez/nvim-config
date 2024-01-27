@@ -45,8 +45,10 @@ function M.config()
 		},
 		keymaps = {
 			["g?"] = "actions.show_help",
+			["q"] = "actions.close",
 			["K"] = "actions.preview",
 			["-"] = "actions.parent",
+			["<Backspace>"] = "actions.parent",
 			["="] = "actions.select",
 			["+"] = "actions.select",
 			["<CR>"] = "actions.select",

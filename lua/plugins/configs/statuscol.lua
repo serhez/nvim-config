@@ -10,13 +10,14 @@ local M = {
 
 function M.config()
 	local builtin = require("statuscol.builtin")
+	local clickmod = "c"
 
 	require("statuscol").setup({
 		separator = "", -- separator between line number and buffer text ("│" or extra " " padding)
 		thousands = false, -- false or line number thousands separator string ("." / ",")
 		relculright = true, -- whether to right-align the cursor line number with 'relativenumber' set
 		setopt = true, -- whether to set the 'statuscolumn', providing builtin click actions
-		clickmod = "c", -- modifier used for certain actions: "a" for Alt, "c" for Ctrl and "m" for Meta
+		clickmod = clickmod, -- modifier used for certain actions: "a" for Alt, "c" for Ctrl and "m" for Meta
 		segments = {
 			{
 				sign = {
@@ -78,6 +79,34 @@ function M.config()
 		},
 		bt_ignore = { "nofile", "terminal" },
 	})
+
+	-- Replace default DAP breakpoint function to use persistent breakpoints
+	builtin.toggle_breakpoint = function(args)
+		local present_pb, pb = pcall(require, "persistent-breakpoints.api")
+		if present_pb then
+			if args.mods:find(clickmod) then
+				vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
+					pb.set_conditional_breakpoint(input)
+				end)
+			else
+				pb.toggle_breakpoint()
+			end
+			return
+		end
+
+		-- Fallback to default DAP breakpoint function
+		local present_dap, dap = pcall(require, "dap")
+		if not present_dap then
+			return
+		end
+		if args.mods:find(clickmod) then
+			vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
+				dap.set_breakpoint(input)
+			end)
+		else
+			dap.toggle_breakpoint()
+		end
+	end
 
 	local ui = require("ui")
 	ui.set_separators()

@@ -8,10 +8,15 @@ local M = {
 }
 
 M.venv = nil
+M.show_filetype = false
 
-M.set_venv = function(venv)
+function M.set_venv(venv)
 	local path = vim.split(venv, "/", { trimempty = true })
 	M.venv = path[#path]
+end
+
+function M.toggle_filetype()
+	M.show_filetype = not M.show_filetype
 end
 
 local vi_colors = {
@@ -179,6 +184,27 @@ local function tabs_provider()
 	return current_tab .. icons.bar.vertical_center_thin .. #valid_tabs .. "  "
 end
 
+local function recorder_provider()
+	local present, recorder = pcall(require, "recorder")
+	if not present then
+		return ""
+	end
+
+	if recorder.recordingStatus() ~= "" then
+		return icons.camera .. " Rec"
+	end
+	return ""
+end
+
+function M.init()
+	local mappings = require("mappings")
+	mappings.register_normal({
+		u = {
+			f = { "<cmd>lua require('plugins.configs.feline').toggle_filetype()<cr>", "Toggle filetype" },
+		},
+	})
+end
+
 function M.config()
 	-- local navic_present, navic = pcall(require, "nvim-navic")
 
@@ -228,6 +254,11 @@ function M.config()
 				hl = "FlnRed",
 			},
 		},
+		recorder = {
+			provider = "recorder",
+			hl = "FlnRed",
+			left_sep = { str = "  ", hl = "FlnText" },
+		},
 		pinned = {
 			provider = "pinned",
 			hl = "FlnText",
@@ -256,6 +287,19 @@ function M.config()
 			hl = "FlnBoldText",
 			left_sep = { str = " ", hl = "FlnSep" },
 			right_sep = { str = " ", hl = "FlnSep" },
+		},
+		file_type = {
+			provider = {
+				name = "file_type",
+				opts = {
+					case = "lowercase",
+				},
+			},
+			hl = "FlnDimText",
+			left_sep = { str = "  ", hl = "FlnText" },
+			enabled = function()
+				return M.show_filetype
+			end,
 		},
 		diagnostics = {
 			error = {
@@ -344,6 +388,8 @@ function M.config()
 			components.diagnostics.warning,
 			components.diagnostics.info,
 			components.diagnostics.hint,
+			components.recorder,
+			components.file_type,
 			components.cursor.position,
 			components.cursor.percentage,
 			components.tabs,
@@ -369,6 +415,7 @@ function M.config()
 		components = { active = statusline_active, inactive = statusline_inactive },
 		highlight_reset_triggers = {},
 		custom_providers = {
+			recorder = recorder_provider,
 			file_path = file_path_provider,
 			venv_kernel = venv_kernel_provider,
 			pinned = pinned_provider,
@@ -429,7 +476,7 @@ function M.config()
 		FlnStatus = { fg = c.statusline_fg, bg = statusline_bg, bold = true },
 
 		FlnText = { fg = c.statusline_fg, bg = statusline_bg },
-		FlnDimText = { fg = c.dim, bg = statusline_bg, italic = true },
+		FlnDimText = { fg = c.dim, bg = statusline_bg },
 		FlnBoldText = { fg = c.statusline_fg, bg = statusline_bg, bold = true },
 		FlnSep = { fg = c.statusline_fg, bg = statusline_bg },
 	})

@@ -11,7 +11,7 @@ local M = {
 	end,
 }
 
-M.config = function()
+function M.config()
 	vim.opt.showtabline = 0 -- don't show the tabline
 	vim.opt.laststatus = 0 -- don't show the statusline
 	if vim.opt.lines:get() == 1 then

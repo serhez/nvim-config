@@ -45,7 +45,7 @@ function M.config()
 		},
 		keymaps = {
 			["g?"] = "actions.show_help",
-			["q"] = "actions.close",
+			-- ["q"] = "actions.close", -- not good because macros are useful with Oil
 			["K"] = "actions.preview",
 			["-"] = "actions.parent",
 			["<Backspace>"] = "actions.parent",

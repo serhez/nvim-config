@@ -18,7 +18,8 @@ local function open_in_tab()
 		return
 	end
 
-	vim.cmd("tabedit %")
+	-- vim.cmd("tabedit %") -- FIX:
+	vim.cmd("tabnew")
 	debug_win = vim.fn.win_getid()
 	debug_tab = vim.api.nvim_win_get_tabpage(debug_win)
 	debug_tabnr = vim.api.nvim_tabpage_get_number(debug_tab)

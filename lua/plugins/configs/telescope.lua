@@ -166,6 +166,7 @@ function M.config()
 				default_workspace = "CWD",
 				show_filter_column = false,
 				sorter = require("telescope.sorters").fuzzy_with_index_bias(),
+				db_safe_mode = false,
 			},
 		},
 	})

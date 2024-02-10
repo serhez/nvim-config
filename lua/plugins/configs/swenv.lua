@@ -16,7 +16,8 @@ function M.init()
 end
 
 function M.config()
-	local feline_config = require("plugins.configs.feline")
+	local lualine_config_present, lualine_config = pcall(require, "plugins.configs.lualine")
+
 	require("swenv").setup({
 		-- Should return a list of tables with a `name` and a `path` entry each
 		-- Gets the argument `venvs_path` set below
@@ -31,11 +32,15 @@ function M.config()
 		-- Something to do after setting an environment, for example call vim.cmd.LspRestart
 		post_set_venv = function(venv)
 			vim.cmd("LspRestart")
-			feline_config.set_venv(venv.name)
+			if lualine_config_present then
+				lualine_config.set_venv(venv.name)
+			end
 		end,
 	})
 
-	feline_config.set_venv(require("swenv.api").get_current_venv().name)
+	if lualine_config_present then
+		lualine_config.set_venv(require("swenv.api").get_current_venv().name)
+	end
 end
 
 return M

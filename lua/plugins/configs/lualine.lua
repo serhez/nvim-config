@@ -2,7 +2,10 @@ local icons = require("icons")
 
 local M = {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+		"AndreM222/copilot-lualine",
+	},
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
@@ -70,6 +73,17 @@ local function recorder_provider()
 	return ""
 end
 
+local function diff_source()
+	local gitsigns = vim.b.gitsigns_status_dict
+	if gitsigns then
+		return {
+			added = gitsigns.added,
+			modified = gitsigns.changed,
+			removed = gitsigns.removed,
+		}
+	end
+end
+
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
@@ -112,20 +126,23 @@ function M.config()
 			},
 		},
 		sections = {
+			-- lualine_a = {
+			-- 	{
+			-- 		"mode",
+			-- 		padding = 0,
+			-- 		fmt = function(_)
+			-- 			return "   "
+			-- 		end,
+			-- 	},
+			-- },
 			lualine_a = {
-				{
-					"mode",
-					padding = 0,
-					fmt = function(_)
-						return "   "
-					end,
-				},
-			},
-			lualine_b = {
 				{
 					venv_provider,
 					cond = function()
 						return M.venv ~= nil and M.venv ~= "" and M.venv ~= "base"
+					end,
+					on_click = function(_, _, _)
+						vim.cmd("lua require('swenv.api').pick_venv()")
 					end,
 				},
 				{
@@ -134,10 +151,14 @@ function M.config()
 				{
 					"branch",
 					icon = icons.git.branch,
+					on_click = function(_, _, _)
+						vim.cmd("Telescope git_branches theme=ivy")
+					end,
 				},
 				{
 					"diff",
 					colored = true,
+					padding = { left = 0, right = 1 },
 					diff_color = {
 						-- NOTE: These highlights depend on `neogit`
 						added = "NeogitDiffAdd",
@@ -149,8 +170,13 @@ function M.config()
 						modified = " " .. icons.git.changed .. " ",
 						removed = " " .. icons.git.removed .. " ",
 					},
+					source = diff_source,
+					on_click = function(_, _, _)
+						vim.cmd("DiffviewOpen")
+					end,
 				},
 			},
+			lualine_b = {},
 			lualine_c = {
 				"%=",
 				{
@@ -183,21 +209,11 @@ function M.config()
 					},
 				},
 			},
-			lualine_x = {
-				{
-					recorder_provider,
-					color = "Error",
-				},
-				{
-					"filetype",
-					icon = { "" },
-					cond = function()
-						return M.show_filetype
-					end,
-				},
+			lualine_x = {},
+			lualine_y = {
 				{
 					"diagnostics",
-					sources = { "nvim_lsp", "nvim_diagnostic" },
+					sources = { "nvim_lsp" },
 					sections = { "error", "warn", "info", "hint" },
 					diagnostics_color = {
 						error = "DiagnosticVirtualTextError",
@@ -214,9 +230,39 @@ function M.config()
 					colored = true,
 					update_in_insert = false,
 					always_visible = false,
+					on_click = function(_, _, _)
+						vim.cmd("TroubleToggle document_diagnostics")
+					end,
+				},
+				{
+					recorder_provider,
+					color = "Error",
+				},
+				{
+					"copilot",
+					show_colors = false,
+					show_loading = true,
+					symbols = {
+						status = {
+							icons = {
+								enabled = icons.copilot.enabled,
+								sleep = icons.copilot.sleep,
+								disabled = icons.copilot.disabled,
+								warning = icons.copilot.warning,
+								unknown = icons.copilot.unknown,
+							},
+						},
+					},
+				},
+				{
+					"filetype",
+					icon = { "" },
+					cond = function()
+						return M.show_filetype
+					end,
 				},
 			},
-			lualine_y = {
+			lualine_z = {
 				"location",
 				"progress",
 				{
@@ -225,15 +271,15 @@ function M.config()
 					show_modified_status = false,
 				},
 			},
-			lualine_z = {
-				{
-					"mode",
-					padding = 0,
-					fmt = function(_)
-						return "   "
-					end,
-				},
-			},
+			-- lualine_z = {
+			-- 	{
+			-- 		"mode",
+			-- 		padding = 0,
+			-- 		fmt = function(_)
+			-- 			return "   "
+			-- 		end,
+			-- 	},
+			-- },
 		},
 		inactive_sections = {
 			lualine_a = {},
@@ -246,7 +292,17 @@ function M.config()
 		tabline = {},
 		winbar = {},
 		inactive_winbar = {},
-		extensions = {},
+		extensions = {
+			"lazy",
+			"mason",
+			"neo-tree",
+			"nvim-dap-ui",
+			"oil",
+			"quickfix",
+			"symbols-outline",
+			"toggleterm",
+			"trouble",
+		},
 	})
 end
 

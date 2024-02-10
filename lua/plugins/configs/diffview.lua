@@ -19,10 +19,10 @@ function M.init()
 			b = {
 				c = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
 				d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
-				D = { ":DiffviewOpen -- % ", "Diffs (specify commits)" },
+				D = { "<cmd>DiffviewOpen -- % ", "Diffs (specify commits)" },
 			},
 			d = { "<cmd>DiffviewOpen<cr>", "Diffs tool" },
-			D = { ":DiffviewOpen ", "Diffs tool (specify commits)" },
+			D = { "<cmd>DiffviewOpen ", "Diffs tool (specify commits)" },
 			l = {
 				c = { "<cmd>DiffviewFileHistory %<cr>", "Commits (file)" },
 				C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },

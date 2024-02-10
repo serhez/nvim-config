@@ -229,6 +229,14 @@ M.lsp = {
 	Copilot = "",
 }
 
+M.copilot = {
+	enabled = "",
+	sleep = "󰒲",
+	disabled = "",
+	warning = "",
+	unknown = "",
+}
+
 M.dap = {
 	breakpoint = M.circle,
 	breakpoint_disabled = M.empty_circle,

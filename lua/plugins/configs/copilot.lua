@@ -10,6 +10,10 @@ function M.init()
 	mappings.register_normal({
 		a = {
 			p = { "<cmd>Copilot panel<cr>", "Panel" },
+			a = { "<cmd>Copilot attach<cr>", "Attach" },
+			d = { "<cmd>Copilot detach<cr>", "Detach" },
+			s = { "<cmd>Copilot status<cr>", "Status" },
+			t = { "<cmd>Copilot toggle<cr>", "Toggle" },
 		},
 	})
 end
@@ -23,8 +27,12 @@ function M.config()
 				jump_prev = "[[",
 				jump_next = "]]",
 				accept = "<CR>",
-				refresh = "gr",
+				refresh = "R",
 				open = "<M-c>",
+			},
+			layout = {
+				position = "right",
+				ratio = 0.3,
 			},
 		},
 		suggestion = {
@@ -36,6 +44,17 @@ function M.config()
 				prev = "<M-[>",
 				dismiss = "<M-h>",
 			},
+		},
+		filetypes = {
+			yaml = true,
+			markdown = true,
+			help = false,
+			gitcommit = true,
+			gitrebase = true,
+			hgcommit = true,
+			svn = true,
+			cvs = true,
+			["."] = false,
 		},
 	})
 end

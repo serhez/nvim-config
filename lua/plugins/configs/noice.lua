@@ -60,7 +60,7 @@ function M.config()
 
 		messages = {
 			enabled = true, -- enables the Noice messages UI
-			view = false, -- default view for messages
+			view = "mini", -- default view for messages
 			view_error = "mini", -- view for errors
 			view_warn = "mini", -- view for warnings
 			view_history = "messages", -- view for :messages
@@ -106,7 +106,7 @@ function M.config()
 				},
 			},
 
-			-- Send long messages (>10 lines) to a split window
+			-- Send long messages to a split window
 			{
 				view = "split",
 				filter = { event = "msg_show", min_height = 5 },

@@ -5,6 +5,7 @@ local M = {
 function M.config()
 	local tokyonight = require("tokyonight")
 	tokyonight.setup({
+		terminal_colors = true,
 		styles = {
 			-- Style to be applied to different syntax groups
 			-- Value is any valid attr-list value for `:help nvim_set_hl`
@@ -26,6 +27,7 @@ function M.config()
 			"dapui_console",
 			"dap-repl",
 		},
+		dim_inactive = true,
 	})
 	tokyonight.load()
 end

@@ -161,9 +161,9 @@ function M.config()
 					padding = { left = 0, right = 1 },
 					diff_color = {
 						-- NOTE: These highlights depend on `neogit`
-						added = "NeogitDiffAdd",
+						added = "NeogitDiffAddHighlight",
 						modified = "NeogitHunkHeaderHighlight",
-						removed = "NeogitDiffDelete",
+						removed = "NeogitDiffDeleteHighlight",
 					},
 					symbols = {
 						added = " " .. icons.git.added .. " ",

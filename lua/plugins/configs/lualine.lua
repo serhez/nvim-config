@@ -183,6 +183,7 @@ function M.config()
 					"hostname",
 					cond = function()
 						return not string.find(vim.loop.os_gethostname(), "local")
+							and not string.find(vim.loop.os_gethostname(), "home")
 					end,
 				},
 				{

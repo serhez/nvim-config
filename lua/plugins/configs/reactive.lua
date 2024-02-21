@@ -1,7 +1,6 @@
 local M = {
 	"rasulomaroff/reactive.nvim",
 	event = "BufRead",
-	-- enabled = false,
 }
 
 function M.config()

@@ -1,7 +1,6 @@
 local M = {
 	"vidocqh/auto-indent.nvim",
 	event = "InsertEnter",
-	enabled = false,
 }
 
 function M.config()

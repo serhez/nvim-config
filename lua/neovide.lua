@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-	vim.opt.guifont = "JetBrainsMono Nerd Font Mono Light:h16:#h-none:#e-subpixelantialias"
+	vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h16:#h-none:#e-subpixelantialias"
 	vim.g.neovide_padding_top = 10
 	vim.g.neovide_padding_bottom = 10
 	vim.g.neovide_padding_right = 20

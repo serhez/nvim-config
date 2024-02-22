@@ -10,6 +10,15 @@ local M = {
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
+function M.init()
+	local mappings = require("mappings")
+	mappings.register_normal({
+		u = {
+			n = { "<cmd>Noice<cr>", "Notifications" },
+		},
+	})
+end
+
 function M.config()
 	require("noice").setup({
 		health = {

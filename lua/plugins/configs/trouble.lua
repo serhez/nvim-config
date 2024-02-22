@@ -56,6 +56,12 @@ function M.config()
 		},
 		use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
 	})
+
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		TroubleNormal = { bg = c.statusline_bg, fg = c.statusline_fg },
+	})
 end
 
 return M

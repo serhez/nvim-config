@@ -6,8 +6,6 @@ local M = {
 		"hrsh7th/cmp-cmdline",
 		-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 		-- "zbirenbaum/copilot-cmp",
-		"rcarriga/cmp-dap",
-		"petertriho/cmp-git",
 		"kdheepak/cmp-latex-symbols",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
@@ -159,7 +157,6 @@ function M.config()
 			{ name = "pandoc_references" },
 			{ name = "otter" },
 			{ name = "fuzzy_path" },
-			{ name = "dap" },
 		},
 
 		sorting = {
@@ -193,7 +190,6 @@ function M.config()
 		formatting = normal_formatting,
 		mapping = normal_mappings,
 		sources = {
-			{ name = "git" },
 			{ name = "fuzzy_path" },
 			{ name = "buffer" },
 		},

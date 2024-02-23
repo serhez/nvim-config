@@ -66,6 +66,7 @@ local normal_mappings = {
 	u = {
 		name = "UI",
 		l = { toggle_locationlist, "Location list" },
+		m = { "<cmd>messages<cr>", "Messages" },
 		q = { toggle_quicklist, "Quickfix list" },
 		s = {
 			name = "Split",

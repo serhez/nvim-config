@@ -54,7 +54,7 @@ function M.config()
 		json = { "jsonlint" },
 
 		-- YAML
-		yaml = { "yamllint" },
+		-- yaml = { "yamllint" }, -- too much noise
 
 		-- SQL
 		sql = { "sqlfluff" },

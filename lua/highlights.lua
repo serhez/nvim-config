@@ -143,8 +143,8 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-macchiato"
-	vim.o.background = "dark"
+	vim.g.colors_name = "catppuccin-latte"
+	vim.o.background = "light"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },
 		mods = { emsg_silent = true },

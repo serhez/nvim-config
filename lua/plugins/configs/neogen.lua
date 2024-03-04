@@ -4,6 +4,7 @@ local M = {
 	"danymat/neogen",
 	dependencies = "nvim-treesitter/nvim-treesitter",
 	cmd = "Neogen",
+	enabled = false,
 }
 
 function M.init()

@@ -33,7 +33,7 @@ function M.init()
 	mappings.register_normal({
 		n = {
 			name = "Notebook",
-			i = { "<cmd>MoltenInit<cr>", "Initialize kernel" },
+			i = { _G.init_notebook, "Initialize" },
 			I = {
 				name = "Initialize language",
 				j = { "<cmd>MoltenInit julia<cr>", "Initialize Julia" },
@@ -108,10 +108,10 @@ function M.init()
 		},
 	})
 
-	vim.api.nvim_create_autocmd(
-		{ "BufReadPost" },
-		{ pattern = { "*.ipynb", "*.qmd", "*.rmd" }, callback = _G.init_notebook }
-	)
+	-- vim.api.nvim_create_autocmd(
+	-- 	{ "BufReadPost" },
+	-- 	{ pattern = { "*.ipynb", "*.qmd", "*.rmd" }, callback = _G.init_notebook }
+	-- )
 
 	-- Set the kernel variable for the statusline
 	-- vim.api.nvim_create_autocmd({ "MoltenInitPost" }, {

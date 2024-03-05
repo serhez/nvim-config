@@ -115,12 +115,12 @@ function M.config()
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "solid",
-		position = { row = 2, col = 2 },
+		position = { row = 0, col = 0 },
 		silent = true,
 	})
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "solid",
-		position = { row = 2, col = 2 },
+		position = { row = 0, col = 0 },
 	})
 
 	require("mason-lspconfig").setup()

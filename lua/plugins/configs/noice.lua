@@ -49,9 +49,10 @@ function M.config()
 		views = {
 			hover = {
 				border = {
-					style = "solid",
+					style = "none",
+					padding = { 1, 2 },
 				},
-				position = { row = 2, col = 2 },
+				position = { row = 0, col = 0 },
 			},
 			mini = {
 				timeout = 4000, -- Duration between show() and hide(), in milliseconds

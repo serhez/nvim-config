@@ -10,15 +10,35 @@ local M = {
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
+-- Global variable for suffix
+local SAVE_SUFFIX = "_SAVEDDATA"
+
 function _G.init_notebook()
 	vim.notify("Initializing notebook...")
 	vim.cmd("QuartoActivate")
 	vim.cmd("MoltenInit")
 end
 
-function M.init()
-	local molten_output_open = false
+-- Create an ipynb file at the same path and with the same name than the quarto file.
+local function current_file_with_extension(extension, suffix)
+	local current_file = vim.fn.expand("%")
+	local current_file_without_extension = current_file:match("(.+)%..+") or current_file
+	return current_file_without_extension .. suffix .. "." .. extension
+end
 
+-- Create an ipynb file at the same path and with the same name than the quarto file.
+local function create_ipynb()
+	local quarto_file = vim.fn.expand("%")
+	local ipynb_file = string.gsub(quarto_file, ".qmd", ".ipynb")
+
+	-- Check if the ipynb file already exists
+	if vim.fn.filereadable(ipynb_file) == 0 then
+		local cmd = string.format("jupytext --to ipynb %s", quarto_file)
+		vim.fn.system(cmd)
+	end
+end
+
+function M.init()
 	vim.g.molten_image_provider = "image.nvim"
 	vim.g.molten_output_win_max_height = 20
 	vim.g.molten_auto_open_output = false
@@ -33,78 +53,53 @@ function M.init()
 	mappings.register_normal({
 		n = {
 			name = "Notebook",
-			i = { _G.init_notebook, "Initialize" },
-			I = {
-				name = "Initialize language",
-				j = { "<cmd>MoltenInit julia<cr>", "Initialize Julia" },
-				p = {
-					function()
-						local venv = os.getenv("VIRTUAL_ENV")
-						if venv ~= nil then
-							-- in the form of /home/benlubas/.virtualenvs/VENV_NAME
-							venv = string.match(venv, "/.+/(.+)")
-							vim.cmd(("MoltenInit %s"):format(venv))
-						else
-							vim.cmd("MoltenInit python3")
-						end
-					end,
-					"Initialize Python",
-				},
-				r = { "<cmd>MoltenInit rust<cr>", "Initialize Rust" },
-				s = { "<cmd>MoltenInterrupt<cr>", "Stop cell" },
-			},
-			-- r = {
+			-- e = {
 			-- 	function()
-			-- 		require("quarto.runner").run_cell()
+			-- 		create_ipynb()
+			-- 		vim.cmd("MoltenExportOutput")
 			-- 	end,
-			-- 	"Run cell",
+			-- 	"Export to Jupyter notebook",
 			-- },
-			-- R = {
-			-- 	name = "Run",
-			-- 	a = {
-			-- 		function()
-			-- 			require("quarto.runner").run_all()
-			-- 		end,
-			-- 		"Run all cells",
-			-- 	},
-			-- 	A = {
-			-- 		function()
-			-- 			require("quarto.runner").run_all(true)
-			-- 		end,
-			-- 		"Run all cells (all langs)",
-			-- 	},
-			-- 	d = {
-			-- 		function()
-			-- 			require("quarto.runner").run_below()
-			-- 		end,
-			-- 		"Run cell and below",
-			-- 	},
-			-- 	l = {
-			-- 		function()
-			-- 			require("quarto.runner").run_line()
-			-- 		end,
-			-- 		"Run line",
-			-- 	},
-			-- 	u = {
-			-- 		function()
-			-- 			require("quarto.runner").run_above()
-			-- 		end,
-			-- 		"Run cell and above",
-			-- 	},
-			-- },
-			-- r = { "<cmd>MoltenEvaluateOperator<cr>", "Run cell" },
-			-- R = {
-			-- 	name = "Run",
-			-- 	c = { "<cmd>MoltenReevaluateCell<cr>", "Re-run cell" },
-			-- 	v = { "<cmd>MoltenEvaluateVisual<cr>", "Run visual" },
-			-- },
-			o = {
+			-- i = { "<cmd>MoltenImportOutput<cr>", "Import from Jupyter notebook" },
+			e = {
 				function()
-					molten_output_open = not molten_output_open
-					vim.fn.MoltenUpdateOption("auto_open_output", molten_output_open)
+					vim.cmd("MoltenSave " .. current_file_with_extension("json", SAVE_SUFFIX))
 				end,
-				"Output window",
+				"Export",
 			},
+			i = {
+				function()
+					vim.cmd("MoltenLoad " .. current_file_with_extension("json", SAVE_SUFFIX))
+				end,
+				"Import",
+			},
+			I = { "<cmd>MoltenImagePopup<cr>", "Open image" },
+			-- i = { _G.init_notebook, "Initialize" },
+			-- I = {
+			-- 	name = "Initialize language",
+			-- 	j = { "<cmd>MoltenInit julia<cr>", "Initialize Julia" },
+			-- 	p = {
+			-- 		function()
+			-- 			local venv = os.getenv("VIRTUAL_ENV")
+			-- 			if venv ~= nil then
+			-- 				-- in the form of /home/benlubas/.virtualenvs/VENV_NAME
+			-- 				venv = string.match(venv, "/.+/(.+)")
+			-- 				vim.cmd(("MoltenInit %s"):format(venv))
+			-- 			else
+			-- 				vim.cmd("MoltenInit python3")
+			-- 			end
+			-- 		end,
+			-- 		"Initialize Python",
+			-- 	},
+			-- 	r = { "<cmd>MoltenInit rust<cr>", "Initialize Rust" },
+			-- },
+			k = { "<cmd>MoltenDeinit<cr>", "Kill kernel" },
+			o = {
+				"<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
+				"Open output window",
+			},
+			r = { "<cmd>MoltenRestart<cr>", "Restart kernel" },
+			s = { "<cmd>MoltenInterrupt<cr>", "Stop execution" },
 		},
 	})
 

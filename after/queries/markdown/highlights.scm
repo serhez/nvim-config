@@ -1,6 +1,7 @@
 ;; extends
 
 ;; Conceal bullet points
+;; BUG: this does not work well because of issues with spaces in the list marker nodes upstream (nvim)
 ([(list_marker_plus) (list_marker_star)]
   @punctuation.special
   (#offset! @punctuation.special 0 0 0 -1)

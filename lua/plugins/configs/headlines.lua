@@ -4,11 +4,12 @@ local M = {
 }
 
 function M.config()
-	require("headlines").setup({
-		quarto = {
-			query = vim.treesitter.query.parse(
-				"markdown",
-				[[
+	vim.schedule(function()
+		require("headlines").setup({
+			quarto = {
+				query = vim.treesitter.query.parse(
+					"markdown",
+					[[
                 (atx_heading [
                     (atx_h1_marker)
                     (atx_h2_marker)
@@ -27,31 +28,31 @@ function M.config()
                 (block_quote (paragraph (block_continuation) @quote))
                 (block_quote (block_continuation) @quote)
             ]]
-			),
-			headline_highlights = { "Headline" },
-			bullet_highlights = {
-				"@text.title.1.marker.markdown",
-				"@text.title.2.marker.markdown",
-				"@text.title.3.marker.markdown",
-				"@text.title.4.marker.markdown",
-				"@text.title.5.marker.markdown",
-				"@text.title.6.marker.markdown",
+				),
+				headline_highlights = { "Headline" },
+				bullet_highlights = {
+					"@text.title.1.marker.markdown",
+					"@text.title.2.marker.markdown",
+					"@text.title.3.marker.markdown",
+					"@text.title.4.marker.markdown",
+					"@text.title.5.marker.markdown",
+					"@text.title.6.marker.markdown",
+				},
+				bullets = { "◉", "○", "✸", "✿" },
+				codeblock_highlight = "CodeBlock",
+				dash_highlight = "Dash",
+				dash_string = "-",
+				quote_highlight = "Quote",
+				quote_string = "┃",
+				fat_headlines = true,
+				fat_headline_upper_string = "▃",
+				fat_headline_lower_string = "🬂",
+				treesitter_language = "markdown",
 			},
-			bullets = { "◉", "○", "✸", "✿" },
-			codeblock_highlight = "CodeBlock",
-			dash_highlight = "Dash",
-			dash_string = "-",
-			quote_highlight = "Quote",
-			quote_string = "┃",
-			fat_headlines = true,
-			fat_headline_upper_string = "▃",
-			fat_headline_lower_string = "🬂",
-			treesitter_language = "markdown",
-		},
-		ipynb = {
-			query = vim.treesitter.query.parse(
-				"markdown",
-				[[
+			ipynb = {
+				query = vim.treesitter.query.parse(
+					"markdown",
+					[[
                 (atx_heading [
                     (atx_h1_marker)
                     (atx_h2_marker)
@@ -70,18 +71,21 @@ function M.config()
                 (block_quote (paragraph (block_continuation) @quote))
                 (block_quote (block_continuation) @quote)
             ]]
-			),
-			headline_highlights = { "Headline" },
-			codeblock_highlight = "CodeBlock",
-			dash_highlight = "Dash",
-			dash_string = "-",
-			quote_highlight = "Quote",
-			quote_string = "┃",
-			fat_headlines = true,
-			fat_headline_upper_string = "▃",
-			fat_headline_lower_string = "🬂",
-		},
-	})
+				),
+				headline_highlights = { "Headline" },
+				codeblock_highlight = "CodeBlock",
+				dash_highlight = "Dash",
+				dash_string = "-",
+				quote_highlight = "Quote",
+				quote_string = "┃",
+				fat_headlines = true,
+				fat_headline_upper_string = "▃",
+				fat_headline_lower_string = "🬂",
+			},
+		})
+
+		require("headlines").refresh()
+	end)
 end
 
 return M

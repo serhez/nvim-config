@@ -16,8 +16,8 @@ function M.init()
 			P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
 		},
 		n = {
-			n = { "o<esc>o```{}\r```<esc>o<esc><up><up><right><right><right>a", "New cell" },
-			s = { "o```\r\r```{}<left>", "Split cell" },
+			n = { "o<esc>o```\r```<esc>o<esc><up><up><right><right><right>a", "New cell" },
+			s = { "o```\r\r```<left>", "Split cell" },
 			r = {
 				function()
 					require("quarto.runner").run_cell()

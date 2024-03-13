@@ -23,7 +23,7 @@ function M.setup()
 
 	-- PYTHON PATH --
 
-	vim.g.python3_host_prog = "~/.envs/nvim/bin/python"
+	vim.g.python3_host_prog = "~/envs/nvim/bin/python"
 
 	---  SETTINGS  ---
 

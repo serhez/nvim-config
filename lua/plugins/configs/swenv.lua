@@ -28,7 +28,7 @@ function M.config()
 			return vim.tbl_deep_extend("force", global_venvs, workspace_venvs)
 		end,
 		-- Path passed to `get_venvs`
-		venvs_path = vim.fn.expand("~/.envs"),
+		venvs_path = vim.fn.expand("~/envs"),
 		-- Something to do after setting an environment, for example call vim.cmd.LspRestart
 		post_set_venv = function(venv)
 			vim.cmd("LspRestart")

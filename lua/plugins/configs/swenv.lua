@@ -39,7 +39,10 @@ function M.config()
 	})
 
 	if lualine_config_present then
-		lualine_config.set_venv(require("swenv.api").get_current_venv().name)
+		local current_venv = require("swenv.api").get_current_venv()
+		if current_venv then
+			lualine_config.set_venv(current_venv.name)
+		end
 	end
 end
 

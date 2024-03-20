@@ -73,20 +73,20 @@ function M.config()
 					["ib"] = "@block.inner",
 				},
 			},
-			-- swap = {
-			--     enable = true,
-			--     swap_next = {
-			--         ["<leader>a"] = "@parameter.inner",
-			--     },
-			--     swap_previous = {
-			--         ["<leader>A"] = "@parameter.inner",
-			--     },
-			-- },
+			swap = {
+				enable = true,
+				swap_next = {
+					["<leader>Sl"] = "@parameter.inner",
+				},
+				swap_previous = {
+					["<leader>Sh"] = "@parameter.inner",
+				},
+			},
 			move = {
 				enable = true,
 				set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
-					["]]"] = "@function.inner",
+					-- ["]]"] = "@function.inner",
 					["]f"] = "@function.inner",
 					["]c"] = "@class.inner",
 					["]p"] = "@parameter.inner",
@@ -98,7 +98,7 @@ function M.config()
 					["]P"] = "@parameter.outer",
 				},
 				goto_previous_start = {
-					["[["] = "@function.inner",
+					-- ["[["] = "@function.inner",
 					["[f"] = "@function.inner",
 					["[c"] = "@class.inner",
 					["[p"] = "@parameter.inner",
@@ -120,6 +120,20 @@ function M.config()
 			},
 		},
 	})
+
+	-- Center the screen after jumping to next/previous function
+	vim.keymap.set(
+		"n",
+		"]]",
+		":TSTextobjectGotoNextStart @function.inner | lua vim.cmd('norm zz') <CR>",
+		{ remap = true, desc = "Go to next function and center the cursor" }
+	)
+	vim.keymap.set(
+		"n",
+		"[[",
+		":TSTextobjectGotoPreviousStart @function.inner | lua vim.cmd('norm zz') <CR>",
+		{ remap = true, desc = "Go to previous function and center the cursor" }
+	)
 end
 
 return M

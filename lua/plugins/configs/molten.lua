@@ -53,14 +53,6 @@ function M.init()
 	mappings.register_normal({
 		n = {
 			name = "Notebook",
-			-- e = {
-			-- 	function()
-			-- 		create_ipynb()
-			-- 		vim.cmd("MoltenExportOutput")
-			-- 	end,
-			-- 	"Export to Jupyter notebook",
-			-- },
-			-- i = { "<cmd>MoltenImportOutput<cr>", "Import from Jupyter notebook" },
 			e = {
 				function()
 					vim.cmd("MoltenSave " .. current_file_with_extension("json", SAVE_SUFFIX))
@@ -74,25 +66,6 @@ function M.init()
 				"Import",
 			},
 			I = { "<cmd>MoltenImagePopup<cr>", "Open image" },
-			-- i = { _G.init_notebook, "Initialize" },
-			-- I = {
-			-- 	name = "Initialize language",
-			-- 	j = { "<cmd>MoltenInit julia<cr>", "Initialize Julia" },
-			-- 	p = {
-			-- 		function()
-			-- 			local venv = os.getenv("VIRTUAL_ENV")
-			-- 			if venv ~= nil then
-			-- 				-- in the form of /home/benlubas/.virtualenvs/VENV_NAME
-			-- 				venv = string.match(venv, "/.+/(.+)")
-			-- 				vim.cmd(("MoltenInit %s"):format(venv))
-			-- 			else
-			-- 				vim.cmd("MoltenInit python3")
-			-- 			end
-			-- 		end,
-			-- 		"Initialize Python",
-			-- 	},
-			-- 	r = { "<cmd>MoltenInit rust<cr>", "Initialize Rust" },
-			-- },
 			k = { "<cmd>MoltenDeinit<cr>", "Kill kernel" },
 			o = {
 				"<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",

@@ -35,7 +35,7 @@ function M.config()
 			["javascript.jsx"] = { "prettierd" },
 			typescriptreact = { "prettierd" },
 			["typescript.tsx"] = { "prettierd" },
-			vue = { "prettierd" },
+			-- vue = { "prettierd" },
 			svelte = { "prettierd" },
 
 			-- HTML

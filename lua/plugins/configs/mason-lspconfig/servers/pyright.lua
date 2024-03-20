@@ -29,10 +29,6 @@ local settings = {
 					depth = 2,
 				},
 				{
-					name = "django",
-					depth = 2,
-				},
-				{
 					name = "flask",
 					depth = 2,
 				},

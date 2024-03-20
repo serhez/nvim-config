@@ -98,7 +98,7 @@ function M.init()
 				"<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
 				"Open output window",
 			},
-			r = { "<cmd>MoltenRestart<cr>", "Restart kernel" },
+			S = { "<cmd>MoltenRestart<cr>", "Restart kernel" },
 			s = { "<cmd>MoltenInterrupt<cr>", "Stop execution" },
 		},
 	})

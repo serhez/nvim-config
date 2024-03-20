@@ -17,7 +17,7 @@ function M.init()
 		},
 		n = {
 			n = { "o<esc>o```\r```<esc>o<esc><up><up><right><right><right>a", "New cell" },
-			s = { "o```\r\r```<left>", "Split cell" },
+			d = { "o```\r\r```<left>", "Divide cell" },
 			r = {
 				function()
 					require("quarto.runner").run_cell()

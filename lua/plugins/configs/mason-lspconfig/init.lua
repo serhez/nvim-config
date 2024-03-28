@@ -147,31 +147,31 @@ function M.config()
 		end,
 	})
 
-	-- Custom namespace
-	local ns = vim.api.nvim_create_namespace("severe-diagnostics")
+	-- -- Custom namespace
+	-- local ns = vim.api.nvim_create_namespace("severe-diagnostics")
+	--
+	-- -- Reference to the original handler
+	-- local orig_signs_handler = vim.diagnostic.handlers.signs
 
-	-- Reference to the original handler
-	local orig_signs_handler = vim.diagnostic.handlers.signs
-
-	-- Overriden diagnostics signs helper to only show the single most relevant sign
-	---@see `:h diagnostic-handlers`
-	vim.diagnostic.handlers.signs = {
-		show = function(_, bufnr, _, opts)
-			-- get all diagnostics from the whole buffer rather
-			-- than just the diagnostics passed to the handler
-			local diagnostics = vim.diagnostic.get(bufnr)
-
-			local filtered_diagnostics = filter_diagnostics(diagnostics)
-
-			-- pass the filtered diagnostics (with the
-			-- custom namespace) to the original handler
-			orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
-		end,
-
-		hide = function(_, bufnr)
-			orig_signs_handler.hide(ns, bufnr)
-		end,
-	}
+	-- -- Overriden diagnostics signs helper to only show the single most relevant sign
+	-- ---@see `:h diagnostic-handlers`
+	-- vim.diagnostic.handlers.signs = {
+	-- 	show = function(_, bufnr, _, opts)
+	-- 		-- get all diagnostics from the whole buffer rather
+	-- 		-- than just the diagnostics passed to the handler
+	-- 		local diagnostics = vim.diagnostic.get(bufnr)
+	--
+	-- 		local filtered_diagnostics = filter_diagnostics(diagnostics)
+	--
+	-- 		-- pass the filtered diagnostics (with the
+	-- 		-- custom namespace) to the original handler
+	-- 		orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+	-- 	end,
+	--
+	-- 	hide = function(_, bufnr)
+	-- 		orig_signs_handler.hide(ns, bufnr)
+	-- 	end,
+	-- }
 end
 
 return M

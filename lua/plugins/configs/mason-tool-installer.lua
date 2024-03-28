@@ -21,7 +21,8 @@ function M.config()
 
 			-- Python
 			"python-lsp-server",
-			"pyright",
+			-- "pyright",
+			"basedpyright",
 			"pylint",
 			"pydocstyle",
 			"ruff",

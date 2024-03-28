@@ -2,7 +2,7 @@ local mappings = require("mappings")
 
 local M = {
 	"famiu/bufdelete.nvim",
-	event = "BufReadPre",
+	event = "VimEnter",
 }
 
 function M.init()

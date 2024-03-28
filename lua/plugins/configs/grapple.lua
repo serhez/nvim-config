@@ -8,17 +8,27 @@ local M = {
 
 function M.init()
 	local grapple = require("grapple")
+	local cybu_present, _ = pcall(require, "cybu")
+
 	vim.keymap.set("n", "<Tab>", function()
 		if not grapple.exists() then
 			vim.cmd("Bwipeout")
 		end
-		grapple.cycle_forward()
+		if cybu_present then
+			vim.cmd("CybuNext")
+		else
+			grapple.cycle_forward()
+		end
 	end)
 	vim.keymap.set("n", "<S-Tab>", function()
 		if not grapple.exists() then
 			vim.cmd("Bwipeout")
 		end
-		grapple.cycle_backward()
+		if cybu_present then
+			vim.cmd("CybuPrev")
+		else
+			grapple.cycle_backward()
+		end
 	end)
 
 	require("mappings").register_normal({

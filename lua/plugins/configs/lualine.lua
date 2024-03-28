@@ -48,29 +48,27 @@ local function kernel_provider()
 end
 
 local function pinned_provider()
-	local present, hbac_state = pcall(require, "hbac.state")
-	if not present then
-		return " "
-	end
+	return icons.hook
+end
 
-	local cur_buf = vim.api.nvim_get_current_buf()
-	if hbac_state.is_pinned(cur_buf) then
-		return icons.pin
-	else
-		return " "
+local function pinned_condition()
+	local present, grapple = pcall(require, "grapple")
+	if not present then
+		return false
 	end
+	return grapple.exists()
 end
 
 local function recorder_provider()
+	return icons.camera .. " Rec"
+end
+
+local function recorder_condition()
 	local present, recorder = pcall(require, "recorder")
 	if not present then
-		return ""
+		return false
 	end
-
-	if recorder.recordingStatus() ~= "" then
-		return icons.camera .. " Rec"
-	end
-	return ""
+	return recorder.recordingStatus() ~= ""
 end
 
 local function diff_source()
@@ -94,6 +92,8 @@ function M.init()
 end
 
 function M.config()
+	local colors = require("highlights").colors()
+
 	require("lualine").setup({
 		options = {
 			icons_enabled = true,
@@ -187,19 +187,17 @@ function M.config()
 					end,
 				},
 				{
-					pinned_provider,
-				},
-				{
 					"filetype",
 					icon_only = true,
 					separator = "",
-					padding = 0,
+					padding = { left = 0, right = 0 },
 				},
 				{
 					"filename",
 					file_status = true,
 					newfile_status = false,
 					path = 0,
+					padding = { left = 1, right = 2 },
 					shorting_target = 40,
 					color = { gui = "bold" },
 					symbols = {
@@ -208,6 +206,12 @@ function M.config()
 						unnamed = "[No Name]",
 						newfile = "[New]",
 					},
+				},
+				{
+					pinned_provider,
+					cond = pinned_condition,
+					padding = { left = 0, right = 0 },
+					color = { fg = colors.yellow },
 				},
 			},
 			lualine_x = {},
@@ -237,6 +241,7 @@ function M.config()
 				},
 				{
 					recorder_provider,
+					cond = recorder_condition,
 					color = "Error",
 				},
 				{

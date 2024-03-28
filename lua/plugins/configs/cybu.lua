@@ -9,6 +9,7 @@ local M = {
 		"CybuLastusedPrev",
 	},
 	cond = not vim.g.started_by_firenvim,
+	enabled = false, -- FIX: make it work with grapple
 }
 
 function M.config()

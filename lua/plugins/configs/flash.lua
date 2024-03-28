@@ -51,10 +51,19 @@ function M.config()
 
 	vim.keymap.set({ "n", "x", "o" }, "f", function()
 		flash.jump()
-	end)
+	end, { desc = "Jump to char" })
 	vim.keymap.set({ "n", "x", "o" }, "F", function()
 		flash.treesitter()
-	end)
+	end, { desc = "Treesitter selection" })
+	vim.keymap.set({ "o" }, "r", function()
+		flash.remote()
+	end, { desc = "Remote" })
+	vim.keymap.set({ "o", "x" }, "R", function()
+		flash.treesitter_search()
+	end, { desc = "Treesitter" })
+	vim.keymap.set({ "c" }, "<c-s>", function()
+		flash.toggle()
+	end, { desc = "Toggle flash search" })
 end
 
 return M

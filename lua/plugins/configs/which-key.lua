@@ -60,9 +60,6 @@ local normal_mappings = {
 	p = {
 		name = "Projects",
 	},
-	t = {
-		name = "Terminal",
-	},
 	u = {
 		name = "UI",
 		l = { toggle_locationlist, "Location list" },
@@ -83,9 +80,6 @@ local visual_mappings = {
 	},
 	n = {
 		name = "Notebooks",
-	},
-	t = {
-		name = "Terminal",
 	},
 	u = {
 		name = "Utils",

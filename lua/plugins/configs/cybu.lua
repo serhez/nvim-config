@@ -1,7 +1,7 @@
 local M = {
 	"ghillb/cybu.nvim",
 	branch = "main", -- timely updates
-	dependencies = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim", "axkirillov/hbac.nvim" },
+	dependencies = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim" },
 	cmd = {
 		"CybuNext",
 		"CybuPrev",
@@ -10,11 +10,6 @@ local M = {
 	},
 	cond = not vim.g.started_by_firenvim,
 }
-
-function M.init()
-	vim.keymap.set("n", "<S-Tab>", "<cmd>CybuPrev<cr>")
-	vim.keymap.set("n", "<Tab>", "<cmd>CybuNext<cr>")
-end
 
 function M.config()
 	local icons = require("icons")

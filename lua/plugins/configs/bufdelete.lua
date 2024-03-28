@@ -11,7 +11,7 @@ function M.init()
 		b = {
 			c = {
 				name = "Close",
-				A = { "<cmd>%Bwipeout<cr>", "All" },
+				a = { "<cmd>%Bwipeout<cr>", "All" },
 				c = { "<cmd>Bwipeout<cr>", "Current" },
 				o = { '<cmd>%Bdelete | e # | normal `"<cr>', "Others" },
 			},

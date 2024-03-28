@@ -11,10 +11,9 @@ function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
 		s = { "<cmd>Telescope grep_string theme=ivy search=<cr>", "Search text" }, -- Shortcut
-		-- Now handled by hbac
-		-- b = {
-		-- 	l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
-		-- },
+		b = {
+			l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
+		},
 		c = {
 			s = {
 				name = "Symbols",
@@ -28,22 +27,20 @@ function M.init()
 		-- 	"Find files",
 		-- },
 		F = {
-			-- Now handled by hbac
-			-- b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
-			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
+			b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
+			c = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
 			-- Now handled by telescope-frecency
 			-- f = {
 			-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 			-- 	"Find files",
 			-- }, -- Redundancy
-			F = {
+			f = {
 				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 				"Files (+ignored)",
 			},
 			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
 			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
 			r = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Recent files" },
-			t = { "<cmd>Telescope grep_string theme=ivy search=<cr>", "Text" },
 		},
 		g = {
 			l = {
@@ -174,7 +171,6 @@ function M.config()
 	-- Load extensions
 	-- Load them here to prevent other plugins from loading telescope before it is needed
 	telescope.load_extension("fzf")
-	telescope.load_extension("hbac")
 	telescope.load_extension("noice")
 	telescope.load_extension("yank_history")
 	telescope.load_extension("undo")

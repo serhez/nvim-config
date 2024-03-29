@@ -236,7 +236,7 @@ function M.config()
 					update_in_insert = false,
 					always_visible = false,
 					on_click = function(_, _, _)
-						vim.cmd("TroubleToggle document_diagnostics")
+						vim.cmd("Trouble diagnostics toggle filter.buf=0")
 					end,
 				},
 				{

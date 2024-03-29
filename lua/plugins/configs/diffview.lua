@@ -16,17 +16,16 @@ local M = {
 function M.init()
 	mappings.register_normal({
 		g = {
-			b = {
+			f = {
+				name = "File",
 				c = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
 				d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
 				D = { "<cmd>DiffviewOpen -- % ", "Diffs (specify commits)" },
 			},
+			c = { "<cmd>DiffviewFileHistory %<cr>", "Commits (file)" },
+			C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },
 			d = { "<cmd>DiffviewOpen<cr>", "Diffs tool" },
 			D = { "<cmd>DiffviewOpen ", "Diffs tool (specify commits)" },
-			l = {
-				c = { "<cmd>DiffviewFileHistory %<cr>", "Commits (file)" },
-				C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },
-			},
 		},
 	})
 end

@@ -43,10 +43,8 @@ function M.init()
 			r = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Recent files" },
 		},
 		g = {
-			l = {
-				b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
-				s = { "<cmd>Telescope git_stash theme=ivy<cr>", "Stashes" },
-			},
+			b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
+			s = { "<cmd>Telescope git_stash theme=ivy<cr>", "Stashes" },
 		},
 	})
 end

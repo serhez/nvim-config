@@ -1,7 +1,7 @@
 local M = {
 	"cbochs/grapple.nvim",
 	dependencies = {
-		{ "nvim-tree/nvim-web-devicons", lazy = true },
+		{ "nvim-tree/nvim-web-devicons" },
 	},
 	event = { "BufReadPost", "BufNewFile" },
 }
@@ -33,7 +33,7 @@ function M.init()
 
 	require("mappings").register_normal({
 		t = { grapple.toggle, "Tag file" },
-		T = { grapple.toggle_tags, "Tags" },
+		T = { grapple.toggle_tags, "Tagged files" },
 	})
 end
 
@@ -93,7 +93,7 @@ function M.config()
 			title = "Tags",
 
 			-- Custom: adds padding around window title
-			title_padding = " ",
+			title_padding = "  ",
 		},
 	})
 end

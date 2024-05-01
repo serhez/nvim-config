@@ -2,6 +2,7 @@ local M = {
 	"lewis6991/satellite.nvim",
 	event = "BufRead",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	enabled = false,
 }
 
 function M.config()

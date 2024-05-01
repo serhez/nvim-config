@@ -15,7 +15,7 @@ function M.init()
 	vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 	mappings.register_normal({
-		F = {
+		l = {
 			y = { "<cmd>Telescope yank_history theme=ivy<cr>", "Yank history" },
 		},
 	})

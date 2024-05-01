@@ -8,7 +8,10 @@ local M = {
 
 function M.init()
 	mappings.register_normal({
-		F = {
+		c = {
+			c = { "<cmd>TodoTrouble<cr>", "Comments" },
+		},
+		l = {
 			c = { "<cmd>TodoTrouble<cr>", "Comments" },
 		},
 	})

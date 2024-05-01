@@ -13,6 +13,13 @@ function M.init()
 				f = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "File" },
 			},
 		},
+		l = {
+			d = {
+				name = "Diagnostics",
+				w = { "<cmd>Trouble diagnostics toggle<cr>", "Workspace" },
+				f = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "File" },
+			},
+		},
 	})
 end
 

@@ -36,9 +36,6 @@ local normal_mappings = {
 			name = "Breakpoints",
 		},
 	},
-	F = {
-		name = "Find",
-	},
 	g = {
 		name = "Git",
 		b = {
@@ -52,7 +49,7 @@ local normal_mappings = {
 		name = "Installer",
 	},
 	l = {
-		name = "Language",
+		name = "List",
 	},
 	n = {
 		name = "Notebooks",

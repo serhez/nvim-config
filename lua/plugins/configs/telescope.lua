@@ -26,21 +26,15 @@ function M.init()
 		-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 		-- 	"Find files",
 		-- },
-		F = {
+		l = {
 			b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
-			c = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
-			-- Now handled by telescope-frecency
-			-- f = {
-			-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
-			-- 	"Find files",
-			-- }, -- Redundancy
+			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
 			f = {
 				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 				"Files (+ignored)",
 			},
 			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
 			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
-			r = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Recent files" },
 		},
 		g = {
 			b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
@@ -79,7 +73,7 @@ function M.config()
 				vertical = { mirror = true },
 			},
 			file_ignore_patterns = {},
-			path_display = { "truncate" },
+			path_display = { "filename_first" },
 			winblend = 0,
 			border = false,
 			borderchars = icons.border.straight,
@@ -151,11 +145,6 @@ function M.config()
 			noice = {
 				theme = "ivy",
 			},
-			undo = {
-				theme = "ivy",
-				use_delta = true,
-				side_by_side = false,
-			},
 			frecency = {
 				theme = "ivy",
 				default_workspace = "CWD",
@@ -171,7 +160,6 @@ function M.config()
 	telescope.load_extension("fzf")
 	telescope.load_extension("noice")
 	telescope.load_extension("yank_history")
-	telescope.load_extension("undo")
 	telescope.load_extension("frecency")
 
 	local hls = require("highlights")

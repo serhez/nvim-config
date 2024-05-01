@@ -14,12 +14,6 @@ function M.init()
 			"<cmd>Telescope frecency theme=ivy<cr>",
 			"Find files",
 		},
-		F = {
-			f = {
-				"<cmd>Telescope frecency theme=ivy<cr>",
-				"Files",
-			},
-		},
 	})
 end
 

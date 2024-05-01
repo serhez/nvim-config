@@ -35,6 +35,8 @@ function M.init()
 		t = { grapple.toggle, "Tag file" },
 		T = { grapple.toggle_tags, "Tagged files" },
 	})
+
+	vim.keymap.set({ "n", "x", "o" }, "t", grapple.toggle_tags, { desc = "Tags list" })
 end
 
 function M.config()

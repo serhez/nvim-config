@@ -1,6 +1,6 @@
 local M = {
 	"kylechui/nvim-surround",
-	event = "InsertEnter",
+	event = "BufReadPre",
 }
 
 function M.config()
@@ -12,8 +12,8 @@ function M.config()
 			normal_cur = "ss",
 			-- normal_line = "S",
 			-- normal_cur_line = "SS",
-			visual = "S",
-			visual_line = "gS",
+			visual = "s",
+			visual_line = "gs",
 			delete = "ds",
 			change = "cs",
 		},

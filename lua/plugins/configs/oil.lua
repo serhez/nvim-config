@@ -133,7 +133,7 @@ function M.config()
 				winblend = 0,
 			},
 			padding = 5,
-			max_width = 50,
+			max_width = 75,
 		},
 		preview = {
 			border = "solid",

@@ -3,7 +3,8 @@ local M = {
 	dependencies = {
 		"quarto-dev/quarto-nvim",
 		"GCBallesteros/jupytext.nvim",
-		"3rd/image.nvim",
+		-- "3rd/image.nvim",
+		"willothy/wezterm.nvim",
 	},
 	build = ":UpdateRemotePlugins",
 	ft = { "ipynb", "markdown", "quarto", "rmd" },
@@ -39,7 +40,8 @@ local function create_ipynb()
 end
 
 function M.init()
-	vim.g.molten_image_provider = "image.nvim"
+	-- vim.g.molten_image_provider = "wezterm"
+	vim.g.molten_image_provider = "none" -- FIX: right now, it's too annoying that the image split is created always
 	vim.g.molten_output_win_max_height = 20
 	vim.g.molten_auto_open_output = false
 	vim.g.molten_output_crop_border = true
@@ -68,7 +70,7 @@ function M.init()
 			I = { "<cmd>MoltenImagePopup<cr>", "Open image" },
 			k = { "<cmd>MoltenDeinit<cr>", "Kill kernel" },
 			o = {
-				"<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
+				"zt<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
 				"Open output window",
 			},
 			S = { "<cmd>MoltenRestart<cr>", "Restart kernel" },

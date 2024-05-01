@@ -47,7 +47,19 @@ local M = {
 
 function M.config()
 	local flash = require("flash")
-	flash.setup()
+	flash.setup({
+		search = {
+			incremental = true,
+		},
+		modes = {
+			search = {
+				enabled = false,
+			},
+			char = {
+				keys = { "f", "F", ";", "," }, -- { "f", "F", "t", "T", ";", "," }
+			},
+		},
+	})
 
 	vim.keymap.set({ "n", "x", "o" }, "f", function()
 		flash.jump()

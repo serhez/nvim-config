@@ -9,7 +9,7 @@ local settings = {
 			autoImportCompletions = true,
 			autoSearchPaths = true,
 			diagnosticMode = "openFilesOnly", -- "openFilesOnly" or "workspace"
-			typeCheckingMode = "off", -- "off", "basic", "standard", "strict" or "all"
+			typeCheckingMode = "basic", -- "off", "basic", "standard", "strict" or "all"
 			useLibraryCodeForTypes = true,
 		},
 	},

@@ -2,6 +2,7 @@ local M = {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
 		"nvim-telescope/telescope-fzf-native.nvim",
+		"Myzel394/jsonfly.nvim",
 	},
 	cmd = { "Telescope" },
 	cond = not vim.g.started_by_firenvim,
@@ -33,6 +34,7 @@ function M.init()
 				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
 				"Files (+ignored)",
 			},
+			j = { "<cmd>Telescope jsonfly theme=ivy<cr>", "JSON keys" },
 			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
 			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
 		},
@@ -152,6 +154,10 @@ function M.config()
 				sorter = require("telescope.sorters").fuzzy_with_index_bias(),
 				db_safe_mode = false,
 			},
+			jsonfly = {
+				theme = "ivy",
+				prompt_title = "JSON keys",
+			},
 		},
 	})
 
@@ -159,8 +165,8 @@ function M.config()
 	-- Load them here to prevent other plugins from loading telescope before it is needed
 	telescope.load_extension("fzf")
 	telescope.load_extension("noice")
-	telescope.load_extension("yank_history")
 	telescope.load_extension("frecency")
+	telescope.load_extension("jsonfly")
 
 	local hls = require("highlights")
 	local c = hls.colors()

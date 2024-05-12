@@ -76,6 +76,7 @@ function M.config()
 		keymaps = {
 			["g?"] = "actions.show_help",
 			["q"] = "actions.close",
+			["<space>e"] = "actions.close",
 			["K"] = "actions.preview",
 			["h"] = {
 				mode = "n",

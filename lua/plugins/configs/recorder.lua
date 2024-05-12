@@ -6,11 +6,11 @@ local M = {
 function M.config()
 	require("recorder").setup({
 		mapping = {
-			startStopRecording = "q",
-			playMacro = "Q",
-			switchSlot = "<C-q>",
-			editMacro = "cq",
-			yankMacro = "yq", -- also decodes it for turning macros to mappings
+			startStopRecording = "m",
+			playMacro = "M",
+			switchSlot = "<C-m>",
+			editMacro = "cm",
+			yankMacro = "ym", -- also decodes it for turning macros to mappings
 			addBreakPoint = "##", -- this should be a string you don't use in insert mode during a macro
 		},
 

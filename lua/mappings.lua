@@ -35,6 +35,10 @@ function M.setup()
 	vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
 	vim.g.mapleader = " "
 
+	-- Remappings of native keybindings
+	vim.keymap.set("n", "m", "q", { noremap = true, silent = true })
+	vim.keymap.set("n", "M", "Q", { noremap = true, silent = true })
+
 	-- NOTE: Now handled by the navigator.nvim plugin
 	-- Better window movement
 	-- vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { silent = true })

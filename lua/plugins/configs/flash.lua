@@ -56,7 +56,7 @@ function M.config()
 				enabled = false,
 			},
 			char = {
-				keys = { "f", "F", ";", "," }, -- { "f", "F", "t", "T", ";", "," }
+				keys = { "f", "F" }, -- { "f", "F", "t", "T", ";", "," }
 			},
 		},
 	})

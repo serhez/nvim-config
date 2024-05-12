@@ -13,7 +13,7 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		u = {
+		U = {
 			n = { "<cmd>Noice<cr>", "Notifications" },
 		},
 	})

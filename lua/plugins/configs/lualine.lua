@@ -85,7 +85,7 @@ end
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		u = {
+		U = {
 			f = { "<cmd>lua require('plugins.configs.lualine').toggle_filetype()<cr>", "Toggle filetype" },
 		},
 	})

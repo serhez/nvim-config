@@ -7,7 +7,7 @@ function M.init()
 	local mappings = require("mappings")
 
 	mappings.register_normal({
-		u = {
+		U = {
 			b = { "<cmd>Block<cr>", "Indent blocks" },
 		},
 	})

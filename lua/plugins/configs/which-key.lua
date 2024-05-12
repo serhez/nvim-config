@@ -57,7 +57,7 @@ local normal_mappings = {
 	p = {
 		name = "Projects",
 	},
-	u = {
+	U = {
 		name = "UI",
 		l = { toggle_locationlist, "Location list" },
 		m = { "<cmd>messages<cr>", "Messages" },

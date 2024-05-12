@@ -10,6 +10,7 @@ local M = {
 	cmd = "Neotree",
 	branch = "main",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	enabled = false,
 }
 
 M.window_width = 40
@@ -198,7 +199,7 @@ function M.config()
 			},
 			window = {
 				mappings = {
-					["<bs>"] = "navigate_up",
+					[","] = "navigate_up",
 					["."] = "set_root",
 					["a"] = "add",
 					["A"] = "add_directory",

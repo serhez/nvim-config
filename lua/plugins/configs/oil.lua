@@ -2,14 +2,43 @@ local M = {
 	"stevearc/oil.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	cmd = "Oil",
-	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
-		E = { "<cmd>Oil --float<cr>", "Explorer (Oil)" },
+		e = { "<cmd>Oil<cr>", "Explorer" },
+		E = { "<cmd>Oil --float<cr>", "Explorer (float)" },
 	})
+end
+
+local function pick_window()
+	local oil = require("oil")
+	local entry = oil.get_cursor_entry()
+	if entry.type ~= "file" then
+		return oil.select()
+	end
+	--- pick a window by using window-picker plugin.
+	local win = require("window-picker").pick_window({
+		autoselect_one = true,
+		-- hint = 'floating-big-letter',
+		include_current_win = true,
+	})
+
+	if win then
+		local bufnr = vim.api.nvim_get_current_buf()
+		local lnum = vim.api.nvim_win_get_cursor(0)[1]
+		local winnr = vim.api.nvim_win_get_number(win)
+		vim.cmd(winnr .. "windo buffer " .. bufnr)
+		vim.api.nvim_win_call(win, function()
+			vim.api.nvim_win_set_cursor(win, { lnum, 1 })
+			oil.select({
+				close = false,
+			}, function() end)
+		end)
+		return
+	end
 end
 
 function M.config()
@@ -18,6 +47,7 @@ function M.config()
 
 	oil.setup({
 		default_file_explorer = true,
+		delete_to_trash = true,
 		columns = {
 			{
 				"icon",
@@ -34,27 +64,73 @@ function M.config()
 			statuscolumn = " ",
 		},
 		cleanup_delay_ms = 0,
-		delete_to_trash = true,
 		skip_confirm_for_simple_edits = true,
 		prompt_save_on_select_new_entry = true,
 		use_default_keymaps = false,
 		view_options = {
+			show_hidden = true,
 			is_always_hidden = function(name)
 				return name == ".."
 			end,
 		},
 		keymaps = {
 			["g?"] = "actions.show_help",
-			-- ["q"] = "actions.close", -- not good because macros are useful with Oil
+			["<Backspace>"] = "actions.close",
 			["K"] = "actions.preview",
+			["h"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Go to parent directory",
+				callback = function()
+					oil.open()
+				end,
+			},
 			["-"] = "actions.parent",
-			["<Backspace>"] = "actions.parent",
-			["="] = "actions.select",
-			["+"] = "actions.select",
-			["<CR>"] = "actions.select",
+			[","] = "actions.parent",
+			["l"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = pick_window,
+			},
+			["."] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = pick_window,
+			},
+			["="] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = pick_window,
+			},
+			["<CR>"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = pick_window,
+			},
+			["s"] = "actions.select_vsplit",
+			["S"] = "actions.select_split",
+			["t"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Tag the file under the cursor",
+				callback = function()
+					local present, grapple = pcall(require, "grapple")
+					if present then
+						grapple.toggle()
+					else
+						print("Grapple is not installed")
+					end
+				end,
+			},
+			["R"] = "actions.refresh",
 			["gh"] = "actions.toggle_hidden",
 			["gs"] = "actions.change_sort",
 			["gx"] = "actions.open_external",
+			["gt"] = "actions.toggle_trash",
 			["go"] = {
 				mode = "n",
 				buffer = true,
@@ -147,38 +223,13 @@ function M.config()
 				winblend = 0,
 			},
 		},
+		ssh = {
+			border = "solid",
+			win_options = {
+				winblend = 0,
+			},
+		},
 	})
-
-	-- local groupid = vim.api.nvim_create_augroup("OilSyncCwd", {})
-	-- vim.api.nvim_create_autocmd({ "BufEnter", "TextChanged" }, {
-	-- 	desc = "Set cwd to follow directory shown in oil buffers.",
-	-- 	group = groupid,
-	-- 	pattern = "oil:///*",
-	-- 	callback = function(info)
-	-- 		if vim.bo[info.buf].filetype == "oil" then
-	-- 			local cwd = vim.fs.normalize(vim.fn.getcwd(vim.fn.winnr()))
-	-- 			local oildir = vim.fs.normalize(oil.get_current_dir())
-	-- 			if cwd ~= oildir and vim.uv.fs_stat(oildir) then
-	-- 				lcd(oildir)
-	-- 			end
-	-- 		end
-	-- 	end,
-	-- })
-	-- vim.api.nvim_create_autocmd("DirChanged", {
-	-- 	desc = "Let oil buffers follow cwd.",
-	-- 	group = groupid,
-	-- 	callback = function(info)
-	-- 		if vim.bo[info.buf].filetype == "oil" then
-	-- 			vim.defer_fn(function()
-	-- 				local cwd = vim.fs.normalize(vim.fn.getcwd(vim.fn.winnr()))
-	-- 				local oildir = vim.fs.normalize(oil.get_current_dir() or "")
-	-- 				if cwd ~= oildir then
-	-- 					oil.open(cwd)
-	-- 				end
-	-- 			end, 100)
-	-- 		end
-	-- 	end,
-	-- })
 end
 
 return M

@@ -34,6 +34,18 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 	return newVirtText
 end
 
+function M.init()
+	-- Disable folds in the following filetypes
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = { "NeogitStatus" },
+		callback = function()
+			require("ufo").detach()
+			vim.opt_local.foldenable = false
+			vim.wo.foldcolumn = "0"
+		end,
+	})
+end
+
 function M.config()
 	vim.o.fillchars = "eob: ,fold: ,foldopen:"
 		.. icons.arrow.down_short

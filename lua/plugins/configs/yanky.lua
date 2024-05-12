@@ -4,8 +4,6 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-
 	vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
 	vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 	vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
@@ -13,12 +11,6 @@ function M.init()
 	vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 	vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 	vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-
-	mappings.register_normal({
-		l = {
-			y = { "<cmd>Telescope yank_history theme=ivy<cr>", "Yank history" },
-		},
-	})
 end
 
 function M.config()

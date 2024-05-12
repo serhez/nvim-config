@@ -32,6 +32,11 @@ function M.config()
 						name_hl = "DiagnosticSignWarn",
 					})
 				end,
+				relative_to = function(_)
+					local fullpath = vim.api.nvim_buf_get_name(0)
+					local filename = vim.fn.fnamemodify(fullpath, ":t")
+					return fullpath:sub(0, #fullpath - #filename)
+				end,
 			},
 		},
 		icons = {

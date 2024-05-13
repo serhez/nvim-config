@@ -11,8 +11,12 @@ function M.config()
 			switchSlot = "<C-m>",
 			editMacro = "cm",
 			yankMacro = "ym", -- also decodes it for turning macros to mappings
+			deleteAllMacros = "dm",
 			addBreakPoint = "##", -- this should be a string you don't use in insert mode during a macro
 		},
+
+		-- Share keymaps with nvim-dap
+		dapSharedKeymaps = false,
 
 		-- clears all macros-slots on startup
 		clear = false,

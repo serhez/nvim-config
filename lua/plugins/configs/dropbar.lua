@@ -168,6 +168,13 @@ function M.config()
 			},
 		},
 	})
+
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		DropBarKindFolder = { fg = c.statusline_fg },
+		DropBarKindFile = { fg = c.statusline_fg },
+	})
 end
 
 return M

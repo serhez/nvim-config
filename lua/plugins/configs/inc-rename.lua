@@ -14,7 +14,9 @@ function M.init()
 end
 
 function M.config()
-	require("inc_rename").setup()
+	require("inc_rename").setup({
+		save_in_cmdline_history = false,
+	})
 end
 
 return M

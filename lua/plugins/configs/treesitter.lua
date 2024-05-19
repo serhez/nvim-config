@@ -36,7 +36,6 @@ function M.config()
 			is_supported = function()
 				-- Since `ibhagwan/fzf-lua` returns `bufnr/path` like `117/lua/plugins/colors.lua`.
 				local cur_path = (vim.fn.expand("%"):gsub("^%d+/", ""))
-				print(cur_path)
 				if
 					cur_path:match("term://")
 					or vim.fn.getfsize(cur_path) > 1024 * 1024 -- file size > 1 MB.

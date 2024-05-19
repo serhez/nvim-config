@@ -23,6 +23,12 @@ function M.config()
 
                 (fenced_code_block) @codeblock
 
+                [
+                    (list_marker_plus)
+                    (list_marker_minus)
+                    (list_marker_star)
+                ] @list_marker
+
                 (block_quote_marker) @quote
                 (block_quote (paragraph (inline (block_continuation) @quote)))
                 (block_quote (paragraph (block_continuation) @quote))

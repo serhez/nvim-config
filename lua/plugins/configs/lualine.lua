@@ -196,14 +196,19 @@ function M.config()
 					"filename",
 					file_status = true,
 					newfile_status = false,
-					path = 0,
+					-- 0: Just the filename
+					-- 1: Relative path
+					-- 2: Absolute path
+					-- 3: Absolute path, with tilde as the home directory
+					-- 4: Filename and parent dir, with tilde as the home directory
+					path = 1,
 					padding = { left = 1, right = 2 },
-					shorting_target = 40,
+					shorting_target = 100,
 					color = { gui = "bold" },
 					symbols = {
 						modified = icons.small_circle,
 						readonly = icons.lock,
-						unnamed = "[No Name]",
+						unnamed = "[No name]",
 						newfile = "[New]",
 					},
 				},

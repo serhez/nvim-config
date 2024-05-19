@@ -10,7 +10,7 @@ function M.config()
 		-- 'statusline-winbar' draw on 'statusline' if possible, if not 'winbar' will be
 		-- 'floating-big-letter' draw big letter on a floating window
 		-- used
-		hint = "statusline-winbar",
+		hint = "floating-big-letter",
 
 		-- whether to show 'Pick window:' prompt
 		show_prompt = true,
@@ -33,7 +33,7 @@ function M.config()
 			-- filter using buffer options
 			bo = {
 				-- if the file type is one of following, the window will be ignored
-				filetype = { "NvimTree", "neo-tree", "notify", "noice" },
+				filetype = { "NvimTree", "neo-tree", "notify", "noice", "NvimSeparator" },
 
 				-- if the file type is one of following, the window will be ignored
 				buftype = { "terminal" },

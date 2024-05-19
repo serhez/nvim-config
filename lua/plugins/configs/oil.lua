@@ -112,8 +112,8 @@ function M.config()
 				desc = "Select the entry under the cursor",
 				callback = pick_window,
 			},
-			["s"] = "actions.select_vsplit",
-			["S"] = "actions.select_split",
+			["|"] = "actions.select_vsplit",
+			["_"] = "actions.select_split",
 			["t"] = {
 				mode = "n",
 				buffer = true,
@@ -123,7 +123,7 @@ function M.config()
 					if present then
 						grapple.toggle()
 					else
-						print("Grapple is not installed")
+						vim.notify_once("Grapple is not installed", vim.log.levels.ERROR)
 					end
 				end,
 			},

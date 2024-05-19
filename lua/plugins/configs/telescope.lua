@@ -8,6 +8,15 @@ local M = {
 	cond = not vim.g.started_by_firenvim,
 }
 
+local transform_mod = require("telescope.actions.mt").transform_mod
+local pick = transform_mod({
+	select = function(prompt_bufnr)
+		local action_state = require("telescope.actions.state")
+		local picker = action_state.get_current_picker(prompt_bufnr)
+		picker.original_win_id = require("window-picker").pick_window()
+	end,
+})
+
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
@@ -100,14 +109,14 @@ function M.config()
 
 			mappings = {
 				i = {
-					["<CR>"] = actions.select_default + actions.center,
+					["<CR>"] = pick.select + actions.select_default + actions.center,
 					["<S-esc>"] = actions.close,
 					["<C-c>"] = actions.close,
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<C-s>"] = actions.toggle_selection,
-					["<C-|>"] = actions.select_vertical,
-					["<C-_>"] = actions.select_horizontal,
+					["<C-|>"] = pick.select + actions.select_vertical,
+					["<C-_>"] = pick.select + actions.select_horizontal,
 					["<C-a>"] = actions.toggle_all,
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
@@ -116,9 +125,9 @@ function M.config()
 				n = {
 					["q"] = actions.close,
 					["<esc>"] = actions.close,
-					["<CR>"] = actions.select_default + actions.center,
-					["|"] = actions.select_vertical,
-					["_"] = actions.select_horizontal,
+					["<CR>"] = pick.select + actions.select_default + actions.center,
+					["|"] = pick.select + actions.select_vertical,
+					["_"] = pick.select + actions.select_horizontal,
 					["s"] = actions.toggle_selection,
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,

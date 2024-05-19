@@ -13,16 +13,15 @@ function M.init()
 	})
 end
 
-local function pick_window()
+local function pick(split)
 	local oil = require("oil")
 	local entry = oil.get_cursor_entry()
 	if entry.type ~= "file" then
 		return oil.select()
 	end
-	--- pick a window by using window-picker plugin.
+
 	local win = require("window-picker").pick_window({
 		autoselect_one = true,
-		-- hint = 'floating-big-letter',
 		include_current_win = true,
 	})
 
@@ -30,12 +29,19 @@ local function pick_window()
 		local bufnr = vim.api.nvim_get_current_buf()
 		local lnum = vim.api.nvim_win_get_cursor(0)[1]
 		local winnr = vim.api.nvim_win_get_number(win)
+		if split == "vertical" or split == "horizontal" then
+			oil.close()
+		end
 		vim.cmd(winnr .. "windo buffer " .. bufnr)
 		vim.api.nvim_win_call(win, function()
 			vim.api.nvim_win_set_cursor(win, { lnum, 1 })
-			oil.select({
-				close = false,
-			}, function() end)
+			if split == "vertical" then
+				return oil.select({ vertical = true, close = true })
+			elseif split == "horizontal" then
+				return oil.select({ horizontal = true, close = true })
+			else
+				return oil.select({ close = true })
+			end
 		end)
 		return
 	end
@@ -78,7 +84,7 @@ function M.config()
 			["q"] = "actions.close",
 			["<space>e"] = "actions.close",
 			["K"] = "actions.preview",
-			["h"] = {
+			["<esc>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Go to parent directory",
@@ -86,34 +92,34 @@ function M.config()
 					oil.open()
 				end,
 			},
-			["-"] = "actions.parent",
-			[","] = "actions.parent",
-			["l"] = {
+			[";"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",
-				callback = pick_window,
-			},
-			["."] = {
-				mode = "n",
-				buffer = true,
-				desc = "Select the entry under the cursor",
-				callback = pick_window,
-			},
-			["="] = {
-				mode = "n",
-				buffer = true,
-				desc = "Select the entry under the cursor",
-				callback = pick_window,
+				callback = pick,
 			},
 			["<CR>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",
-				callback = pick_window,
+				callback = pick,
 			},
-			["|"] = "actions.select_vsplit",
-			["_"] = "actions.select_split",
+			["|"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = function()
+					pick("vertical")
+				end,
+			},
+			["_"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = function()
+					pick("horizontal")
+				end,
+			},
 			["t"] = {
 				mode = "n",
 				buffer = true,
@@ -121,7 +127,13 @@ function M.config()
 				callback = function()
 					local present, grapple = pcall(require, "grapple")
 					if present then
-						grapple.toggle()
+						local entry = oil.get_cursor_entry()
+						if entry.type ~= "file" then
+							vim.notify("Only files can be tagged", vim.log.levels.ERROR)
+							return
+						end
+						grapple.toggle({ path = oil.get_current_dir() .. entry.name })
+						vim.notify("Tagged " .. entry.name, vim.log.levels.INFO)
 					else
 						vim.notify_once("Grapple is not installed", vim.log.levels.ERROR)
 					end

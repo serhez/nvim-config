@@ -13,10 +13,10 @@ function M.config()
 		hint = "floating-big-letter",
 
 		-- whether to show 'Pick window:' prompt
-		show_prompt = true,
+		show_prompt = false,
 
 		-- prompt message to show to get the user input
-		prompt_message = "Pick window: ",
+		prompt_message = "",
 
 		-- following filters are only applied when you are using the default filter
 		-- defined by this plugin. If you pass in a function to "filter_func"
@@ -28,14 +28,22 @@ function M.config()
 
 			-- whether you want to include the window you are currently on to window
 			-- selection or not
-			include_current_win = false,
+			include_current_win = true,
 
 			-- filter using buffer options
 			bo = {
 				-- if the file type is one of following, the window will be ignored
-				filetype = { "NvimTree", "neo-tree", "notify", "noice", "NvimSeparator" },
+				filetype = {
+					"NvimTree",
+					"neo-tree",
+					"notify",
+					"noice",
+					"NvimSeparator",
+					"TelescopePrompt",
+					"TelescopeResults",
+				},
 
-				-- if the file type is one of following, the window will be ignored
+				-- if the buffer type is one of following, the window will be ignored
 				buftype = { "terminal" },
 			},
 		},

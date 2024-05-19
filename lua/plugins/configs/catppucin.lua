@@ -15,6 +15,7 @@ function M.config()
 		custom_highlights = function(colors)
 			return {
 				WinSeparator = { fg = colors.overlay1, bg = colors.none },
+				CursorLineNr = { fg = colors.teal },
 			}
 		end,
 

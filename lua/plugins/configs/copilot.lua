@@ -40,8 +40,8 @@ function M.config()
 			auto_trigger = true,
 			keymap = {
 				accept = "<M-l>",
-				next = "<M-]>",
-				prev = "<M-[>",
+				next = "<M-j>",
+				prev = "<M-k>",
 				dismiss = "<M-h>",
 			},
 		},
@@ -55,6 +55,9 @@ function M.config()
 			svn = true,
 			cvs = true,
 			["."] = false,
+		},
+		server_opts_overrides = {
+			autostart = true,
 		},
 	})
 end

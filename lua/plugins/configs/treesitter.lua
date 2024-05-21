@@ -7,7 +7,6 @@ local M = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"RRethy/nvim-treesitter-textsubjects",
 		"RRethy/nvim-treesitter-endwise",
-		"windwp/nvim-ts-autotag",
 	},
 	event = "BufReadPost",
 }
@@ -48,12 +47,6 @@ function M.config()
 		},
 
 		indent = { enable = true },
-		autotag = {
-			enable = true,
-			enable_rename = true,
-			enable_close = true,
-			enable_close_on_slash = true,
-		},
 		endwise = { enable = true },
 
 		textobjects = {

@@ -20,14 +20,12 @@ end
 function M.config()
 	require("grug-far").setup({
 		keymaps = {
-			-- normal and insert mode
-			replace = "<C-r>",
+			replace = "",
 			qflist = "<C-q>",
-			syncLocations = "<C-s>",
+			syncLocations = "<C-a>",
+			syncLine = "<C-l>",
 			close = "<C-x>",
-
-			-- normal mode only
-			gotoLocation = "<enter>",
+			gotoLocation = { n = "<enter>" },
 		},
 	})
 end

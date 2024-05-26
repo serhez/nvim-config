@@ -1,5 +1,6 @@
 local M = {
 	"s1n7ax/nvim-window-picker",
+	enabled = false,
 }
 
 function M.config()

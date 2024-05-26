@@ -13,39 +13,40 @@ function M.init()
 	})
 end
 
-local function pick(split)
-	local oil = require("oil")
-	local entry = oil.get_cursor_entry()
-	if entry.type ~= "file" then
-		return oil.select()
-	end
-
-	local win = require("window-picker").pick_window({
-		autoselect_one = true,
-		include_current_win = true,
-	})
-
-	if win then
-		local bufnr = vim.api.nvim_get_current_buf()
-		local lnum = vim.api.nvim_win_get_cursor(0)[1]
-		local winnr = vim.api.nvim_win_get_number(win)
-		if split == "vertical" or split == "horizontal" then
-			oil.close()
-		end
-		vim.cmd(winnr .. "windo buffer " .. bufnr)
-		vim.api.nvim_win_call(win, function()
-			vim.api.nvim_win_set_cursor(win, { lnum, 1 })
-			if split == "vertical" then
-				return oil.select({ vertical = true, close = true })
-			elseif split == "horizontal" then
-				return oil.select({ horizontal = true, close = true })
-			else
-				return oil.select({ close = true })
-			end
-		end)
-		return
-	end
-end
+-- `nvim-window-picker` integration
+-- local function pick(split)
+-- 	local oil = require("oil")
+-- 	local entry = oil.get_cursor_entry()
+-- 	if entry.type ~= "file" then
+-- 		return oil.select()
+-- 	end
+--
+-- 	local win = require("window-picker").pick_window({
+-- 		autoselect_one = true,
+-- 		include_current_win = true,
+-- 	})
+--
+-- 	if win then
+-- 		local bufnr = vim.api.nvim_get_current_buf()
+-- 		local lnum = vim.api.nvim_win_get_cursor(0)[1]
+-- 		local winnr = vim.api.nvim_win_get_number(win)
+-- 		if split == "vertical" or split == "horizontal" then
+-- 			oil.close()
+-- 		end
+-- 		vim.cmd(winnr .. "windo buffer " .. bufnr)
+-- 		vim.api.nvim_win_call(win, function()
+-- 			vim.api.nvim_win_set_cursor(win, { lnum, 1 })
+-- 			if split == "vertical" then
+-- 				return oil.select({ vertical = true, close = true })
+-- 			elseif split == "horizontal" then
+-- 				return oil.select({ horizontal = true, close = true })
+-- 			else
+-- 				return oil.select({ close = true })
+-- 			end
+-- 		end)
+-- 		return
+-- 	end
+-- end
 
 function M.config()
 	local icons = require("icons")
@@ -96,20 +97,24 @@ function M.config()
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",
-				callback = pick,
+				callback = function()
+					oil.select({ close = true })
+				end,
 			},
 			["<CR>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",
-				callback = pick,
+				callback = function()
+					oil.select({ close = true })
+				end,
 			},
 			["|"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",
 				callback = function()
-					pick("vertical")
+					oil.select({ vertical = true, close = true })
 				end,
 			},
 			["_"] = {
@@ -117,7 +122,7 @@ function M.config()
 				buffer = true,
 				desc = "Select the entry under the cursor",
 				callback = function()
-					pick("horizontal")
+					oil.select({ horizontal = true, close = true })
 				end,
 			},
 			["t"] = {

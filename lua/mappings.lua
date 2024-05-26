@@ -64,6 +64,10 @@ function M.setup()
 	vim.api.nvim_set_keymap("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
 	vim.api.nvim_set_keymap("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
 
+	-- Window splits
+	vim.api.nvim_set_keymap("n", "_", "<cmd>split<cr>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "|", "<cmd>vsplit<cr>", { noremap = true, silent = true })
+
 	-- Better indenting
 	vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })

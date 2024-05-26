@@ -17,6 +17,8 @@ local function toggle_quicklist()
 end
 
 local normal_mappings = {
+	["_"] = { "<cmd>split<cr>", "Horizontal" }, -- Shortcut
+	["|"] = { "<cmd>vsplit<cr>", "Vertical" }, -- Shortcut
 	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
 	a = {
 		name = "Assistant",

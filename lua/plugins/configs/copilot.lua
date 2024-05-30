@@ -39,7 +39,7 @@ function M.config()
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept = "<M-l>",
+				accept = "<D-l>",
 				next = "<M-j>",
 				prev = "<M-k>",
 				dismiss = "<M-h>",

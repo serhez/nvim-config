@@ -8,16 +8,6 @@ local M = {
 	cond = not vim.g.started_by_firenvim,
 }
 
--- `nvim-window-picker` integration
--- local transform_mod = require("telescope.actions.mt").transform_mod
--- local pick = transform_mod({
--- 	select = function(prompt_bufnr)
--- 		local action_state = require("telescope.actions.state")
--- 		local picker = action_state.get_current_picker(prompt_bufnr)
--- 		picker.original_win_id = require("window-picker").pick_window()
--- 	end,
--- })
-
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
@@ -26,11 +16,8 @@ function M.init()
 			l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
 		},
 		c = {
-			s = {
-				name = "Symbols",
-				f = { "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", "File" },
-				w = { "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", "Workspace" },
-			},
+			s = { "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", "Sybmols (buffer)" },
+			S = { "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", "Symbols (workspace)" },
 		},
 		-- Now handled by telescope-frecency
 		-- f = {
@@ -57,10 +44,27 @@ end
 
 function M.config()
 	local icons = require("icons")
+
+	local telescope = require("telescope")
 	local actions = require("telescope.actions")
 	local previewers = require("telescope.previewers")
 
-	local telescope = require("telescope")
+	local custom_actions = require("telescope.actions.mt").transform_mod({
+		-- `trouble` integration
+		open_trouble_qflist = function(_)
+			require("trouble").open({ mode = "qflist" })
+		end,
+		open_trouble_loclist = function(_)
+			require("trouble").open({ mode = "loclist" })
+		end,
+
+		-- `nvim-window-picker` integration
+		-- window_pick = function(prompt_bufnr)
+		-- 	local action_state = require("telescope.actions.state")
+		-- 	local picker = action_state.get_current_picker(prompt_bufnr)
+		-- 	picker.original_win_id = require("window-picker").pick_window()
+		-- end,
+	})
 
 	telescope.setup({
 		defaults = require("telescope.themes").get_ivy({
@@ -121,7 +125,7 @@ function M.config()
 					["<C-a>"] = actions.toggle_all,
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_loclist + custom_actions.open_trouble_loclist,
 				},
 				n = {
 					["q"] = actions.close,
@@ -133,7 +137,7 @@ function M.config()
 					["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 					["<S-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 					["<C-a>"] = actions.toggle_all,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_loclist + custom_actions.open_trouble_loclist,
 				},
 			},
 		}),

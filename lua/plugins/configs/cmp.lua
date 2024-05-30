@@ -7,10 +7,10 @@ local M = {
 		-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 		-- "zbirenbaum/copilot-cmp",
 		"kdheepak/cmp-latex-symbols",
-		"saadparwaiz1/cmp_luasnip",
+		-- "saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"tzachar/cmp-fuzzy-path",
-		"L3MON4D3/LuaSnip",
+		-- "L3MON4D3/LuaSnip",
 		"jc-doyle/cmp-pandoc-references",
 	},
 	event = "InsertEnter",
@@ -64,7 +64,7 @@ function M.config()
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
+			elseif luasnip_present and luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
 				fallback()
@@ -146,7 +146,7 @@ function M.config()
 			-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
 			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
+			-- { name = "luasnip" },
 			{ name = "buffer" },
 			{
 				name = "latex_symbols",

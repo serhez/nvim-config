@@ -9,7 +9,6 @@ function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
 		e = { "<cmd>Oil<cr>", "Explorer" },
-		E = { "<cmd>Oil --float<cr>", "Explorer (float)" },
 	})
 end
 
@@ -85,7 +84,7 @@ function M.config()
 			["q"] = "actions.close",
 			["<space>e"] = "actions.close",
 			["K"] = "actions.preview",
-			["<M-h>"] = {
+			["<D-h>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Go to parent directory",
@@ -93,7 +92,7 @@ function M.config()
 					oil.open()
 				end,
 			},
-			["<M-l>"] = {
+			["<D-l>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",

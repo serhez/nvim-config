@@ -132,20 +132,43 @@ function M.setup()
 		"<cmd>lua vim.lsp.buf.signature_help()<cr>",
 		{ noremap = true, silent = true }
 	)
-	vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "ge", "<cmd>lua vim.diagnostic.open_float()<cr>", { noremap = true, silent = true })
+
+	-- Now handled by Trouble
+	-- vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", { noremap = true, silent = true })
+	-- vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { noremap = true, silent = true })
+	-- vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", { noremap = true, silent = true })
+	-- vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { noremap = true, silent = true })
+
+	vim.api.nvim_set_keymap(
+		"n",
+		"gk",
+		"<cmd>lua vim.lsp.buf.signature_help()<cr>",
+		{ noremap = true, silent = true, desc = "Signature help" }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"ge",
+		"<cmd>lua vim.diagnostic.open_float()<cr>",
+		{ noremap = true, silent = true, desc = "Float diagnostics" }
+	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"gE",
 		'<cmd>lua vim.diagnostic.open_float({ scope = "cursor" })<cr>',
-		{ noremap = true, silent = true }
+		{ noremap = true, silent = true, desc = "Float diagnostics (cursor)" }
 	)
-	vim.api.nvim_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(
+		"n",
+		"[e",
+		"<cmd>lua vim.diagnostic.goto_prev()<cr>",
+		{ noremap = true, silent = true, desc = "Prev. diagnostic" }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"]e",
+		"<cmd>lua vim.diagnostic.goto_next()<cr>",
+		{ noremap = true, silent = true, desc = "Next diagnostic" }
+	)
 
 	-- Commands
 	-- FIX: We have to wrap the commands with vim.cmd() because just calling vim.api.nvim_create_user_command() does not register them

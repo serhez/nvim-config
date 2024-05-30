@@ -19,7 +19,7 @@ end
 local normal_mappings = {
 	["_"] = { "<cmd>split<cr>", "Horizontal split" }, -- Shortcut
 	["|"] = { "<cmd>vsplit<cr>", "Vertical split" }, -- Shortcut
-	Q = { "<cmd>tabclose<cr>", "Close tab" }, -- Shortcut
+	Q = { "<cmd>tabclose<cr>", "Quit tab" },
 	a = {
 		name = "Assistant",
 	},
@@ -28,9 +28,6 @@ local normal_mappings = {
 	},
 	c = {
 		name = "Code",
-		d = {
-			name = "Diagnostics",
-		},
 	},
 	d = {
 		name = "Debug",
@@ -61,9 +58,7 @@ local normal_mappings = {
 	},
 	U = {
 		name = "UI",
-		l = { toggle_locationlist, "Location list" },
 		m = { "<cmd>messages<cr>", "Messages" },
-		q = { toggle_quicklist, "Quickfix list" },
 		s = {
 			name = "Split",
 			h = { "<cmd>split<cr>", "Horizontal" },

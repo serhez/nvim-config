@@ -8,7 +8,7 @@ function M.config()
 		mapping = {
 			startStopRecording = "m",
 			playMacro = "M",
-			switchSlot = "<C-m>",
+			switchSlot = "<C-q>",
 			editMacro = "cm",
 			yankMacro = "ym", -- also decodes it for turning macros to mappings
 			deleteAllMacros = "dm",

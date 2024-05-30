@@ -1,8 +1,9 @@
 local M = {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-        "rafamadriz/friendly-snippets",
-    },
+	"L3MON4D3/LuaSnip",
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+	},
+	enabled = false,
 }
 
 function M.config()

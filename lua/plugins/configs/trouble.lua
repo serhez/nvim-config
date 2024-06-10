@@ -3,7 +3,6 @@ local M = {
 	cmd = "Trouble",
 }
 
--- TODO: Hijack quickfix and location list (particularly for gd gr, etc)
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
@@ -56,13 +55,13 @@ function M.init()
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"gc",
+		"gI",
 		"<cmd>Trouble lsp_incoming_calls<cr>",
 		{ noremap = true, silent = true, desc = "Incoming calls" }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"gC",
+		"gO",
 		"<cmd>Trouble lsp_outgoing_calls<cr>",
 		{ noremap = true, silent = true, desc = "Outgoing calls" }
 	)
@@ -93,6 +92,8 @@ function M.config()
 		focus = true, -- Focus the window when opened
 		follow = true, -- Follow the current item
 		auto_jump = true,
+		warn_no_results = true, -- show a warning when there are no results
+		open_no_results = false,
 		preview = {
 			type = "split",
 			relative = "win",

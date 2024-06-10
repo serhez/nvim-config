@@ -1,6 +1,7 @@
 local M = {
 	"Weissle/persistent-breakpoints.nvim",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	event = "BufRead",
 }
 
 function M.init()

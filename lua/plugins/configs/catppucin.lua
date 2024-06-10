@@ -15,7 +15,7 @@ function M.config()
 		custom_highlights = function(colors)
 			return {
 				WinSeparator = { fg = colors.overlay1, bg = colors.none },
-				CursorLineNr = { fg = colors.teal },
+				CursorLineNr = { fg = colors.teal, bold = true },
 			}
 		end,
 
@@ -75,6 +75,11 @@ function M.config()
 			colorful_winsep = {
 				enabled = true,
 				color = "red",
+			},
+			indent_blankline = {
+				enabled = true,
+				scope_color = "sky",
+				colored_indent_levels = false,
 			},
 		},
 	})

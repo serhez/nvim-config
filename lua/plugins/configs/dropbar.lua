@@ -1,3 +1,5 @@
+-- TODO: Do not display filepath/filename in focused window, display only full path in unfocused windows (no treesitter stuff)
+
 local M = {
 	"Bekaboo/dropbar.nvim",
 	event = "BufReadPost",
@@ -19,11 +21,27 @@ function M.config()
 			---@type boolean|fun(buf: integer, win: integer, info: table?): boolean
 			enable = function(buf, win, _)
 				return not vim.api.nvim_win_get_config(win).zindex
-					and (vim.bo[buf].buftype == "" or vim.bo[buf].buftype == "terminal")
+					and vim.fn.win_gettype(win) == ""
+					and (vim.bo[buf].bt == "" or vim.bo[buf].bt == "terminal")
 					and vim.api.nvim_buf_get_name(buf) ~= ""
 					and not vim.wo[win].diff
-					and disabled_fts[vim.bo[buf].filetype] == nil
+					and (
+						disabled_fts[vim.bo[buf].ft] == nil
+						or (
+							buf
+								and vim.api.nvim_buf_is_valid(buf)
+								and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
+								and true
+							or false
+						)
+					)
 			end,
+
+			update_events = {
+				-- Remove the 'WinEnter' event since I handle it manually for just
+				-- showing the full dropbar in the current window.
+				win = { "CursorMoved", "CursorMovedI", "WinResized" },
+			},
 		},
 		sources = {
 			path = {
@@ -32,10 +50,10 @@ function M.config()
 						name_hl = "DiagnosticSignWarn",
 					})
 				end,
-				relative_to = function(_)
-					local fullpath = vim.api.nvim_buf_get_name(0)
-					local filename = vim.fn.fnamemodify(fullpath, ":t")
-					return fullpath:sub(0, #fullpath - #filename)
+				relative_to = function(_, win)
+					-- Workaround for Vim:E5002: Cannot find window number
+					local ok, fullpath = pcall(vim.fn.getcwd, win)
+					return ok and fullpath or vim.fn.getcwd()
 				end,
 			},
 		},
@@ -63,6 +81,36 @@ function M.config()
 				pivots = "asdfhjklbcegimnopqrtuvwxyz1234567890",
 			},
 			truncate = true,
+			sources = function(buf, win)
+				local sources = require("dropbar.sources")
+				local utils = require("dropbar.utils")
+
+				if vim.bo[buf].ft == "markdown" then
+					return {
+						sources.path,
+						sources.markdown,
+					}
+				end
+
+				if vim.bo[buf].buftype == "terminal" then
+					return {
+						sources.terminal,
+					}
+				end
+
+				if vim.api.nvim_get_current_win() ~= win then
+					return {
+						sources.path,
+					}
+				end
+
+				return {
+					utils.source.fallback({
+						sources.lsp,
+						sources.treesitter,
+					}),
+				}
+			end,
 		},
 		menu = {
 			entry = {
@@ -174,6 +222,16 @@ function M.config()
 	hls.register_hls({
 		DropBarKindFolder = { fg = c.statusline_fg },
 		DropBarKindFile = { fg = c.statusline_fg },
+	})
+
+	-- Required updates to detect active vs. inactive windows
+	vim.api.nvim_create_autocmd("WinEnter", {
+		callback = function()
+			-- Refresh the dropbars except when entering the dropbar itself.
+			if vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].winbar == 1 then
+				require("dropbar.utils.bar").exec("update")
+			end
+		end,
 	})
 end
 

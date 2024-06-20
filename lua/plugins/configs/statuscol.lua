@@ -4,7 +4,6 @@ local M = {
 		"lewis6991/gitsigns.nvim",
 	},
 	event = "BufReadPre",
-	branch = "0.10",
 	cond = not vim.g.started_by_firenvim,
 }
 

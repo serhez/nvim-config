@@ -30,7 +30,7 @@ function M.config()
 				},
 			},
 			-- FIX: The animation creates artifacts when moving the cursor fast
-			-- duration = 150,
+			-- duration = 200,
 			-- delay = 1,
 			duration = 0,
 			delay = 0,

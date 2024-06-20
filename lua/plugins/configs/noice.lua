@@ -1,11 +1,9 @@
-local hls = require("highlights")
-local icons = require("icons")
-
 local M = {
 	"folke/noice.nvim",
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 	},
+	commit = "69c6ad5c1f1c0777125d0275f9871d8609cb0521", -- BUG: quitting takes forever on the next commit
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
@@ -20,6 +18,9 @@ function M.init()
 end
 
 function M.config()
+	local hls = require("highlights")
+	local icons = require("icons")
+
 	require("noice").setup({
 		health = {
 			checker = false, -- Disable if you don't want health checks to run

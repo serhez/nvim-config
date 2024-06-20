@@ -24,7 +24,7 @@ function M.config()
 			qflist = "<C-q>",
 			syncLocations = "<C-a>",
 			syncLine = "<C-l>",
-			close = "<C-x>",
+			close = "q",
 			gotoLocation = { n = "<enter>" },
 		},
 	})

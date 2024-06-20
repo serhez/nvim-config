@@ -23,60 +23,44 @@ function M.config()
 	require("gitsigns").setup({
 		signs = {
 			add = {
-				hl = "GitSignsAdd",
 				text = icons.bar.vertical_center,
-				numhl = "GitSignsAddNr",
-				linehl = "GitSignsAddLn",
 			},
 			change = {
-				hl = "GitSignsChange",
 				text = icons.bar.vertical_center,
-				numhl = "GitSignsChangeNr",
-				linehl = "GitSignsChangeLn",
 			},
 			delete = {
-				hl = "GitSignsDelete",
 				text = icons.bar.lower_horizontal,
-				numhl = "GitSignsDeleteNr",
-				linehl = "GitSignsDeleteLn",
 			},
 			topdelete = {
-				hl = "GitSignsDelete",
 				text = icons.bar.lower_horizontal,
-				numhl = "GitSignsDeleteNr",
-				linehl = "GitSignsDeleteLn",
 			},
 			changedelete = {
-				hl = "GitSignsChange",
 				text = icons.bar.vertical_center,
-				numhl = "GitSignsChangeNr",
-				linehl = "GitSignsChangeLn",
 			},
 			untracked = {
-				hl = "GitSignsAdd",
 				text = icons.bar.vertical_center,
-				numhl = "GitSignsAddNr",
-				linehl = "GitSignsAddLn",
 			},
 		},
-		numhl = false,
-		linehl = false,
 		watch_gitdir = {
 			interval = 1000,
 			follow_files = true,
 		},
-		current_line_blame = false,
 		current_line_blame_opts = {
 			virt_text = true,
 			virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+			ignore_whitespace = true,
 			delay = 500,
 		},
 		sign_priority = 100,
-		update_debounce = 100,
 		status_formatter = nil, -- Use default
-		word_diff = false,
-		diff_opts = {
-			internal = true,
+		max_file_length = 10000,
+		preview_config = {
+			-- Options passed to nvim_open_win
+			border = "solid",
+			style = "minimal",
+			relative = "cursor",
+			row = 0,
+			col = 1,
 		},
 	})
 end

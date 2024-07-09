@@ -7,7 +7,8 @@ function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
 		g = {
-			a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author" },
+			a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author (line)" },
+			A = { "<cmd>Gitsigns blame<cr>", "Author (buffer)" },
 			R = { "<cmd>Gitsigns reset_buffer<cr>", "Revert buffer" },
 			h = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
 			r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert hunk" },

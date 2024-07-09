@@ -6,6 +6,10 @@ local M = {
 function M.init()
 	local mappings = require("mappings")
 	mappings.register_normal({
+		-- x = {
+		-- 	"<cmd>Trouble mode=lsp_document_symbols pinned=true win.position=right win.relative=win auto_preview=false<cr>",
+		-- 	"Trouble",
+		-- },
 		c = {
 			d = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Diagnostics (buffer)" },
 			D = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (workspace)" },
@@ -103,6 +107,46 @@ function M.config()
 		keys = {
 			["_"] = "jump_split",
 			["|"] = "jump_vsplit",
+		},
+		modes = {
+			lsp_base = {
+				params = {
+					include_current = true,
+				},
+			},
+			symbols = {
+				title = "{hl:Title}Document Symbols{hl} {count}",
+				desc = "Document symbols",
+				mode = "lsp_document_symbols",
+				source = "lsp.document_symbols",
+				auto_preview = false,
+				pinned = true,
+				win = { position = "right", relative = "win" },
+				filter = {
+					-- remove Package since luals uses it for control flow structures
+					["not"] = { ft = "lua", kind = "Package" },
+					any = {
+						-- all symbol kinds for help / markdown files
+						ft = { "help", "markdown" },
+						-- default set of symbol kinds
+						kind = {
+							"Class",
+							"Constructor",
+							"Enum",
+							"Field",
+							"Function",
+							"Interface",
+							"Method",
+							"Module",
+							"Namespace",
+							"Package",
+							"Property",
+							"Struct",
+							"Trait",
+						},
+					},
+				},
+			},
 		},
 	})
 

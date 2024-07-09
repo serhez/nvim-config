@@ -17,7 +17,7 @@ function M.config()
 	if vim.opt.lines:get() == 1 then
 		vim.opt.lines = 2 -- make sure there's room for firenvim
 	end
-	vim.lsp.diagnostic.disable() -- disable LSP diagnostics
+	-- vim.lsp.diagnostic.disable() -- disable LSP diagnostics
 end
 
 return M

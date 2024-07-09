@@ -77,22 +77,10 @@ function M.config()
 			entry_prefix = "   ",
 			initial_mode = "insert",
 			selection_strategy = "reset",
-			sorting_strategy = "ascending",
-			layout_strategy = "vertical",
-			layout_config = {
-				width = 0.8,
-				height = 0.9,
-				anchor = "center",
-				prompt_position = "top",
-				preview_cutoff = 1,
-				horizontal = { mirror = true },
-				vertical = { mirror = true },
-			},
+			theme = "ivy",
 			file_ignore_patterns = {},
 			path_display = { "filename_first" },
 			winblend = 0,
-			border = false,
-			borderchars = icons.border.straight,
 			color_devicons = true,
 			use_less = true,
 			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -151,28 +139,21 @@ function M.config()
 
 		extensions = {
 			file_browser = {
-				theme = "ivy",
 				hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
 			},
 			fzf = {
-				theme = "ivy",
 				fuzzy = true, -- false will only do exact matching
 				override_generic_sorter = true, -- override the generic sorter
 				override_file_sorter = true, -- override the file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
-			noice = {
-				theme = "ivy",
-			},
 			frecency = {
-				theme = "ivy",
 				default_workspace = "CWD",
 				show_filter_column = false,
 				sorter = require("telescope.sorters").fuzzy_with_index_bias(),
 				db_safe_mode = false,
 			},
 			jsonfly = {
-				theme = "ivy",
 				prompt_title = "JSON keys",
 			},
 		},

@@ -14,7 +14,7 @@ function M.config()
 		modes = { "n", "no", "i", "v", "V", "^V", "r", "x", "c" },
 
 		-- Returns the conceallevel to the global value when changing modes
-		restore_conceallevel = false,
+		restore_conceallevel = true,
 		-- Returns the concealcursor to the global value when changing modes
 		restore_concealcursor = false,
 	})

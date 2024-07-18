@@ -32,7 +32,6 @@ function M.config()
 			mason = true,
 			neogit = true,
 			neotest = true,
-			-- neotree = true,
 			noice = true,
 			semantic_tokens = true,
 			telescope = true,
@@ -41,6 +40,7 @@ function M.config()
 			which_key = true,
 			window_picker = true,
 			diffview = true,
+			nvim_surround = true,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
 			dropbar = {

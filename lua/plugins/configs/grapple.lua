@@ -10,33 +10,41 @@ function M.init()
 	local grapple = require("grapple")
 	local cybu_present, _ = pcall(require, "cybu")
 
-	vim.keymap.set("n", "<Tab>", function()
-		if not grapple.exists() then
-			vim.cmd("Bwipeout")
-		end
-		if cybu_present then
-			vim.cmd("CybuNext")
-		else
-			grapple.cycle_forward()
-		end
-	end)
-	vim.keymap.set("n", "<S-Tab>", function()
-		if not grapple.exists() then
-			vim.cmd("Bwipeout")
-		end
-		if cybu_present then
-			vim.cmd("CybuPrev")
-		else
-			grapple.cycle_backward()
-		end
-	end)
+	require("mappings").register({
+		{
+			"<Tab>",
+			function()
+				if not grapple.exists() then
+					vim.cmd("Bwipeout")
+				end
+				if cybu_present then
+					vim.cmd("CybuNext")
+				else
+					grapple.cycle_forward()
+				end
+			end,
+			desc = "Next tagged file",
+		},
+		{
+			"<S-Tab>",
+			function()
+				if not grapple.exists() then
+					vim.cmd("Bwipeout")
+				end
+				if cybu_present then
+					vim.cmd("CybuPrev")
+				else
+					grapple.cycle_backward()
+				end
+			end,
+			desc = "Previous tagged file",
+		},
 
-	require("mappings").register_normal({
-		t = { grapple.toggle, "Tag file" },
-		T = { grapple.toggle_tags, "Tagged files" },
+		{ "t", grapple.toggle_tags, desc = "Tags list", mode = { "n", "x", "o" } },
+
+		{ "<leader>t", grapple.toggle, desc = "Tag file" },
+		{ "<leader>T", grapple.toggle_tags, desc = "Tagged files" },
 	})
-
-	vim.keymap.set({ "n", "x", "o" }, "t", grapple.toggle_tags, { desc = "Tags list" })
 end
 
 function M.config()

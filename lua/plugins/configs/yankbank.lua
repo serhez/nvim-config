@@ -4,9 +4,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register_normal({
-		y = { "<cmd>YankBank<cr>", "Yank history" },
-	})
+	require("mappings").register({ "<leader>y", "<cmd>YankBank<cr>", desc = "Yank history" })
 end
 
 function M.config()

@@ -17,14 +17,12 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register_normal({
-		x = {
-			name = "Remote",
-			s = { "<cmd>RemoteStart<cr>", "Start" },
-			k = { "<cmd>RemoteStop<cr>", "Kill" },
-			i = { "<cmd>RemoteInfo<cr>", "Info" },
-			c = { "<cmd>RemoteCleanup<cr>", "Cleanup" },
-		},
+	require("mappings").register({
+		{ "<leader>x", group = "Remote" },
+		{ "<leader>xs", "<cmd>RemoteStart<cr>", desc = "Start" },
+		{ "<leader>xk", "<cmd>RemoteStop<cr>", desc = "Kill" },
+		{ "<leader>xi", "<cmd>RemoteInfo<cr>", desc = "Info" },
+		{ "<leader>xc", "<cmd>RemoteCleanup<cr>", desc = "Cleanup" },
 	})
 end
 

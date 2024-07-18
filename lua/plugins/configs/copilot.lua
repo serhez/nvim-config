@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
@@ -7,14 +5,12 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
-		a = {
-			p = { "<cmd>Copilot panel<cr>", "Panel" },
-			a = { "<cmd>Copilot attach<cr>", "Attach" },
-			d = { "<cmd>Copilot detach<cr>", "Detach" },
-			s = { "<cmd>Copilot status<cr>", "Status" },
-			t = { "<cmd>Copilot toggle<cr>", "Toggle" },
-		},
+	require("mappings").register({
+		{ "<leader>ap", "<cmd>Copilot panel<cr>", desc = "Panel" },
+		{ "<leader>aa", "<cmd>Copilot attach<cr>", desc = "Attach" },
+		{ "<leader>ad", "<cmd>Copilot detach<cr>", desc = "Detach" },
+		{ "<leader>as", "<cmd>Copilot status<cr>", desc = "Status" },
+		{ "<leader>at", "<cmd>Copilot toggle<cr>", desc = "Toggle" },
 	})
 end
 

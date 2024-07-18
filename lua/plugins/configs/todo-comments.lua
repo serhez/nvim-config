@@ -1,23 +1,18 @@
-local icons = require("icons")
-local mappings = require("mappings")
-
 local M = {
 	"folke/todo-comments.nvim",
 	event = "BufReadPre",
 }
 
 function M.init()
-	mappings.register_normal({
-		c = {
-			c = { "<cmd>TodoTrouble<cr>", "Comments" },
-		},
-		l = {
-			c = { "<cmd>TodoTrouble<cr>", "Comments" },
-		},
+	require("mappings").register({
+		{ "<leader>cc", "<cmd>TodoTrouble<cr>", desc = "Comments" },
+		{ "<leader>lc", "<cmd>TodoTrouble<cr>", desc = "Comments" },
 	})
 end
 
 function M.config()
+	local icons = require("icons")
+
 	require("todo-comments").setup({
 		signs = true, -- show icons in the signs column
 		sign_priority = 90,

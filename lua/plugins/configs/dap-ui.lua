@@ -41,12 +41,7 @@ local function close_tab()
 end
 
 function M.init()
-	require("mappings").register_normal({
-		d = {
-			name = "Debug",
-			e = { "<cmd>lua require('dapui').eval()<cr>", "Evaluate" },
-		},
-	})
+	require("mappings").register({ "<leader>de", "<cmd>lua require('dapui').eval()<cr>", desc = "Evaluate" })
 end
 
 function M.config()

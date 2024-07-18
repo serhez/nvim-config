@@ -9,12 +9,7 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		U = {
-			n = { "<cmd>Noice<cr>", "Notifications" },
-		},
-	})
+	require("mappings").register({ "<leader>Un", "<cmd>Noice<cr>", desc = "Notifications" })
 end
 
 function M.config()

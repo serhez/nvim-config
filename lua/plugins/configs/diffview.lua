@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {
 	"sindrets/diffview.nvim",
 	dependencies = "nvim-lua/plenary.nvim",
@@ -14,19 +12,16 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
-		g = {
-			f = {
-				name = "File",
-				c = { "<cmd>DiffviewFileHistory %<cr>", "List commits" },
-				d = { "<cmd>DiffviewOpen -- %<cr>", "Diffs" },
-				D = { "<cmd>DiffviewOpen -- % ", "Diffs (specify commits)" },
-			},
-			c = { "<cmd>DiffviewFileHistory %<cr>", "Commits (file)" },
-			C = { "<cmd>DiffviewFileHistory<cr>", "Commits (workspace)" },
-			d = { "<cmd>DiffviewOpen<cr>", "Diffs tool" },
-			D = { "<cmd>DiffviewOpen ", "Diffs tool (specify commits)" },
-		},
+	require("mappings").register({
+		{ "<leader>gc", "<cmd>DiffviewFileHistory %<cr>", desc = "Commits (file)" },
+		{ "<leader>gC", "<cmd>DiffviewFileHistory<cr>", desc = "Commits (workspace)" },
+		{ "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffs tool" },
+		{ "<leader>gD", "<cmd>DiffviewOpen ", desc = "Diffs tool (specify commits)" },
+
+		{ "gf", group = "File" },
+		{ "<leader>gfc", "<cmd>DiffviewFileHistory %<cr>", desc = "List commits" },
+		{ "<leader>gfd", "<cmd>DiffviewOpen -- %<cr>", desc = "Diffs" },
+		{ "<leader>gfD", "<cmd>DiffviewOpen -- % ", desc = "Diffs (specify commits)" },
 	})
 end
 

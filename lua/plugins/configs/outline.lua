@@ -4,9 +4,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register_normal({
-		o = { "<cmd>Outline<cr>", "Outline" },
-	})
+	require("mappings").register({ "<leader>o", "<cmd>Outline<cr>", desc = "Outline" })
 end
 
 function M.config()

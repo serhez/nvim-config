@@ -8,55 +8,57 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		m = {
-			name = "Markdown",
-			p = { "<cmd>QuartoPreview<cr>", "Preview" },
-			P = { "<cmd>QuartoClosePreview<cr>", "Close preview" },
+	require("mappings").register({
+		{ "<leader>m", group = "Markdown" },
+		{ "<leader>mp", "<cmd>QuartoPreview<cr>", desc = "Preview" },
+		{ "<leader>mP", "<cmd>QuartoClosePreview<cr>", desc = "Close preview" },
+
+		{ "<leader>n", group = "Notebook" },
+		{ "<leader>nn", "o<esc>O```python\r```<esc>O", desc = "New cell" },
+		{ "<leader>nd", "o```\r\r```python<esc>kkk0", desc = "Divide cell" },
+		{
+			"<leader>nr",
+			function()
+				require("quarto.runner").run_cell()
+			end,
+			desc = "Run cell",
 		},
-		n = {
-			n = { "o<esc>O```python\r```<esc>O", "New cell" },
-			d = { "o```\r\r```python<esc>kkk0", "Divide cell" },
-			r = {
-				function()
-					require("quarto.runner").run_cell()
-				end,
-				"Run cell",
-			},
-			R = {
-				name = "Run",
-				a = {
-					function()
-						require("quarto.runner").run_all()
-					end,
-					"All cells",
-				},
-				A = {
-					function()
-						require("quarto.runner").run_all(true)
-					end,
-					"All cells (all langs)",
-				},
-				j = {
-					function()
-						require("quarto.runner").run_below()
-					end,
-					"Cell and below",
-				},
-				k = {
-					function()
-						require("quarto.runner").run_above()
-					end,
-					"Cell and above",
-				},
-				l = {
-					function()
-						require("quarto.runner").run_line()
-					end,
-					"Line",
-				},
-			},
+
+		{ "<leader>nR", group = "Run" },
+		{
+			"<leader>nRa",
+			function()
+				require("quarto.runner").run_all()
+			end,
+			desc = "All cells",
+		},
+		{
+			"<leader>nRA",
+			function()
+				require("quarto.runner").run_all(true)
+			end,
+			desc = "All cells (all langs)",
+		},
+		{
+			"<leader>nRj",
+			function()
+				require("quarto.runner").run_below()
+			end,
+			desc = "Cell and below",
+		},
+		{
+			"<leader>nRk",
+			function()
+				require("quarto.runner").run_above()
+			end,
+			desc = "Cell and above",
+		},
+		{
+			"<leader>nRl",
+			function()
+				require("quarto.runner").run_line()
+			end,
+			desc = "Line",
 		},
 	})
 end

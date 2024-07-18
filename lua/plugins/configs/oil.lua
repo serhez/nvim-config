@@ -6,10 +6,7 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		e = { "<cmd>Oil<cr>", "Explorer" },
-	})
+	require("mappings").register({ "<leader>e", "<cmd>Oil<cr>", desc = "Explorer" })
 end
 
 -- `nvim-window-picker` integration

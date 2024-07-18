@@ -11,9 +11,10 @@ function M.init()
 		"lua require('grug-far').grug_far({ prefills = { flags = vim.fn.expand('%') } })",
 		{}
 	)
-	require("mappings").register_normal({
-		r = { "<cmd>GrugFar<cr>", "Replace" },
-		R = { "<cmd>GrugFarBuffer<cr>", "Replace (buffer)" },
+
+	require("mappings").register({
+		{ "<leader>r", "<cmd>GrugFar<cr>", desc = "Replace" },
+		{ "<leader>R", "<cmd>GrugFarBuffer<cr>", desc = "Replace (buffer)" },
 	})
 end
 

@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {}
 
 function M.setup()
@@ -55,11 +53,7 @@ function M.setup()
 		},
 	})
 
-	mappings.register_normal({
-		i = {
-			p = { "<cmd>Lazy<cr>", "Plugins" },
-		},
-	})
+	require("mappings").register({ "<leader>ip", "<cmd>Lazy<cr>", desc = "Plugins" })
 end
 
 return M

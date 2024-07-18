@@ -4,13 +4,7 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-
-	mappings.register_normal({
-		g = {
-			m = { "<cmd>GitMessenger<cr>", "Last commit message" },
-		},
-	})
+	require("mappings").register({ "<leader>gm", "<cmd>GitMessenger<cr>", desc = "Last commit message" })
 end
 
 function M.config()

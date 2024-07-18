@@ -20,37 +20,31 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		d = {
-			B = {
-				l = { "<cmd>execute 'lua require(\"dap\").list_breakpoints()' | cope<cr>", "List" },
-			},
-			c = { "<cmd>DapContinue<cr>", "Continue / Start" },
-			g = {
-				name = "Go to",
-				c = { "<cmd>DapGoToCursor<cr>", "Go to cursor" },
-				l = { ":DapGoToLine ", "Go to line" },
-			},
-			i = {
-				name = "Item",
-				c = { "<cmd>DapClass<cr>", "Class" },
-				s = { "<cmd>DapVisualSelection<cr>", "Selection" },
-				t = { "<cmd>DapTest<cr>", "Test" },
-			},
-			p = { ":DapPauseThread ", "Pause thread" },
-			r = { "<cmd>DapToggleRepl<cr>", "REPL" },
-			s = {
-				name = "Step",
-				b = { "<cmd>DapStepOver<cr>", "Back" },
-				d = { "<cmd>DapDown<cr>", "Down" },
-				i = { "<cmd>DapStepInto<cr>", "Into" },
-				O = { "<cmd>DapStepOver<cr>", "Out" },
-				o = { "<cmd>DapStepOver<cr>", "Over" },
-				u = { "<cmd>DapUp<cr>", "Up" },
-			},
-			t = { "<cmd>DapTerminate<cr>", "Terminate" },
-		},
+	require("mappings").register({
+		{ "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue / Start" },
+		{ "<leader>dt", "<cmd>DapTerminate<cr>", desc = "Terminate" },
+		{ "<leader>dp", ":DapPauseThread ", desc = "Pause thread" },
+		{ "<leader>dr", "<cmd>DapToggleRepl<cr>", desc = "REPL" },
+
+		{ "<leader>dB", group = "Breakpoints" },
+		{ "<leader>dBl", "<cmd>execute 'lua require(\"dap\").list_breakpoints()' | cope<cr>", desc = "List" },
+
+		{ "<leader>dg", group = "Go to" },
+		{ "<leader>dgc", "<cmd>DapGoToCursor<cr>", desc = "Go to cursor" },
+		{ "<leader>dgl", ":DapGoToLine ", desc = "Go to line" },
+
+		{ "<leader>di", group = "Item" },
+		{ "<leader>dic", "<cmd>DapClass<cr>", desc = "Class" },
+		{ "<leader>dis", "<cmd>DapVisualSelection<cr>", desc = "Selection" },
+		{ "<leader>dit", "<cmd>DapTest<cr>", desc = "Test" },
+
+		{ "<leader>ds", group = "Step" },
+		{ "<leader>dsb", "<cmd>DapStepOver<cr>", desc = "Back" },
+		{ "<leader>dsd", "<cmd>DapDown<cr>", desc = "Down" },
+		{ "<leader>dsi", "<cmd>DapStepInto<cr>", desc = "Into" },
+		{ "<leader>dsO", "<cmd>DapStepOver<cr>", desc = "Out" },
+		{ "<leader>dso", "<cmd>DapStepOver<cr>", desc = "Over" },
+		{ "<leader>dsu", "<cmd>DapUp<cr>", desc = "Up" },
 	})
 end
 

@@ -1,6 +1,3 @@
-local env = require("env")
-local mappings = require("mappings")
-
 local M = {
 	"epwalsh/obsidian.nvim",
 	dependencies = {
@@ -23,33 +20,34 @@ local M = {
 }
 
 function M.init()
-	vim.keymap.set("n", "gf", function()
-		if require("obsidian").util.cursor_on_markdown_link() then
-			return "<cmd>ObsidianFollowLink<CR>"
-		else
-			return "gf"
-		end
-	end, { noremap = false, expr = true })
-
-	mappings.register_normal({
-		O = {
-			name = "Obsidian",
-			b = { "<cmd>ObsidianBacklinks<cr>", "Backlinks" },
-			f = { "<cmd>ObsidianQuickSwitch<cr>", "Find notes" },
-			g = { "<cmd>ObsidianFollowLink<cr>", "Go to link" },
-			l = { "<cmd>ObsidianLink<cr>", "Link" },
-			L = { "<cmd>ObsidianLinkNew<cr>", "Link (new note)" },
-			n = { "<cmd>ObsidianNew ", "New note" },
-			o = { "<cmd>ObsidianOpen ", "Open note" },
-			s = { "<cmd>ObsidianSearch<cr>", "Search text" },
-			t = { "<cmd>ObsidianToday<cr>", "Today" },
+	require("mappings").register({
+		{
+			"gf",
+			function()
+				if require("obsidian").util.cursor_on_markdown_link() then
+					return "<cmd>ObsidianFollowLink<CR>"
+				else
+					return "gf"
+				end
+			end,
 		},
+
+		{ "<leader>O", group = "Obsidian" },
+		{ "<leaderOb", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
+		{ "<leaderOf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find notes" },
+		{ "<leaderOg", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
+		{ "<leaderOl", "<cmd>ObsidianLink<cr>", desc = "Link" },
+		{ "<leaderOL", "<cmd>ObsidianLinkNew<cr>", desc = "Link (new note)" },
+		{ "<leaderOn", "<cmd>ObsidianNew ", desc = "New note" },
+		{ "<leaderOo", "<cmd>ObsidianOpen ", desc = "Open note" },
+		{ "<leaderOs", "<cmd>ObsidianSearch<cr>", desc = "Search text" },
+		{ "<leaderOt", "<cmd>ObsidianToday<cr>", desc = "Today" },
 	})
 end
 
 function M.config()
 	require("obsidian").setup({
-		dir = env.obsidian_vault,
+		dir = require("env").obsidian_vault,
 		daily_notes = {
 			folder = "Agenda",
 		},

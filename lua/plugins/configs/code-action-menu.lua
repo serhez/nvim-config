@@ -6,11 +6,7 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
-		c = {
-			a = { "<cmd>CodeActionMenu<cr>", "Action" },
-		},
-	})
+	mappings.register({ "<leader>ca", "<cmd>CodeActionMenu<cr>", desc = "Action" })
 end
 
 return M

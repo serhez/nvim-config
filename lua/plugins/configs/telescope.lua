@@ -9,36 +9,31 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		s = { "<cmd>Telescope grep_string theme=ivy search=<cr>", "Search text" }, -- Shortcut
-		b = {
-			l = { "<cmd>Telescope buffers theme=ivy<cr>", "List" }, -- Redundancy
+	require("mappings").register({
+		{ "<leader>s", "<cmd>Telescope grep_string theme=ivy search=<cr>", desc = "Search text" }, -- Shortcut
+
+		-- Buffers
+		{ "<leader>bl", "<cmd>Telescope buffers theme=ivy<cr>", desc = "List" }, -- Redundancy
+
+		-- Code
+		{ "<leader>cs", "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", desc = "Sybmols (buffer)" },
+		{ "<leader>cS", "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", desc = "Symbols (workspace)" },
+
+		-- List
+		{ "<leader>lb", "<cmd>Telescope buffers theme=ivy<cr>", desc = "Buffers" }, -- Redundancy
+		{ "<leader>lC", "<cmd>Telescope commands theme=ivy<cr>", desc = "Commands" },
+		{
+			"<leader>lf",
+			"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
+			desc = "Files (+ignored)",
 		},
-		c = {
-			s = { "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", "Sybmols (buffer)" },
-			S = { "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", "Symbols (workspace)" },
-		},
-		-- Now handled by telescope-frecency
-		-- f = {
-		-- 	"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
-		-- 	"Find files",
-		-- },
-		l = {
-			b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" }, -- Redundancy
-			C = { "<cmd>Telescope commands theme=ivy<cr>", "Commands" },
-			f = {
-				"<cmd>Telescope find_files find_command=rg,--no-ignore,--hidden,--files,--no-heading,--with-filename,--line-number,--column,--smart-case,--glob=!.git/ theme=ivy<cr>",
-				"Files (+ignored)",
-			},
-			j = { "<cmd>Telescope jsonfly theme=ivy<cr>", "JSON keys" },
-			m = { "<cmd>Telescope marks theme=ivy<cr>", "Marks" },
-			M = { "<cmd>Telescope man_pages theme=ivy<cr>", "Man pages" },
-		},
-		g = {
-			b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
-			s = { "<cmd>Telescope git_stash theme=ivy<cr>", "Stashes" },
-		},
+		{ "<leader>lj", "<cmd>Telescope jsonfly theme=ivy<cr>", desc = "JSON keys" },
+		{ "<leader>lm", "<cmd>Telescope marks theme=ivy<cr>", desc = "Marks" },
+		{ "<leader>lM", "<cmd>Telescope man_pages theme=ivy<cr>", desc = "Man pages" },
+
+		-- Git
+		{ "<leader>gb", "<cmd>Telescope git_branches theme=ivy<cr>", desc = "Branches" },
+		{ "<leader>gs", "<cmd>Telescope git_stash theme=ivy<cr>", desc = "Stashes" },
 	})
 end
 

@@ -83,11 +83,10 @@ local function diff_source()
 end
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		U = {
-			f = { "<cmd>lua require('plugins.configs.lualine').toggle_filetype()<cr>", "Toggle filetype" },
-		},
+	require("mappings").register({
+		"<leader>Uf",
+		"<cmd>lua require('plugins.configs.lualine').toggle_filetype()<cr>",
+		desc = "Toggle filetype",
 	})
 end
 

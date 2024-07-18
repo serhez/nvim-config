@@ -1,6 +1,7 @@
 local M = {
 	"lukas-reineke/headlines.nvim",
-	ft = { "markdown", "quarto", "rmd", "ipynb" },
+	ft = { "quarto", "rmd", "ipynb" },
+	enabled = false,
 }
 
 function M.config()

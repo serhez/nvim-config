@@ -11,12 +11,7 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		g = {
-			p = { "<cmd>Neogit<cr>", "Panel" },
-		},
-	})
+	require("mappings").register({ "<leader>gp", "<cmd>Neogit<cr>", desc = "Panel" })
 end
 
 function M.config()

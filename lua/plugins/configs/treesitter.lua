@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
@@ -12,11 +10,7 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
-		i = {
-			t = { "<cmd>TSUpdate<cr>", "Update treesitter" },
-		},
-	})
+	require("mappings").register({ "<leader>it", "<cmd>TSUpdate<cr>", desc = "Update treesitter" })
 end
 
 function M.config()

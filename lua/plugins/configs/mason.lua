@@ -1,15 +1,9 @@
-local mappings = require("mappings")
-
 local M = {
 	"williamboman/mason.nvim",
 }
 
 function M.init()
-	mappings.register_normal({
-		i = {
-			s = { "<cmd>Mason<cr>", "Servers" },
-		},
-	})
+	require("mappings").register({ "<leader>is", "<cmd>Mason<cr>", desc = "Servers" })
 end
 
 function M.config()

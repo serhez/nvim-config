@@ -4,13 +4,7 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-
-	mappings.register_normal({
-		U = {
-			b = { "<cmd>Block<cr>", "Indent blocks" },
-		},
-	})
+	require("mappings").register({ "<leader>Ub", "<cmd>Block<cr>", desc = "Indent blocks" })
 end
 
 function M.config()

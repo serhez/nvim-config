@@ -1,5 +1,3 @@
-local mappings = require("mappings")
-
 local M = {
 	"AckslD/swenv.nvim",
 	event = "VeryLazy",
@@ -10,8 +8,10 @@ function M.init()
 	vim.api.nvim_create_user_command("PickVenv", "lua require('swenv.api').pick_venv()", {})
 	vim.api.nvim_create_user_command("GetVenv", "lua require('swenv.api').get_current_venv()", {})
 
-	mappings.register_normal({
-		v = { "<cmd>PickVenv<cr>", "Virtual environments" },
+	require("mappings").register({
+		"<leader>v",
+		"<cmd>PickVenv<cr>",
+		desc = "Virtual environments",
 	})
 end
 

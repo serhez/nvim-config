@@ -9,12 +9,7 @@ local M = {
 
 function M.init()
 	local mappings = require("mappings")
-	mappings.register_normal({
-		f = {
-			"<cmd>Telescope frecency theme=ivy<cr>",
-			"Find files",
-		},
-	})
+	mappings.register({ "<leader>f", "<cmd>Telescope frecency theme=ivy<cr>", desc = "Find files" })
 end
 
 return M

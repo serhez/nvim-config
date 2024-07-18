@@ -6,11 +6,7 @@ local M = {
 }
 
 function M.init()
-	mappings.register_normal({
-		c = {
-			r = { ":IncRename ", "Rename" },
-		},
-	})
+	mappings.register({ "<leader>cr", ":IncRename ", desc = "Rename" })
 end
 
 function M.config()

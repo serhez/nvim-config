@@ -4,19 +4,16 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		g = {
-			a = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Author (line)" },
-			A = { "<cmd>Gitsigns blame<cr>", "Author (buffer)" },
-			R = { "<cmd>Gitsigns reset_buffer<cr>", "Revert buffer" },
-			h = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
-			r = { "<cmd>Gitsigns reset_hunk<cr>", "Revert hunk" },
-		},
-	})
+	require("mappings").register({
+		{ "]h", "<cmd>Gitsigns next_hunk<cr>", desc = "Next git hunk" },
+		{ "[h", "<cmd>Gitsigns prev_hunk<cr>", desc = "Previous git hunk" },
 
-	vim.api.nvim_set_keymap("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { noremap = true, silent = true })
+		{ "<leader>ga", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Author (line)" },
+		{ "<leader>gA", "<cmd>Gitsigns blame<cr>", desc = "Author (buffer)" },
+		{ "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Revert buffer" },
+		{ "<leader>gh", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview hunk" },
+		{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Revert hunk" },
+	})
 end
 
 function M.config()

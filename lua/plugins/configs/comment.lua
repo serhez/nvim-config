@@ -7,13 +7,9 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-
-	mappings.register_normal({
-		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
-	})
-	mappings.register_visual({
-		["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" },
+	require("mappings").register({
+		{ "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment" },
+		{ "<leader>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment", mode = "v" },
 	})
 end
 

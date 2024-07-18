@@ -51,31 +51,30 @@ function M.init()
 	vim.g.molten_virt_lines_off_by_1 = true
 	vim.g.molten_wrap_output = true
 
-	local mappings = require("mappings")
-	mappings.register_normal({
-		n = {
-			name = "Notebook",
-			e = {
-				function()
-					vim.cmd("MoltenSave " .. current_file_with_extension("json", SAVE_SUFFIX))
-				end,
-				"Export",
-			},
-			i = {
-				function()
-					vim.cmd("MoltenLoad " .. current_file_with_extension("json", SAVE_SUFFIX))
-				end,
-				"Import",
-			},
-			I = { "<cmd>MoltenImagePopup<cr>", "Open image" },
-			k = { "<cmd>MoltenDeinit<cr>", "Kill kernel" },
-			o = {
-				"zt<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
-				"Open output window",
-			},
-			S = { "<cmd>MoltenRestart<cr>", "Restart kernel" },
-			s = { "<cmd>MoltenInterrupt<cr>", "Stop execution" },
+	require("mappings").register({
+		{
+			"<leader>ne",
+			function()
+				vim.cmd("MoltenSave " .. current_file_with_extension("json", SAVE_SUFFIX))
+			end,
+			desc = "Export",
 		},
+		{
+			"<leader>ni",
+			function()
+				vim.cmd("MoltenLoad " .. current_file_with_extension("json", SAVE_SUFFIX))
+			end,
+			desc = "Import",
+		},
+		{ "<leader>nI", "<cmd>MoltenImagePopup<cr>", desc = "Open image" },
+		{ "<leader>nk", "<cmd>MoltenDeinit<cr>", desc = "Kill kernel" },
+		{
+			"<leader>no",
+			"zt<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>",
+			desc = "Open output window",
+		},
+		{ "<leader>nS", "<cmd>MoltenRestart<cr>", desc = "Restart kernel" },
+		{ "<leader>ns", "<cmd>MoltenInterrupt<cr>", desc = "Stop execution" },
 	})
 
 	-- vim.api.nvim_create_autocmd(

@@ -143,7 +143,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-frappe"
+	vim.g.colors_name = "tokyonight-storm"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },

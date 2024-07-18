@@ -5,17 +5,23 @@ local M = {
 }
 
 function M.init()
-	local mappings = require("mappings")
-	mappings.register_normal({
-		d = {
-			b = { "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", "Toggle breakpoint" },
-			B = {
-				d = { "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", "Delete all" },
-				c = {
-					"<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>",
-					"Set conditional breakpoint",
-				},
-			},
+	require("mappings").register({
+		{
+			"<leader>db",
+			"<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>",
+			desc = "Toggle breakpoint",
+		},
+
+		{ "<leader>dB", group = "Breakpoints" },
+		{
+			"<leader>dBd",
+			"<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>",
+			desc = "Delete all",
+		},
+		{
+			"<leader>dBc",
+			"<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>",
+			desc = "Set conditional breakpoint",
 		},
 	})
 end

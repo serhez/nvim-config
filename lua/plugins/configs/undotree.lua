@@ -5,9 +5,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register_normal({
-		u = { "<cmd>UndotreeToggle<cr>", "Undo tree" },
-	})
+	require("mappings").register({ "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" })
 end
 
 return M

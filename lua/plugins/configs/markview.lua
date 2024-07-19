@@ -17,6 +17,28 @@ function M.config()
 		restore_conceallevel = true,
 		-- Returns the concealcursor to the global value when changing modes
 		restore_concealcursor = false,
+
+		code_blocks = {
+			enable = true,
+
+			style = "language",
+			hl = "Layer2",
+
+			min_width = 60,
+
+			-- FIX: The left padding breaks insert mode (if still concealing) and `hlchunk` indent guides
+			--      It would also be great to have left vs. right padding differentiation
+			pad_amount = 0,
+
+			language_names = {
+				{ "py", "python" },
+				{ "cpp", "C++" },
+			},
+			language_direction = "right",
+
+			sign = true,
+			sign_hl = nil,
+		},
 	})
 end
 

@@ -91,7 +91,39 @@ function M.init()
 end
 
 function M.config()
-	local colors = require("highlights").colors()
+	local hls = require("highlights")
+	local colors = hls.colors()
+	local common_hls = hls.common_hls()
+	local lualine_hls = require("lualine.highlight")
+
+	local custom_fname = require("lualine.components.filename"):extend()
+
+	function custom_fname:init(options)
+		custom_fname.super.init(self, options)
+		self.status_colors = {
+			saved = lualine_hls.create_component_highlight_group({
+				fg = colors.statusline_fg,
+				bg = colors.statusline_bg,
+				gui = "bold",
+			}, "filename_status_saved", self.options),
+			modified = lualine_hls.create_component_highlight_group({
+				fg = common_hls.yellow_virtual.fg,
+				bg = common_hls.yellow_virtual.bg,
+				gui = "bold",
+			}, "filename_status_modified", self.options),
+		}
+		if self.options.color == nil then
+			self.options.color = ""
+		end
+	end
+
+	function custom_fname:update_status()
+		local data = custom_fname.super.update_status(self)
+		data = lualine_hls.component_format_highlight(
+			vim.bo.modified and self.status_colors.modified or self.status_colors.saved
+		) .. data
+		return data
+	end
 
 	require("lualine").setup({
 		options = {
@@ -192,7 +224,7 @@ function M.config()
 					padding = { left = 0, right = 0 },
 				},
 				{
-					"filename",
+					custom_fname,
 					file_status = true,
 					newfile_status = false,
 					-- 0: Just the filename
@@ -200,8 +232,8 @@ function M.config()
 					-- 2: Absolute path
 					-- 3: Absolute path, with tilde as the home directory
 					-- 4: Filename and parent dir, with tilde as the home directory
-					path = 1,
-					padding = { left = 1, right = 2 },
+					path = 0,
+					padding = { left = 1, right = 1 },
 					shorting_target = 100,
 					color = { gui = "bold" },
 					symbols = {
@@ -214,7 +246,7 @@ function M.config()
 				{
 					pinned_provider,
 					cond = pinned_condition,
-					padding = { left = 0, right = 0 },
+					padding = { left = 1, right = 0 },
 					color = { fg = colors.yellow },
 				},
 			},

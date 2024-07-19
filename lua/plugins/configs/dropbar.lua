@@ -51,9 +51,15 @@ function M.config()
 					})
 				end,
 				relative_to = function(_, win)
-					-- Workaround for Vim:E5002: Cannot find window number
-					local ok, fullpath = pcall(vim.fn.getcwd, win)
-					return ok and fullpath or vim.fn.getcwd()
+					if vim.api.nvim_get_current_win() ~= win then
+						-- Workaround for Vim:E5002: Cannot find window number
+						local ok, fullpath = pcall(vim.fn.getcwd, win)
+						return ok and fullpath or vim.fn.getcwd()
+					end
+
+					local fullpath = vim.api.nvim_buf_get_name(0)
+					local filename = vim.fn.fnamemodify(fullpath, ":t")
+					return fullpath:sub(0, #fullpath - #filename)
 				end,
 			},
 		},
@@ -81,7 +87,7 @@ function M.config()
 				pivots = "asdfhjklbcegimnopqrtuvwxyz1234567890",
 			},
 			truncate = true,
-			sources = function(buf, win)
+			sources = function(buf, _)
 				local sources = require("dropbar.sources")
 				local utils = require("dropbar.utils")
 
@@ -98,13 +104,8 @@ function M.config()
 					}
 				end
 
-				if vim.api.nvim_get_current_win() ~= win then
-					return {
-						sources.path,
-					}
-				end
-
 				return {
+					sources.path,
 					utils.source.fallback({
 						sources.lsp,
 						sources.treesitter,

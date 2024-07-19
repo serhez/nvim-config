@@ -1,12 +1,13 @@
 local M = {
 	"serhez/markview.nvim",
-	ft = { "markdown", "quarto", "rmd", "ipynb" },
 	dependencies = {
 		-- You may not need this if you don't lazy load
 		-- Or if the parsers are in your $RUNTIMEPATH
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 	},
+	ft = { "markdown", "quarto", "rmd", "ipynb" },
+	enabled = false,
 }
 
 function M.config()

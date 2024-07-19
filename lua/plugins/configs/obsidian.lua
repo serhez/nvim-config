@@ -21,16 +21,17 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{
-			"gf",
-			function()
-				if require("obsidian").util.cursor_on_markdown_link() then
-					return "<cmd>ObsidianFollowLink<CR>"
-				else
-					return "gf"
-				end
-			end,
-		},
+		-- {
+		-- 	"gf",
+		-- 	function()
+		-- 		if require("obsidian").util.cursor_on_markdown_link() then
+		-- 			return "<cmd>ObsidianFollowLink<CR>"
+		-- 		else
+		-- 			return "gf"
+		-- 		end
+		-- 	end,
+		-- 	desc = "[Obsidian] Follow link",
+		-- },
 
 		{ "<leader>O", group = "Obsidian" },
 		{ "<leaderOb", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },

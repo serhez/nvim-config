@@ -79,6 +79,16 @@ function M.colors()
 		identifier_bg = M.fromhl("Identifier").bg,
 		constant_fg = M.fromhl("Constant").fg,
 		constant_bg = M.fromhl("Constant").bg,
+		red_virtual_fg = M.fromhl("DiagnosticVirtualTextError").fg,
+		red_virtual_bg = M.fromhl("DiagnosticVirtualTextError").bg,
+		yellow_virtual_fg = M.fromhl("DiagnosticVirtualTextWarn").fg,
+		yellow_virtual_bg = M.fromhl("DiagnosticVirtualTextWarn").bg,
+		cyan_virtual_fg = M.fromhl("DiagnosticVirtualTextInfo").fg,
+		cyan_virtual_bg = M.fromhl("DiagnosticVirtualTextInfo").bg,
+		blue_virtual_fg = M.fromhl("DiagnosticVirtualTextHint").fg,
+		blue_virtual_bg = M.fromhl("DiagnosticVirtualTextHint").bg,
+		green_virtual_fg = M.fromhl("DiagnosticVirtualTextOk").fg,
+		green_virtual_bg = M.fromhl("DiagnosticVirtualTextOk").bg,
 		title_fg = M.fromhl("Title").fg,
 		title_bg = M.fromhl("Title").bg,
 		signcolumn_fg = M.fromhl("SignColumn").fg,
@@ -106,6 +116,11 @@ function M.common_hls()
 		no_border_statusline = { fg = colors.statusline_bg, bg = colors.statusline_bg },
 		no_border_alt = { fg = colors.cursor_line_bg, bg = colors.cursor_line_bg },
 		no_border_dark = { fg = colors.dark_bg, bg = colors.dark_bg },
+		red_virtual = { fg = colors.red_virtual_fg, bg = colors.red_virtual_bg },
+		yellow_virtual = { fg = colors.yellow_virtual_fg, bg = colors.yellow_virtual_bg },
+		cyan_virtual = { fg = colors.cyan_virtual_fg, bg = colors.cyan_virtual_bg },
+		blue_virtual = { fg = colors.blue_virtual_fg, bg = colors.blue_virtual_bg },
+		green_virtual = { fg = colors.green_virtual_fg, bg = colors.green_virtual_bg },
 	}
 end
 
@@ -143,7 +158,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "tokyonight-storm"
+	vim.g.colors_name = "catppuccin-macchiato"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },

@@ -72,11 +72,6 @@ function M.config()
 		},
 	})
 
-	-- Use isort with ruff
-	require("conform").formatters.ruff_fix = {
-		prepend_args = { "--select", "I" },
-	}
-
 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 end
 

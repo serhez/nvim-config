@@ -21,28 +21,28 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		-- {
-		-- 	"gf",
-		-- 	function()
-		-- 		if require("obsidian").util.cursor_on_markdown_link() then
-		-- 			return "<cmd>ObsidianFollowLink<CR>"
-		-- 		else
-		-- 			return "gf"
-		-- 		end
-		-- 	end,
-		-- 	desc = "[Obsidian] Follow link",
-		-- },
+		{
+			"gf",
+			function()
+				if require("obsidian").util.cursor_on_markdown_link() then
+					return "<cmd>ObsidianFollowLink<CR>"
+				else
+					return "gf"
+				end
+			end,
+			desc = "[Obsidian] Follow link",
+		},
 
 		{ "<leader>O", group = "Obsidian" },
-		{ "<leaderOb", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
-		{ "<leaderOf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find notes" },
-		{ "<leaderOg", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
-		{ "<leaderOl", "<cmd>ObsidianLink<cr>", desc = "Link" },
-		{ "<leaderOL", "<cmd>ObsidianLinkNew<cr>", desc = "Link (new note)" },
-		{ "<leaderOn", "<cmd>ObsidianNew ", desc = "New note" },
-		{ "<leaderOo", "<cmd>ObsidianOpen ", desc = "Open note" },
-		{ "<leaderOs", "<cmd>ObsidianSearch<cr>", desc = "Search text" },
-		{ "<leaderOt", "<cmd>ObsidianToday<cr>", desc = "Today" },
+		{ "<leader>Ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
+		{ "<leader>Of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find notes" },
+		{ "<leader>Og", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
+		{ "<leader>Ol", "<cmd>ObsidianLink<cr>", desc = "Link" },
+		{ "<leader>OL", "<cmd>ObsidianLinkNew<cr>", desc = "Link (new note)" },
+		{ "<leader>On", "<cmd>ObsidianNew ", desc = "New note" },
+		{ "<leader>Oo", "<cmd>ObsidianOpen ", desc = "Open note" },
+		{ "<leader>Os", "<cmd>ObsidianSearch<cr>", desc = "Search text" },
+		{ "<leader>Ot", "<cmd>ObsidianToday<cr>", desc = "Today" },
 	})
 end
 

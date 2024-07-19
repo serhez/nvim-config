@@ -14,8 +14,8 @@ function M.init()
 		{ "<leader>mP", "<cmd>QuartoClosePreview<cr>", desc = "Close preview" },
 
 		{ "<leader>n", group = "Notebook" },
-		{ "<leader>nn", "o<esc>O```python\r```<esc>O", desc = "New cell" },
-		{ "<leader>nd", "o```\r\r```python<esc>kkk0", desc = "Divide cell" },
+		{ "<leader>nn", "o<esc>O```py\r```<esc>O", desc = "New cell" },
+		{ "<leader>nd", "o```\r\r```py<esc>kkk0", desc = "Divide cell" },
 		{
 			"<leader>nr",
 			function()

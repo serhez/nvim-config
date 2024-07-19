@@ -1,6 +1,3 @@
-local icons = require("icons")
-local formatting = require("plugins.configs.mason-lspconfig.formatting")
-
 local M = {
 	"williamboman/mason-lspconfig.nvim",
 	dependencies = {
@@ -49,18 +46,6 @@ local function custom_attach(client, bufnr)
 
 	-- Enable completion triggered by <c-x><c-o>
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Auto-format on save
-	if client.supports_method("textDocument/formatting") then
-		vim.api.nvim_clear_autocmds({ group = formatting.augroup, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = formatting.augroup,
-			buffer = bufnr,
-			callback = function()
-				formatting.auto_format(bufnr)
-			end,
-		})
-	end
 end
 
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -83,6 +68,8 @@ custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 function M.config()
+	local icons = require("icons")
+
 	lspSymbol("Error", icons.diagnostics.error)
 	lspSymbol("Info", icons.diagnostics.info)
 	lspSymbol("Hint", icons.diagnostics.hint)

@@ -20,13 +20,15 @@ function M.format(bufnr)
 	end
 
 	if conform_present then
-		conform.format({ timeout_ms = 500, lsp_fallback = true, bufnr = bufnr })
+		conform.format({ timeout_ms = 2000, lsp_format = "fallback", bufnr = bufnr })
 	else
 		vim.lsp.buf.format({
 			filter = null_ls_filter,
 			bufnr = bufnr,
 		})
 	end
+
+	vim.notify("Formatted the buffer", "info")
 end
 
 function M.auto_format(bufnr)

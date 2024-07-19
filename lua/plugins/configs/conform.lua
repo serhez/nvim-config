@@ -6,9 +6,9 @@ local M = {
 function M.config()
 	require("conform").setup({
 		format = {
-			timeout_ms = 3000,
-			async = false, -- not recommended to change
-			quiet = false, -- not recommended to change
+			timeout_ms = 2000,
+			async = false,
+			quiet = false,
 		},
 
 		formatters_by_ft = {
@@ -44,8 +44,11 @@ function M.config()
 			-- CSS
 			css = { "prettierd" },
 
-			-- Markdown
-			markdown = { "prettierd" },
+			-- Markdown & notebooks
+			markdown = { "prettierd", "injected" },
+			quarto = { "injected" },
+			rmd = { "injected" },
+			ipynb = { "injected" },
 
 			-- JSON
 			json = { "prettierd" },
@@ -68,11 +71,21 @@ function M.config()
 		},
 
 		formatters = {
-			injected = { options = { ignore_errors = true } },
+			injected = { options = { ignore_errors = false } },
 		},
 	})
 
 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+	-- Auto-format on save
+	local formatting = require("plugins.configs.mason-lspconfig.formatting")
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		pattern = "*",
+		group = formatting.augroup,
+		callback = function(args)
+			formatting.auto_format(args.buf)
+		end,
+	})
 end
 
 return M

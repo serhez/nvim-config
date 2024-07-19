@@ -45,10 +45,7 @@ function M.config()
 			css = { "prettierd" },
 
 			-- Markdown & notebooks
-			markdown = { "prettierd", "injected" },
-			quarto = { "injected" },
-			rmd = { "injected" },
-			ipynb = { "injected" },
+			markdown = { "prettierd" },
 
 			-- JSON
 			json = { "prettierd" },

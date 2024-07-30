@@ -69,7 +69,16 @@ function M.config()
 		},
 
 		formatters = {
-			injected = { options = { ignore_errors = false } },
+			injected = {
+				options = {
+					ignore_errors = false,
+				},
+			},
+			prettierd = {
+				env = {
+					PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/.prettierrc"),
+				},
+			},
 		},
 	})
 

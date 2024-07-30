@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>is", "<cmd>Mason<cr>", desc = "Servers" })
+	require("mappings").register({ "<leader>is", "<cmd>Mason<cr>", desc = "Servers panel" })
 end
 
 function M.config()

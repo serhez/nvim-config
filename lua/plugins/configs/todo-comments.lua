@@ -1,6 +1,6 @@
 local M = {
 	"folke/todo-comments.nvim",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.init()

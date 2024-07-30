@@ -6,7 +6,7 @@ local M = {
 		"nvim-tree/nvim-web-devicons",
 		"AndreM222/copilot-lualine",
 	},
-	event = "VeryLazy",
+	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
@@ -93,25 +93,21 @@ end
 function M.config()
 	local hls = require("highlights")
 	local colors = hls.colors()
-	local common_hls = hls.common_hls()
-	local lualine_hls = require("lualine.highlight")
 
 	local custom_fname = require("lualine.components.filename"):extend()
 
 	function custom_fname:init(options)
 		custom_fname.super.init(self, options)
-		self.status_colors = {
-			saved = lualine_hls.create_component_highlight_group({
-				fg = colors.statusline_fg,
-				bg = colors.statusline_bg,
-				gui = "bold",
-			}, "filename_status_saved", self.options),
-			modified = lualine_hls.create_component_highlight_group({
-				fg = common_hls.yellow_virtual.fg,
-				bg = common_hls.yellow_virtual.bg,
-				gui = "bold",
-			}, "filename_status_modified", self.options),
-		}
+
+		-- Register highlight groups
+
+		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
+			link = "StatusLine",
+		})
+		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
+			link = "DiagnosticVirtualTextWarn",
+		})
+
 		if self.options.color == nil then
 			self.options.color = ""
 		end
@@ -119,9 +115,7 @@ function M.config()
 
 	function custom_fname:update_status()
 		local data = custom_fname.super.update_status(self)
-		data = lualine_hls.component_format_highlight(
-			vim.bo.modified and self.status_colors.modified or self.status_colors.saved
-		) .. data
+		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
 		return data
 	end
 

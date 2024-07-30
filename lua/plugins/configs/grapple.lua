@@ -3,47 +3,49 @@ local M = {
 	dependencies = {
 		{ "nvim-tree/nvim-web-devicons" },
 	},
-	event = { "BufReadPost", "BufNewFile" },
+	event = "VeryLazy",
 }
 
 function M.init()
-	local grapple = require("grapple")
-	local cybu_present, _ = pcall(require, "cybu")
-
 	require("mappings").register({
 		{
 			"<Tab>",
 			function()
-				if not grapple.exists() then
-					vim.cmd("Bwipeout")
-				end
-				if cybu_present then
-					vim.cmd("CybuNext")
-				else
-					grapple.cycle_forward()
-				end
+				require("grapple").cycle_forward()
 			end,
 			desc = "Next tagged file",
 		},
 		{
 			"<S-Tab>",
 			function()
-				if not grapple.exists() then
-					vim.cmd("Bwipeout")
-				end
-				if cybu_present then
-					vim.cmd("CybuPrev")
-				else
-					grapple.cycle_backward()
-				end
+				require("grapple").cycle_backward()
 			end,
 			desc = "Previous tagged file",
 		},
 
-		{ "t", grapple.toggle_tags, desc = "Tags list", mode = { "n", "x", "o" } },
+		{
+			"t",
+			function()
+				require("grapple").toggle_tags()
+			end,
+			desc = "Tags list",
+			mode = { "n", "x", "o" },
+		},
 
-		{ "<leader>t", grapple.toggle, desc = "Tag file" },
-		{ "<leader>T", grapple.toggle_tags, desc = "Tagged files" },
+		{
+			"<leader>t",
+			function()
+				require("grapple").toggle()
+			end,
+			desc = "Tag file",
+		},
+		{
+			"<leader>T",
+			function()
+				require("grapple").toggle_tags()
+			end,
+			desc = "Tagged files",
+		},
 	})
 end
 

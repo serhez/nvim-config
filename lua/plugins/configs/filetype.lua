@@ -1,6 +1,6 @@
 local M = {
 	"nathom/filetype.nvim",
-	event = "VimEnter",
+	lazy = false,
 }
 
 return M

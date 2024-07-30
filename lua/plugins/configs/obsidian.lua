@@ -72,6 +72,9 @@ function M.config()
 		-- first one they find. You can set this option to tell obsidian.nvim to always use this
 		-- finder.
 		finder = "telescope.nvim",
+
+		-- Handled by `markdown.nvim`
+		ui = { enable = false },
 	})
 end
 

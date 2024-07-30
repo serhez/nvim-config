@@ -1,6 +1,6 @@
 local M = {
 	"GCBallesteros/jupytext.nvim",
-	event = "VimEnter",
+	ft = "ipynb",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 

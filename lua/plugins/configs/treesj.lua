@@ -1,6 +1,6 @@
 local M = {
 	"Wansmer/treesj",
-	event = "BufReadPost",
+	event = "VeryLazy",
 }
 
 function M.init()

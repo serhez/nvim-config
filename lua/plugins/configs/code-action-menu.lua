@@ -1,12 +1,10 @@
-local mappings = require("mappings")
-
 local M = {
 	"weilbith/nvim-code-action-menu",
-	event = "BufReadPost",
+	cmd = "CodeActionMenu",
 }
 
 function M.init()
-	mappings.register({ "<leader>ca", "<cmd>CodeActionMenu<cr>", desc = "Action" })
+	require("mappings").register({ "<leader>ca", "<cmd>CodeActionMenu<cr>", desc = "Action" })
 end
 
 return M

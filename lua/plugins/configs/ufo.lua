@@ -1,12 +1,12 @@
-local icons = require("icons")
-
 local M = {
 	"kevinhwang91/nvim-ufo",
 	dependencies = "kevinhwang91/promise-async",
-	event = "BufReadPost",
+	event = "VeryLazy",
 }
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
+	local icons = require("icons")
+
 	local newVirtText = {}
 	local suffix = (" " .. icons.arrow.down_left .. " %d "):format(endLnum - lnum)
 	local sufWidth = vim.fn.strdisplaywidth(suffix)
@@ -47,6 +47,8 @@ function M.init()
 end
 
 function M.config()
+	local icons = require("icons")
+
 	vim.o.fillchars = "eob: ,fold: ,foldopen:"
 		.. icons.arrow.down_short
 		.. ",foldsep: ,foldclose:"

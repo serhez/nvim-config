@@ -53,7 +53,7 @@ function M.setup()
 		},
 	})
 
-	require("mappings").register({ "<leader>ip", "<cmd>Lazy<cr>", desc = "Plugins" })
+	require("mappings").register({ "<leader>ip", "<cmd>Lazy<cr>", desc = "Plugins panel" })
 end
 
 return M

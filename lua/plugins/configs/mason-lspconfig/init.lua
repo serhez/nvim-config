@@ -4,7 +4,7 @@ local M = {
 		"williamboman/mason.nvim",
 		"neovim/nvim-lspconfig",
 	},
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 local function lspSymbol(name, icon)
@@ -48,27 +48,51 @@ local function custom_attach(client, bufnr)
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
-local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
--- custom_capabilities.offsetEncoding = "utf-8"
-custom_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
-custom_capabilities.textDocument.completion.completionItem.preselectSupport = true
-custom_capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-custom_capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-custom_capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-custom_capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-custom_capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		"documentation",
-		"detail",
-		"additionalTextEdits",
-	},
-}
-
 function M.config()
 	local icons = require("icons")
+
+	require("mason-lspconfig").setup()
+
+	local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
+	-- custom_capabilities.offsetEncoding = "utf-8"
+	custom_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+	custom_capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
+	custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
+	custom_capabilities.textDocument.completion.completionItem.preselectSupport = true
+	custom_capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+	custom_capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+	custom_capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+	custom_capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+	custom_capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+	custom_capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = {
+			"documentation",
+			"detail",
+			"additionalTextEdits",
+		},
+	}
+
+	require("mason-lspconfig").setup_handlers({
+		function(server_name)
+			local opts = {
+				on_attach = custom_attach,
+				capabilities = custom_capabilities,
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}
+
+			local has_custom_opts, custom_opts =
+				pcall(require, "plugins.configs.mason-lspconfig.servers." .. server_name)
+			if has_custom_opts then
+				-- Enhance the default opts with the server-specific ones
+				opts.settings = custom_opts
+			end
+
+			require("lspconfig")[server_name].setup(opts)
+			vim.cmd([[ do User LspAttachBuffers ]])
+		end,
+	})
 
 	lspSymbol("Error", icons.diagnostics.error)
 	lspSymbol("Info", icons.diagnostics.info)
@@ -110,29 +134,8 @@ function M.config()
 		position = { row = 0, col = 0 },
 	})
 
-	require("mason-lspconfig").setup()
-
-	require("mason-lspconfig").setup_handlers({
-		function(server_name)
-			local opts = {
-				on_attach = custom_attach,
-				capabilities = custom_capabilities,
-				flags = {
-					debounce_text_changes = 150,
-				},
-			}
-
-			local has_custom_opts, custom_opts =
-				pcall(require, "plugins.configs.mason-lspconfig.servers." .. server_name)
-			if has_custom_opts then
-				-- Enhance the default opts with the server-specific ones
-				opts.settings = custom_opts
-			end
-
-			require("lspconfig")[server_name].setup(opts)
-			vim.cmd([[ do User LspAttachBuffers ]])
-		end,
-	})
+	-- Start the servers and attach them to buffers, since we are lazy loading
+	vim.cmd("LspStart")
 
 	-- -- Custom namespace
 	-- local ns = vim.api.nvim_create_namespace("severe-diagnostics")

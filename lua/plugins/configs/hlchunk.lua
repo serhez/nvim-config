@@ -1,6 +1,6 @@
 local M = {
 	"shellRaining/hlchunk.nvim",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.config()
@@ -114,6 +114,7 @@ function M.config()
 			zsh = true,
 			vuffers = true,
 			oil = true,
+			oil_preview = true,
 		},
 	})
 end

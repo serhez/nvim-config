@@ -52,8 +52,6 @@ local basic_mappings = {
 	-- Window splits
 	{ "_", "<cmd>split<cr>", desc = "Horizontal split" },
 	{ "|", "<cmd>vsplit<cr>", desc = "Vertical split" },
-	{ "<leader>_", "<cmd>split<cr>", desc = "Horizontal split" }, -- Shortcut
-	{ "<leader>|", "<cmd>vsplit<cr>", desc = "Vertical split" }, -- Shortcut
 	{ "<leader>Ush", "<cmd>split<cr>", desc = "Horizontal" },
 	{ "<leader>Usv", "<cmd>vsplit<cr>", desc = "Vertical" },
 

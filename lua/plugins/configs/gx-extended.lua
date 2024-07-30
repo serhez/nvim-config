@@ -1,6 +1,6 @@
 local M = {
-    "stsewd/gx-extended.vim",
-    event = "BufReadPost",
+	"stsewd/gx-extended.vim",
+	event = "VeryLazy",
 }
 
 return M

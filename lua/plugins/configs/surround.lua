@@ -1,6 +1,6 @@
 local M = {
 	"kylechui/nvim-surround",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.config()

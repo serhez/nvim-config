@@ -1,6 +1,6 @@
 local M = {
 	"chrisgrieser/nvim-recorder",
-	event = "BufRead",
+	event = "VeryLazy",
 }
 
 function M.config()

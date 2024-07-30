@@ -2,7 +2,7 @@
 
 local M = {
 	"Bekaboo/dropbar.nvim",
-	event = "BufReadPost",
+	lazy = false,
 	cond = not vim.g.started_by_firenvim,
 }
 

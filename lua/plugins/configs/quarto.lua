@@ -3,6 +3,7 @@ local M = {
 	dependencies = {
 		"jmbuhr/otter.nvim",
 		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
 	},
 	ft = { "markdown", "quarto", "rmd" },
 }

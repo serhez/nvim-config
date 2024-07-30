@@ -1,6 +1,6 @@
 local M = {
 	"mfussenegger/nvim-lint",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.config()
@@ -14,9 +14,9 @@ function M.config()
 
 	require("lint").linters_by_ft = {
 		-- Markdown
-		markdown = {
-			"vale", --[[ "markdownlint" ]]
-		},
+		-- markdown = {
+		-- "vale", --[[ "markdownlint" ]]
+		-- },
 
 		-- Shell
 		sh = { "shellcheck" },

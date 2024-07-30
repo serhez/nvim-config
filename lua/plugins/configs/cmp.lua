@@ -7,10 +7,10 @@ local M = {
 		-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 		-- "zbirenbaum/copilot-cmp",
 		"kdheepak/cmp-latex-symbols",
-		-- "saadparwaiz1/cmp_luasnip",
+		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"tzachar/cmp-fuzzy-path",
-		-- "L3MON4D3/LuaSnip",
+		"L3MON4D3/LuaSnip",
 		"jc-doyle/cmp-pandoc-references",
 	},
 	event = "InsertEnter",
@@ -24,14 +24,14 @@ function M.config()
 	local luasnip_present, luasnip = pcall(require, "luasnip")
 	local neotab_present, neotab = pcall(require, "neotab")
 
-	local has_words_before = function()
-		-- table.unpack for Lua >= 5.1
-		---@diagnostic disable-next-line: deprecated
-		local unpack = table.unpack or unpack
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-	end
+	-- local has_words_before = function()
+	-- 	-- table.unpack for Lua >= 5.1
+	-- 	---@diagnostic disable-next-line: deprecated
+	-- 	local unpack = table.unpack or unpack
+	-- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	--
+	-- 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	-- end
 
 	local normal_mappings = {
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -146,7 +146,7 @@ function M.config()
 			-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
 			-- { name = "copilot", keyword_length = 0 }, -- NOTE: keyword_length = 0 does not work for now; when it does, we can remove the autocmd
 			{ name = "nvim_lsp" },
-			-- { name = "luasnip" },
+			{ name = "luasnip" },
 			{ name = "buffer" },
 			{
 				name = "latex_symbols",

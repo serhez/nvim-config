@@ -3,8 +3,18 @@
 
 local M = {
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
-	event = "VeryLazy",
+	cmd = {
+		"MasonToolsClean",
+		"MasonToolsInstall",
+		"MasonToolsInstallSync",
+		"MasonToolsUpdate",
+		"MasonToolsUpdateSync",
+	},
 }
+
+function M.init()
+	require("mappings").register({ "<leader>iS", "<cmd>MasonToolsUpdateSync<cr>", desc = "Update servers" })
+end
 
 function M.config()
 	require("mason-tool-installer").setup({
@@ -20,7 +30,7 @@ function M.config()
 			"shfmt",
 
 			-- Python
-			"python-lsp-server",
+			-- "python-lsp-server",
 			-- "pyright",
 			"basedpyright",
 			"pylint",
@@ -93,12 +103,13 @@ function M.config()
 			-- SQL
 			"sqlls",
 			"sqlfluff",
-			"sql_formatter",
+			"sql-formatter",
 
 			-- Markdown / LaTeX
 			"markdownlint",
 			"texlab",
 			"latexindent",
+			-- "vale",
 		},
 
 		-- If set to true this will check each tool for updates. If updates

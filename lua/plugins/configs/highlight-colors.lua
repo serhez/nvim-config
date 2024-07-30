@@ -1,6 +1,6 @@
 local M = {
 	"brenoprata10/nvim-highlight-colors",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.config()

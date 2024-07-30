@@ -1,6 +1,6 @@
 local M = {
 	"olimorris/persisted.nvim",
-	event = "VimEnter",
+	lazy = false,
 	-- dependencies = { -- These plugins are loaded before the session is restored, so that they can properly restore buffers (pinned, etc.)
 	-- 	"akinsho/bufferline.nvim",
 	-- 	"axkirillov/hbac.nvim",

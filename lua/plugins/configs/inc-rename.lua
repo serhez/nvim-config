@@ -1,12 +1,10 @@
-local mappings = require("mappings")
-
 local M = {
 	"smjonas/inc-rename.nvim",
-	event = "BufRead",
+	cmd = "IncRename",
 }
 
 function M.init()
-	mappings.register({ "<leader>cr", ":IncRename ", desc = "Rename" })
+	require("mappings").register({ "<leader>cr", ":IncRename ", desc = "Rename" })
 end
 
 function M.config()

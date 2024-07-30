@@ -1,6 +1,6 @@
 local M = {
 	"stevearc/conform.nvim",
-	event = "BufReadPre",
+	event = "VeryLazy",
 }
 
 function M.config()
@@ -46,6 +46,7 @@ function M.config()
 
 			-- Markdown & notebooks
 			markdown = { "prettierd" },
+			-- quarto = { "prettierd" }, -- FIX: use global prettierd config to supply parser ("markdown") and to use 4 spaces
 
 			-- JSON
 			json = { "prettierd" },

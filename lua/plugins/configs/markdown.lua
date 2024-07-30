@@ -9,6 +9,7 @@ local M = {
 
 function M.config()
 	local icons = require("icons")
+	local block = icons.bar.vertical_block
 
 	require("render-markdown").setup({
 		render_modes = { "n", "no", "i", "v", "V", "^V", "r", "x", "c" },
@@ -19,25 +20,21 @@ function M.config()
 			enabled = true,
 			-- Turn on / off any sign column related rendering
 			sign = false,
+			-- Width of the heading background:
+			--  block: width of the heading text
+			--  full: full width of the window
+			width = "block",
 			-- Replaces '#+' of 'atx_h._marker'
 			-- The number of '#' in the heading determines the 'level'
 			-- The 'level' is used to index into the array using a cycle
 			-- The result is left padded with spaces to hide any additional '#'
-			-- icons = {
-			-- 	"󰼛 ",
-			-- 	"󰼛󰼛 ",
-			-- 	"󰼛󰼛󰼛 ",
-			-- 	"󰼛󰼛󰼛󰼛 ",
-			-- 	"󰼛󰼛󰼛󰼛󰼛 ",
-			-- 	"󰼛󰼛󰼛󰼛󰼛󰼛 ",
-			-- },
 			icons = {
-				" ",
-				" ",
-				" ",
-				" ",
-				" ",
-				" ",
+				block .. " ",
+				block .. block .. " ",
+				block .. block .. block .. " ",
+				block .. block .. block .. block .. " ",
+				block .. block .. block .. block .. block .. " ",
+				block .. block .. block .. block .. block .. block .. " ",
 			},
 			-- Highlight for the heading icon and extends through the entire line
 			backgrounds = {
@@ -75,41 +72,68 @@ function M.config()
 			--  language: adds language icon to sign column if enabled and icon + name above code blocks
 			--  full: normal + language
 			style = "full",
+			-- Width of the code block background:
+			-- * full: full width of the window
+			-- * block: width of the code block
+			width = "block",
 			-- Amount of padding to add to the left of code blocks
 			left_pad = 0,
+			-- Amount of padding to add to the right of code blocks
+			right_pad = 2,
 			-- Determins how the top / bottom of code block are rendered:
 			--  thick: use the same highlight as the code body
 			--  thin: when lines are empty overlay the above & below icons
-			border = "thick",
+			border = "thin",
 			-- Used above code blocks for thin border
-			above = icons.bar.vertical_block,
+			above = icons.bar.lower_horizontal_thick,
 			-- Used below code blocks for thin border
-			below = icons.bar.vertical_block,
+			below = icons.bar.upper_horizontal_thick,
 			-- Highlight for code blocks & inline code
 			highlight = "RenderMarkdownCode",
 		},
 
 		bullet = {
 			enabled = true,
-			icons = { icons.small_circle .. " " },
+			icons = { icons.small_circle },
+			right_pad = 0,
+		},
+
+		overrides = {
+			buftype = {
+				-- Particularly for LSP hover
+				nofile = {
+					code = {
+						enabled = true,
+						sign = false,
+						style = "normal",
+						width = "full",
+						left_pad = 0,
+						right_pad = 0,
+						border = "thick",
+						highlight = "RenderMarkdownCodeNoFile",
+					},
+				},
+			},
 		},
 	})
 
 	local hls = require("highlights")
-	local common_hls = hls.common_hls()
+	local colors = hls.colors()
 	hls.register_hls({
-		RenderMarkdownH1 = common_hls.cyan_virtual,
-		RenderMarkdownH1Bg = common_hls.cyan_virtual,
-		RenderMarkdownH2 = common_hls.green_virtual,
-		RenderMarkdownH2Bg = common_hls.green_virtual,
-		RenderMarkdownH3 = common_hls.yellow_virtual,
-		RenderMarkdownH3Bg = common_hls.yellow_virtual,
-		RenderMarkdownH4 = common_hls.red_virtual,
-		RenderMarkdownH4Bg = common_hls.red_virtual,
-		RenderMarkdownH5 = common_hls.blue_virtual,
-		RenderMarkdownH5Bg = common_hls.blue_virtual,
-		RenderMarkdownH6 = common_hls.blue_virtual,
-		RenderMarkdownH6Bg = common_hls.blue_virtual,
+		RenderMarkdownH1 = { fg = colors.cyan_virtual_fg, bg = colors.cyan_virtual_bg, bold = true },
+		RenderMarkdownH1Bg = { fg = colors.cyan_virtual_fg, bg = colors.cyan_virtual_bg, bold = true },
+		RenderMarkdownH2 = { fg = colors.green_virtual_fg, bg = colors.green_virtual_bg, bold = true },
+		RenderMarkdownH2Bg = { fg = colors.green_virtual_fg, bg = colors.green_virtual_bg, bold = true },
+		RenderMarkdownH3 = { fg = colors.yellow_virtual_fg, bg = colors.yellow_virtual_bg, bold = true },
+		RenderMarkdownH3Bg = { fg = colors.yellow_virtual_fg, bg = colors.yellow_virtual_bg, bold = true },
+		RenderMarkdownH4 = { fg = colors.red_virtual_fg, bg = colors.red_virtual_bg, bold = true },
+		RenderMarkdownH4Bg = { fg = colors.red_virtual_fg, bg = colors.red_virtual_bg, bold = true },
+		RenderMarkdownH5 = { fg = colors.blue_virtual_fg, bg = colors.blue_virtual_bg, bold = true },
+		RenderMarkdownH5Bg = { fg = colors.blue_virtual_fg, bg = colors.blue_virtual_bg, bold = true },
+		RenderMarkdownH6 = { fg = colors.blue_virtual_fg, bg = colors.blue_virtual_bg, bold = true },
+		RenderMarkdownH6Bg = { fg = colors.blue_virtual_fg, bg = colors.blue_virtual_bg, bold = true },
+		-- RenderMarkdownCode = { bg = colors.statusline_bg },
+		RenderMarkdownCodeNoFile = { bg = colors.statusline_bg },
 	})
 end
 

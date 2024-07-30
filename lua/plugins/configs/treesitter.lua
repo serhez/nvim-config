@@ -6,7 +6,7 @@ local M = {
 		"RRethy/nvim-treesitter-textsubjects",
 		"RRethy/nvim-treesitter-endwise",
 	},
-	event = "BufReadPost",
+	event = "VeryLazy",
 }
 
 function M.init()

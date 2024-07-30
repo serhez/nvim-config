@@ -2,6 +2,7 @@ local M = {}
 
 M.augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
+local ignore_filetypes = { "oil" }
 local auto_format_enabled = true -- Default
 
 function M.toggle_auto_format()
@@ -9,6 +10,11 @@ function M.toggle_auto_format()
 end
 
 function M.format(bufnr)
+	-- Disable autoformat on certain filetypes
+	if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+		return
+	end
+
 	local null_ls_present, _ = pcall(require, "null-ls")
 	local conform_present, conform = pcall(require, "conform")
 

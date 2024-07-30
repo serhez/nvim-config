@@ -3,7 +3,7 @@ local M = {
 	dependencies = {
 		"lewis6991/gitsigns.nvim",
 	},
-	event = "BufReadPre",
+	lazy = false,
 	cond = not vim.g.started_by_firenvim,
 }
 

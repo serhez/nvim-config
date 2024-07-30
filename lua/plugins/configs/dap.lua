@@ -1,4 +1,4 @@
--- NOTE: DAP is currently loaded by the dap-persistent-breakpoints plugin, which may be inneficient
+-- NOTE: DAP is currently loaded by the dap-persistent-breakpoints plugin
 
 local M = {
 	"mfussenegger/nvim-dap",

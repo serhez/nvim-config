@@ -119,6 +119,7 @@ M.bar = {
 	lower_horizontal_thick = "▄", -- lower half block (unicode)
 	lower_right_corner_thick = "▟",
 	lower_left_corner_thick = "▙",
+	upper_horizontal_thick = "▀",
 	upper_right_corner_thick = "▜",
 	upper_left_corner_thick = "▛",
 }

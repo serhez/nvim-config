@@ -115,6 +115,7 @@ function M.config()
 			vuffers = true,
 			oil = true,
 			oil_preview = true,
+			NeogitConsole = true,
 		},
 	})
 end

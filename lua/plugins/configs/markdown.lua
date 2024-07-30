@@ -7,6 +7,13 @@ local M = {
 	ft = { "markdown", "quarto", "rmd" },
 }
 
+function M.init()
+	require("mappings").register({
+		{ "<leader>m", group = "Markdown" },
+		{ "<leader>mr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle rendering" },
+	})
+end
+
 function M.config()
 	local icons = require("icons")
 	local block = icons.bar.vertical_block
@@ -24,6 +31,10 @@ function M.config()
 			--  block: width of the heading text
 			--  full: full width of the window
 			width = "block",
+			-- Determines how the icon fills the available space:
+			--  inline: underlying '#'s are concealed resulting in a left aligned icon
+			--  overlay: result is left padded with spaces to hide any additional '#'
+			position = "overlay",
 			-- Replaces '#+' of 'atx_h._marker'
 			-- The number of '#' in the heading determines the 'level'
 			-- The 'level' is used to index into the array using a cycle

@@ -21,10 +21,10 @@ function M.config()
 	require("gitsigns").setup({
 		signs = {
 			add = {
-				text = icons.bar.vertical_center,
+				text = icons.bar.vertical_left_thick,
 			},
 			change = {
-				text = icons.bar.vertical_center,
+				text = icons.bar.vertical_left_thick,
 			},
 			delete = {
 				text = icons.bar.lower_horizontal,
@@ -33,10 +33,10 @@ function M.config()
 				text = icons.bar.lower_horizontal,
 			},
 			changedelete = {
-				text = icons.bar.vertical_center,
+				text = icons.bar.vertical_left_thick,
 			},
 			untracked = {
-				text = icons.bar.vertical_center,
+				text = icons.bar.vertical_left_thick,
 			},
 		},
 		watch_gitdir = {

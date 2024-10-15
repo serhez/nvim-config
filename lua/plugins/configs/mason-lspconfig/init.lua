@@ -12,34 +12,7 @@ local function lspSymbol(name, icon)
 	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
----Filters diagnostigs leaving only the most severe per line.
----@param diagnostics table[]
----@return table[]
----@see https://www.reddit.com/r/neovim/comments/mvhfw7/can_built_in_lsp_diagnostics_be_limited_to_show_a/gvd8rb9/
----@see https://github.com/neovim/neovim/issues/15770
----@see https://github.com/akinsho/dotfiles/blob/d3526289627b72e4b6a3ddcbfe0411b5217a4a88/.config/nvim/plugin/lsp.lua#L83-L132
----@see `:h diagnostic-handlers`
-local function filter_diagnostics(diagnostics)
-	if not diagnostics then
-		return {}
-	end
-
-	-- find the "worst" diagnostic per line
-	local most_severe = {}
-	for _, cur in pairs(diagnostics) do
-		local max = most_severe[cur.lnum]
-
-		-- higher severity has lower value (`:h diagnostic-severity`)
-		if not max or cur.severity < max.severity then
-			most_severe[cur.lnum] = cur
-		end
-	end
-
-	-- return list of diagnostics
-	return vim.tbl_values(most_severe)
-end
-
-local function custom_attach(client, bufnr)
+local function custom_attach(_, bufnr)
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
@@ -48,8 +21,55 @@ local function custom_attach(client, bufnr)
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
+-- local native_hover_handler = vim.lsp.with(vim.lsp.handlers.hover, {
+-- 	border = "solid",
+-- 	position = { row = 0, col = 0 },
+-- 	silent = true,
+-- })
+--
+-- local islist = vim.islist or vim.tbl_islist
+--
+-- local function hover_handler(_, result, ctx)
+-- 	if result and result.contents then
+-- 		if result.contents:sub(1, 3) == "```" then
+-- 			result.contents = "ohh"
+-- 		end
+-- 		if result.contents:sub(-3, -1) == "```" then
+-- 			result.contents = "ahh"
+-- 		end
+-- 	end
+--
+-- 	local contents = result.contents
+--
+-- 	if type(contents) ~= "table" or not islist(contents) then
+-- 		contents = { contents }
+-- 	end
+--
+-- 	local parts = {}
+--
+-- 	for _, content in ipairs(contents) do
+-- 		if type(content) == "string" then
+-- 			table.insert(parts, content)
+-- 		elseif content.language then
+-- 			table.insert(parts, ("```%s\n%s\n```"):format(content.language, content.value))
+-- 		elseif content.kind == "markdown" then
+-- 			table.insert(parts, content.value)
+-- 		elseif content.kind == "plaintext" then
+-- 			table.insert(parts, ("```\n%s\n```"):format(content.value))
+-- 		elseif islist(content) then
+-- 			vim.list_extend(parts, M.format_markdown(content))
+-- 		end
+-- 		-- ignore other types of content (invalid content)
+-- 	end
+--
+-- 	return vim.split(table.concat(parts, "\n"), "\n")
+--
+-- 	-- native_hover_handler(_, result, ctx)
+-- end
+
 function M.config()
 	local icons = require("icons")
+	local lspconfig = require("lspconfig")
 
 	require("mason-lspconfig").setup()
 
@@ -89,11 +109,33 @@ function M.config()
 				opts.settings = custom_opts
 			end
 
-			require("lspconfig")[server_name].setup(opts)
+			lspconfig[server_name].setup(opts)
 			vim.cmd([[ do User LspAttachBuffers ]])
 		end,
 	})
 
+	-- Configure Swift serve here since it is not installed via Mason
+	local sourcekit_opts = {
+		on_attach = custom_attach,
+		capabilities = vim.tbl_deep_extend("force", custom_capabilities, {
+			workspace = {
+				didChangeWatchedFiles = {
+					dynamicRegistration = true,
+				},
+			},
+		}),
+		flags = {
+			debounce_text_changes = 150,
+		},
+	}
+	local has_custom_opts, custom_opts = pcall(require, "plugins.configs.mason-lspconfig.servers.sourcekit")
+	if has_custom_opts then
+		-- Enhance the default opts with the server-specific ones
+		sourcekit_opts.settings = custom_opts
+	end
+	lspconfig.sourcekit.setup(sourcekit_opts)
+
+	-- Diagnostics
 	lspSymbol("Error", icons.diagnostics.error)
 	lspSymbol("Info", icons.diagnostics.info)
 	lspSymbol("Hint", icons.diagnostics.hint)
@@ -105,34 +147,65 @@ function M.config()
 		underline = {
 			severity = vim.diagnostic.severity.WARN,
 		},
-		float = {
-			focusable = false,
-			style = "minimal",
-			border = "solid",
-			source = "always",
-			header = "",
-			prefix = "",
-			format = function(d)
-				local code = d.code or (d.user_data and d.user_data.lsp.code)
-				if code then
-					return string.format("%s [%s]", d.message, code):gsub("1. ", "")
-				end
-				return d.message
-			end,
-		},
+		-- float = {
+		-- 	focusable = false,
+		-- 	style = "minimal",
+		-- 	border = "solid",
+		-- 	source = "always",
+		-- 	header = "",
+		-- 	prefix = "",
+		-- 	format = function(d)
+		-- 		local code = d.code or (d.user_data and d.user_data.lsp.code)
+		-- 		if code then
+		-- 			return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+		-- 		end
+		-- 		return d.message
+		-- 	end,
+		-- },
+		float = false,
 		update_in_insert = false,
 		severity_sort = true,
 	})
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "solid",
-		position = { row = 0, col = 0 },
-		silent = true,
-	})
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "solid",
-		position = { row = 0, col = 0 },
-	})
+	-- Hovers
+	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	-- 	border = "solid",
+	-- 	position = { row = 0, col = 0 },
+	-- 	silent = true,
+	-- })
+	-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	-- 	border = "none",
+	-- 	position = { row = 0, col = 0 },
+	-- })
+
+	-- Save after renaming
+	local rename_handler = vim.lsp.handlers["textDocument/rename"]
+	vim.lsp.handlers["textDocument/rename"] = function(err, result, ctx, config)
+		rename_handler(err, result, ctx, config)
+
+		if err or not result then
+			return
+		end
+
+		local function write_buf(buf)
+			if buf and vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+				vim.api.nvim_buf_call(buf, function()
+					vim.cmd("w")
+				end)
+			end
+		end
+		if result.changes then
+			for uri, _ in pairs(result.changes) do
+				local buf = vim.uri_to_bufnr(uri)
+				write_buf(buf)
+			end
+		elseif result.documentChanges then
+			for _, change in ipairs(result.documentChanges) do
+				local buf = vim.uri_to_bufnr(change.textDocument.uri)
+				write_buf(buf)
+			end
+		end
+	end
 
 	-- Start the servers and attach them to buffers, since we are lazy loading
 	vim.cmd("LspStart")

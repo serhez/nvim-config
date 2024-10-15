@@ -2,15 +2,13 @@ local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
+	enabled = false,
 }
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>ap", "<cmd>Copilot panel<cr>", desc = "Panel" },
-		{ "<leader>aa", "<cmd>Copilot attach<cr>", desc = "Attach" },
-		{ "<leader>ad", "<cmd>Copilot detach<cr>", desc = "Detach" },
-		{ "<leader>as", "<cmd>Copilot status<cr>", desc = "Status" },
-		{ "<leader>at", "<cmd>Copilot toggle<cr>", desc = "Toggle" },
+		{ "<leader>as", "<cmd>Copilot panel<cr>", desc = "Copilot suggestions" },
+		{ "<leader>ac", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot" },
 	})
 end
 
@@ -28,7 +26,7 @@ function M.config()
 			},
 			layout = {
 				position = "right",
-				ratio = 0.3,
+				ratio = 0.33,
 			},
 		},
 		suggestion = {

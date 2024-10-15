@@ -5,12 +5,11 @@ local M = {
 }
 
 function M.init()
-	vim.api.nvim_create_user_command("PickVenv", "lua require('swenv.api').pick_venv()", {})
-	vim.api.nvim_create_user_command("GetVenv", "lua require('swenv.api').get_current_venv()", {})
-
 	require("mappings").register({
 		"<leader>v",
-		"<cmd>PickVenv<cr>",
+		function()
+			require("swenv.api").pick_venv()
+		end,
 		desc = "Virtual environments",
 	})
 end

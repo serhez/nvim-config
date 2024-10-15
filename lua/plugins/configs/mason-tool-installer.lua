@@ -13,7 +13,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>iS", "<cmd>MasonToolsUpdateSync<cr>", desc = "Update servers" })
+	require("mappings").register({ "<leader>ii", "<cmd>MasonToolsInstall<cr>", desc = "Install missing tools" })
 end
 
 function M.config()
@@ -21,6 +21,10 @@ function M.config()
 		-- A list of all tools you want to ensure are installed upon
 		-- start; they should be the names Mason uses for each tool
 		ensure_installed = {
+			-- Text (general: grammar, syntax, etc.)
+			-- "harper_ls",  -- annoying
+			"grammarly-languageserver",
+
 			-- Assembly
 			"asm-lsp",
 
@@ -64,11 +68,16 @@ function M.config()
 			"stylua",
 
 			-- JavaScript/TypeScript
-			"typescript-language-server",
+			-- "typescript-language-server", -- replaced by vtsls
+			"vtsls",
 			"svelte-language-server",
 			"vue-language-server",
 			"eslint_d",
 			"prettierd",
+
+			-- Swift
+			-- "sourcekit-lsp", -- not available on mason, make sure to install manually
+			"swiftlint",
 
 			-- HTML
 			"html-lsp",
@@ -76,6 +85,7 @@ function M.config()
 			-- CSS
 			"css-lsp",
 			"cssmodules-language-server",
+			"css-variables-language-server",
 			"tailwindcss-language-server",
 
 			-- JSON

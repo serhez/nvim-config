@@ -157,7 +157,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "catppuccin-macchiato"
+	vim.g.colors_name = "tokyonight-storm"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },
@@ -199,5 +199,7 @@ function M.setup()
 
 	M.register_hls(groups)
 end
+
+M.setup()
 
 return M

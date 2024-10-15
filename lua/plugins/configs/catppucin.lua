@@ -38,9 +38,11 @@ function M.config()
 			treesitter = true,
 			treesitter_context = true,
 			which_key = true,
+			render_markdown = true,
 			window_picker = true,
 			diffview = true,
 			nvim_surround = true,
+			rainbow_delimiters = true,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
 			dropbar = {

@@ -1,16 +1,14 @@
-local mappings = require("mappings")
-
 local M = {
 	"famiu/bufdelete.nvim",
-	event = "BufReadPost",
+	lazy = false,
 }
 
 function M.init()
-	mappings.register({
+	require("mappings").register({
 		{ "<leader>q", "<cmd>Bwipeout<cr>", desc = "Quit buffer" }, -- Shortcut
 
 		{ "<leader>bc", group = "Close" },
-		{ "<leader>bca", "<cmd>%Bwipeout<cr>", desc = "All" },
+		-- { "<leader>bca", "<cmd>%Bwipeout<cr>", desc = "All" }, -- Handled by hbac
 		{ "<leader>bcc", "<cmd>Bwipeout<cr>", desc = "Current" },
 		{ "<leader>bco", '<cmd>%Bdelete | e # | normal `"<cr>', desc = "Others" },
 	})

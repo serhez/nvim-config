@@ -1,6 +1,7 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
+		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-fzf-native.nvim",
 		"Myzel394/jsonfly.nvim",
 	},
@@ -13,10 +14,10 @@ function M.init()
 		{ "<leader>s", "<cmd>Telescope grep_string theme=ivy search=<cr>", desc = "Search text" }, -- Shortcut
 
 		-- Buffers
-		{ "<leader>bl", "<cmd>Telescope buffers theme=ivy<cr>", desc = "List" }, -- Redundancy
+		-- { "<leader>bl", "<cmd>Telescope buffers theme=ivy<cr>", desc = "List" }, -- handled by hbac
 
 		-- Code
-		{ "<leader>cs", "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", desc = "Sybmols (buffer)" },
+		{ "<leader>cs", "<cmd>Telescope lsp_document_symbols theme=ivy<cr>", desc = "Symbols (buffer)" },
 		{ "<leader>cS", "<cmd>Telescope lsp_workspace_symbols theme=ivy<cr>", desc = "Symbols (workspace)" },
 
 		-- List

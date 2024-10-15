@@ -1,8 +1,9 @@
 local M = {
 	"stevearc/oil.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	cmd = "Oil",
-	cond = not vim.g.started_by_firenvim,
+	-- NOTE: The loading is now triggered by "oil-git-status.nvim"
+	-- cmd = "Oil",
+	-- cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()
@@ -60,11 +61,10 @@ function M.config()
 			},
 		},
 		win_options = {
-			number = false,
-			relativenumber = false,
-			signcolumn = "no",
-			foldcolumn = "0",
-			statuscolumn = " ",
+			-- number = true,
+			-- relativenumber = false,
+			signcolumn = "number",
+			-- foldcolumn = "auto",
 		},
 		cleanup_delay_ms = 0,
 		skip_confirm_for_simple_edits = true,

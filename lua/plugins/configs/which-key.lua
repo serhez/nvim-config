@@ -105,7 +105,6 @@ local basic_mappings = {
 
 	-- LSP
 	{ "K", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover" },
-	{ "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature help" },
 	-- Now handled by Trouble
 	-- { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>" },
 	-- { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>" },
@@ -120,6 +119,13 @@ local basic_mappings = {
 	},
 	{ "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev. diagnostic" },
 	{ "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
+
+	-- Inline hints
+	{
+		"<leader>Uh",
+		"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",
+		desc = "Toggle inline hints",
+	},
 }
 
 function M.config()

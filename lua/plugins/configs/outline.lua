@@ -19,7 +19,20 @@ function M.config()
 	require("outline").setup({
 		outline_window = {
 			winhl = "Normal:OutlineWindow",
+			wrap = false,
 			-- hide_cursor = true, -- BUG: not working
+		},
+		symbol_folding = {
+			-- Depth past which nodes will be folded by default. Set to false to unfold all on open.
+			autofold_depth = false,
+			-- When to auto unfold nodes
+			auto_unfold = {
+				-- Auto unfold currently hovered symbol
+				hovered = true,
+				-- Auto fold when the root level only has this many nodes.
+				-- Set true for 1 node, false for 0.
+				only = true,
+			},
 		},
 		preview_window = {
 			border = "solid",
@@ -32,6 +45,12 @@ function M.config()
 				bottom = icons.bar.vertical_center_thin,
 				middle = icons.bar.vertical_center_thin,
 				vertical = icons.bar.vertical_center_thin,
+			},
+		},
+		providers = {
+			markdown = {
+				-- List of supported ft's to use the markdown provider
+				filetypes = { "markdown", "quarto", "rmd" },
 			},
 		},
 		keymaps = {

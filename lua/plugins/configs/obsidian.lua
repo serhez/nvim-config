@@ -2,7 +2,8 @@ local M = {
 	"epwalsh/obsidian.nvim",
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
-		"hrsh7th/nvim-cmp",
+		-- "hrsh7th/nvim-cmp",
+		"iguanacucumber/magazine.nvim",
 	},
 	cmd = {
 		"ObsidianToday",
@@ -22,15 +23,15 @@ local M = {
 function M.init()
 	require("mappings").register({
 		{
-			"gf",
+			"gl",
 			function()
 				if require("obsidian").util.cursor_on_markdown_link() then
 					return "<cmd>ObsidianFollowLink<CR>"
 				else
-					return "gf"
+					return "gl"
 				end
 			end,
-			desc = "[Obsidian] Follow link",
+			desc = "Follow link",
 		},
 
 		{ "<leader>O", group = "Obsidian" },

@@ -12,9 +12,67 @@ function M.init()
 	end)
 end
 
+-- https://github.com/Bekaboo/dropbar.nvim/issues/2#issuecomment-2353962505
+local function bar_background_color_source()
+	local function set_highlight_take_foreground(opts, source_hl, target_hl)
+		if target_hl == nil then
+			target_hl = source_hl
+		end
+		local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(source_hl)), "fg#")
+		if fg == "" then
+			vim.api.nvim_set_hl(0, target_hl, opts)
+		else
+			vim.api.nvim_set_hl(0, target_hl, vim.tbl_extend("force", opts, { fg = fg }))
+		end
+	end
+
+	local function color_symbols(symbols, opts)
+		for _, symbol in ipairs(symbols) do
+			local source_hl = symbol.icon_hl
+			symbol.icon_hl = "DropbarSymbol" .. symbol.icon_hl
+			symbol.name_hl = symbol.icon_hl
+			set_highlight_take_foreground(opts, source_hl, symbol.icon_hl)
+		end
+		return symbols
+	end
+
+	return {
+		get_symbols = function(buf, win, cursor)
+			-- Use the background of the WinBar highlight group
+			local opts = { bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("WinBar")), "bg#") }
+			set_highlight_take_foreground(opts, "DropBarIconUISeparator")
+			set_highlight_take_foreground(opts, "DropBarIconUIPickPivot")
+
+			local sources = require("dropbar.sources")
+			if vim.bo[buf].ft == "markdown" then
+				return color_symbols(sources.markdown.get_symbols(buf, win, cursor), opts)
+			end
+			if vim.bo[buf].ft == "terminal" then
+				return color_symbols(sources.terminal.get_symbols(buf, win, cursor), opts)
+			end
+
+			for _, source in ipairs({ sources.lsp, sources.treesitter }) do
+				local symbols = source.get_symbols(buf, win, cursor)
+				if not vim.tbl_isempty(symbols) then
+					return color_symbols(symbols, opts)
+				end
+			end
+			return {}
+		end,
+	}
+end
+
 function M.config()
+	local hls = require("highlights")
+	local c = hls.colors()
+	hls.register_hls({
+		DropBarKindFolder = { fg = c.statusline_fg },
+		DropBarKindFile = { fg = c.statusline_fg },
+		WinBar = { bg = c.red },
+	})
+
 	local icons = require("icons")
-	local disabled_fts = { oil = "", undotree = "", diff = "" }
+	local disabled_fts = { oil = "", undotree = "", diff = "", ["no-neck-pain"] = "" }
 
 	require("dropbar").setup({
 		general = {
@@ -22,8 +80,10 @@ function M.config()
 			enable = function(buf, win, _)
 				return not vim.api.nvim_win_get_config(win).zindex
 					and vim.fn.win_gettype(win) == ""
-					and (vim.bo[buf].bt == "" or vim.bo[buf].bt == "terminal")
+					and (vim.bo[buf].bt == "" or vim.bo[buf].bt == "terminal" or vim.bo[buf].bt == "nofile")
 					and vim.api.nvim_buf_get_name(buf) ~= ""
+					and vim.api.nvim_buf_get_name(buf) ~= "/Users/ser/.local/share/nvim/no-neck-pain_scratchpad_right.qmd"
+					and vim.api.nvim_buf_get_name(buf) ~= "/Users/ser/.local/share/nvim/no-neck-pain_scratchpad_left.qmd"
 					and not vim.wo[win].diff
 					and (
 						disabled_fts[vim.bo[buf].ft] == nil
@@ -87,6 +147,9 @@ function M.config()
 				pivots = "asdfhjklbcegimnopqrtuvwxyz1234567890",
 			},
 			truncate = true,
+			-- sources = function(_, _)
+			-- 	return { bar_background_color_source() }
+			-- end,
 			sources = function(buf, _)
 				local sources = require("dropbar.sources")
 				local utils = require("dropbar.utils")
@@ -216,13 +279,6 @@ function M.config()
 				style = "minimal",
 			},
 		},
-	})
-
-	local hls = require("highlights")
-	local c = hls.colors()
-	hls.register_hls({
-		DropBarKindFolder = { fg = c.statusline_fg },
-		DropBarKindFile = { fg = c.statusline_fg },
 	})
 
 	-- Required updates to detect active vs. inactive windows

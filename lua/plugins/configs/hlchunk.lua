@@ -95,7 +95,7 @@ function M.config()
 			plugin = true,
 			lazy = true,
 			TelescopePrompt = true,
-			[""] = true, -- because TelescopePrompt will set a empty ft, so add this.
+			[""] = true, -- because TelescopePrompt will set an empty ft, so add this.
 			alpha = true,
 			toggleterm = true,
 			sagafinder = true,
@@ -104,6 +104,7 @@ function M.config()
 			fugitiveblame = true,
 			Trouble = true,
 			Outline = true,
+			OutlineHelp = true,
 			starter = true,
 			NeogitPopup = true,
 			NeogitStatus = true,
@@ -116,6 +117,8 @@ function M.config()
 			oil = true,
 			oil_preview = true,
 			NeogitConsole = true,
+			text = true,
+			AvanteInput = true,
 		},
 	})
 end

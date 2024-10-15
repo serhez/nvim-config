@@ -107,6 +107,11 @@ function M.config()
 		},
 	})
 
+	-- Register md-related filetypes with the md parser
+	vim.treesitter.language.register("markdown", "pandoc")
+	vim.treesitter.language.register("markdown", "rmd")
+	vim.treesitter.language.register("markdown", "quarto")
+
 	-- Center the screen after jumping to next/previous function
 	vim.keymap.set(
 		"n",

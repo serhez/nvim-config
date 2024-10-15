@@ -30,6 +30,17 @@ local function venv_provider()
 	return icons.tool.venv .. " " .. M.venv
 end
 
+local function supermaven_provider()
+	local present, _ = pcall(require, "supermaven-nvim")
+	if not present then
+		return icons.copilot.unknown
+	end
+	if require("supermaven-nvim.api").is_running() then
+		return icons.copilot.enabled
+	end
+	return icons.copilot.sleep
+end
+
 local function kernel_provider()
 	if package.loaded.molten then
 		local present, molten_status = pcall(require, "molten.status")
@@ -48,12 +59,16 @@ local function kernel_provider()
 end
 
 local function pinned_provider()
-	return icons.hook
+	return icons.pin_location
 end
 
 local function pinned_condition()
-	local present, grapple = pcall(require, "grapple")
-	if not present then
+	local hbac_present, hbac = pcall(require, "hbac.state")
+	if hbac_present then
+		return hbac.is_pinned(vim.api.nvim_get_current_buf())
+	end
+	local grapple_present, grapple = pcall(require, "grapple")
+	if not grapple_present then
 		return false
 	end
 	return grapple.exists()
@@ -100,7 +115,6 @@ function M.config()
 		custom_fname.super.init(self, options)
 
 		-- Register highlight groups
-
 		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
 			link = "StatusLine",
 		})
@@ -115,6 +129,30 @@ function M.config()
 
 	function custom_fname:update_status()
 		local data = custom_fname.super.update_status(self)
+		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
+		return data
+	end
+
+	local custom_ftype = require("lualine.components.filetype"):extend()
+
+	function custom_ftype:init(options)
+		custom_ftype.super.init(self, options)
+
+		-- Register highlight groups
+		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
+			link = "StatusLine",
+		})
+		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
+			link = "DiagnosticVirtualTextWarn",
+		})
+
+		if self.options.color == nil then
+			self.options.color = ""
+		end
+	end
+
+	function custom_ftype:update_status()
+		local data = custom_ftype.super.update_status(self)
 		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
 		return data
 	end
@@ -212,7 +250,13 @@ function M.config()
 					end,
 				},
 				{
-					"filetype",
+					pinned_provider,
+					cond = pinned_condition,
+					padding = { left = 1, right = 1 },
+					color = { fg = colors.red },
+				},
+				{
+					custom_ftype,
 					icon_only = true,
 					separator = "",
 					padding = { left = 0, right = 0 },
@@ -227,7 +271,7 @@ function M.config()
 					-- 3: Absolute path, with tilde as the home directory
 					-- 4: Filename and parent dir, with tilde as the home directory
 					path = 0,
-					padding = { left = 1, right = 1 },
+					padding = { left = 0, right = 1 },
 					shorting_target = 100,
 					color = { gui = "bold" },
 					symbols = {
@@ -237,15 +281,15 @@ function M.config()
 						newfile = "[New]",
 					},
 				},
-				{
-					pinned_provider,
-					cond = pinned_condition,
-					padding = { left = 1, right = 0 },
-					color = { fg = colors.yellow },
-				},
 			},
 			lualine_x = {},
 			lualine_y = {
+				{
+					function()
+						return require("nvim-lightbulb").get_status_text()
+					end,
+					color = "DiagnosticVirtualTextHint",
+				},
 				{
 					"diagnostics",
 					sources = { "nvim_lsp" },
@@ -276,7 +320,7 @@ function M.config()
 				},
 				{
 					"copilot",
-					show_colors = false,
+					show_colors = true,
 					show_loading = true,
 					symbols = {
 						status = {
@@ -289,6 +333,18 @@ function M.config()
 							},
 						},
 					},
+					cond = function()
+						local present, _ = pcall(require, "copilot")
+						return present
+					end,
+				},
+				{
+					supermaven_provider,
+					cond = function()
+						local present, _ = pcall(require, "supermaven-nvim")
+						return present
+					end,
+					padding = { left = 1, right = 1 },
 				},
 				{
 					"filetype",

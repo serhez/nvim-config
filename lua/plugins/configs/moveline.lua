@@ -2,6 +2,7 @@ local M = {
 	"willothy/moveline.nvim",
 	build = "make",
 	event = "CursorMoved",
+	enabled = false,
 }
 
 function M.init()

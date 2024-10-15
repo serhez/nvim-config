@@ -1,6 +1,6 @@
 local M = {
 	"ghillb/cybu.nvim",
-	branch = "main", -- timely updates
+	branch = "main",
 	dependencies = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim" },
 	cmd = {
 		"CybuNext",
@@ -9,8 +9,12 @@ local M = {
 		"CybuLastusedPrev",
 	},
 	cond = not vim.g.started_by_firenvim,
-	enabled = false, -- FIX: make it work with grapple
 }
+
+function M.init()
+	vim.keymap.set("n", "<S-Tab>", "<cmd>CybuLastusedPrev<cr>")
+	vim.keymap.set("n", "<Tab>", "<cmd>CybuLastusedNext<cr>")
+end
 
 function M.config()
 	local icons = require("icons")
@@ -30,7 +34,7 @@ function M.config()
 			anchor = "topright", -- topleft, topcenter, topright, centerleft, center, centerright, bottomleft, bottomcenter, bottomright
 			vertical_offset = 0, -- vertical offset from anchor in lines
 			horizontal_offset = 0, -- vertical offset from anchor in columns
-			max_win_height = 5, -- height of cybu window in lines
+			max_win_height = 7, -- height of cybu window in lines
 			max_win_width = 0.3, -- integer for absolute in columns
 			-- float for relative to win/editor width
 		},
@@ -70,7 +74,7 @@ function M.config()
 			},
 			show_on_autocmd = false, -- event to trigger cybu (eg. "BufEnter")
 		},
-		display_time = 1500, -- time the cybu window is displayed
+		display_time = 2000, -- time the cybu window is displayed
 		exclude = { -- filetypes, cybu will not be active
 			"neo-tree",
 			"fugitive",

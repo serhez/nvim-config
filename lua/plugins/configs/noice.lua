@@ -4,7 +4,7 @@ local M = {
 		"MunifTanjim/nui.nvim",
 		"Bekaboo/dropbar.nvim",
 	},
-	commit = "69c6ad5c1f1c0777125d0275f9871d8609cb0521", -- BUG: quitting takes forever on the next commit
+	-- commit = "69c6ad5c1f1c0777125d0275f9871d8609cb0521", -- BUG: quitting takes forever on the next commit
 	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
@@ -34,23 +34,14 @@ function M.config()
 			},
 		},
 
-		-- override = {
-		-- 	-- override the default lsp markdown formatter with Noice
-		-- 	["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-		-- 	-- override the lsp markdown formatter with Noice
-		-- 	["vim.lsp.util.stylize_markdown"] = true,
-		-- 	-- override cmp documentation with Noice (needs the other options to work)
-		-- 	["cmp.entry.get_documentation"] = true,
-		-- },
-
 		views = {
-			-- hover = {
-			-- 	border = {
-			-- 		style = "none",
-			-- 		padding = { 1, 2 },
-			-- 	},
-			-- 	position = { row = 0, col = 0 },
-			-- },
+			hover = {
+				border = {
+					style = "none",
+					padding = { 1, 2 },
+				},
+				position = { row = 0, col = 0 },
+			},
 			mini = {
 				timeout = 4000, -- Duration between show() and hide(), in milliseconds
 				win_options = {
@@ -75,20 +66,38 @@ function M.config()
 		},
 
 		lsp = {
-			-- override = {
-			-- 	-- override the default lsp markdown formatter with Noice
-			-- 	["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			-- 	-- override the lsp markdown formatter with Noice
-			-- 	["vim.lsp.util.stylize_markdown"] = true,
-			-- 	-- override cmp documentation with Noice (needs the other options to work)
-			-- 	["cmp.entry.get_documentation"] = true,
-			-- },
+			override = {
+				-- override the default lsp markdown formatter with Noice
+				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+				-- override the lsp markdown formatter with Noice
+				["vim.lsp.util.stylize_markdown"] = true,
+				-- override cmp documentation with Noice (needs the other options to work)
+				["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+			},
 			message = {
 				enabled = true,
 				view = "mini",
 			},
 			hover = {
-				enabled = false,
+				enabled = true,
+				silent = true,
+			},
+			signature = {
+				enabled = true,
+			},
+			-- defaults for hover and signature help
+			documentation = {
+				view = "hover",
+				opts = {
+					lang = "markdown",
+					replace = true,
+					render = "plain",
+					format = { "{message}" },
+					win_options = {
+						concealcursor = "n",
+						conceallevel = 3,
+					},
+				},
 			},
 		},
 
@@ -119,6 +128,9 @@ function M.config()
 			},
 		},
 	})
+
+	-- So that we can use markdown rendering plugins on the hover and signature windows
+	vim.treesitter.language.register("markdown", "noice")
 
 	local c = hls.colors()
 	local common_hls = hls.common_hls()

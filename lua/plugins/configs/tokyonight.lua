@@ -27,6 +27,9 @@ function M.config()
 			"dapui_console",
 			"dap-repl",
 		},
+		plugins = {
+			auto = true,
+		},
 		dim_inactive = false,
 	})
 	tokyonight.load()

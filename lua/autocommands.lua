@@ -24,7 +24,7 @@ function M.setup()
 				"*",
 				"setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
 			},
-			{ "VimLeavePre", "*", "set title set titleold=" },
+			-- { "VimLeavePre", "*", "set title set titleold=" },
 			-- { "VimLeave", "*", "set guicursor=a:ver100-blinkoff700-blinkon700" }, -- Restore alacritty cursor on exit
 			{ "FileType", "qf", "set nobuflisted" },
 		},
@@ -43,13 +43,13 @@ function M.setup()
 			},
 		},
 
-		_lsp = {
-			{
-				"CursorHold",
-				"*",
-				"lua vim.diagnostic.open_float()",
-			},
-		},
+		-- _lsp = {
+		-- 	{
+		-- 		"CursorHold",
+		-- 		"*",
+		-- 		"lua vim.diagnostic.open_float()",
+		-- 	},
+		-- },
 
 		_markdown = {
 			{ "FileType", "markdown", "setlocal wrap" },

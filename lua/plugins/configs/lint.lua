@@ -44,6 +44,9 @@ function M.config()
 		["typescript.tsx"] = { "eslint_d" },
 		svelte = { "eslint_d" },
 
+		-- Swift
+		swift = { "swiftlint" },
+
 		-- HTML
 		html = { "eslint_d" },
 

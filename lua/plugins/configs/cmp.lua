@@ -1,11 +1,13 @@
 local M = {
-	"hrsh7th/nvim-cmp",
+	-- NOTE: If coming back to the original nvim-cmp, also change `obsidian.nvim` dependency
+	-- "hrsh7th/nvim-cmp",
+	"iguanacucumber/magazine.nvim",
+	name = "nvim-cmp", -- Otherwise highlighting gets messed up
 	dependencies = {
+		"onsails/lspkind.nvim",
 		"hrsh7th/cmp-buffer",
 		"dmitmel/cmp-cmdline-history",
 		"hrsh7th/cmp-cmdline",
-		-- NOTE: We are currently using copilot as a virtual text source, not as a cmp source
-		-- "zbirenbaum/copilot-cmp",
 		"kdheepak/cmp-latex-symbols",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
@@ -73,16 +75,27 @@ function M.config()
 	}
 
 	local normal_formatting = {
-		format = function(_, vim_item)
-			vim_item.kind = string.format("%s %s", icons.lsp[vim_item.kind], vim_item.kind)
-			vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
-			return vim_item
+		-- format = function(_, vim_item)
+		-- 	vim_item.kind = string.format("%s %s", icons.lsp[vim_item.kind], vim_item.kind)
+		-- 	vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
+		-- 	return vim_item
+		-- end,
+
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
+			return kind
 		end,
 	}
 
 	local normal_window = {
 		-- https://github.com/hrsh7th/nvim-cmp/issues/1080
 		completion = {
+			col_offset = -3,
+			side_padding = 0,
 			border = icons.border.none,
 			scrollbar = false,
 		},

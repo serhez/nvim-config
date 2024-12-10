@@ -3,7 +3,7 @@ local M = {
 	dependencies = {
 		"quarto-dev/quarto-nvim",
 		"GCBallesteros/jupytext.nvim",
-		-- "3rd/image.nvim",
+		"3rd/image.nvim",
 		"willothy/wezterm.nvim",
 	},
 	build = ":UpdateRemotePlugins",
@@ -41,7 +41,7 @@ end
 
 function M.init()
 	-- vim.g.molten_image_provider = "wezterm"
-	vim.g.molten_image_provider = "none" -- FIX: right now, it's too annoying that the image split is created always
+	vim.g.molten_image_provider = "image.nvim"
 	vim.g.molten_output_win_max_height = 20
 	vim.g.molten_auto_open_output = false
 	vim.g.molten_output_crop_border = true

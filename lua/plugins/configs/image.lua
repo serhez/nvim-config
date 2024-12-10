@@ -1,7 +1,6 @@
 local M = {
 	"3rd/image.nvim",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.neovide,
-	enabled = false,
 }
 
 function M.init()
@@ -24,7 +23,7 @@ function M.config()
 				clear_in_insert_mode = false,
 				download_remote_images = true,
 				only_render_image_at_cursor = false,
-				filetypes = { "markdown", "quarto", "rmd" },
+				filetypes = { "markdown", "quarto", "rmd", "vimwiki" },
 			},
 		},
 	})

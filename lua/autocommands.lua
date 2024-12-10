@@ -43,13 +43,14 @@ function M.setup()
 			},
 		},
 
-		-- _lsp = {
-		-- 	{
-		-- 		"CursorHold",
-		-- 		"*",
-		-- 		"lua vim.diagnostic.open_float()",
-		-- 	},
-		-- },
+		-- NOTE: Remove this if you do not want vim.diagnostic to automatically open floats
+		_lsp = {
+			{
+				"CursorHold",
+				"*",
+				"lua vim.diagnostic.open_float()",
+			},
+		},
 
 		_markdown = {
 			{ "FileType", "markdown", "setlocal wrap" },

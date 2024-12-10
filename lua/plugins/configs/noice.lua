@@ -4,7 +4,7 @@ local M = {
 		"MunifTanjim/nui.nvim",
 		"Bekaboo/dropbar.nvim",
 	},
-	-- commit = "69c6ad5c1f1c0777125d0275f9871d8609cb0521", -- BUG: quitting takes forever on the next commit
+	-- commit = "69c6ad5c1f1c0777125d0275f9871d8609cb0521",
 	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }

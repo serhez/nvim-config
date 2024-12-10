@@ -75,7 +75,39 @@ function M.config()
 	local disabled_fts = { oil = "", undotree = "", diff = "", ["no-neck-pain"] = "" }
 
 	require("dropbar").setup({
-		general = {
+		sources = {
+			path = {
+				modified = function(sym)
+					return sym:merge({
+						name_hl = "DiagnosticSignWarn",
+					})
+				end,
+				relative_to = function(_, win)
+					if vim.api.nvim_get_current_win() ~= win then
+						-- Workaround for Vim:E5002: Cannot find window number
+						local ok, fullpath = pcall(vim.fn.getcwd, win)
+						return ok and fullpath or vim.fn.getcwd()
+					end
+
+					local fullpath = vim.api.nvim_buf_get_name(0)
+					local filename = vim.fn.fnamemodify(fullpath, ":t")
+					return fullpath:sub(0, #fullpath - #filename)
+				end,
+			},
+		},
+		icons = {
+			ui = {
+				bar = {
+					separator = " " .. icons.arrow.right_tall .. " ",
+					extends = "…",
+				},
+				menu = {
+					separator = " ",
+					indicator = icons.arrow.right_short,
+				},
+			},
+		},
+		bar = {
 			---@type boolean|fun(buf: integer, win: integer, info: table?): boolean
 			enable = function(buf, win, _)
 				return not vim.api.nvim_win_get_config(win).zindex
@@ -102,43 +134,6 @@ function M.config()
 				-- showing the full dropbar in the current window.
 				win = { "CursorMoved", "CursorMovedI", "WinResized" },
 			},
-		},
-		sources = {
-			path = {
-				modified = function(sym)
-					return sym:merge({
-						name_hl = "DiagnosticSignWarn",
-					})
-				end,
-				relative_to = function(_, win)
-					if vim.api.nvim_get_current_win() ~= win then
-						-- Workaround for Vim:E5002: Cannot find window number
-						local ok, fullpath = pcall(vim.fn.getcwd, win)
-						return ok and fullpath or vim.fn.getcwd()
-					end
-
-					local fullpath = vim.api.nvim_buf_get_name(0)
-					local filename = vim.fn.fnamemodify(fullpath, ":t")
-					return fullpath:sub(0, #fullpath - #filename)
-				end,
-			},
-		},
-		icons = {
-			kinds = {
-				use_devicons = true,
-			},
-			ui = {
-				bar = {
-					separator = " " .. icons.arrow.right_tall .. " ",
-					extends = "…",
-				},
-				menu = {
-					separator = " ",
-					indicator = icons.arrow.right_short,
-				},
-			},
-		},
-		bar = {
 			padding = {
 				left = 1,
 				right = 1,

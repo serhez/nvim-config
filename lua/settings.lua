@@ -72,8 +72,9 @@ function M.setup()
 	opt.pumblend = 10 -- Popups transparency
 	opt.pumheight = 10 -- Maximum number of entries in a popup
 	opt.winblend = 10 -- Floating windows transparency
-	opt.sessionoptions =
-		{ "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
+	-- opt.sessionoptions =
+	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
+	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 end
 
 return M

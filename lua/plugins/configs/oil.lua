@@ -97,6 +97,22 @@ function M.config()
 					oil.select({ close = true })
 				end,
 			},
+			["<S-TAB>"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Go to parent directory",
+				callback = function()
+					oil.open()
+				end,
+			},
+			["<TAB>"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Select the entry under the cursor",
+				callback = function()
+					oil.select({ close = true })
+				end,
+			},
 			["<CR>"] = {
 				mode = "n",
 				buffer = true,

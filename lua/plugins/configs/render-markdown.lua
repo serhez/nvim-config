@@ -144,6 +144,17 @@ function M.config()
 			buftype = {
 				-- Particularly for LSP hover
 				nofile = {
+					anti_conceal = {
+						enabled = false,
+					},
+					win_options = {
+						conceallevel = {
+							rendered = 3,
+						},
+						concealcursor = {
+							rendered = "n",
+						},
+					},
 					code = {
 						enabled = true,
 						sign = false,

@@ -1,6 +1,7 @@
 local M = {
 	"supermaven-inc/supermaven-nvim",
 	event = "InsertEnter",
+	enabled = false,
 }
 
 function M.config()

@@ -13,53 +13,63 @@ function M.config()
 	})
 
 	require("lint").linters_by_ft = {
-		-- Markdown
 		-- markdown = {
 		-- "vale", --[[ "markdownlint" ]]
 		-- },
 
-		-- Shell
 		sh = { "shellcheck" },
 
-		-- Python
-		-- python = {
-		--  "pylint",
-		-- 	"pydocstyle",
-		-- 	"mypy",
-		-- },
+		python = {
+			--  "pylint",
+			-- 	"pydocstyle",
+			-- 	"mypy",
+			"snyk_iac",
+			"trivy",
+		},
 
-		-- C/C++
-		c = { "cppcheck" },
-		cpp = { "cppcheck" },
+		c = { "cppcheck", "trivy" },
+		cpp = { "cppcheck", "trivy" },
 
-		-- Golang
-		go = { "golangcilint" },
+		cs = { "trivy" },
 
-		-- Javascript/Typescript
-		javascript = { "eslint_d" },
-		typescript = { "eslint_d" },
+		docker = { "snyk_iac", "trivy" },
+
+		helm = { "snyk_iac", "trivy" },
+
+		ruby = { "snyk_iac", "trivy" },
+
+		rust = { "snyk_iac", "trivy" },
+
+		terraform = { "snyk_iac", "trivy" },
+
+		dart = { "trivy" },
+
+		elixir = { "trivy" },
+
+		java = { "trivy" },
+
+		php = { "trivy" },
+
+		go = { "golangcilint", "snyk_iac", "trivy" },
+
+		javascript = { "eslint_d", "snyk_iac", "trivy" },
+		typescript = { "eslint_d", "snyk_iac", "trivy" },
 		javascriptreact = { "eslint_d" },
 		["javascript.jsx"] = { "eslint_d" },
 		typescriptreact = { "eslint_d" },
 		["typescript.tsx"] = { "eslint_d" },
 		svelte = { "eslint_d" },
 
-		-- Swift
 		swift = { "swiftlint" },
 
-		-- HTML
 		html = { "eslint_d" },
 
-		-- CSS
 		css = { "eslint_d" },
 
-		-- JSON
 		json = { "jsonlint" },
 
-		-- YAML
 		-- yaml = { "yamllint" }, -- too much noise
 
-		-- SQL
 		sql = { "sqlfluff" },
 	}
 end

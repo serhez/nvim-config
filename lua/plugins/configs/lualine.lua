@@ -288,7 +288,7 @@ function M.config()
 					function()
 						return require("nvim-lightbulb").get_status_text()
 					end,
-					color = "DiagnosticVirtualTextHint",
+					color = "DiagnosticVirtualTextInfo",
 				},
 				{
 					"diagnostics",

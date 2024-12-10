@@ -68,7 +68,10 @@ function M.config()
 		auto_suggestions_provider = "copilot",
 		-- provider = "claude",
 		-- auto_suggestions_provider = "claude",
-
+		copilot = {
+			-- model = "gpt-4o",
+			model = "claude-3.5-sonnet",
+		},
 		behaviour = {
 			auto_set_keymaps = false,
 		},

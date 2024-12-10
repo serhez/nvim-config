@@ -9,6 +9,7 @@ local M = {
 		"CybuLastusedPrev",
 	},
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.init()

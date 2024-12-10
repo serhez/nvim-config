@@ -25,6 +25,10 @@ function M.config()
 			-- "harper_ls",  -- annoying
 			"grammarly-languageserver",
 
+			-- Security
+			"snyk",
+			"trivy",
+
 			-- Assembly
 			"asm-lsp",
 
@@ -40,7 +44,6 @@ function M.config()
 			"pylint",
 			"pydocstyle",
 			"ruff",
-			"ruff-lsp",
 			"debugpy",
 
 			-- C/C++
@@ -78,6 +81,13 @@ function M.config()
 			-- Swift
 			-- "sourcekit-lsp", -- not available on mason, make sure to install manually
 			"swiftlint",
+
+			-- Dart/Flutter
+			"dart-debug-adapter",
+			"dcm",
+			"dart-lsp",
+			"dartfmt",
+			"flutter",
 
 			-- HTML
 			"html-lsp",

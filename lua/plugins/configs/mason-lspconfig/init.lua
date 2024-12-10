@@ -114,7 +114,28 @@ function M.config()
 		end,
 	})
 
-	-- Configure Swift serve here since it is not installed via Mason
+	-- Configure Dart/Flutter server here since it is not installed via Mason
+	lspconfig.dartls.setup({
+		cmd = { "dart", "language-server", "--protocol=lsp" },
+		filetypes = { "dart" },
+		init_options = {
+			closingLabels = true,
+			flutterOutline = true,
+			onlyAnalyzeProjectsWithOpenFiles = true,
+			outline = true,
+			suggestFromUnimportedLibraries = true,
+		},
+		-- root_dir = root_pattern("pubspec.yaml"),
+		settings = {
+			dart = {
+				completeFunctionCalls = true,
+				showTodos = true,
+			},
+		},
+		on_attach = custom_attach,
+	})
+
+	-- Configure Swift server here since it is not installed via Mason
 	local sourcekit_opts = {
 		on_attach = custom_attach,
 		capabilities = vim.tbl_deep_extend("force", custom_capabilities, {
@@ -147,22 +168,28 @@ function M.config()
 		underline = {
 			severity = vim.diagnostic.severity.WARN,
 		},
-		-- float = {
-		-- 	focusable = false,
-		-- 	style = "minimal",
-		-- 	border = "solid",
-		-- 	source = "always",
-		-- 	header = "",
-		-- 	prefix = "",
-		-- 	format = function(d)
-		-- 		local code = d.code or (d.user_data and d.user_data.lsp.code)
-		-- 		if code then
-		-- 			return string.format("%s [%s]", d.message, code):gsub("1. ", "")
-		-- 		end
-		-- 		return d.message
-		-- 	end,
-		-- },
-		float = false,
+		float = {
+			focusable = false,
+			border = "none",
+			source = false,
+			header = "",
+			prefix = "",
+			suffix = "",
+			format = function(d)
+				local str = "  "
+				if d.severity == vim.diagnostic.severity.ERROR then
+					str = str .. icons.diagnostics.error .. " "
+				elseif d.severity == vim.diagnostic.severity.WARN then
+					str = str .. icons.diagnostics.warning .. " "
+				elseif d.severity == vim.diagnostic.severity.INFO then
+					str = str .. icons.diagnostics.info .. " "
+				elseif d.severity == vim.diagnostic.severity.HINT then
+					str = str .. icons.diagnostics.hint .. " "
+				end
+				return str .. d.message .. "  "
+			end,
+		},
+		-- float = false,
 		update_in_insert = false,
 		severity_sort = true,
 	})

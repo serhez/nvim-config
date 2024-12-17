@@ -83,7 +83,7 @@ function M.config()
 				silent = true,
 			},
 			signature = {
-				enabled = true,
+				enabled = false,
 			},
 			-- defaults for hover and signature help
 			documentation = {

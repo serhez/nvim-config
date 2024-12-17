@@ -210,7 +210,7 @@ function M.config()
 		RenderMarkdownH6 = { bold = true },
 		RenderMarkdownH6Bg = { bold = true },
 		-- RenderMarkdownCode = { bg = colors.statusline_bg },
-		RenderMarkdownCodeNoFile = { bg = colors.statusline_bg },
+		-- RenderMarkdownCodeNoFile = { bg = colors.statusline_bg },
 	})
 end
 

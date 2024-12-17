@@ -91,6 +91,12 @@ function M.config()
 			"additionalTextEdits",
 		},
 	}
+	-- passing config.capabilities to blink.cmp merges with the capabilities in your
+	-- `opts[server].capabilities, if you've defined it
+	local present, blink = pcall(require, "blink.cmp")
+	if present then
+		custom_capabilities = blink.get_lsp_capabilities(custom_capabilities)
+	end
 
 	require("mason-lspconfig").setup_handlers({
 		function(server_name)

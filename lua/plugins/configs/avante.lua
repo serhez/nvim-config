@@ -100,6 +100,14 @@ function M.config()
 				hint = "<leader>ah",
 				default = "<nop>",
 			},
+			sidebar = {
+				apply_all = "A",
+				apply_cursor = "a",
+				switch_windows = "<Tab>",
+				reverse_switch_windows = "<S-Tab>",
+				remove_file = "d",
+				add_file = "@",
+			},
 		},
 		hints = { enabled = true },
 		windows = {

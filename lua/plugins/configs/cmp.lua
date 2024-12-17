@@ -16,7 +16,7 @@ local M = {
 		"jc-doyle/cmp-pandoc-references",
 	},
 	event = "InsertEnter",
-	-- enabled = false,
+	enabled = false,
 }
 
 function M.config()

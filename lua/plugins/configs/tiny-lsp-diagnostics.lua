@@ -1,7 +1,7 @@
 local M = {
 	"rachartier/tiny-inline-diagnostic.nvim",
 	event = "LspAttach", -- Or VeryLazy
-	enabled = false,
+	enabled = false, -- promising idea, but works very unreliably
 }
 
 function M.config()

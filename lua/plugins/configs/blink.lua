@@ -56,7 +56,12 @@ function M.config()
 		},
 
 		-- experimental signature help support
-		signature = { enabled = true },
+		signature = {
+			enabled = true,
+			window = {
+				border = "single",
+			},
+		},
 
 		completion = {
 			ghost_text = { enabled = false },
@@ -72,6 +77,13 @@ function M.config()
 				auto_show_delay_ms = 50,
 			},
 		},
+	})
+
+	local hls = require("highlights")
+	local common_hls = hls.common_hls()
+	hls.register_hls({
+		BlinkCmpSignatureHelp = { bg = common_hls.statusline_bg },
+		BlinkCmpSignatureHelpBorder = common_hls.border_statusline,
 	})
 end
 

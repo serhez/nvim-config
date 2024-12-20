@@ -215,7 +215,7 @@ function M.config()
 					"branch",
 					icon = icons.git.branch,
 					on_click = function(_, _, _)
-						vim.cmd("Telescope git_branches theme=ivy")
+						require("fzf-lua").git_branches()
 					end,
 				},
 				{

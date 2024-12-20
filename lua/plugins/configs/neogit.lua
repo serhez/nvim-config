@@ -2,9 +2,8 @@ local M = {
 	"NeogitOrg/neogit",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
-		"nvim-telescope/telescope.nvim", -- optional
 		"sindrets/diffview.nvim", -- optional
-		-- "ibhagwan/fzf-lua", -- optional
+		"ibhagwan/fzf-lua", -- optional
 	},
 	cmd = "Neogit",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
@@ -29,6 +28,9 @@ function M.config()
 		},
 		commit_editor = {
 			kind = "split",
+		},
+		integrations = {
+			fzf_lua = true,
 		},
 	})
 end

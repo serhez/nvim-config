@@ -6,7 +6,6 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>bl", "<cmd>Telescope hbac buffers theme=ivy<cr>", desc = "List" },
 		{
 			"<leader>bp",
 			function()

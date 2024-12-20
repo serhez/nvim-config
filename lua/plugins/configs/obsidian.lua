@@ -1,9 +1,7 @@
 local M = {
 	"epwalsh/obsidian.nvim",
 	dependencies = {
-		"nvim-telescope/telescope.nvim",
-		-- "hrsh7th/nvim-cmp",
-		"iguanacucumber/magazine.nvim",
+		"ibhagwan/fzf-lua",
 	},
 	cmd = {
 		"ObsidianToday",
@@ -54,7 +52,7 @@ function M.config()
 			folder = "Agenda",
 		},
 		completion = {
-			nvim_cmp = true,
+			nvim_cmp = false, -- using blink.cmp
 		},
 		note_frontmatter_func = function(note)
 			local out = { id = note.id, aliases = note.aliases, tags = note.tags }
@@ -72,7 +70,7 @@ function M.config()
 		-- telescope.nvim, fzf-lua, fzf.vim, or mini.pick (in that order), and use the
 		-- first one they find. You can set this option to tell obsidian.nvim to always use this
 		-- finder.
-		finder = "telescope.nvim",
+		finder = "fzf-lua",
 
 		-- Handled by `markdown.nvim`
 		ui = { enable = false },

@@ -23,7 +23,7 @@ function M.config()
 	-- Plugins integration
 	vim.g.doom_one_plugin_neorg = false
 	vim.g.doom_one_plugin_barbar = false
-	vim.g.doom_one_plugin_telescope = true
+	vim.g.doom_one_plugin_telescope = false
 	vim.g.doom_one_plugin_neogit = false
 	vim.g.doom_one_plugin_nvim_tree = false
 	vim.g.doom_one_plugin_dashboard = false

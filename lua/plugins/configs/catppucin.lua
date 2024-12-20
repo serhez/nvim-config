@@ -20,7 +20,7 @@ function M.config()
 		end,
 
 		integrations = {
-			cmp = true,
+			blink_cmp = true,
 			dap = true,
 			dap_ui = true,
 			fidget = true,
@@ -34,7 +34,7 @@ function M.config()
 			neotest = true,
 			noice = true,
 			semantic_tokens = true,
-			telescope = true,
+			fzf = true,
 			treesitter = true,
 			treesitter_context = true,
 			which_key = true,

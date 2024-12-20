@@ -37,8 +37,9 @@ function M.config()
 		views = {
 			hover = {
 				border = {
-					style = "none",
-					padding = { 1, 2 },
+					-- `"double"`, `"none"`, `"rounded"`, `"shadow"`, `"single"` or `"solid"`
+					style = "single",
+					padding = { 0, 0 },
 				},
 				position = { row = 0, col = 0 },
 			},

@@ -108,8 +108,8 @@ function M.common_hls()
 
 	return {
 		border_dim = { fg = colors.line_nr, bg = colors.dim },
-		-- border_statusline = { fg = colors.comment_fg, bg = colors.statusline_bg },
-		border_statusline = { fg = colors.cyan_virtual_fg, bg = colors.statusline_bg },
+		border_statusline = { fg = colors.comment_fg, bg = colors.statusline_bg },
+		-- border_statusline = { fg = colors.cyan_virtual_fg, bg = colors.statusline_bg },
 		border_normal = { fg = colors.fg, bg = colors.bg },
 		border_statusline_rev = { fg = colors.statusline_bg },
 		border_alt = { fg = colors.line_nr, bg = colors.cursor_line_bg },
@@ -187,6 +187,10 @@ function M.setup()
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },
 		LspFloatWinBorder = common_hls.border_statusline,
+		-- DiagnosticFloatingError = { fg = c.error_fg, bg = c.red_virtual_bg },
+		-- DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.yellow_virtual_bg },
+		-- DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.cyan_virtual_bg },
+		-- DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.blue_virtual_bg },
 		DiagnosticFloatingError = { fg = c.error_fg, bg = c.statusline_bg },
 		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
 		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },

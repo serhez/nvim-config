@@ -134,6 +134,11 @@ function M.config()
 			highlight = "RenderMarkdownCode",
 		},
 
+		latex = {
+			enabled = false, -- using mdmath plugin
+			converter = "latex2text",
+		},
+
 		bullet = {
 			enabled = true,
 			icons = { icons.small_circle },
@@ -183,7 +188,7 @@ function M.config()
 	})
 
 	local hls = require("highlights")
-	local colors = hls.colors()
+	-- local colors = hls.colors()
 	hls.register_hls({
 		-- RenderMarkdownH1 = { fg = colors.cyan_virtual_fg, bg = colors.cyan_virtual_bg, bold = true },
 		-- RenderMarkdownH1Bg = { fg = colors.cyan_virtual_fg, bg = colors.cyan_virtual_bg, bold = true },

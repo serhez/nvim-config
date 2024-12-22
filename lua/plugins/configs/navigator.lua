@@ -1,6 +1,7 @@
 local M = {
 	"numToStr/Navigator.nvim",
 	cmd = { "NavigatorLeft", "NavigatorRight", "NavigatorUp", "NavigatorDown" },
+	-- enabled = false,
 }
 
 function M.init()

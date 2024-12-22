@@ -54,8 +54,9 @@ function M.config()
 	require("trouble").setup({
 		pinned = false, -- When pinned, the opened trouble window will be bound to the current buffer
 		focus = true, -- Focus the window when opened
-		follow = false, -- Follow the current item
+		follow = true, -- Follow the current item
 		auto_jump = true,
+		auto_refresh = false,
 		warn_no_results = true, -- show a warning when there are no results
 		open_no_results = false,
 		preview = {

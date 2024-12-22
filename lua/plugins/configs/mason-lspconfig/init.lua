@@ -176,7 +176,7 @@ function M.config()
 		},
 		float = {
 			focusable = false,
-			border = "none",
+			border = "single",
 			source = false,
 			header = "",
 			prefix = "",

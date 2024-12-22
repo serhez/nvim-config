@@ -2,9 +2,9 @@ local M = {
 	"saghen/blink.cmp",
 	dependencies = "rafamadriz/friendly-snippets",
 	-- use a release tag to download pre-built binaries
-	version = "v0.*",
+	-- version = "v0.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-	-- build = 'cargo build --release',
+	build = "cargo build --release",
 	event = "InsertEnter",
 }
 

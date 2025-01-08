@@ -1,6 +1,6 @@
 local M = {
 	"ibhagwan/fzf-lua",
-	build = "./install --bin",
+	-- build = "./install --bin",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		"MeanderingProgrammer/render-markdown.nvim",

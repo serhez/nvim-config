@@ -2,6 +2,9 @@
 
 local M = {
 	"Bekaboo/dropbar.nvim",
+	-- dependencies = {
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- },
 	lazy = false,
 	cond = not vim.g.started_by_firenvim,
 }
@@ -51,7 +54,8 @@ local function bar_background_color_source()
 				return color_symbols(sources.terminal.get_symbols(buf, win, cursor), opts)
 			end
 
-			for _, source in ipairs({ sources.lsp, sources.treesitter }) do
+			-- for _, source in ipairs({ sources.lsp, sources.treesitter }) do
+			for _, source in ipairs({ sources.lsp }) do
 				local symbols = source.get_symbols(buf, win, cursor)
 				if not vim.tbl_isempty(symbols) then
 					return color_symbols(symbols, opts)
@@ -166,7 +170,7 @@ function M.config()
 					sources.path,
 					utils.source.fallback({
 						sources.lsp,
-						sources.treesitter,
+						-- sources.treesitter,
 					}),
 				}
 			end,

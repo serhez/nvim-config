@@ -28,6 +28,7 @@ function M.config()
 			-- Security
 			"snyk",
 			"trivy",
+			"gitleaks",
 
 			-- Assembly
 			"asm-lsp",

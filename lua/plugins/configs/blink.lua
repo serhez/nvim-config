@@ -1,6 +1,9 @@
 local M = {
 	"saghen/blink.cmp",
-	dependencies = "rafamadriz/friendly-snippets",
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"xzbdmw/colorful-menu.nvim",
+	},
 	-- use a release tag to download pre-built binaries
 	-- version = "v0.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -78,6 +81,24 @@ function M.config()
 			documentation = {
 				auto_show = true,
 				auto_show_delay_ms = 50,
+			},
+			-- colorful-menu.nvim integration
+			menu = {
+				draw = {
+					-- We don't need label_description now because label and label_description are already
+					-- conbined together in label by colorful-menu.nvim.
+					columns = { { "kind_icon" }, { "label", gap = 1 } },
+					components = {
+						label = {
+							text = function(ctx)
+								return require("colorful-menu").blink_components_text(ctx)
+							end,
+							highlight = function(ctx)
+								return require("colorful-menu").blink_components_highlight(ctx)
+							end,
+						},
+					},
+				},
 			},
 
 			-- `nvim-highlight-colors` integration; not needed for now, as blink already supports colour hints

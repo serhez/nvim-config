@@ -52,8 +52,10 @@ local M = {
 				-- input window
 				input = {
 					keys = {
-						["_"] = { "edit_split", mode = { "i", "n" } },
-						["|"] = { "edit_vsplit", mode = { "i", "n" } },
+						["_"] = { "edit_split", mode = { "n" } },
+						["|"] = { "edit_vsplit", mode = { "n" } },
+						["<c-s>"] = { "edit_split", mode = { "i" } },
+						["<c-v>"] = { "edit_vsplit", mode = { "i" } },
 					},
 				},
 			},

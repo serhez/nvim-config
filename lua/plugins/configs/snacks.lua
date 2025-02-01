@@ -58,6 +58,12 @@ local M = {
 						["<c-v>"] = { "edit_vsplit", mode = { "i" } },
 					},
 				},
+				list = {
+					keys = {
+						["_"] = { "edit_split" },
+						["|"] = { "edit_vsplit" },
+					},
+				},
 			},
 			icons = {
 				git = {
@@ -95,6 +101,13 @@ function M.init()
 				snacks.picker.files()
 			end,
 			desc = "Find files",
+		},
+		{
+			"<leader>t",
+			function()
+				snacks.picker.explorer()
+			end,
+			desc = "File tree",
 		},
 
 		-- Text

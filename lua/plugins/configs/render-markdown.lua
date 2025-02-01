@@ -35,10 +35,10 @@ function M.config()
 			-- Width of the heading background:
 			--  block: width of the heading text
 			--  full: full width of the window
-			width = "full",
+			width = "block",
 			-- Amount of padding to add to the left of headings
 			-- If a floating point value < 1 is provided it is treated as a percentage of the available window space
-			left_pad = 0.5,
+			left_pad = 0,
 			-- Amount of padding to add to the right of headings when width is 'block'
 			right_pad = 2,
 			-- Amount of margin to add to the left of headings
@@ -47,7 +47,7 @@ function M.config()
 			left_margin = 0,
 
 			-- Minimum width to use for headings when width is 'block'
-			min_width = 0,
+			min_width = 30,
 			-- Determines how the icon fills the available space:
 			--  inline: underlying '#'s are concealed resulting in a left aligned icon
 			--  overlay: result is left padded with spaces to hide any additional '#'
@@ -56,15 +56,15 @@ function M.config()
 			-- The number of '#' in the heading determines the 'level'
 			-- The 'level' is used to index into the array using a cycle
 			-- The result is left padded with spaces to hide any additional '#'
-			-- icons = {
-			-- 	block .. " ",
-			-- 	block .. block .. " ",
-			-- 	block .. block .. block .. " ",
-			-- 	block .. block .. block .. block .. " ",
-			-- 	block .. block .. block .. block .. block .. " ",
-			-- 	block .. block .. block .. block .. block .. block .. " ",
-			-- },
-			icons = { "", "", "", "", "", "" },
+			icons = {
+				block .. " ",
+				block .. block .. " ",
+				block .. block .. block .. " ",
+				block .. block .. block .. block .. " ",
+				block .. block .. block .. block .. block .. " ",
+				block .. block .. block .. block .. block .. block .. " ",
+			},
+			-- icons = { "", "", "", "", "", "" },
 			-- Highlight for the heading icon and extends through the entire line
 			backgrounds = {
 				"RenderMarkdownH1Bg",

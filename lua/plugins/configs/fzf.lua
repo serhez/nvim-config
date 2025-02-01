@@ -6,6 +6,7 @@ local M = {
 		"MeanderingProgrammer/render-markdown.nvim",
 	},
 	cond = not vim.g.started_by_firenvim,
+	enabled = false,
 }
 
 function M.init()

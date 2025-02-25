@@ -8,6 +8,17 @@ function M.setup()
 	if not present then
 		vim.opt.statuscolumn = [[%!v:lua.require('ui').statuscolumn()]]
 	end
+
+	require("mappings").register({
+		"<leader>Uc",
+		M.toggle_anchor_center,
+		desc = "Anchor cursor to vertical center (toggle)",
+	})
+end
+
+function M.toggle_anchor_center()
+	local on = vim.opt.scrolloff:get() == 999
+	vim.opt.scrolloff = on and 0 or 999
 end
 
 function M.set_separators()

@@ -45,7 +45,9 @@ function M.config()
 			css = { "prettierd" },
 
 			-- Markdown & notebooks
-			markdown = { "prettierd" },
+			markdown = { "cbfmt" },
+			-- markdown = { "mdformat" },
+			-- markdown = { "prettierd" }, -- NOTE: prettierd sucks at markdown
 			-- quarto = { "prettierd" }, -- FIX: use global prettierd config to supply parser ("markdown") and to use 4 spaces
 
 			-- JSON

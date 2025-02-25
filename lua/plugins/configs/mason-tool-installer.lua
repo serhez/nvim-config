@@ -130,6 +130,8 @@ function M.config()
 			"markdownlint",
 			"texlab",
 			"latexindent",
+			"mdformat",
+			"cbfmt",
 			-- "vale",
 		},
 

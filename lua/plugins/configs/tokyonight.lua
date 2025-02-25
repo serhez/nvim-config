@@ -31,6 +31,12 @@ function M.config()
 			auto = true,
 		},
 		dim_inactive = false,
+		-- on_highlights = function(hl, c)
+		-- hl.CursorColumn = {
+		-- 	bg = c.bg_dark,
+		-- 	fg = c.fg_dark,
+		-- }
+		-- end,
 	})
 	tokyonight.load()
 end

@@ -43,6 +43,7 @@ function M.config()
 			diffview = true,
 			nvim_surround = true,
 			rainbow_delimiters = true,
+			snacks = true,
 
 			-- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
 			dropbar = {

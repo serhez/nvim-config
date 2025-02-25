@@ -1,48 +1,6 @@
 local M = {
 	"folke/flash.nvim",
-	event = "VeryLazy",
-	keys = {
-		{
-			"f",
-			mode = { "n", "o", "x" },
-			function()
-				require("flash").jump()
-			end,
-			desc = "Flash",
-		},
-		{
-			"F",
-			mode = { "n", "o", "x" },
-			function()
-				require("flash").treesitter()
-			end,
-			desc = "Flash treesitter",
-		},
-		{
-			"r",
-			mode = "o",
-			function()
-				require("flash").remote()
-			end,
-			desc = "Remote flash",
-		},
-		{
-			"R",
-			mode = { "o", "x" },
-			function()
-				require("flash").treesitter_search()
-			end,
-			desc = "Flash treesitter search",
-		},
-		{
-			"<c-s>",
-			mode = { "c" },
-			function()
-				require("flash").toggle()
-			end,
-			desc = "Toggle flash search",
-		},
-	},
+	event = "BufRead",
 }
 
 function M.config()
@@ -59,6 +17,14 @@ function M.config()
 				keys = { "f", "F" }, -- { "f", "F", "t", "T", ";", "," }
 			},
 		},
+		label = {
+			style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
+			rainbow = {
+				enabled = true,
+				-- number between 1 and 9
+				shade = 4,
+			},
+		},
 	})
 
 	vim.keymap.set({ "n", "x", "o" }, "f", function()
@@ -67,15 +33,15 @@ function M.config()
 	vim.keymap.set({ "n", "x", "o" }, "F", function()
 		flash.treesitter()
 	end, { desc = "Treesitter selection" })
-	vim.keymap.set({ "o" }, "r", function()
-		flash.remote()
-	end, { desc = "Remote" })
-	vim.keymap.set({ "o", "x" }, "R", function()
+	-- vim.keymap.set({ "o" }, "r", function()
+	-- 	flash.remote()
+	-- end, { desc = "Remote" })
+	vim.keymap.set({ "o", "x" }, "r", function()
 		flash.treesitter_search()
-	end, { desc = "Treesitter" })
-	vim.keymap.set({ "c" }, "<c-s>", function()
-		flash.toggle()
-	end, { desc = "Toggle flash search" })
+	end, { desc = "Remote" })
+	-- vim.keymap.set({ "c" }, "<c-s>", function()
+	-- 	flash.toggle()
+	-- end, { desc = "Toggle flash search" })
 end
 
 return M

@@ -1,8 +1,5 @@
 local M = {
 	"epwalsh/obsidian.nvim",
-	dependencies = {
-		"ibhagwan/fzf-lua",
-	},
 	cmd = {
 		"ObsidianToday",
 		"ObsidianYesterday",
@@ -70,7 +67,7 @@ function M.config()
 		-- telescope.nvim, fzf-lua, fzf.vim, or mini.pick (in that order), and use the
 		-- first one they find. You can set this option to tell obsidian.nvim to always use this
 		-- finder.
-		finder = "fzf-lua",
+		-- finder = "fzf-lua", -- TODO: support for snacks.picker?
 
 		-- Handled by `markdown.nvim`
 		ui = { enable = false },

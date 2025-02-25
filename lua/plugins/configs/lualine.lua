@@ -111,6 +111,21 @@ function M.config()
 
 	local custom_fname = require("lualine.components.filename"):extend()
 
+	local git_branches_fn = function() end
+	local snacks_present, snacks = pcall(require, "snacks")
+	if snacks_present then
+		git_branches_fn = function(_, _, _)
+			snacks.picker.git_branches()
+		end
+	else
+		local fzf_present, fzf = pcall(require, "fzf-lua")
+		if fzf_present then
+			git_branches_fn = function(_, _, _)
+				fzf.git_branches()
+			end
+		end
+	end
+
 	function custom_fname:init(options)
 		custom_fname.super.init(self, options)
 
@@ -214,9 +229,7 @@ function M.config()
 				{
 					"branch",
 					icon = icons.git.branch,
-					on_click = function(_, _, _)
-						require("fzf-lua").git_branches()
-					end,
+					on_click = git_branches_fn,
 				},
 				{
 					"diff",

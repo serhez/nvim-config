@@ -3,7 +3,6 @@ local M = {
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"sindrets/diffview.nvim", -- optional
-		"ibhagwan/fzf-lua", -- optional
 	},
 	cmd = "Neogit",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
@@ -30,7 +29,7 @@ function M.config()
 			kind = "split",
 		},
 		integrations = {
-			fzf_lua = true,
+			diffview = true,
 		},
 	})
 end

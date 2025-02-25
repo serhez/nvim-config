@@ -75,6 +75,8 @@ function M.config()
 			"dapui_repl",
 			"dap-repl",
 			"vuffers",
+			"snacks_picker_input",
+			"snacks_picker_preview",
 		},
 		bt_ignore = { "nofile", "terminal" },
 	})

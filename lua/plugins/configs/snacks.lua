@@ -2,10 +2,12 @@ local icons = require("icons")
 
 local M = {
 	"folke/snacks.nvim",
+	lazy = "false",
 	opts = {
-		bigfile = {},
+		bigfile = { enabled = true },
+		-- image = { enabled = true },
 		picker = {
-			prompt = " " .. icons.arrow.right_short_thick .. " ",
+			prompt = "   " .. icons.arrow.right_short_thick .. " ",
 			layout = {
 				cycle = true, -- go to top when reaching bottom and vice versa
 				preset = function()
@@ -63,6 +65,18 @@ local M = {
 						["_"] = { "edit_split" },
 						["|"] = { "edit_vsplit" },
 					},
+					wo = {
+						statuscolumn = " ",
+						signcolumn = "no",
+						-- foldcolumn = "no",
+					},
+				},
+				preview = {
+					wo = {
+						statuscolumn = " ",
+						signcolumn = "no",
+						-- foldcolumn = "no",
+					},
 				},
 			},
 			icons = {
@@ -87,7 +101,6 @@ local M = {
 			},
 		},
 	},
-	event = "BufReadPre",
 }
 
 function M.init()

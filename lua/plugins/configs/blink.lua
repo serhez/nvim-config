@@ -3,9 +3,10 @@ local M = {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		"xzbdmw/colorful-menu.nvim",
+		"saghen/blink.compat",
 	},
 	-- use a release tag to download pre-built binaries
-	-- version = "v0.*",
+	version = "v0.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
 	build = "cargo build --release",
 	event = "InsertEnter",
@@ -141,6 +142,19 @@ function M.config()
 			-- 		},
 			-- 	},
 			-- },
+		},
+
+		sources = {
+			-- NOTE: unfortunate that we cannot extend this,
+			--       so it may not be up-to-date with all newest built-in sources
+			--       Use `:BlinkCmp status` to check if there are any disabled sources
+			default = { "lsp", "path", "snippets", "buffer", "obsidian", "obsidian_new", "obsidian_tags" },
+
+			providers = {
+				obsidian = { name = "obsidian", module = "blink.compat.source" },
+				obsidian_new = { name = "obsidian_new", module = "blink.compat.source" },
+				obsidian_tags = { name = "obsidian_tags", module = "blink.compat.source" },
+			},
 		},
 	})
 

@@ -76,6 +76,10 @@ function M.setup()
 	-- opt.sessionoptions =
 	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
 	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+	-- Make TreeSitter highlight groups have higher priority than LSP semantic tokens
+	vim.highlight.priorities.treesitter = 100
+	vim.highlight.priorities.semantic_tokens = 95
 end
 
 return M

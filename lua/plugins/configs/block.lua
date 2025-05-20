@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>Ub", "<cmd>Block<cr>", desc = "Indent blocks" })
+	require("mappings").register({ "<leader>ub", "<cmd>Block<cr>", desc = "Indent blocks" })
 end
 
 function M.config()

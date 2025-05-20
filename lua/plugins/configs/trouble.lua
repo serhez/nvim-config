@@ -5,6 +5,15 @@ local M = {
 
 function M.init()
 	-- FIX: Make "gc" and "gC" work
+
+	-- Disable default LSP mappings
+	vim.api.nvim_del_keymap("n", "grn")
+	vim.api.nvim_del_keymap("n", "gra")
+	vim.api.nvim_del_keymap("v", "gra")
+	vim.api.nvim_del_keymap("n", "grr")
+	vim.api.nvim_del_keymap("n", "gri")
+	vim.api.nvim_del_keymap("n", "gO")
+
 	require("mappings").register({
 		-- x = {
 		-- 	"<cmd>Trouble mode=lsp_document_symbols pinned=true win.position=right win.relative=win auto_preview=false<cr>",
@@ -26,8 +35,8 @@ function M.init()
 		{ "<leader>ld", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Diagnostics (buffer)" },
 		{ "<leader>lD", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (workspace)" },
 
-		{ "<leader>Ul", "<cmd>Trouble loclist<cr>", desc = "Location list" },
-		{ "<leader>Uq", "<cmd>Trouble qflist<cr>", desc = "Quickfix list" },
+		{ "<leader>ul", "<cmd>Trouble loclist<cr>", desc = "Location list" },
+		{ "<leader>uq", "<cmd>Trouble qflist<cr>", desc = "Quickfix list" },
 	})
 
 	-- Hijack quickfix and location list
@@ -60,10 +69,10 @@ function M.config()
 		warn_no_results = true, -- show a warning when there are no results
 		open_no_results = false,
 		preview = {
-			type = "split",
-			relative = "win",
-			position = "right",
-			size = 0.4,
+			type = "main",
+			-- relative = "win",
+			-- position = "right",
+			-- size = 0.4,
 		},
 		keys = {
 			["_"] = "jump_split",

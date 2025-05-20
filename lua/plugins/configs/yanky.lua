@@ -11,6 +11,10 @@ function M.init()
 	vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 	vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 	vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+
+	require("mappings").register({
+		{ "<leader>ly", "<cmd>YankyRingHistory<cr>", desc = "Yank history", mode = { "n", "x" } },
+	})
 end
 
 function M.config()

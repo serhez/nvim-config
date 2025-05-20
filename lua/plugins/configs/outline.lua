@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>o", "<cmd>Outline<cr>", desc = "Outline" })
+	require("mappings").register({ "<leader>h", "<cmd>Outline<cr>", desc = "Code hierarchy" })
 end
 
 function M.config()

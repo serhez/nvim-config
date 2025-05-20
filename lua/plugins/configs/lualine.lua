@@ -99,7 +99,7 @@ end
 
 function M.init()
 	require("mappings").register({
-		"<leader>Uf",
+		"<leader>uf",
 		"<cmd>lua require('plugins.configs.lualine').toggle_filetype()<cr>",
 		desc = "Toggle filetype",
 	})
@@ -283,7 +283,7 @@ function M.config()
 					-- 2: Absolute path
 					-- 3: Absolute path, with tilde as the home directory
 					-- 4: Filename and parent dir, with tilde as the home directory
-					path = 0,
+					path = 1,
 					padding = { left = 0, right = 1 },
 					shorting_target = 100,
 					color = { gui = "bold" },
@@ -331,6 +331,11 @@ function M.config()
 					cond = recorder_condition,
 					color = "Error",
 				},
+				-- {
+				-- 	"lsp_status",
+				-- 	icon = "", -- f013
+				-- 	ignore_lsp = { "copilot" },
+				-- },
 				{
 					"copilot",
 					show_colors = true,

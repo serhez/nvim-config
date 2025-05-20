@@ -81,7 +81,7 @@ function M.config()
 			["q"] = "actions.close",
 			["<space>e"] = "actions.close",
 			["K"] = "actions.preview",
-			["<D-h>"] = {
+			["<C-h>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Go to parent directory",
@@ -89,7 +89,7 @@ function M.config()
 					oil.open()
 				end,
 			},
-			["<D-l>"] = {
+			["<C-l>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",

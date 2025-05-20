@@ -24,6 +24,8 @@ function M.config()
 			-- Text (general: grammar, syntax, etc.)
 			-- "harper_ls",  -- annoying
 			"grammarly-languageserver",
+			"commitlint",
+			"copilot-language-server",
 
 			-- Security
 			"snyk",

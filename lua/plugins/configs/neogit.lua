@@ -30,6 +30,7 @@ function M.config()
 		},
 		integrations = {
 			diffview = true,
+			snacks = true,
 		},
 	})
 end

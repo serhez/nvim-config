@@ -5,7 +5,7 @@ local M = {
 	lazy = "false",
 	opts = {
 		bigfile = { enabled = true },
-		-- image = { enabled = true },
+		-- image = { enabled = true }, -- NOTE: works like shit for now
 		picker = {
 			prompt = "   " .. icons.arrow.right_short_thick .. " ",
 			layout = {
@@ -157,14 +157,7 @@ function M.init()
 			desc = "Symbols (workspace)",
 		},
 		{
-			"<leader>ca",
-			function()
-				vim.lsp.buf.code_action()
-			end,
-			desc = "Actions",
-		},
-		{
-			"<leader>u",
+			"<leader>lu",
 			function()
 				snacks.picker.undo()
 			end,

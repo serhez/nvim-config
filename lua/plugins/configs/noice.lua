@@ -10,7 +10,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>Un", "<cmd>Noice<cr>", desc = "Notifications" })
+	require("mappings").register({ "<leader>un", "<cmd>Noice<cr>", desc = "Notifications" })
 end
 
 function M.config()

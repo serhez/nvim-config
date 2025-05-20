@@ -34,26 +34,25 @@ local basic_mappings = {
 	{ "<leader>n", group = "Notebooks" },
 	{ "<leader>p", group = "Projects" },
 
-	{ "<leader>U", group = "UI" },
-	{ "<leader>Us", group = "Split" },
+	{ "<leader>u", group = "UI" },
+	{ "<leader>us", group = "Split" },
 
 	{ "<leader>a", group = "Assistant", mode = "v" },
 	{ "<leader>n", group = "Notebooks", mode = "v" },
-	{ "<leader>u", group = "Utils", mode = "v" },
+	{ "<leader>u", group = "UI", mode = "v" },
 
 	---- MAPPINGS
 
 	-- Resize with arrows
-	{ "<C-Up>", "<cmd>resize -2<cr>", desc = "Resize up" },
-	{ "<C-Down>", "<cmd>resize +2<cr>", desc = "Resize down" },
-	{ "<C-Left>", "<cmd>vertical resize -2<cr>", desc = "Resize left" },
-	{ "<C-Right>", "<cmd>vertical resize +2<cr>", desc = "Resize right" },
+	{ "<A-Up>", "<cmd>resize -1<cr>", desc = "Resize up" },
+	{ "<A-Down>", "<cmd>resize +1<cr>", desc = "Resize down" },
+	{ "<A-Left>", "<cmd>vertical resize -1<cr>", desc = "Resize left" },
+	{ "<A-Right>", "<cmd>vertical resize +1<cr>", desc = "Resize right" },
 
 	-- Window splits
+	-- NOTE: Now managed by focus.nvim
 	{ "_", "<cmd>split<cr>", desc = "Horizontal split" },
 	{ "|", "<cmd>vsplit<cr>", desc = "Vertical split" },
-	{ "<leader>Ush", "<cmd>split<cr>", desc = "Horizontal" },
-	{ "<leader>Usv", "<cmd>vsplit<cr>", desc = "Vertical" },
 
 	-- Better indenting
 	{ "<", "<gv", mode = "v", desc = "Indent left" },
@@ -61,12 +60,12 @@ local basic_mappings = {
 
 	-- Tabs
 	{ "<leader>Q", "<cmd>tabclose<cr>", desc = "Quit tab" },
-	{ "<leader>Ut", "<cmd>tabnew<cr>", desc = "New tab" },
+	{ "<leader>ut", "<cmd>tabnew<cr>", desc = "New tab" },
 	{ "<Backspace>", "<cmd>tabnext<cr>", desc = "Next tab" },
 	{ "<S-Backspace>", "<cmd>tabprev<cr>", desc = "Previous tab" },
 
 	-- Messages and notifications
-	{ "<leader>Um", "<cmd>messages<cr>", desc = "Messages" },
+	{ "<leader>um", "<cmd>messages<cr>", desc = "Messages" },
 
 	-- Move selected line / block of text in visual mode
 	{ "J", "<cmd>move '>+1<cr>gv-gv", mode = "x", desc = "Move block down" },
@@ -117,13 +116,17 @@ local basic_mappings = {
 		'<cmd>lua vim.diagnostic.open_float({ scope = "cursor" })<cr>',
 		desc = "Float diagnostics (cursor)",
 	},
-	{ "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev. diagnostic" },
-	{ "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
+	-- { "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev. diagnostic" },
+	-- { "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
 
 	-- Inline hints
 	{
-		"<leader>Uh",
-		"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",
+		"<leader>uh",
+		function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), {
+				bufnr = nil, -- all buffers
+			})
+		end,
 		desc = "Toggle inline hints",
 	},
 }

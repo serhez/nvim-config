@@ -1,5 +1,7 @@
 local M = {
-	"epwalsh/obsidian.nvim",
+	"obsidian-nvim/obsidian.nvim",
+	version = "*", -- recommended, use latest release instead of latest commit
+	ft = { "markdown" },
 	cmd = {
 		"ObsidianToday",
 		"ObsidianYesterday",
@@ -11,6 +13,9 @@ local M = {
 		"ObsidianLink",
 		"ObsidianLinkNew",
 		"ObsidianFollowLink",
+	},
+	dependencies = {
+		"nvim-lua/plenary.nvim",
 	},
 	cond = not vim.g.started_by_firenvim,
 }
@@ -29,27 +34,25 @@ function M.init()
 			desc = "Follow link",
 		},
 
-		{ "<leader>O", group = "Obsidian" },
-		{ "<leader>Ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
-		{ "<leader>Of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find notes" },
-		{ "<leader>Og", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
-		{ "<leader>Ol", "<cmd>ObsidianLink<cr>", desc = "Link" },
-		{ "<leader>OL", "<cmd>ObsidianLinkNew<cr>", desc = "Link (new note)" },
-		{ "<leader>On", "<cmd>ObsidianNew ", desc = "New note" },
-		{ "<leader>Oo", "<cmd>ObsidianOpen ", desc = "Open note" },
-		{ "<leader>Os", "<cmd>ObsidianSearch<cr>", desc = "Search text" },
-		{ "<leader>Ot", "<cmd>ObsidianToday<cr>", desc = "Today" },
+		{ "<leader>o", group = "Obsidian" },
+		{ "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
+		{ "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find notes" },
+		{ "<leader>og", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
+		{ "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New note" },
+		{ "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search text" },
+		{ "<leader>ov", "<cmd>ObsidianWorkspace<cr>", desc = "Switch vault" },
+
+		{ "<leader>ol", mode = { "v" }, "<cmd>ObsidianLink<cr>", desc = "Link" },
+		{ "<leader>oL", mode = { "v" }, "<cmd>ObsidianLinkNew<cr>", desc = "Link (new note)" },
 	})
 end
 
 function M.config()
 	require("obsidian").setup({
-		dir = require("env").obsidian_vault,
-		daily_notes = {
-			folder = "Agenda",
-		},
+		workspaces = require("env").obsidian_vaults,
 		completion = {
-			nvim_cmp = false, -- using blink.cmp
+			nvim_cmp = false,
+			blink = true,
 		},
 		note_frontmatter_func = function(note)
 			local out = { id = note.id, aliases = note.aliases, tags = note.tags }
@@ -63,11 +66,9 @@ function M.config()
 			return out
 		end,
 
-		-- Optional, by default commands like `:ObsidianSearch` will attempt to use
-		-- telescope.nvim, fzf-lua, fzf.vim, or mini.pick (in that order), and use the
-		-- first one they find. You can set this option to tell obsidian.nvim to always use this
-		-- finder.
-		-- finder = "fzf-lua", -- TODO: support for snacks.picker?
+		picker = {
+			name = "snacks.pick",
+		},
 
 		-- Handled by `markdown.nvim`
 		ui = { enable = false },

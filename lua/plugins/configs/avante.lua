@@ -57,6 +57,13 @@ function M.init()
 			desc = "Conficts to quickfix",
 			mode = { "n", "v" },
 		},
+		{
+			"<leader>am",
+			function()
+				require("avante.model_selector").open()
+			end,
+			desc = "Select model",
+		},
 	})
 end
 

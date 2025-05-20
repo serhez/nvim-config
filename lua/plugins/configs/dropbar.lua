@@ -54,8 +54,8 @@ local function bar_background_color_source()
 				return color_symbols(sources.terminal.get_symbols(buf, win, cursor), opts)
 			end
 
-			-- for _, source in ipairs({ sources.lsp, sources.treesitter }) do
-			for _, source in ipairs({ sources.lsp }) do
+			-- for _, source in ipairs({ sources.lsp }) do
+			for _, source in ipairs({ sources.lsp, sources.treesitter }) do
 				local symbols = source.get_symbols(buf, win, cursor)
 				if not vim.tbl_isempty(symbols) then
 					return color_symbols(symbols, opts)
@@ -166,11 +166,26 @@ function M.config()
 					}
 				end
 
+				-- Prioritize treesitter for TSX and Vue files, since LSP does not show HTML tags
+				if
+					vim.bo[buf].ft == "typescriptreact"
+					or vim.bo[buf].ft == "javascriptreact"
+					or vim.bo[buf].ft == "vue"
+				then
+					return {
+						sources.path,
+						utils.source.fallback({
+							sources.treesitter,
+							sources.lsp,
+						}),
+					}
+				end
+
 				return {
 					sources.path,
 					utils.source.fallback({
 						sources.lsp,
-						-- sources.treesitter,
+						sources.treesitter,
 					}),
 				}
 			end,

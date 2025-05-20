@@ -8,14 +8,14 @@ function M.init()
 		{
 			"<leader>r",
 			function()
-				require("grug-far").grug_far()
+				require("grug-far").open()
 			end,
 			desc = "Replace",
 		},
 		{
 			"<leader>R",
 			function()
-				require("grug-far").grug_far({ prefills = { flags = vim.fn.expand("%") } })
+				require("grug-far").open({ prefills = { flags = vim.fn.expand("%") } })
 			end,
 			desc = "Replace (buffer)",
 		},

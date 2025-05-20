@@ -5,7 +5,6 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>cc", "<cmd>TodoTrouble<cr>", desc = "Comments" },
 		{ "<leader>lc", "<cmd>TodoTrouble<cr>", desc = "Comments" },
 	})
 end

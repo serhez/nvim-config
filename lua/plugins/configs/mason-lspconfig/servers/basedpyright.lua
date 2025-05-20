@@ -4,7 +4,6 @@ local settings = {
 		disableOrganizeImports = true, -- performed by ruff
 		disableTaggedHints = false,
 		reportMissingSuperCall = false,
-
 		analysis = {
 			autoImportCompletions = true,
 			autoSearchPaths = true,

@@ -20,7 +20,7 @@ function M.config()
 		segments = {
 			{
 				sign = {
-					namespace = { "diagnostic" },
+					namespace = { "diagnostic.signs" },
 					colwidth = 1,
 					maxwidth = 1,
 				},

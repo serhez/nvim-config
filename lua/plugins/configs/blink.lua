@@ -19,7 +19,7 @@ function M.config()
 		keymap = {
 			["<C-space>"] = { "show", "fallback" },
 			["<C-e>"] = { "hide", "fallback" },
-			["<C-CR>"] = { "accept", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
 			["<Tab>"] = {
 				function(cmp)
 					if cmp.snippet_active() then
@@ -42,9 +42,8 @@ function M.config()
 				"snippet_backward",
 				"fallback",
 			},
-
-			["<C-k>"] = { "show_documentation", "fallback" },
-			["<C-K>"] = { "hide_documentation", "fallback" },
+			["<C-d>"] = { "show_documentation", "fallback" },
+			["<C-D>"] = { "hide_documentation", "fallback" },
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
 			["<C-f>"] = { "scroll_documentation_down", "fallback" },
 		},
@@ -53,7 +52,7 @@ function M.config()
 			-- sets the fallback highlight groups to nvim-cmp's highlight groups
 			-- useful for when your theme doesn't support blink.cmp
 			-- will be removed in a future release, assuming themes add support
-			use_nvim_cmp_as_default = true,
+			use_nvim_cmp_as_default = false,
 			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 			-- adjusts spacing to ensure icons are aligned
 			nerd_font_variant = "normal",
@@ -85,6 +84,9 @@ function M.config()
 			},
 			-- colorful-menu.nvim integration
 			menu = {
+				-- we want to prioritize placing the menu above
+				-- so that the Copilot completions are visible
+				direction_priority = { "n", "s" },
 				draw = {
 					-- We don't need label_description now because label and label_description are already
 					-- conbined together in label by colorful-menu.nvim.
@@ -101,59 +103,21 @@ function M.config()
 					},
 				},
 			},
-
-			-- `nvim-highlight-colors` integration; not needed for now, as blink already supports colour hints
-			-- menu = {
-			-- 	draw = {
-			-- 		components = {
-			-- 			-- customize the drawing of kind icons
-			-- 			kind_icon = {
-			-- 				text = function(ctx)
-			-- 					-- default kind icon
-			-- 					local icon = ctx.kind_icon
-			-- 					-- if LSP source, check for color derived from documentation
-			-- 					if ctx.item.source_name == "LSP" then
-			-- 						local color_item = require("nvim-highlight-colors").format(
-			-- 							ctx.item.documentation,
-			-- 							{ kind = ctx.kind }
-			-- 						)
-			-- 						if color_item and color_item.abbr then
-			-- 							icon = color_item.abbr
-			-- 						end
-			-- 					end
-			-- 					return icon .. ctx.icon_gap
-			-- 				end,
-			-- 				highlight = function(ctx)
-			-- 					-- default highlight group
-			-- 					local highlight = "BlinkCmpKind" .. ctx.kind
-			-- 					-- if LSP source, check for color derived from documentation
-			-- 					if ctx.item.source_name == "LSP" then
-			-- 						local color_item = require("nvim-highlight-colors").format(
-			-- 							ctx.item.documentation,
-			-- 							{ kind = ctx.kind }
-			-- 						)
-			-- 						if color_item and color_item.abbr_hl_group then
-			-- 							highlight = color_item.abbr_hl_group
-			-- 						end
-			-- 					end
-			-- 					return highlight
-			-- 				end,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
 		},
-
-		sources = {
-			-- NOTE: unfortunate that we cannot extend this,
-			--       so it may not be up-to-date with all newest built-in sources
-			--       Use `:BlinkCmp status` to check if there are any disabled sources
-			default = { "lsp", "path", "snippets", "buffer", "obsidian", "obsidian_new", "obsidian_tags" },
-
-			providers = {
-				obsidian = { name = "obsidian", module = "blink.compat.source" },
-				obsidian_new = { name = "obsidian_new", module = "blink.compat.source" },
-				obsidian_tags = { name = "obsidian_tags", module = "blink.compat.source" },
+		cmdline = {
+			completion = {
+				ghost_text = {
+					enabled = false,
+				},
+				menu = {
+					auto_show = true,
+				},
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = true,
+					},
+				},
 			},
 		},
 	})

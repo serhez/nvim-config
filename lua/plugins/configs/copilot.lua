@@ -7,7 +7,7 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>as", "<cmd>Copilot panel<cr>", desc = "Copilot suggestions" },
+		{ "<leader>ap", "<cmd>Copilot panel<cr>", desc = "Copilot panel" },
 		{ "<leader>ac", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot" },
 	})
 end
@@ -21,8 +21,8 @@ function M.config()
 				jump_prev = "[[",
 				jump_next = "]]",
 				accept = "<CR>",
-				refresh = "R",
-				open = "<M-c>",
+				refresh = "r",
+				open = "<C-o>",
 			},
 			layout = {
 				position = "right",
@@ -33,10 +33,10 @@ function M.config()
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept = "<D-l>",
-				next = "<M-j>",
-				prev = "<M-k>",
-				dismiss = "<M-h>",
+				accept = "<C-l>",
+				next = "<C-j>",
+				prev = "<C-k>",
+				dismiss = "<C-h>",
 			},
 		},
 		filetypes = {
@@ -49,6 +49,9 @@ function M.config()
 			svn = true,
 			cvs = true,
 			["."] = false,
+		},
+		logger = {
+			print_log_level = vim.log.levels.OFF, -- disable annoying messages when no internet
 		},
 		server_opts_overrides = {
 			autostart = true,

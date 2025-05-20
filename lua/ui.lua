@@ -10,7 +10,7 @@ function M.setup()
 	end
 
 	require("mappings").register({
-		"<leader>Uc",
+		"<leader>uc",
 		M.toggle_anchor_center,
 		desc = "Anchor cursor to vertical center (toggle)",
 	})

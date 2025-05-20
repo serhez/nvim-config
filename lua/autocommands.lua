@@ -44,13 +44,13 @@ function M.setup()
 		},
 
 		-- NOTE: Remove this if you do not want vim.diagnostic to automatically open floats
-		_lsp = {
-			{
-				"CursorHold",
-				"*",
-				"lua vim.diagnostic.open_float()",
-			},
-		},
+		-- _lsp = {
+		-- 	{
+		-- 		"CursorHold",
+		-- 		"*",
+		-- 		"lua vim.diagnostic.open_float()",
+		-- 	},
+		-- },
 
 		_markdown = {
 			{ "FileType", "markdown", "setlocal wrap" },
@@ -108,6 +108,18 @@ function M.setup()
 			end
 			local file = vim.loop.fs_realpath(event.match) or event.match
 			vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+		end,
+	})
+
+	-- Update tmux window name on VimEnter and VimLeave
+	vim.api.nvim_create_autocmd({ "VimEnter", "VimLeave" }, {
+		callback = function()
+			if vim.env.TMUX_PLUGIN_MANAGER_PATH then
+				vim.uv.spawn(
+					vim.env.TMUX_PLUGIN_MANAGER_PATH .. "/tmux-window-name/scripts/rename_session_windows.py",
+					{}
+				)
+			end
 		end,
 	})
 end

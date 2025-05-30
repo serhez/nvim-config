@@ -1,3 +1,6 @@
+-- NOTE: complements with `nvim-custom-diagnostic-highlight`, which is able to detect
+--       unused variables besides function parameters
+
 local M = {
 	"m-demare/hlargs.nvim",
 	event = "VeryLazy",

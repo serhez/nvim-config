@@ -29,11 +29,25 @@ function M.init()
 		{ "gO", "<cmd>Trouble lsp_outgoing_calls<cr>", desc = "Outgoing calls" },
 
 		{ "<leader>cd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Diagnostics (buffer)" },
-		{ "<leader>cD", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (workspace)" },
-		{ "<leader>cu", "<cmd>Trouble lsp<cr>", desc = "Usage" },
+		{
+			"<leader>cD",
+			function()
+				-- Analyse all files for diagnostics
+				-- NOTE: The drawback of this manual approach is that it will only scan the
+				--       diagnostics of files of the same type (or at least those which use
+				--       the same LSP client)
+				for _, client in ipairs(vim.lsp.buf_get_clients()) do
+					require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
+				end
 
-		{ "<leader>ld", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Diagnostics (buffer)" },
-		{ "<leader>lD", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (workspace)" },
+				-- Open the diagnostics window with a delay to wait for diagnostics
+				vim.defer_fn(function()
+					require("trouble").toggle("diagnostics")
+				end, 1000)
+			end,
+			desc = "Diagnostics (workspace)",
+		},
+		{ "<leader>cu", "<cmd>Trouble lsp<cr>", desc = "Usage" },
 
 		{ "<leader>ul", "<cmd>Trouble loclist<cr>", desc = "Location list" },
 		{ "<leader>uq", "<cmd>Trouble qflist<cr>", desc = "Quickfix list" },

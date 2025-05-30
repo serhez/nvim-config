@@ -28,29 +28,90 @@ function M.setup()
 			severity = vim.diagnostic.severity.WARN,
 		},
 		float = {
-			focusable = false,
+			relative = "editor",
 			border = "single",
-			source = false,
-			header = "",
+			style = "minimal",
+			scope = "line",
+			focusable = false,
+			mouse = true,
+			-- source = "if_many",
+			source = false, -- handled by the format function
+			header = " Diagnostics ",
 			prefix = "",
 			suffix = "",
 			format = function(d)
-				local str = "  "
-				if d.severity == vim.diagnostic.severity.ERROR then
-					str = str .. icons.diagnostics.error .. " "
-				elseif d.severity == vim.diagnostic.severity.WARN then
-					str = str .. icons.diagnostics.warning .. " "
-				elseif d.severity == vim.diagnostic.severity.INFO then
-					str = str .. icons.diagnostics.info .. " "
-				elseif d.severity == vim.diagnostic.severity.HINT then
-					str = str .. icons.diagnostics.hint .. " "
+				local message = d.message
+				local source = d.source
+				local code = d.code
+				local last_char = message:sub(-1)
+				while last_char == ":" or last_char == " " or last_char == "." do
+					message = message:sub(1, -2)
+					last_char = message:sub(-1)
 				end
-				return str .. d.message .. "  "
+				if source then
+					last_char = source:sub(-1)
+					while last_char == ":" or last_char == " " or last_char == "." do
+						source = source:sub(1, -2)
+						last_char = source:sub(-1)
+					end
+				end
+				if code then
+					last_char = code:sub(-1)
+					while last_char == ":" or last_char == " " or last_char == "." do
+						code = code:sub(1, -2)
+						last_char = code:sub(-1)
+					end
+				end
+
+				local str = " "
+				if d.severity == vim.diagnostic.severity.ERROR then
+					str = str .. icons.diagnostics.error
+				elseif d.severity == vim.diagnostic.severity.WARN then
+					str = str .. icons.diagnostics.warning
+				elseif d.severity == vim.diagnostic.severity.INFO then
+					str = str .. icons.diagnostics.info
+				elseif d.severity == vim.diagnostic.severity.HINT then
+					str = str .. icons.diagnostics.hint
+				end
+				str = str .. " " .. message
+				if source then
+					str = str .. " [" .. source
+					if code then
+						str = str .. ": " .. code .. "]"
+					else
+						str = str .. "]"
+					end
+				end
+				return str .. " "
 			end,
 		},
-		-- float = false,
 		update_in_insert = false,
 		severity_sort = true,
+	})
+
+	-- Show errors and warnings in a floating window
+	vim.api.nvim_create_autocmd("CursorHold", {
+		callback = function()
+			local _, win = vim.diagnostic.open_float()
+
+			-- Hack to position the diagnostic window in the upper right corner
+			if not win then
+				return
+			end
+			local cfg = vim.api.nvim_win_get_config(win)
+			cfg.row = 1 -- to account for the winbar
+			cfg.col = vim.o.columns - 1
+			cfg.width = math.min(cfg.width or 999, math.floor(vim.o.columns * 0.6))
+			cfg.height = math.min(cfg.height or 999, math.floor(vim.o.lines * 0.4))
+
+			-- If it hides the line where the cursor is, move it down
+			local cursor_row = vim.fn.winline()
+			if cfg.row + cfg.height - 1 >= cursor_row then
+				cfg.row = cursor_row + 1
+			end
+
+			vim.api.nvim_win_set_config(win, cfg)
+		end,
 	})
 
 	-- Save after renaming

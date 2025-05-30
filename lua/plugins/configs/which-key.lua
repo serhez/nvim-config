@@ -116,8 +116,8 @@ local basic_mappings = {
 		'<cmd>lua vim.diagnostic.open_float({ scope = "cursor" })<cr>',
 		desc = "Float diagnostics (cursor)",
 	},
-	-- { "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev. diagnostic" },
-	-- { "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
+	{ "[e", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev. diagnostic" },
+	{ "]e", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
 
 	-- Inline hints
 	{

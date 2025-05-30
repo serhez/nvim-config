@@ -159,7 +159,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "rose-pine"
+	vim.g.colors_name = "tokyonight-storm"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },
@@ -187,14 +187,14 @@ function M.setup()
 		-- LSP
 		LspFloatWinNormal = { bg = c.statusline_bg },
 		LspFloatWinBorder = common_hls.border_statusline,
-		-- DiagnosticFloatingError = { fg = c.error_fg, bg = c.red_virtual_bg },
-		-- DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.yellow_virtual_bg },
-		-- DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.cyan_virtual_bg },
-		-- DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.blue_virtual_bg },
-		DiagnosticFloatingError = { fg = c.error_fg, bg = c.statusline_bg },
-		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
-		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },
-		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
+		DiagnosticFloatingError = { fg = c.error_fg, bg = c.red_virtual_bg },
+		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.yellow_virtual_bg },
+		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.cyan_virtual_bg },
+		DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.blue_virtual_bg },
+		-- DiagnosticFloatingError = { fg = c.error_fg, bg = c.statusline_bg },
+		-- DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.statusline_bg },
+		-- DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.statusline_bg },
+		-- DiagnosticFloatingHint = { fg = c.hint_fg, bg = c.statusline_bg },
 
 		-- Borders and separators
 		-- WinSeparator = common_hls.border_statusline_rev,

@@ -1,7 +1,7 @@
 local M = {
 	"copilotlsp-nvim/copilot-lsp",
 	event = "BufReadPre",
-	-- enabled = false,
+	enabled = false, -- FIX: bug creating runtime errors all the fucking time
 }
 
 -- TODO: delete the code below and leave the function blank

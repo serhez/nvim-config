@@ -7,7 +7,7 @@ local M = {
 }
 
 function M.config()
-	-- BUG: This plugin needs an empty table to be passed to setup
+	-- BUG: This plugin needs a table (even if empty) to be passed to setup
 	require("nvim-custom-diagnostic-highlight").setup({
 		highlight_group = "Comment",
 	})

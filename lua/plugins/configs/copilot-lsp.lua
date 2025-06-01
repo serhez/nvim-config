@@ -1,18 +1,15 @@
 local M = {
 	"copilotlsp-nvim/copilot-lsp",
-	event = "BufReadPre",
-	enabled = false, -- FIX: bug creating runtime errors all the fucking time
+	event = "VeryLazy",
+	-- enabled = false, -- FIX: bug creating runtime errors all the fucking time
 }
 
--- TODO: delete the code below and leave the function blank
-function M.config()
+function M.init()
 	local version = vim.version()
 	local nes = require("copilot-lsp.nes")
 
-	vim.g.copilot_nes_debounce = 500
-
+	-- TODO: Do not attatch to markdown and other fileypes (see copilot.lua config)
 	vim.lsp.config("copilot_ls", {
-		--NOTE: This name means that existing blink completion works
 		name = "copilot_ls",
 		cmd = {
 			"copilot-language-server",
@@ -41,25 +38,10 @@ function M.config()
 		root_dir = vim.uv.cwd(),
 		on_init = function(client)
 			local au = vim.api.nvim_create_augroup("copilotlsp.init", { clear = true })
-			--NOTE: Inline Completions
-			--TODO: We dont currently use this code path, so comment for now until a UI is built
-			-- vim.api.nvim_create_autocmd("TextChangedI", {
-			--     callback = function()
-			--         inline_completion.request_inline_completion(2)
-			--     end,
-			--     group = au,
-			-- })
 
-			-- TODO: make this configurable for key maps, or just expose commands to map in config
-			-- vim.keymap.set("i", "<c-i>", function()
-			--     inline_completion.request_inline_completion(1)
-			-- end)
-
-			--NOTE: NES Completions
-			local debounced_request = require("copilot-lsp.util").debounce(
-				require("copilot-lsp.nes").request_nes,
-				vim.g.copilot_nes_debounce or 500
-			)
+			--NES Completions
+			local debounced_request =
+				require("copilot-lsp.util").debounce(nes.request_nes, vim.g.copilot_nes_debounce or 500)
 			vim.api.nvim_create_autocmd({ "TextChangedI", "TextChanged" }, {
 				callback = function()
 					debounced_request(client)
@@ -67,7 +49,7 @@ function M.config()
 				group = au,
 			})
 
-			--NOTE: didFocus
+			--didFocus
 			vim.api.nvim_create_autocmd("BufEnter", {
 				callback = function()
 					local td_params = vim.lsp.util.make_text_document_params()
@@ -101,14 +83,35 @@ function M.config()
 			desc = "Clear",
 		},
 	})
+
 	vim.keymap.set({ "n", "x", "o", "i", "v" }, "<C-s>", function()
 		-- Try to jump to the start of the suggestion edit.
 		-- If already at the start, then apply the pending suggestion and jump to the end of the edit.
 		local _ = nes.walk_cursor_start_edit() or (nes.apply_pending_nes() and nes.walk_cursor_end_edit())
-	end)
+	end, { desc = "Jump or apply AI suggestion" })
 	vim.keymap.set({ "n", "x", "o", "i", "v" }, "<C-S-s>", function()
-		nes.clear_suggestion()
-	end)
+		nes.clear()
+	end, { desc = "Clear AI suggestion" })
+	vim.keymap.set("n", "<esc>", function()
+		if not nes.clear() then
+			-- fallback to other functionality
+			return
+		end
+	end, { desc = "Clear AI suggestion" })
+end
+
+function M.config()
+	vim.g.copilot_nes_debounce = 500
+
+	require("copilot-lsp").setup({
+		nes = {
+			move_count_threshold = 3, -- Clear after 3 cursor movements
+			distance_threshold = 40,
+			clear_on_large_distance = true,
+			count_horizontal_moves = true,
+			reset_on_approaching = true,
+		},
+	})
 end
 
 return M

@@ -1,8 +1,7 @@
 local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
-	event = "InsertEnter",
-	-- enabled = false,
+	event = "VeryLazy",
 }
 
 function M.init()
@@ -41,13 +40,13 @@ function M.config()
 		},
 		filetypes = {
 			yaml = true,
-			markdown = true,
+			markdown = false,
 			help = false,
-			gitcommit = true,
-			gitrebase = true,
-			hgcommit = true,
-			svn = true,
-			cvs = true,
+			gitcommit = false,
+			gitrebase = false,
+			hgcommit = false,
+			svn = false,
+			cvs = false,
 			["."] = false,
 		},
 		logger = {

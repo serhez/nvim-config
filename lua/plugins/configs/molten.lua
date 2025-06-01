@@ -4,10 +4,10 @@ local M = {
 		"quarto-dev/quarto-nvim",
 		"GCBallesteros/jupytext.nvim",
 		"3rd/image.nvim",
-		"willothy/wezterm.nvim",
+		-- "willothy/wezterm.nvim",
 	},
 	build = ":UpdateRemotePlugins",
-	ft = { "ipynb", "markdown", "quarto", "rmd" },
+	ft = { "ipynb", "quarto", "rmd" },
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 

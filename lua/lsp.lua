@@ -56,10 +56,12 @@ function M.setup()
 					end
 				end
 				if code then
-					last_char = code:sub(-1)
-					while last_char == ":" or last_char == " " or last_char == "." do
-						code = code:sub(1, -2)
+					if type(code) == "string" then
 						last_char = code:sub(-1)
+						while last_char == ":" or last_char == " " or last_char == "." do
+							code = code:sub(1, -2)
+							last_char = code:sub(-1)
+						end
 					end
 				end
 

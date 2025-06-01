@@ -109,7 +109,8 @@ function M.config()
 	local hls = require("highlights")
 	local colors = hls.colors()
 
-	local custom_fname = require("lualine.components.filename"):extend()
+	local folders_component = require("lualine.components.filename"):extend()
+	local filename_component = require("lualine.components.filename"):extend()
 
 	local git_branches_fn = function() end
 	local snacks_present, snacks = pcall(require, "snacks")
@@ -126,8 +127,8 @@ function M.config()
 		end
 	end
 
-	function custom_fname:init(options)
-		custom_fname.super.init(self, options)
+	function folders_component:init(options)
+		folders_component.super.init(self, options)
 
 		-- Register highlight groups
 		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
@@ -142,9 +143,39 @@ function M.config()
 		end
 	end
 
-	function custom_fname:update_status()
-		local data = custom_fname.super.update_status(self)
+	function folders_component:update_status()
+		local data = folders_component.super.update_status(self)
 		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
+
+		-- Remove the last element (the filename, after the last "/")
+		data = data:match("(.+)/[^/]+$") or data
+
+		-- Use custom separators
+		data = data:gsub("/", " " .. icons.arrow.right_tall .. " ")
+
+		return data .. " " .. icons.arrow.right_tall
+	end
+
+	function filename_component:init(options)
+		filename_component.super.init(self, options)
+
+		-- Register highlight groups
+		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
+			link = "StatusLine",
+		})
+		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
+			link = "DiagnosticVirtualTextWarn",
+		})
+
+		if self.options.color == nil then
+			self.options.color = ""
+		end
+	end
+
+	function filename_component:update_status()
+		local data = filename_component.super.update_status(self)
+		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
+
 		return data
 	end
 
@@ -154,10 +185,10 @@ function M.config()
 		custom_ftype.super.init(self, options)
 
 		-- Register highlight groups
-		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
+		vim.api.nvim_set_hl(0, "LualineFileTypeSaved", {
 			link = "StatusLine",
 		})
-		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
+		vim.api.nvim_set_hl(0, "LualineFileTypeModified", {
 			link = "DiagnosticVirtualTextWarn",
 		})
 
@@ -166,10 +197,24 @@ function M.config()
 		end
 	end
 
-	function custom_ftype:update_status()
-		local data = custom_ftype.super.update_status(self)
-		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
-		return data
+	function custom_ftype:apply_icon()
+		custom_ftype.super.apply_icon(self)
+
+		local current_highlight = self.status:match("%#(.-)#")
+
+		-- If the file is modified, change the background color
+		if vim.bo.modified then
+			if current_highlight then
+				local hl_data = hls.get_bg_fg(current_highlight)
+				local modified_hl_data = hls.get_bg_fg("DiagnosticVirtualTextWarn")
+				local modified_highlight = current_highlight .. "_modified"
+				vim.api.nvim_set_hl(0, modified_highlight, {
+					fg = hl_data.foreground,
+					bg = modified_hl_data.background,
+				})
+				self.status = self.status:gsub(current_highlight, modified_highlight)
+			end
+		end
 	end
 
 	require("lualine").setup({
@@ -255,13 +300,13 @@ function M.config()
 			lualine_b = {},
 			lualine_c = {
 				"%=",
-				{
-					"hostname",
-					cond = function()
-						return not string.find(vim.loop.os_gethostname(), "local")
-							and not string.find(vim.loop.os_gethostname(), "home")
-					end,
-				},
+				-- {
+				-- 	"hostname",
+				-- 	cond = function()
+				-- 		return not string.find(vim.loop.os_gethostname(), "local")
+				-- 			and not string.find(vim.loop.os_gethostname(), "home")
+				-- 	end,
+				-- },
 				{
 					pinned_provider,
 					cond = pinned_condition,
@@ -269,14 +314,8 @@ function M.config()
 					color = { fg = colors.red },
 				},
 				{
-					custom_ftype,
-					icon_only = true,
-					separator = "",
-					padding = { left = 0, right = 0 },
-				},
-				{
-					custom_fname,
-					file_status = true,
+					folders_component,
+					file_status = false,
 					newfile_status = false,
 					-- 0: Just the filename
 					-- 1: Relative path
@@ -284,9 +323,35 @@ function M.config()
 					-- 3: Absolute path, with tilde as the home directory
 					-- 4: Filename and parent dir, with tilde as the home directory
 					path = 1,
-					padding = { left = 0, right = 1 },
-					shorting_target = 100,
+					padding = { left = 1, right = 0 },
+					shorting_target = 75,
 					color = { gui = "bold" },
+					symbols = {
+						modified = icons.small_circle,
+						readonly = icons.lock,
+						unnamed = "[No name]",
+						newfile = "[New]",
+					},
+				},
+				{
+					custom_ftype,
+					icon_only = true,
+					separator = "",
+					padding = { left = 1, right = 0 },
+				},
+				{
+					filename_component,
+					file_status = false,
+					newfile_status = false,
+					-- 0: Just the filename
+					-- 1: Relative path
+					-- 2: Absolute path
+					-- 3: Absolute path, with tilde as the home directory
+					-- 4: Filename and parent dir, with tilde as the home directory
+					path = 0,
+					padding = { left = 0, right = 1 },
+					shorting_target = 125,
+					color = { bold = true },
 					symbols = {
 						modified = icons.small_circle,
 						readonly = icons.lock,

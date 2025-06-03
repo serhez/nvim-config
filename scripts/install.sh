@@ -3,6 +3,13 @@
 # Install SH development environment
 # Supports MacOS and Arch Linux
 
+echo "Welcome to my Neovim config installer! Which Python environment tool do you use? Answer either 'conda', 'micromamba', or 'mamba'"
+read -r python_tool
+while [[ "$python_tool" != "conda" ]] && [[ "$python_tool" != "mamba" ]] && [["$python_tool" != "micromamba"]]; do
+	echo "Please answer either 'conda', 'micromamba', or 'mamba'"
+	read -r python_tool
+done
+
 echo "Installing Neovim's dependencies..."
 echo ""
 
@@ -37,36 +44,16 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	# MacOS
-	architecture=$(uname -m)
-	case $architecture in
-	# Mac Intel silicon
-	x86_64)
-		brew install python3
-		brew install gnu-sed
-		brew install fd
-		brew install ripgrep
-		brew install luajit
-		brew install tree-sitter
-		brew install neovim --HEAD
-		brew install luarocks
-		brew install node@16
-		brew install bat
-		;;
-
-	# Mac Apple silicon
-	arm64)
-		arch -arm64 brew install python3
-		arch -arm64 brew install gnu-sed
-		arch -arm64 brew install fd
-		arch -arm64 brew install ripgrep
-		arch -arm64 brew install --HEAD luajit
-		arch -arm64 brew install tree-sitter
-		arch -arm64 brew install neovim --HEAD
-		arch -arm64 brew install luarocks
-		arch -arm64 brew install node@16
-		arch -arm64 brew install bat
-		;;
-	esac
+	brew install python3
+	brew install gnu-sed
+	brew install fd
+	brew install ripgrep
+	brew install luajit
+	brew install tree-sitter
+	brew install neovim --HEAD
+	brew install luarocks
+	brew install node@16
+	brew install bat
 else
 	echo "Your OS is not supported by the installer at this moment."
 	exit 1
@@ -75,9 +62,13 @@ fi
 # Generic installs for all OS's
 npm install -g neovim
 
-# Create nvim conda env
-conda create -n nvim python
-conda activate nvim
+# Create nvim mamba (conda) env
+if [[ "$python_tool" == "micromamba" ]]; then
+	micromamba create -n nvim python
+	micromamba activate nvim
+else
+	echo "Your python environment tool is not integrated at the moment, please open an issue"
+fi
 pip install --upgrade pip
 pip install pynvim jupyter jupyter_client jupytext Pillow cairosvg pnglatex plotly kaleido ipykernel pylatexenc keyring tornado requests
 pip install \
@@ -85,10 +76,14 @@ pip install \
 	--global-option="-I/usr/local/include" \
 	--global-option="-L/opt/X11/lib" \
 	lookatme.contrib.image_ueberzug
-conda deactivate
+if [[ "$python_tool" == "micromamba" ]]; then
+	micromamba activate base
+else
+	echo "Your python environment tool is not integrated at the moment, please open an issue"
+fi
 
-sudo mv ~/.config/nvim ~/.config/nvim.old
-mkdir ~/.config
+[[ -d ~/.config ]] || mkdir ~/.config
+[[ -d ~/.config/nvim ]] || sudo mv ~/.config/nvim ~/.config/nvim.old
 mkdir ~/.config/nvim
 cp -r ./*glob* ~/.config/nvim
 

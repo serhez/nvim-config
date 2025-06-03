@@ -88,9 +88,6 @@ function M.config()
 			-- Dart/Flutter
 			"dart-debug-adapter",
 			"dcm",
-			"dart-lsp",
-			"dartfmt",
-			"flutter",
 
 			-- HTML
 			"html-lsp",

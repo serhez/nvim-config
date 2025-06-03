@@ -9,7 +9,6 @@ local M = {
 		"Saghen/blink.cmp",
 		"andymass/vim-matchup", -- for enhanced % motion behavior
 		"andrewradev/switch.vim", -- for switch support
-		-- 'tomtom/tcomment_vim',           -- for commenting
 	},
 }
 

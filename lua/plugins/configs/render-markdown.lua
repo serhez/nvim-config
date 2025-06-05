@@ -3,14 +3,32 @@ local M = {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
+		"ray-x/yamlmatter.nvim",
 	},
 	ft = { "markdown", "quarto", "rmd", "Avante", "noice" },
 }
 
+local _toggle_state = true
+
 function M.init()
 	require("mappings").register({
 		{ "<leader>m", group = "Markdown" },
-		{ "<leader>mr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle rendering" },
+		{
+			"<leader>mr",
+			function()
+				vim.cmd("RenderMarkdown toggle")
+				local _, present = pcall(vim.cmd, "YamlMatterDisable")
+				if present then
+					if _toggle_state then
+						vim.cmd("YamlMatterDisable")
+					else
+						vim.cmd("YamlMatter")
+					end
+				end
+				_toggle_state = not _toggle_state
+			end,
+			desc = "Toggle rendering",
+		},
 	})
 end
 

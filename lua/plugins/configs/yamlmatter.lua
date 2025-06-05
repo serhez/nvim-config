@@ -1,6 +1,7 @@
+-- NOTE: This plugin is triggered by render-markdown.nvim
 local M = {
 	"ray-x/yamlmatter.nvim",
-	ft = { "markdown", "quarto", "rmd" },
+	enabled = false, -- BUG: it's annoying because disabling does not work well
 }
 
 function M.config()

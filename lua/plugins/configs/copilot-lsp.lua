@@ -1,7 +1,6 @@
 local M = {
 	"copilotlsp-nvim/copilot-lsp",
 	event = "VeryLazy",
-	-- enabled = false, -- FIX: bug creating runtime errors all the fucking time
 }
 
 function M.init()
@@ -35,7 +34,27 @@ function M.init()
 				return require("copilot-lsp.handlers")[method]
 			end,
 		}),
-		root_dir = vim.uv.cwd(),
+		root_dir = function(bufnr, on_dir)
+			-- Do not attach to certain filetypes
+			if
+				vim.bo[bufnr].filetype == "markdown"
+				or vim.bo[bufnr].filetype == "yaml"
+				or vim.bo[bufnr].filetype == "json"
+				or vim.bo[bufnr].filetype == "toml"
+				or vim.bo[bufnr].filetype == "help"
+				or vim.bo[bufnr].filetype == "gitcommit"
+				or vim.bo[bufnr].filetype == "gitrebase"
+				or vim.bo[bufnr].filetype == "hgcommit"
+				or vim.bo[bufnr].filetype == "svn"
+				or vim.bo[bufnr].filetype == "cvs"
+				or vim.bo[bufnr].filetype == "oil"
+				or vim.bo[bufnr].filetype == "grug-far"
+				or vim.bo[bufnr].filetype == "."
+			then
+				return nil
+			end
+			on_dir(vim.uv.cwd())
+		end,
 		on_init = function(client)
 			local au = vim.api.nvim_create_augroup("copilotlsp.init", { clear = true })
 

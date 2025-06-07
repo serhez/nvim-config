@@ -147,6 +147,14 @@ function M.config()
 		local data = folders_component.super.update_status(self)
 		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
 
+		-- Remove leading slashes
+		data = data:gsub("^/+", "")
+
+		-- If the path is empty or has no slashes (i.e., just the filename), return an empty string
+		if data == "" or not data:find("/") then
+			return ""
+		end
+
 		-- Remove the last element (the filename, after the last "/")
 		data = data:match("(.+)/[^/]+$") or data
 

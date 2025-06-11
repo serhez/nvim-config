@@ -23,7 +23,7 @@ function M.config()
 		ensure_installed = {
 			-- Text (general: grammar, syntax, etc.)
 			-- "harper_ls",  -- annoying
-			"grammarly-languageserver",
+			-- "grammarly-languageserver", -- broken
 			"commitlint",
 			"copilot-language-server",
 

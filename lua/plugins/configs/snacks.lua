@@ -32,6 +32,13 @@ local M = {
 				cwd_bonus = false, -- give bonus for matching files in the cwd
 				frecency = true, -- frecency bonus
 			},
+			jump = {
+				jumplist = true, -- save the current position in the jumplist
+				tagstack = true, -- save the current position in the tagstack
+				reuse_win = true, -- reuse an existing window if the buffer is already open
+				close = true, -- close the picker when jumping/editing to a location (defaults to true)
+				match = false, -- jump to the first match position. (useful for `lines`)
+			},
 			formatters = {
 				text = {
 					ft = nil, ---@type string? filetype for highlighting

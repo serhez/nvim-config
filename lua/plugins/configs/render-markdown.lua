@@ -75,12 +75,12 @@ function M.config()
 			-- The 'level' is used to index into the array using a cycle
 			-- The result is left padded with spaces to hide any additional '#'
 			icons = {
-				block .. " " .. icons.numbers.circled_filled[1] .. " ",
-				block .. block .. " " .. icons.numbers.circled_filled[2] .. " ",
-				block .. block .. block .. " " .. icons.numbers.circled_filled[3] .. " ",
-				block .. block .. block .. block .. " " .. icons.numbers.circled_filled[4] .. " ",
-				block .. block .. block .. block .. block .. " " .. icons.numbers.circled_filled[5] .. " ",
-				block .. block .. block .. block .. block .. block .. " " .. icons.numbers.circled_filled[6] .. " ",
+				block .. " " .. icons.numbers.header[1] .. " ",
+				block .. block .. " " .. icons.numbers.header[2] .. " ",
+				block .. block .. block .. " " .. icons.numbers.header[3] .. " ",
+				block .. block .. block .. block .. " " .. icons.numbers.header[4] .. " ",
+				block .. block .. block .. block .. block .. " " .. icons.numbers.header[5] .. " ",
+				block .. block .. block .. block .. block .. block .. " " .. icons.numbers.header[6] .. " ",
 			},
 			-- icons = { "", "", "", "", "", "" },
 			-- Highlight for the heading icon and extends through the entire line

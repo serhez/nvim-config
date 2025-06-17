@@ -13,9 +13,26 @@ function M.config()
 	})
 
 	require("lint").linters_by_ft = {
-		-- markdown = {
-		-- "vale", --[[ "markdownlint" ]]
-		-- },
+		markdown = {
+			-- "vale",
+			-- "markdownlint",
+			"codespell",
+		},
+		quarto = {
+			"codespell",
+		},
+		txt = {
+			"codespell",
+		},
+		tex = {
+			"codespell",
+		},
+		latex = {
+			"codespell",
+		},
+		rmd = {
+			"codespell",
+		},
 
 		sh = { "shellcheck" },
 

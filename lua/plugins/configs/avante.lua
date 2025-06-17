@@ -7,18 +7,25 @@ local M = {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
 		"MeanderingProgrammer/render-markdown.nvim",
+		"folke/snacks.nvim",
 	},
 }
 
 function M.init()
 	require("mappings").register({
 		{
-			"<leader>aa",
+			"<leader>ac",
 			function()
 				require("avante.api").ask()
 			end,
-			desc = "Ask",
+			desc = "Toggle chat",
 			mode = { "n", "v" },
+		},
+		{
+			"<leader>aC",
+			"<cmd>AvanteClear<cr>",
+			desc = "Clear chat",
+			mode = { "n" },
 		},
 		{
 			"<leader>ae",
@@ -26,23 +33,42 @@ function M.init()
 				require("avante.api").edit()
 			end,
 			desc = "Edit",
-			mode = { "n", "v" },
-		},
-		{
-			"<leader>ar",
-			function()
-				require("avante.api").refresh()
-			end,
-			desc = "Refresh",
-			mode = { "n", "v" },
+			mode = { "v" },
 		},
 		{
 			"<leader>ah",
 			function()
-				require("avante.toggle").hint()
+				require("avante.api").select_history()
 			end,
-			desc = "Toggle hints",
+			desc = "Chat history",
+			mode = { "n" },
+		},
+		{
+			"<leader>am",
+			function()
+				require("avante.model_selector").open()
+			end,
+			desc = "Select model",
+		},
+		{
+			"<leader>aM",
+			function()
+				require("avante.repo_map").show()
+			end,
+			desc = "Repository map",
+		},
+		{
+			"<leader>an",
+			function()
+				require("avante.api").ask({ new_chat = true })
+			end,
+			desc = "New chat",
 			mode = { "n", "v" },
+		},
+		{
+			"<leader>ap",
+			"<cmd>AvanteSwitchProvider ",
+			desc = "Select provider",
 		},
 		{
 			"<leader>aq",
@@ -58,64 +84,80 @@ function M.init()
 			mode = { "n", "v" },
 		},
 		{
-			"<leader>am",
+			"<leader>ar",
 			function()
-				require("avante.model_selector").open()
+				require("avante.api").refresh()
 			end,
-			desc = "Select model",
+			desc = "Refresh",
+			mode = { "n", "v" },
+		},
+		{
+			"<leader>aS",
+			function()
+				require("avante.api").stop()
+			end,
+			desc = "Stop generation",
 		},
 	})
 end
 
 function M.config()
+	local icons = require("icons")
+
 	require("avante_lib").load()
 	require("avante").setup({
 		---@alias Provider "openai" | "claude" | "azure"  | "copilot" | [string]
 		provider = "copilot",
 		auto_suggestions_provider = "copilot",
-		-- provider = "claude",
-		-- auto_suggestions_provider = "claude",
-		copilot = {
-			-- model = "gpt-4o",
-			model = "claude-3.5-sonnet",
+		providers = {
+			copilot = {
+				model = "claude-sonnet-4",
+			},
 		},
 		behaviour = {
 			auto_set_keymaps = false,
 		},
-		mappings = {
-			ask = "<nop>",
-			edit = "<nop>",
-			refresh = "<nop>",
-			diff = {
-				ours = "co",
-				theirs = "ct",
-				none = "c0",
-				both = "cb",
-				next = "]x",
-				prev = "[x",
-			},
-			jump = {
-				next = "]]",
-				prev = "[[",
-			},
-			submit = {
-				normal = "<CR>",
-				insert = "<C-s>",
-			},
-			toggle = {
-				debug = "<nop>",
-				hint = "<leader>ah",
-				default = "<nop>",
-			},
-			sidebar = {
-				apply_all = "A",
-				apply_cursor = "a",
-				switch_windows = "<Tab>",
-				reverse_switch_windows = "<S-Tab>",
-				remove_file = "d",
-				add_file = "@",
+		input = {
+			provider = "snacks",
+			provider_opts = {
+				title = "Avante Input",
+				icon = icons.AI,
 			},
 		},
+		-- mappings = {
+		-- 	ask = "<nop>",
+		-- 	edit = "<nop>",
+		-- 	refresh = "<nop>",
+		-- 	diff = {
+		-- 		ours = "co",
+		-- 		theirs = "ct",
+		-- 		none = "c0",
+		-- 		both = "cb",
+		-- 		next = "]x",
+		-- 		prev = "[x",
+		-- 	},
+		-- 	jump = {
+		-- 		next = "]]",
+		-- 		prev = "[[",
+		-- 	},
+		-- 	submit = {
+		-- 		normal = "<CR>",
+		-- 		insert = "<C-s>",
+		-- 	},
+		-- 	toggle = {
+		-- 		debug = "<nop>",
+		-- 		hint = "<leader>ah",
+		-- 		default = "<nop>",
+		-- 	},
+		-- 	sidebar = {
+		-- 		apply_all = "A",
+		-- 		apply_cursor = "a",
+		-- 		switch_windows = "<Tab>",
+		-- 		reverse_switch_windows = "<S-Tab>",
+		-- 		remove_file = "d",
+		-- 		add_file = "@",
+		-- 	},
+		-- },
 		hints = { enabled = true },
 		windows = {
 			wrap = true, -- similar to vim.o.wrap

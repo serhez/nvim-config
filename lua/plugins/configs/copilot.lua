@@ -6,8 +6,8 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>ap", "<cmd>Copilot panel<cr>", desc = "Copilot panel" },
-		{ "<leader>ac", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot" },
+		{ "<leader>ao", "<cmd>Copilot panel<cr>", desc = "Copilot options" },
+		{ "<leader>at", "<cmd>Copilot toggle<cr>", desc = "Toggle copilot" },
 	})
 end
 

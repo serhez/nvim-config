@@ -1,5 +1,6 @@
 local M = {}
 
+M.AI = ""
 M.lupa = ""
 M.lock = ""
 M.menu = "☰"

@@ -3,7 +3,12 @@ local M = {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		"xzbdmw/colorful-menu.nvim",
-		"saghen/blink.compat",
+		"Kaiser-Yang/blink-cmp-avante",
+		"Kaiser-Yang/blink-cmp-dictionary",
+		"Kaiser-Yang/blink-cmp-git",
+		"disrupted/blink-cmp-conventional-commits",
+		"bydlw98/blink-cmp-env",
+		"jmbuhr/cmp-pandoc-references",
 	},
 	-- use a release tag to download pre-built binaries
 	version = "v0.*",
@@ -13,6 +18,8 @@ local M = {
 }
 
 function M.config()
+	local default_sources = require("blink.cmp.config.sources").default.default
+
 	require("blink-cmp").setup({
 		-- for keymap, all values may be string | string[]
 		-- use an empty table to disable a keymap
@@ -104,6 +111,55 @@ function M.config()
 				},
 			},
 		},
+
+		sources = {
+			default = vim.list_extend(default_sources, { "avante", "git", "env", "pandoc_references", "dictionary" }),
+			providers = {
+				avante = {
+					module = "blink-cmp-avante",
+					name = "Avante",
+					opts = {},
+				},
+				dictionary = {
+					module = "blink-cmp-dictionary",
+					name = "Dict",
+					min_keyword_length = 3,
+					enabled = function()
+						return vim.tbl_contains({ "markdown", "quarto", "avante" }, vim.bo.filetype)
+					end,
+					opts = {
+						dictionary_files = { "/usr/share/dict/words" }, -- MacOS
+					},
+				},
+				git = {
+					module = "blink-cmp-git",
+					name = "Git",
+					enabled = function()
+						return vim.tbl_contains({ "octo", "gitcommit" }, vim.bo.filetype)
+					end,
+					opts = {},
+				},
+				-- NOTE: not needed, as there are better snippets for this
+				-- conventional_commits = {
+				-- 	module = "blink-cmp-conventional-commits",
+				-- 	name = "Conventional Commits",
+				-- 	enabled = function()
+				-- 		return vim.bo.filetype == "gitcommit"
+				-- 	end,
+				-- 	opts = {},
+				-- },
+				env = {
+					module = "blink-cmp-env",
+					name = "Env",
+					opts = {},
+				},
+				pandoc_references = {
+					module = "cmp-pandoc-references.blink",
+					name = "pandoc_references",
+				},
+			},
+		},
+
 		cmdline = {
 			completion = {
 				ghost_text = {

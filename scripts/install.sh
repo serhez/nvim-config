@@ -27,6 +27,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 		pacman -S neovim
 		pacman -S node
 		pacman -S bat
+		pacman -S wordnet
 		;;
 	*)
 		echo "Your Linux distribution is not supported by the installer at this moment."
@@ -54,6 +55,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install luarocks
 	brew install node@16
 	brew install bat
+	brew install wordnet
 else
 	echo "Your OS is not supported by the installer at this moment."
 	exit 1

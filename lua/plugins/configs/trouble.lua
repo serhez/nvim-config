@@ -39,6 +39,8 @@ function M.init()
 		{ "gO", "<cmd>Trouble lsp_outgoing_calls<cr>", desc = "Outgoing calls" },
 
 		-- Quickfix and location list
+		{ "<leader>ll", "<cmd>Trouble loclist<cr>", desc = "Toggle location" },
+		{ "<leader>lq", "<cmd>Trouble qflist<cr>", desc = "Toggle quickfix" },
 		{
 			"[q",
 			function()
@@ -124,9 +126,6 @@ function M.init()
 			desc = "Diagnostics (workspace)",
 		},
 		{ "<leader>cu", "<cmd>Trouble lsp<cr>", desc = "Usage" },
-
-		{ "<leader>ul", "<cmd>Trouble loclist<cr>", desc = "Location list" },
-		{ "<leader>uq", "<cmd>Trouble qflist<cr>", desc = "Quickfix list" },
 	})
 
 	-- Hijack quickfix and location list
@@ -187,6 +186,23 @@ function M.config()
 			lsp_base = {
 				params = {
 					include_current = true,
+				},
+			},
+			loclist = {
+				win = {
+					position = "top",
+					relative = "editor",
+					size = 10,
+				},
+				preview = {
+					type = "float",
+					position = { -2, -2 },
+					relative = "editor",
+					border = "solid",
+					title = "Preview",
+					title_pos = "center",
+					size = { width = 0.4, height = 11 },
+					zindex = 200,
 				},
 			},
 			symbols = {

@@ -13,7 +13,7 @@ function M.init()
 	vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 	require("mappings").register({
-		{ "<leader>ly", "<cmd>YankyRingHistory<cr>", desc = "Yank history", mode = { "n", "x" } },
+		{ "<leader>Ey", "<cmd>YankyRingHistory<cr>", desc = "Yank history", mode = { "n", "x" } },
 	})
 end
 

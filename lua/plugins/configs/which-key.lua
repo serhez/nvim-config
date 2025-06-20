@@ -25,12 +25,18 @@ local basic_mappings = {
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>dB", group = "Breakpoints" },
 
+	{ "<leader>E", group = "Editor" },
+
 	{ "<leader>g", group = "Git" },
 	{ "<leader>gb", group = "Buffer" },
 	{ "<leader>gl", group = "List" },
 
 	{ "<leader>i", group = "Installer" },
+
 	{ "<leader>l", group = "List" },
+	{ "<leader>lL", group = "Location" },
+	{ "<leader>lQ", group = "Quickfix" },
+
 	{ "<leader>n", group = "Notebooks" },
 	{ "<leader>p", group = "Projects" },
 
@@ -129,6 +135,22 @@ local basic_mappings = {
 		end,
 		desc = "Toggle inline hints",
 	},
+
+	-- Quickfix & location lists
+	{ "<leader>lQd", ":cdo ", desc = "Do" },
+	{ "<leader>lLd", ":ldo ", desc = "Do" },
+	{ "<leader>lQD", ":cfdo ", desc = "Do (file)" },
+	{ "<leader>lLD", ":lfdo ", desc = "Do (file)" },
+	{ "<leader>lQe", ":cgete ", desc = "Create from expression" },
+	{ "<leader>lLe", ":lgete ", desc = "Create from expression" },
+	{ "<leader>lQf", ":cfilter /", desc = "Filter" },
+	{ "<leader>lLf", ":lfilter /", desc = "Filter" },
+	{ "<leader>lQl", ":cf ", desc = "Load file" },
+	{ "<leader>lLl", ":lf ", desc = "Load file" },
+	{ "<leader>lQn", "<cmd>cnew<cr>", desc = "Next" },
+	{ "<leader>lLn", "<cmd>lnew<cr>", desc = "Next" },
+	{ "<leader>lQp", "<cmd>col<cr>", desc = "Previous" },
+	{ "<leader>lLp", "<cmd>lol<cr>", desc = "Previous" },
 }
 
 function M.config()

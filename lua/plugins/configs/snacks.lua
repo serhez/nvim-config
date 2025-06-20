@@ -65,12 +65,14 @@ local M = {
 						["|"] = { "edit_vsplit", mode = { "n" } },
 						["<c-s>"] = { "edit_split", mode = { "i" } },
 						["<c-v>"] = { "edit_vsplit", mode = { "i" } },
+						["<c-l>"] = { "loclist", mode = { "n", "i" } },
 					},
 				},
 				list = {
 					keys = {
 						["_"] = { "edit_split" },
 						["|"] = { "edit_vsplit" },
+						["<c-l>"] = { "loclist" },
 					},
 					wo = {
 						statuscolumn = " ",
@@ -164,7 +166,7 @@ function M.init()
 			desc = "Symbols (workspace)",
 		},
 		{
-			"<leader>lu",
+			"<leader>Eu",
 			function()
 				snacks.picker.undo()
 			end,
@@ -173,7 +175,7 @@ function M.init()
 
 		-- List
 		{
-			"<leader>lC",
+			"<leader>Ec",
 			function()
 				snacks.picker.commands()
 			end,
@@ -181,32 +183,32 @@ function M.init()
 		},
 		-- { "<leader>lj", "<cmd>Telescope jsonfly theme=ivy<cr>", desc = "JSON keys" },
 		{
-			"<leader>lm",
+			"<leader>Em",
 			function()
 				snacks.picker.marks()
 			end,
 			desc = "Marks",
 		},
 		{
-			"<leader>lM",
+			"<leader>Em",
 			function()
 				snacks.picker.man()
 			end,
 			desc = "Man pages",
 		},
 		{
-			"<leader>lh",
+			"<leader>uH",
 			function()
 				snacks.picker.highlights()
 			end,
-			desc = "Highlights",
+			desc = "Highlight list",
 		},
 		{
-			"<leader>li",
+			"<leader>ui",
 			function()
 				snacks.picker.icons()
 			end,
-			desc = "Icons",
+			desc = "Icons list",
 		},
 
 		-- Git

@@ -40,7 +40,7 @@ function M.init()
 
 		-- Quickfix and location list
 		{
-			"[n",
+			"[q",
 			function()
 				require("trouble").prev("qflist")
 				require("trouble").jump_only("qflist")
@@ -48,7 +48,7 @@ function M.init()
 			desc = "Previous quickfix list item",
 		},
 		{
-			"]n",
+			"]q",
 			function()
 				require("trouble").next("qflist")
 				require("trouble").jump_only("qflist")
@@ -56,7 +56,7 @@ function M.init()
 			desc = "Next quickfix list item",
 		},
 		{
-			"[N",
+			"[Q",
 			function()
 				require("trouble").first("qflist")
 				require("trouble").jump_only("qflist")
@@ -64,7 +64,7 @@ function M.init()
 			desc = "First quickfix list item",
 		},
 		{
-			"]N",
+			"]Q",
 			function()
 				require("trouble").last("qflist")
 				require("trouble").jump_only("qflist")
@@ -72,7 +72,7 @@ function M.init()
 			desc = "Last quickfix list item",
 		},
 		{
-			"[n",
+			"[l",
 			function()
 				require("trouble").prev("loclist")
 				require("trouble").jump_only("loclist")
@@ -80,7 +80,7 @@ function M.init()
 			desc = "Previous location list item",
 		},
 		{
-			"]n",
+			"]l",
 			function()
 				require("trouble").next("loclist")
 				require("trouble").jump_only("loclist")
@@ -88,7 +88,7 @@ function M.init()
 			desc = "Next location list item",
 		},
 		{
-			"[N",
+			"[L",
 			function()
 				require("trouble").first("loclist")
 				require("trouble").jump_only("loclist")
@@ -96,7 +96,7 @@ function M.init()
 			desc = "First location list item",
 		},
 		{
-			"]N",
+			"]L",
 			function()
 				require("trouble").last("loclist")
 				require("trouble").jump_only("loclist")

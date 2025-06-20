@@ -67,7 +67,7 @@ function M.init()
 		},
 		{
 			"<leader>ap",
-			"<cmd>AvanteSwitchProvider ",
+			":AvanteSwitchProvider ",
 			desc = "Select provider",
 		},
 		{

@@ -34,7 +34,9 @@ function M.format(bufnr)
 		})
 	end
 
-	vim.notify("Formatted the buffer", "info")
+	vim.notify("Formatted the buffer", vim.log.levels.INFO, {
+		title = "Auto-formatting",
+	})
 end
 
 function M.auto_format(bufnr)

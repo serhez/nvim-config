@@ -10,24 +10,23 @@ local M = {
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
-M.venv = nil
-M.show_filetype = false
+vim.g.lualine_show_filetype = false
 
 function M.set_venv(venv)
 	local path = vim.split(venv, "/", { trimempty = true })
-	M.venv = path[#path]
+	vim.g.active_venv = path[#path]
 end
 
 function M.toggle_filetype()
-	M.show_filetype = not M.show_filetype
+	vim.g.lualine_show_filetype = not vim.g.lualine_show_filetype
 end
 
 local function venv_provider()
-	if M.venv == nil or M.venv == "" or M.venv == "base" then
+	if vim.g.active_venv == nil or vim.g.active_venv == "" or vim.g.active_venv == "base" then
 		return ""
 	end
 
-	return icons.tool.venv .. " " .. M.venv
+	return icons.tool.venv .. " " .. vim.g.active_venv
 end
 
 local function supermaven_provider()
@@ -270,7 +269,10 @@ function M.config()
 				{
 					venv_provider,
 					cond = function()
-						return M.venv ~= nil and M.venv ~= "" and M.venv ~= "base"
+						local cond = vim.g.active_venv ~= nil
+							and vim.g.active_venv ~= ""
+							and vim.g.active_venv ~= "base"
+						return cond
 					end,
 					on_click = function(_, _, _)
 						vim.cmd("lua require('swenv.api').pick_venv()")
@@ -441,7 +443,7 @@ function M.config()
 					"filetype",
 					icon = { "" },
 					cond = function()
-						return M.show_filetype
+						return vim.g.lualine_show_filetype
 					end,
 				},
 			},

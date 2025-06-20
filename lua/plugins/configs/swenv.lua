@@ -1,8 +1,11 @@
 local M = {
 	"AckslD/swenv.nvim",
+	dev = true,
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
+
+vim.g.active_venv = nil
 
 function M.init()
 	require("mappings").register({
@@ -15,9 +18,9 @@ function M.init()
 end
 
 function M.config()
-	local lualine_config_present, lualine_config = pcall(require, "plugins.configs.lualine")
-
 	require("swenv").setup({
+		-- attempt to auto create and set a venv from dependencies
+		auto_create_venv = false,
 		-- Should return a list of tables with a `name` and a `path` entry each
 		-- Gets the argument `venvs_path` set below
 		-- By default just lists the entries in `venvs_path`
@@ -30,18 +33,15 @@ function M.config()
 		venvs_path = vim.fn.expand("~/envs"),
 		-- Something to do after setting an environment, for example call vim.cmd.LspRestart
 		post_set_venv = function(venv)
+			vim.g.active_venv = venv.name
 			vim.cmd("LspRestart")
-			if lualine_config_present then
-				lualine_config.set_venv(venv.name)
-			end
 		end,
 	})
 
-	if lualine_config_present then
-		local current_venv = require("swenv.api").get_current_venv()
-		if current_venv then
-			lualine_config.set_venv(current_venv.name)
-		end
+	-- Initialize the active virtual environment
+	local current_venv = require("swenv.api").get_current_venv()
+	if current_venv then
+		vim.g.active_venv = current_venv.name
 	end
 end
 

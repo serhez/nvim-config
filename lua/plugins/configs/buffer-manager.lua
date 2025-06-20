@@ -51,7 +51,7 @@ function M.config()
 		focus_alternate_buffer = true,
 		short_file_names = true,
 		short_term_names = true,
-		order_buffers = "lastused",
+		order_buffers = "fullpath",
 		show_indicators = "after",
 	})
 end

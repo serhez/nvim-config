@@ -267,7 +267,13 @@ function M.config()
 			-- },
 			lualine_a = {
 				{
+					"branch",
+					icon = icons.git.branch,
+					on_click = git_branches_fn,
+				},
+				{
 					venv_provider,
+					color = "IncSearch",
 					cond = function()
 						local cond = vim.g.active_venv ~= nil
 							and vim.g.active_venv ~= ""
@@ -280,11 +286,7 @@ function M.config()
 				},
 				{
 					kernel_provider,
-				},
-				{
-					"branch",
-					icon = icons.git.branch,
-					on_click = git_branches_fn,
+					color = "Cursor",
 				},
 				{
 					"diff",

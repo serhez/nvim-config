@@ -2,6 +2,7 @@ local M = {
 	"axkirillov/hbac.nvim",
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	enabled = false,
 }
 
 function M.init()

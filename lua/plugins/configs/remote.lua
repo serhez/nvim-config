@@ -1,6 +1,6 @@
 -- NOTE: This plugin automatically installs telescope
 --       even without it being listed in `dependencies`
-
+-- TODO: try again
 local M = {
 	"amitds1997/remote-nvim.nvim",
 	version = "*", -- Pin to GitHub releases

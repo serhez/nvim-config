@@ -1,3 +1,4 @@
+-- TODO: try again
 local M = {
 	"rachartier/tiny-glimmer.nvim",
 	event = "VeryLazy",

@@ -1,3 +1,4 @@
+-- TODO: give another try
 local M = {
 	"ghillb/cybu.nvim",
 	branch = "main",

@@ -104,6 +104,9 @@ end
 function M.config()
 	local icons = require("icons")
 
+	-- TODO: open issue in avante to integrate with the snacks explorer
+	-- local snacks_sources = require("snacks.picker.config.sources")
+
 	require("avante_lib").load()
 	require("avante").setup({
 		---@alias Provider "openai" | "claude" | "azure"  | "copilot" | [string]
@@ -120,44 +123,33 @@ function M.config()
 		input = {
 			provider = "snacks",
 			provider_opts = {
-				title = "Avante Input",
+				title = "Avante",
 				icon = icons.AI,
+				layout = {
+					preset = function()
+						return vim.o.columns >= 120 and "ivy" or "vscode"
+					end,
+				},
 			},
 		},
-		-- mappings = {
-		-- 	ask = "<nop>",
-		-- 	edit = "<nop>",
-		-- 	refresh = "<nop>",
-		-- 	diff = {
-		-- 		ours = "co",
-		-- 		theirs = "ct",
-		-- 		none = "c0",
-		-- 		both = "cb",
-		-- 		next = "]x",
-		-- 		prev = "[x",
-		-- 	},
-		-- 	jump = {
-		-- 		next = "]]",
-		-- 		prev = "[[",
-		-- 	},
-		-- 	submit = {
-		-- 		normal = "<CR>",
-		-- 		insert = "<C-s>",
-		-- 	},
-		-- 	toggle = {
-		-- 		debug = "<nop>",
-		-- 		hint = "<leader>ah",
-		-- 		default = "<nop>",
-		-- 	},
-		-- 	sidebar = {
-		-- 		apply_all = "A",
-		-- 		apply_cursor = "a",
-		-- 		switch_windows = "<Tab>",
-		-- 		reverse_switch_windows = "<S-Tab>",
-		-- 		remove_file = "d",
-		-- 		add_file = "@",
-		-- 	},
-		-- },
+		selector = {
+			provider = "snacks",
+			-- provider_opts = snacks_sources.explorer,
+			provider_opts = {
+				title = "Avante",
+				icon = icons.AI,
+				layout = {
+					preset = function()
+						return vim.o.columns >= 120 and "ivy" or "vscode"
+					end,
+				},
+			},
+		},
+		mappings = {
+			files = {
+				add_current = "aC", -- conflicts with current toggle chat mapping
+			},
+		},
 		hints = { enabled = true },
 		windows = {
 			wrap = true, -- similar to vim.o.wrap

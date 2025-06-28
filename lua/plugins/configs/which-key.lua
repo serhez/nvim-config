@@ -67,8 +67,8 @@ local basic_mappings = {
 	-- Tabs
 	{ "<leader>Q", "<cmd>tabclose<cr>", desc = "Quit tab" },
 	{ "<leader>ut", "<cmd>tabnew<cr>", desc = "New tab" },
-	{ "<Backspace>", "<cmd>tabnext<cr>", desc = "Next tab" },
-	{ "<S-Backspace>", "<cmd>tabprev<cr>", desc = "Previous tab" },
+	{ "]t", "<cmd>tabnext<cr>", desc = "Next tab" },
+	{ "[t", "<cmd>tabprev<cr>", desc = "Prev tab" },
 
 	-- Messages and notifications
 	{ "<leader>um", "<cmd>messages<cr>", desc = "Messages" },

@@ -11,6 +11,7 @@ local M = {
 
 function M.init()
 	require("mappings").register({ "<leader>it", "<cmd>TSUpdate<cr>", desc = "Update treesitter" })
+	require("mappings").register({ "<leader>iT", "<cmd>TSInstall all<cr>", desc = "Install treesitter (all)" })
 end
 
 function M.config()

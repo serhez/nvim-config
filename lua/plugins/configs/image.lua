@@ -1,6 +1,7 @@
 local M = {
 	"3rd/image.nvim",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.neovide,
+	enabled = false,
 }
 
 function M.init()

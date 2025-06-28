@@ -4,6 +4,7 @@ local M = {
 		"jmbuhr/otter.nvim",
 		"neovim/nvim-lspconfig",
 		"williamboman/mason-lspconfig.nvim",
+		"Vigemus/iron.nvim",
 	},
 	ft = { "markdown", "quarto", "rmd" },
 }
@@ -67,12 +68,6 @@ function M.init()
 	})
 end
 
-local function keys(str)
-	return function()
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(str, true, false, true), "m", true)
-	end
-end
-
 function M.config()
 	require("quarto").setup({
 		closePreviewOnExit = true,
@@ -90,7 +85,8 @@ function M.config()
 		},
 		codeRunner = {
 			enabled = true,
-			default_method = "molten",
+			-- default_method = "molten",
+			default_method = "iron",
 		},
 		keymap = {
 			hover = "K",

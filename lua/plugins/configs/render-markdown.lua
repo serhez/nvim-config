@@ -40,6 +40,11 @@ function M.config()
 		render_modes = { "n", "no", "i", "v", "V", "^V", "r", "x", "c" },
 		file_types = { "markdown", "quarto", "rmd", "Avante", "noice" },
 
+		completions = {
+			-- Settings for blink.cmp completions source
+			blink = { enabled = true },
+		},
+
 		heading = {
 			-- Turn on / off heading icon & background rendering
 			enabled = true,
@@ -127,33 +132,37 @@ function M.config()
 			--  right: Right side of code block
 			--  left: Left side of code block
 			position = "right",
-			-- Amount of margin to add to the left of code blocks
-			-- If a floating point value < 1 is provided it is treated as a percentage of the available window space
-			-- Margin available space is computed after accounting for padding
-			-- left_margin = 2, -- FIX: hlchunk
-			left_margin = 0,
-			-- Amount of padding to add to the left of code blocks
-			-- left_pad = 2, -- FIX: hlchunk
-			left_pad = 0,
-			-- Amount of padding to add to the right of code blocks
-			right_pad = 2,
 			-- Amount of padding to add around the language
 			-- If a floating point value < 1 is provided it is treated as a percentage of the available window space
 			language_pad = 2,
-			-- Determins how the top / bottom of code block are rendered:
-			--  thick: use the same highlight as the code body
-			--  thin: when lines are empty overlay the above & below icons
-			border = "thin",
 			-- Used above code blocks for thin border
 			above = icons.bar.lower_horizontal_thick,
 			-- Used below code blocks for thin border
 			below = icons.bar.upper_horizontal_thick,
-			-- Highlight for code blocks & inline code
-			highlight = "RenderMarkdownCode",
+			-- Amount of margin to add to the left of code blocks.
+			-- If a float < 1 is provided it is treated as a percentage of available window space.
+			-- Margin available space is computed after accounting for padding.
+			left_margin = 0,
+			-- Amount of padding to add to the left of code blocks.
+			-- If a float < 1 is provided it is treated as a percentage of available window space.
+			left_pad = 0,
+			-- Amount of padding to add to the right of code blocks when width is 'block'.
+			-- If a float < 1 is provided it is treated as a percentage of available window space.
+			right_pad = 2,
+			-- Minimum width to use for code blocks when width is 'block'.
+			min_width = 40,
+			-- Determines how the top / bottom of code block are rendered.
+			-- | none  | do not render a border                               |
+			-- | thick | use the same highlight as the code body              |
+			-- | thin  | when lines are empty overlay the above & below icons |
+			-- | hide  | conceal lines unless language name or icon is added  |
+			border = "thin",
+			-- Padding to add to the left & right of inline code.
+			inline_pad = 1,
 		},
 
 		latex = {
-			enabled = false, -- using mdmath plugin
+			enabled = true, -- using mdmath plugin
 			converter = "latex2text",
 		},
 

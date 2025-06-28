@@ -7,6 +7,15 @@ local M = {
 
 vim.g.active_venv = nil
 
+function M.set_venv(venv)
+	if venv == nil or venv == "" then
+		vim.g.active_venv = nil
+		return
+	end
+	local path = vim.split(venv, "/", { trimempty = true })
+	vim.g.active_venv = path[#path]
+end
+
 function M.init()
 	require("mappings").register({
 		"<leader>v",
@@ -61,7 +70,7 @@ function M.config()
 
 		-- Something to do after setting an environment, for example call vim.cmd.LspRestart
 		post_set_venv = function(venv)
-			vim.g.active_venv = venv.name
+			M.set_venv(venv.name)
 			vim.cmd("LspRestart")
 		end,
 	})
@@ -69,7 +78,7 @@ function M.config()
 	-- Initialize the active virtual environment
 	local current_venv = require("swenv.api").get_current_venv()
 	if current_venv then
-		vim.g.active_venv = current_venv.name
+		M.set_venv(current_venv.name)
 	end
 end
 

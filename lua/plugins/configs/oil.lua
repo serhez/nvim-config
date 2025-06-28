@@ -7,7 +7,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>e", "<cmd>Oil<cr>", desc = "Explorer" })
+	require("mappings").register({ "<leader>S", "<cmd>Oil<cr>", desc = "SSH explorer" })
 end
 
 -- `nvim-window-picker` integration
@@ -48,6 +48,7 @@ end
 function M.config()
 	local icons = require("icons")
 	local oil = require("oil")
+	local detail = false
 
 	oil.setup({
 		default_file_explorer = true,
@@ -204,6 +205,17 @@ function M.config()
 						vim.log.levels.INFO,
 						{ title = "Oil" }
 					)
+				end,
+			},
+			["gd"] = {
+				desc = "Toggle file detail view",
+				callback = function()
+					detail = not detail
+					if detail then
+						require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+					else
+						require("oil").set_columns({ "icon" })
+					end
 				end,
 			},
 			["<C-o>"] = { -- Prevent jumping to file buffers by accident

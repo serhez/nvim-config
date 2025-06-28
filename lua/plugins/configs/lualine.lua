@@ -12,10 +12,25 @@ local M = {
 
 vim.g.lualine_show_filetype = false
 
-function M.set_venv(venv)
-	local path = vim.split(venv, "/", { trimempty = true })
-	vim.g.active_venv = path[#path]
-end
+local mini_files_extension = {
+	sections = {
+		lualine_a = {
+			function()
+				local ok, mini_files = pcall(require, "mini.files")
+				if ok then
+					local entry = mini_files.get_fs_entry()
+					local path = vim.fn.fnamemodify(entry.path, ":.")
+					-- Remove the last element (the filename, after the last "/")
+					path = path:match("(.+)/[^/]+$") or path
+					return path
+				else
+					return ""
+				end
+			end,
+		},
+	},
+	filetypes = { "minifiles" },
+}
 
 function M.toggle_filetype()
 	vim.g.lualine_show_filetype = not vim.g.lualine_show_filetype
@@ -152,6 +167,21 @@ function M.config()
 		-- If the path is empty or has no slashes (i.e., just the filename), return an empty string
 		if data == "" or not data:find("/") then
 			return ""
+		end
+
+		-- Terminals
+		if data:find("term://") then
+			return "Terminal:"
+		end
+
+		-- mini.files
+		if data:find("minifiles://") then
+			return "File explorer:"
+		end
+
+		-- oil
+		if data:find("ssh://") then
+			return "Remote: "
 		end
 
 		-- Remove the last element (the filename, after the last "/")
@@ -324,6 +354,9 @@ function M.config()
 					cond = pinned_condition,
 					padding = { left = 1, right = 1 },
 					color = { fg = colors.red },
+					on_click = function(_, _, _)
+						vim.cmd("MiniFiles")
+					end,
 				},
 				{
 					folders_component,
@@ -344,12 +377,18 @@ function M.config()
 						unnamed = "[No name]",
 						newfile = "[New]",
 					},
+					on_click = function(_, _, _)
+						vim.cmd("MiniFiles")
+					end,
 				},
 				{
 					custom_ftype,
 					icon_only = true,
 					separator = "",
 					padding = { left = 1, right = 0 },
+					on_click = function(_, _, _)
+						vim.cmd("MiniFiles")
+					end,
 				},
 				{
 					filename_component,
@@ -370,6 +409,9 @@ function M.config()
 						unnamed = "[No name]",
 						newfile = "[New]",
 					},
+					on_click = function(_, _, _)
+						vim.cmd("MiniFiles")
+					end,
 				},
 			},
 			lualine_x = {},
@@ -480,6 +522,7 @@ function M.config()
 		winbar = {},
 		inactive_winbar = {},
 		extensions = {
+			"avante",
 			"lazy",
 			"mason",
 			"neo-tree",
@@ -489,6 +532,7 @@ function M.config()
 			"symbols-outline",
 			"toggleterm",
 			"trouble",
+			mini_files_extension,
 		},
 	})
 end

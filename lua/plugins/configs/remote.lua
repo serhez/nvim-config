@@ -16,7 +16,7 @@ local M = {
 		"RemoteConfigDel",
 		"RemoteLog",
 	},
-	-- enabled = false,
+	enabled = false,
 }
 
 function M.init()
@@ -25,7 +25,8 @@ function M.init()
 		{ "<leader>xs", "<cmd>RemoteStart<cr>", desc = "Start" },
 		{ "<leader>xk", "<cmd>RemoteStop<cr>", desc = "Kill" },
 		{ "<leader>xi", "<cmd>RemoteInfo<cr>", desc = "Info" },
-		{ "<leader>xc", "<cmd>RemoteCleanup<cr>", desc = "Cleanup" },
+		{ "<leader>xc", ":RemoteCleanup ", desc = "Cleanup" },
+		{ "<leader>xd", ":RemoteConfigDel ", desc = "Delete cached config" },
 	})
 end
 

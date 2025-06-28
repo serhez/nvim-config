@@ -4,10 +4,10 @@ local M = {
 		"rafamadriz/friendly-snippets",
 		"xzbdmw/colorful-menu.nvim",
 		"Kaiser-Yang/blink-cmp-avante",
-		"Kaiser-Yang/blink-cmp-dictionary",
+		-- "Kaiser-Yang/blink-cmp-dictionary",
 		"Kaiser-Yang/blink-cmp-git",
 		"disrupted/blink-cmp-conventional-commits",
-		"bydlw98/blink-cmp-env",
+		-- "bydlw98/blink-cmp-env",
 		"jmbuhr/cmp-pandoc-references",
 	},
 	-- use a release tag to download pre-built binaries
@@ -113,7 +113,11 @@ function M.config()
 		},
 
 		sources = {
-			default = vim.list_extend(default_sources, { "avante", "git", "env", "pandoc_references", "dictionary" }),
+			default = vim.list_extend(default_sources, {
+				"avante",
+				"git", --[[ "env", ]]
+				"pandoc_references", --[[ "dictionary" ]]
+			}),
 			providers = {
 				avante = {
 					module = "blink-cmp-avante",

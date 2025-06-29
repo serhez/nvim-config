@@ -5,9 +5,9 @@ local M = {
 		"xzbdmw/colorful-menu.nvim",
 		"Kaiser-Yang/blink-cmp-avante",
 		-- "Kaiser-Yang/blink-cmp-dictionary",
+		"archie-judd/blink-cmp-words",
 		"Kaiser-Yang/blink-cmp-git",
-		"disrupted/blink-cmp-conventional-commits",
-		-- "bydlw98/blink-cmp-env",
+		"bydlw98/blink-cmp-env",
 		"jmbuhr/cmp-pandoc-references",
 	},
 	-- use a release tag to download pre-built binaries
@@ -113,48 +113,44 @@ function M.config()
 		},
 
 		sources = {
-			default = vim.list_extend(default_sources, {
-				"avante",
-				"git", --[[ "env", ]]
-				"pandoc_references", --[[ "dictionary" ]]
-			}),
+			per_filetype = {
+				avante = { "avante", "thesaurus" },
+				octo = { "git" },
+				gitcommit = { "git" },
+				bash = { "env" },
+				zsh = { "env" },
+				markdown = { "pandoc_references", "thesaurus" },
+				quarto = { "pandoc_references", "thesaurus" },
+				text = { "thesaurus" },
+			},
 			providers = {
 				avante = {
 					module = "blink-cmp-avante",
 					name = "Avante",
 					opts = {},
 				},
-				dictionary = {
-					module = "blink-cmp-dictionary",
-					name = "Dict",
+				thesaurus = {
+					name = "blink-cmp-words",
+					module = "blink-cmp-words.thesaurus",
+					score_offset = -2,
 					min_keyword_length = 3,
-					enabled = function()
-						return vim.tbl_contains({ "markdown", "quarto", "avante" }, vim.bo.filetype)
-					end,
+
 					opts = {
-						dictionary_files = { "/usr/share/dict/words" }, -- MacOS
+						-- Default pointers define the lexical relations listed under each definition,
+						-- see Pointer Symbols below.
+						-- Default is as below ("antonyms", "similar to" and "also see").
+						pointer_symbols = { "!", "&", "^" },
 					},
 				},
 				git = {
 					module = "blink-cmp-git",
 					name = "Git",
-					enabled = function()
-						return vim.tbl_contains({ "octo", "gitcommit" }, vim.bo.filetype)
-					end,
 					opts = {},
 				},
-				-- NOTE: not needed, as there are better snippets for this
-				-- conventional_commits = {
-				-- 	module = "blink-cmp-conventional-commits",
-				-- 	name = "Conventional Commits",
-				-- 	enabled = function()
-				-- 		return vim.bo.filetype == "gitcommit"
-				-- 	end,
-				-- 	opts = {},
-				-- },
 				env = {
 					module = "blink-cmp-env",
 					name = "Env",
+					score_offset = -3,
 					opts = {},
 				},
 				pandoc_references = {

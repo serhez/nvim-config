@@ -66,6 +66,7 @@ local M = {
 						["<c-s>"] = { "edit_split", mode = { "i" } },
 						["<c-v>"] = { "edit_vsplit", mode = { "i" } },
 						["<c-l>"] = { "loclist", mode = { "n", "i" } },
+						["<C-w>"] = { { "pick_win", "jump" }, mode = { "n", "i" } },
 					},
 				},
 				list = {
@@ -73,6 +74,7 @@ local M = {
 						["_"] = { "edit_split" },
 						["|"] = { "edit_vsplit" },
 						["<c-l>"] = { "loclist" },
+						["<C-w>"] = { { "pick_win", "jump" } },
 					},
 					wo = {
 						statuscolumn = " ",

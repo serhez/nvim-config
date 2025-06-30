@@ -1,5 +1,6 @@
 local M = {
 	"williamboman/mason.nvim",
+	cond = not vim.g.started_by_firenvim and not vim.g.slow_network,
 }
 
 function M.init()

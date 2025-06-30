@@ -7,7 +7,7 @@ local M = {
 		"AndreM222/copilot-lualine",
 	},
 	lazy = false,
-	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.slow_network,
 }
 
 vim.g.lualine_show_filetype = false
@@ -286,15 +286,6 @@ function M.config()
 			},
 		},
 		sections = {
-			-- lualine_a = {
-			-- 	{
-			-- 		"mode",
-			-- 		padding = 0,
-			-- 		fmt = function(_)
-			-- 			return "   "
-			-- 		end,
-			-- 	},
-			-- },
 			lualine_a = {
 				{
 					"branch",
@@ -500,15 +491,6 @@ function M.config()
 					show_modified_status = false,
 				},
 			},
-			-- lualine_z = {
-			-- 	{
-			-- 		"mode",
-			-- 		padding = 0,
-			-- 		fmt = function(_)
-			-- 			return "   "
-			-- 		end,
-			-- 	},
-			-- },
 		},
 		inactive_sections = {
 			lualine_a = {},

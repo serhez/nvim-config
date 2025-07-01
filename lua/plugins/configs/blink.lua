@@ -18,8 +18,6 @@ local M = {
 }
 
 function M.config()
-	local default_sources = require("blink.cmp.config.sources").default.default
-
 	require("blink-cmp").setup({
 		-- for keymap, all values may be string | string[]
 		-- use an empty table to disable a keymap
@@ -120,7 +118,7 @@ function M.config()
 				bash = { "env" },
 				zsh = { "env" },
 				markdown = { "pandoc_references", "thesaurus" },
-				quarto = { "pandoc_references", "thesaurus" },
+				quarto = { inherit_defaults = true, "pandoc_references", "thesaurus" },
 				text = { "thesaurus" },
 			},
 			providers = {

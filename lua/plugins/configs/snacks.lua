@@ -15,7 +15,7 @@ local M = {
 				end,
 				-- Improve the presets
 				layout = {
-					height = 0.66,
+					height = 0.9,
 					backdrop = true,
 					title_pos = "center",
 				},

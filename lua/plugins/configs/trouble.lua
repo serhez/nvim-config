@@ -184,6 +184,7 @@ function M.config()
 		},
 		modes = {
 			lsp_base = {
+				auto_refresh = false,
 				params = {
 					include_current = true,
 				},

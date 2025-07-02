@@ -194,6 +194,13 @@ function M.init()
 		{
 			"<leader>Em",
 			function()
+				snacks.picker.marks()
+			end,
+			desc = "Marks",
+		},
+		{
+			"<leader>EM",
+			function()
 				snacks.picker.man()
 			end,
 			desc = "Man pages",

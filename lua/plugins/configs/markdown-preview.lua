@@ -11,8 +11,8 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>m", group = "Markdown" },
-		{ "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", desc = "Preview (toggle)" },
+		{ "<leader>M", group = "Markdown" },
+		{ "<leader>Mp", "<cmd>MarkdownPreviewToggle<cr>", desc = "Preview (toggle)" },
 	})
 end
 

@@ -6,8 +6,8 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>m", group = "Markdown" },
-		{ "<leader>mc", "<cmd>AirLatex<cr>", desc = "Connect to remote" },
+		{ "<leader>M", group = "Markdown" },
+		{ "<leader>Mc", "<cmd>AirLatex<cr>", desc = "Connect to remote" },
 	})
 end
 

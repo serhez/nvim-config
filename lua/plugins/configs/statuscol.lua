@@ -39,7 +39,10 @@ function M.config()
 			-- 	click = "v:lua.ScSa",
 			-- },
 			{
-				sign = { name = { "Dap*" }, colwidth = 1 },
+				sign = {
+					name = { "Dap*", "RecallSign" },
+					colwidth = 1,
+				},
 			},
 			{
 				text = { builtin.lnumfunc, " " },

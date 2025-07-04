@@ -39,6 +39,26 @@ function M.config()
 				text = icons.bar.vertical_left_thick,
 			},
 		},
+		signs_staged = {
+			add = {
+				text = icons.bar.vertical_left_thick,
+			},
+			change = {
+				text = icons.bar.vertical_left_thick,
+			},
+			delete = {
+				text = icons.bar.lower_horizontal,
+			},
+			topdelete = {
+				text = icons.bar.lower_horizontal,
+			},
+			changedelete = {
+				text = icons.bar.vertical_left_thick,
+			},
+			untracked = {
+				text = icons.bar.vertical_left_thick,
+			},
+		},
 		watch_gitdir = {
 			interval = 1000,
 			follow_files = true,
@@ -60,6 +80,10 @@ function M.config()
 			row = 0,
 			col = 1,
 		},
+		trouble = true,
+		gh = true,
+		word_diff = true,
+		diff_opts = { internal = true },
 	})
 end
 

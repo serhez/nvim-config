@@ -7,6 +7,7 @@ local auto_format_enabled = true -- Default
 
 function M.toggle_auto_format()
 	auto_format_enabled = not auto_format_enabled
+	return auto_format_enabled
 end
 
 function M.format(bufnr)

@@ -8,24 +8,30 @@ function M.config()
 			repl_open_cmd = require("iron.view").split.vertical.rightbelow("30%"),
 			scratch_repl = true,
 			close_window_on_exit = true,
+			ignore_blank_lines = true,
 
-			-- Your repl definitions come here
 			repl_definition = {
 				sh = {
-					-- Can be a table or a function that
-					-- returns a table (see below)
 					command = { "zsh" },
 				},
 				python = {
 					-- command = { "python3" },
-					command = { "ipython", "--color-info" },
+					-- command = { "euporie", "console" },
+					-- command = { "nbterm" },
+					-- command = { "jupyter", "console", "--existing" },
+					command = {
+						"ipython",
+						"--no-autoindent",
+						"--pprint",
+						"--no-banner",
+						"--no-tip",
+						"--no-term-title",
+					},
 					format = require("iron.fts.common").bracketed_paste_python,
 					block_dividers = { "# %%", "#%%" },
 				},
 			},
 		},
-		-- Ignore blank lines when sending visual select lines
-		ignore_blank_lines = true,
 	})
 end
 

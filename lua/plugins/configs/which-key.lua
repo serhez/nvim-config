@@ -37,7 +37,7 @@ local basic_mappings = {
 	{ "<leader>lL", group = "Location" },
 	{ "<leader>lQ", group = "Quickfix" },
 
-	{ "<leader>n", group = "Notebooks" },
+	{ "<leader>n", group = "Notebook" },
 	{ "<leader>p", group = "Projects" },
 
 	{ "<leader>u", group = "UI" },

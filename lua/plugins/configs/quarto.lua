@@ -94,9 +94,9 @@ function M.init()
 			"<leader>nr",
 			function()
 				if vim.g.quarto_runner == "iron" then
-					vim.cmd("<cmd>IronRestart<cr>")
+					vim.cmd("IronRestart")
 				elseif vim.g.quarto_runner == "molten" then
-					vim.cmd("<cmd>MoltenRestart<cr>")
+					vim.cmd("MoltenRestart")
 				end
 			end,
 			desc = "Restart",
@@ -105,7 +105,7 @@ function M.init()
 			"<leader>ns",
 			function()
 				if vim.g.quarto_runner == "molten" then
-					vim.cmd("<cmd>MoltenInterrupt<cr>")
+					vim.cmd("MoltenInterrupt")
 				else
 					vim.notify(
 						"Stop execution is only supported by the 'molten' runner",
@@ -122,7 +122,7 @@ function M.init()
 				if vim.g.quarto_runner == "iron" then
 					require("iron.core").close_repl()
 				elseif vim.g.quarto_runner == "molten" then
-					vim.cmd("<cmd>MoltenDeinit<cr>")
+					vim.cmd("MoltenDeinit")
 				end
 			end,
 			desc = "Stop session",
@@ -131,7 +131,7 @@ function M.init()
 			"<leader>no",
 			function()
 				if vim.g.quarto_runner == "iron" then
-					vim.cmd("<cmd>IronRepl<cr>")
+					vim.cmd("IronRepl")
 				elseif vim.g.quarto_runner == "molten" then
 					vim.cmd("zt<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>")
 				end
@@ -142,9 +142,9 @@ function M.init()
 			"<leader>nO",
 			function()
 				if vim.g.quarto_runner == "iron" then
-					vim.cmd("<cmd>IronHide<cr>")
+					vim.cmd("IronHide")
 				elseif vim.g.quarto_runner == "molten" then
-					vim.cmd("<cmd>MoltenHideOutput<cr>")
+					vim.cmd("MoltenHideOutput")
 				end
 			end,
 			desc = "Close output",

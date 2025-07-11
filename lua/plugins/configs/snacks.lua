@@ -122,7 +122,7 @@ function M.init()
 		{
 			"<leader>f",
 			function()
-				snacks.picker.files()
+				snacks.picker.smart()
 			end,
 			desc = "Find files",
 		},

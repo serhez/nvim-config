@@ -7,7 +7,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>e", "<cmd>Oil<cr>", desc = "Explorer" })
+	require("mappings").register({ "<leader>e", "<cmd>Oil --preview<cr>", desc = "Explorer" })
 end
 
 -- `nvim-window-picker` integration
@@ -45,6 +45,17 @@ end
 -- 	end
 -- end
 
+function _G.get_oil_winbar()
+	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+	local dir = require("oil").get_current_dir(bufnr)
+	if dir then
+		return vim.fn.fnamemodify(dir, ":~")
+	else
+		-- If there is no current directory (e.g. over ssh), just show the buffer name
+		return vim.api.nvim_buf_get_name(0)
+	end
+end
+
 function M.config()
 	local icons = require("icons")
 	local oil = require("oil")
@@ -66,6 +77,7 @@ function M.config()
 			-- relativenumber = false,
 			signcolumn = "number",
 			-- foldcolumn = "auto",
+			winbar = "%!v:lua.get_oil_winbar()",
 		},
 		cleanup_delay_ms = 0,
 		skip_confirm_for_simple_edits = true,

@@ -7,7 +7,7 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>S", "<cmd>Oil<cr>", desc = "SSH explorer" })
+	require("mappings").register({ "<leader>e", "<cmd>Oil<cr>", desc = "Explorer" })
 end
 
 -- `nvim-window-picker` integration

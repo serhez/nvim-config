@@ -1,6 +1,7 @@
 local M = {
 	"echasnovski/mini.files",
 	version = false,
+	enabled = false,
 }
 
 local minifiles_toggle = function()

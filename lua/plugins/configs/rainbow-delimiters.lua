@@ -1,15 +1,18 @@
 local M = {
 	"HiPhish/rainbow-delimiters.nvim",
-	event = "BufReadPre",
+	lazy = false,
 }
 
 function M.config()
-	vim.g.rainbow_delimiters = {
+	require("rainbow-delimiters.setup").setup({
 		query = {
 			javascript = "rainbow-parens",
 			tsx = "rainbow-parens",
 		},
-	}
+		priority = {
+			[""] = 100,
+		},
+	})
 end
 
 return M

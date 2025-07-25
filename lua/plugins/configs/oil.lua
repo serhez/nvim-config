@@ -7,7 +7,24 @@ local M = {
 }
 
 function M.init()
-	require("mappings").register({ "<leader>e", "<cmd>Oil --preview<cr>", desc = "Explorer" })
+	vim.api.nvim_create_user_command("OilSmart", function()
+		local filepath = vim.api.nvim_buf_get_name(0)
+		local pieces = vim.split(filepath, "://", { plain = true })
+		local scheme = pieces[1] or "file"
+		if scheme ~= "oil-ssh" then
+			vim.cmd("Oil --preview")
+		else
+			vim.cmd("Oil")
+		end
+	end, { desc = "Open Oil with smart logic" })
+
+	require("mappings").register({
+		"<leader>e",
+		function()
+			vim.cmd("OilSmart")
+		end,
+		desc = "Explorer",
+	})
 end
 
 -- `nvim-window-picker` integration
@@ -49,10 +66,10 @@ function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
 	local dir = require("oil").get_current_dir(bufnr)
 	if dir then
-		return vim.fn.fnamemodify(dir, ":~")
+		return " " .. vim.fn.fnamemodify(dir, ":~")
 	else
 		-- If there is no current directory (e.g. over ssh), just show the buffer name
-		return vim.api.nvim_buf_get_name(0)
+		return " " .. vim.api.nvim_buf_get_name(0)
 	end
 end
 
@@ -78,6 +95,14 @@ function M.config()
 			signcolumn = "number",
 			-- foldcolumn = "auto",
 			winbar = "%!v:lua.get_oil_winbar()",
+		},
+		preview_win = {
+			-- How to open the preview window "load"|"scratch"|"fast_scratch"
+			preview_method = "fast_scratch",
+			win_options = {},
+			buf_options = {
+				modifiable = false,
+			},
 		},
 		cleanup_delay_ms = 0,
 		skip_confirm_for_simple_edits = true,
@@ -174,6 +199,20 @@ function M.config()
 			["gs"] = "actions.change_sort",
 			["gx"] = "actions.open_external",
 			["gt"] = "actions.toggle_trash",
+			["gC"] = {
+				mode = "n",
+				buffer = true,
+				desc = "Change the cwd to the current entry",
+				callback = function()
+					require("oil.actions").parent.callback()
+					vim.cmd.lcd(require("oil").get_current_dir())
+					vim.notify(
+						"Changed cwd to " .. require("oil").get_current_dir(),
+						vim.log.levels.INFO,
+						{ title = "Explorer" }
+					)
+				end,
+			},
 			["go"] = {
 				mode = "n",
 				buffer = true,
@@ -274,6 +313,12 @@ function M.config()
 			win_options = {
 				winblend = 0,
 			},
+		},
+		confirmation = {
+			border = "single",
+		},
+		keymaps_help = {
+			border = "single",
 		},
 		progress = {
 			border = "solid",

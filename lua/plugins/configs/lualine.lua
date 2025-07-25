@@ -32,6 +32,16 @@ local mini_files_extension = {
 	filetypes = { "minifiles" },
 }
 
+local function open_explorer()
+	local minifiles_present, _ = pcall(require, "mini.files")
+	local oil_present, _ = pcall(require, "oil")
+	if minifiles_present then
+		vim.cmd("MiniFiles")
+	elseif oil_present then
+		vim.cmd("OilSmart")
+	end
+end
+
 function M.toggle_filetype()
 	vim.g.lualine_show_filetype = not vim.g.lualine_show_filetype
 end
@@ -345,9 +355,7 @@ function M.config()
 					cond = pinned_condition,
 					padding = { left = 1, right = 1 },
 					color = { fg = colors.red },
-					on_click = function(_, _, _)
-						vim.cmd("MiniFiles")
-					end,
+					on_click = open_explorer,
 				},
 				{
 					folders_component,
@@ -368,18 +376,14 @@ function M.config()
 						unnamed = "[No name]",
 						newfile = "[New]",
 					},
-					on_click = function(_, _, _)
-						vim.cmd("MiniFiles")
-					end,
+					on_click = open_explorer,
 				},
 				{
 					custom_ftype,
 					icon_only = true,
 					separator = "",
 					padding = { left = 1, right = 0 },
-					on_click = function(_, _, _)
-						vim.cmd("MiniFiles")
-					end,
+					on_click = open_explorer,
 				},
 				{
 					filename_component,
@@ -400,9 +404,7 @@ function M.config()
 						unnamed = "[No name]",
 						newfile = "[New]",
 					},
-					on_click = function(_, _, _)
-						vim.cmd("MiniFiles")
-					end,
+					on_click = open_explorer,
 				},
 			},
 			lualine_x = {},

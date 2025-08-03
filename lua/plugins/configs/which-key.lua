@@ -1,6 +1,6 @@
 local M = {
 	"folke/which-key.nvim",
-	event = "VimEnter",
+	lazy = false,
 }
 
 -- local function toggle_locationlist()

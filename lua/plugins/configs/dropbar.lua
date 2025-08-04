@@ -2,17 +2,14 @@
 
 local M = {
 	"Bekaboo/dropbar.nvim",
-	-- dependencies = {
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- },
 	lazy = false,
 	cond = not vim.g.started_by_firenvim,
 }
 
 function M.init()
-	vim.keymap.set({ "n", "x", "o" }, ";", function()
-		require("dropbar.api").pick()
-	end)
+	-- vim.keymap.set({ "n", "x", "o" }, ";", function()
+	-- 	require("dropbar.api").pick()
+	-- end)
 end
 
 -- https://github.com/Bekaboo/dropbar.nvim/issues/2#issuecomment-2353962505

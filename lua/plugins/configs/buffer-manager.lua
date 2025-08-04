@@ -8,7 +8,7 @@ local M = {
 function M.init()
 	require("mappings").register({
 		{
-			"<TAB>",
+			";",
 			function()
 				require("buffer_manager.ui").toggle_quick_menu()
 			end,
@@ -25,7 +25,7 @@ function M.config()
 				command = "edit",
 			},
 			{
-				key = "<TAB>",
+				key = ";",
 				command = "edit",
 			},
 		},

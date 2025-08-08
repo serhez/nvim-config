@@ -27,6 +27,9 @@ function M.setup()
 		ui = {
 			border = "none",
 		},
+		git = {
+			timeout = 300, -- 5 minutes
+		},
 		performance = {
 			rtp = {
 				disabled_plugins = {

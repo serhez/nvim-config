@@ -195,13 +195,13 @@ function M.init()
 
 	require("mappings").register({
 		-- Files
-		{
-			"<leader>f",
-			function()
-				snacks.picker.smart()
-			end,
-			desc = "Find files",
-		},
+		-- {
+		-- 	"<leader>f",
+		-- 	function()
+		-- 		snacks.picker.smart()
+		-- 	end,
+		-- 	desc = "Find files",
+		-- },
 		{
 			"<leader>t",
 			function()

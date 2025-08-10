@@ -22,9 +22,10 @@ local M = {
 			},
 			animate = {
 				enabled = vim.fn.has("nvim-0.10") == 1,
+				-- enabled = false,
 				duration = {
-					step = 20, -- ms per step
-					total = 300, -- maximum duration
+					step = 10, -- ms per step
+					total = 500, -- maximum duration
 				},
 			},
 			filter = function(buf)

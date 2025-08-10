@@ -1,6 +1,7 @@
 local M = {
 	"shortcuts/no-neck-pain.nvim",
 	cmd = "NoNeckPain",
+	enabled = false,
 }
 
 function M.init()

@@ -17,7 +17,7 @@ function M.init()
 			"<leader>Mr",
 			function()
 				vim.cmd("RenderMarkdown toggle")
-				local _, present = pcall(vim.cmd, "YamlMatterDisable")
+				local _, present = pcall(require, "yamlmatter")
 				if present then
 					if _toggle_state then
 						vim.cmd("YamlMatterDisable")

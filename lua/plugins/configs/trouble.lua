@@ -39,8 +39,8 @@ function M.init()
 		{ "gO", "<cmd>Trouble lsp_outgoing_calls<cr>", desc = "Outgoing calls" },
 
 		-- Quickfix and location list
-		{ "<leader>ll", "<cmd>Trouble loclist<cr>", desc = "Toggle location" },
-		{ "<leader>lq", "<cmd>Trouble qflist<cr>", desc = "Toggle quickfix" },
+		{ "<leader>l", "<cmd>Trouble loclist<cr>", desc = "Toggle location" },
+		{ "<leader>q", "<cmd>Trouble qflist<cr>", desc = "Toggle quickfix" },
 		{
 			"[q",
 			function()

@@ -65,8 +65,11 @@ local basic_mappings = {
 	{ ">", ">gv", mode = "v", desc = "Indent right" },
 
 	-- Tabs
-	{ "<leader>Q", "<cmd>tabclose<cr>", desc = "Quit tab" },
-	{ "<leader>ut", "<cmd>tabnew<cr>", desc = "New tab" },
+	-- { "<leader>t", group = "Tabs" },
+	{ "t", "<cmd>tabnew<cr>", desc = "New tab" },
+	{ "Q", "<cmd>tabclose<cr>", desc = "Quit tab" },
+	-- { "<leader>tn", "<cmd>tabnew<cr>", desc = "New" },
+	-- { "<leader>tq", "<cmd>tabnew<cr>", desc = "Quit" },
 	{ "]t", "<cmd>tabnext<cr>", desc = "Next tab" },
 	{ "[t", "<cmd>tabprev<cr>", desc = "Prev tab" },
 
@@ -137,20 +140,22 @@ local basic_mappings = {
 	},
 
 	-- Quickfix & location lists
-	{ "<leader>lQd", ":cdo ", desc = "Do" },
-	{ "<leader>lLd", ":ldo ", desc = "Do" },
-	{ "<leader>lQD", ":cfdo ", desc = "Do (file)" },
-	{ "<leader>lLD", ":lfdo ", desc = "Do (file)" },
-	{ "<leader>lQe", ":cgete ", desc = "Create from expression" },
-	{ "<leader>lLe", ":lgete ", desc = "Create from expression" },
-	{ "<leader>lQf", ":cfilter /", desc = "Filter" },
-	{ "<leader>lLf", ":lfilter /", desc = "Filter" },
-	{ "<leader>lQl", ":cf ", desc = "Load file" },
-	{ "<leader>lLl", ":lf ", desc = "Load file" },
-	{ "<leader>lQn", "<cmd>cnew<cr>", desc = "Next" },
-	{ "<leader>lLn", "<cmd>lnew<cr>", desc = "Next" },
-	{ "<leader>lQp", "<cmd>col<cr>", desc = "Previous" },
-	{ "<leader>lLp", "<cmd>lol<cr>", desc = "Previous" },
+	{ "<leader>Q", group = "Quickfix list" },
+	{ "<leader>L", group = "Location list" },
+	{ "<leader>Qd", ":cdo ", desc = "Do" },
+	{ "<leader>Ld", ":ldo ", desc = "Do" },
+	{ "<leader>QD", ":cfdo ", desc = "Do (file)" },
+	{ "<leader>LD", ":lfdo ", desc = "Do (file)" },
+	{ "<leader>Qe", ":cgete ", desc = "Create from expression" },
+	{ "<leader>Le", ":lgete ", desc = "Create from expression" },
+	{ "<leader>Qf", ":cfilter /", desc = "Filter" },
+	{ "<leader>Lf", ":lfilter /", desc = "Filter" },
+	{ "<leader>Ql", ":cf ", desc = "Load file" },
+	{ "<leader>Ll", ":lf ", desc = "Load file" },
+	{ "<leader>Qn", "<cmd>cnew<cr>", desc = "Next" },
+	{ "<leader>Ln", "<cmd>lnew<cr>", desc = "Next" },
+	{ "<leader>Qp", "<cmd>col<cr>", desc = "Previous" },
+	{ "<leader>Lp", "<cmd>lol<cr>", desc = "Previous" },
 }
 
 function M.config()

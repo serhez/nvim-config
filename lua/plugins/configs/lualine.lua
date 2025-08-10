@@ -491,6 +491,13 @@ function M.config()
 					"tabs",
 					use_mode_colors = true,
 					show_modified_status = false,
+					mode = 1,
+					fmt = function(_, context)
+						if context.current then
+							return icons.circle
+						end
+						return icons.empty_circle
+					end,
 				},
 			},
 		},

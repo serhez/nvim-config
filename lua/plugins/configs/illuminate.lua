@@ -18,9 +18,9 @@ function M.config()
 
 	local c = hls.colors()
 	hls.register_hls({
-		IlluminatedWordRead = { bg = c.cursor_line_bg, underline = true },
-		IlluminatedWordText = { bg = c.cursor_line_bg, underline = true },
-		IlluminatedWordWrite = { bg = c.cursor_line_bg, underline = true },
+		IlluminatedWordRead = { bg = c.folded_bg, underline = false },
+		IlluminatedWordText = { bg = c.folded_bg, underline = false },
+		IlluminatedWordWrite = { bg = c.folded_bg, underline = false },
 	})
 end
 

@@ -133,7 +133,9 @@ function M.init()
 				if vim.g.quarto_runner == "iron" then
 					vim.cmd("IronRepl")
 				elseif vim.g.quarto_runner == "molten" then
-					vim.cmd("zt<cmd>noautocmd MoltenEnterOutput<cr><cmd>noautocmd MoltenEnterOutput<cr>")
+					vim.cmd("normal! zt")
+					vim.cmd("noautocmd MoltenEnterOutput")
+					vim.cmd("noautocmd MoltenEnterOutput")
 				end
 			end,
 			desc = "Open output",

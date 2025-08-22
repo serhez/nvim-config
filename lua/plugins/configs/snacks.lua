@@ -6,6 +6,18 @@ local M = {
 	opts = {
 		bigfile = { enabled = true },
 		-- image = { enabled = true }, -- NOTE: works like shit for now
+		scroll = {
+			animate = {
+				duration = { step = 10, total = 200 },
+				easing = "linear",
+			},
+			-- faster animation when repeating scroll after delay
+			animate_repeat = {
+				delay = 100, -- delay in ms before using the repeat animation
+				duration = { step = 5, total = 50 },
+				easing = "linear",
+			},
+		},
 		indent = {
 			indent = {
 				priority = 1,
@@ -52,6 +64,7 @@ local M = {
 					and vim.bo[buf].ft ~= "checkhealth"
 					and vim.bo[buf].ft ~= "man"
 					and vim.bo[buf].ft ~= "mason"
+					and vim.bo[buf].ft ~= "noice"
 					and vim.bo[buf].ft ~= "NvimTree"
 					and vim.bo[buf].ft ~= "neo-tree"
 					and vim.bo[buf].ft ~= "plugin"
@@ -204,11 +217,11 @@ function M.init()
 		-- 	desc = "Find files",
 		-- },
 		{
-			"<leader>t",
+			"<leader>E",
 			function()
 				snacks.picker.explorer()
 			end,
-			desc = "File tree",
+			desc = "Explorer (tree)",
 		},
 
 		-- Text
@@ -245,7 +258,7 @@ function M.init()
 			desc = "Symbols (workspace)",
 		},
 		{
-			"<leader>Eu",
+			"<leader>u",
 			function()
 				snacks.picker.undo()
 			end,
@@ -254,43 +267,14 @@ function M.init()
 
 		-- List
 		{
-			"<leader>Ec",
-			function()
-				snacks.picker.commands()
-			end,
-			desc = "Commands",
-		},
-		-- { "<leader>lj", "<cmd>Telescope jsonfly theme=ivy<cr>", desc = "JSON keys" },
-		{
-			"<leader>Em",
-			function()
-				snacks.picker.marks()
-			end,
-			desc = "Marks",
-		},
-		{
-			"<leader>Em",
-			function()
-				snacks.picker.marks()
-			end,
-			desc = "Marks",
-		},
-		{
-			"<leader>EM",
-			function()
-				snacks.picker.man()
-			end,
-			desc = "Man pages",
-		},
-		{
-			"<leader>uH",
+			"<leader>kH",
 			function()
 				snacks.picker.highlights()
 			end,
 			desc = "Highlight list",
 		},
 		{
-			"<leader>ui",
+			"<leader>ki",
 			function()
 				snacks.picker.icons()
 			end,

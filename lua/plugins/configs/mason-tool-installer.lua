@@ -43,10 +43,12 @@ function M.config()
 			-- Python
 			-- "python-lsp-server",
 			-- "pyright",
-			"basedpyright",
-			"pylint",
-			"pydocstyle",
+			-- "basedpyright",
+			-- "pylint",
+			"ty",
 			"ruff",
+			"uv",
+			"pydocstyle",
 			"debugpy",
 
 			-- C/C++

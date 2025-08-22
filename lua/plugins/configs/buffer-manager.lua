@@ -3,16 +3,17 @@ local M = {
 	dev = true,
 	name = "buffer_manager.nvim",
 	cond = not vim.g.started_by_firenvim,
+	event = "VeryLazy",
 }
 
 function M.init()
 	require("mappings").register({
 		{
-			";",
+			"<leader>;",
 			function()
-				require("buffer_manager.ui").toggle_quick_menu()
+				require("buffer_manager.ui").toggle_persistent_menu()
 			end,
-			desc = "Buffers",
+			desc = "Buffer manager",
 		},
 	})
 end

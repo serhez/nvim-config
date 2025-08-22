@@ -5,12 +5,9 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "q", "<cmd>Bwipeout<cr>", desc = "Quit buffer" },
-
-		{ "<leader>bc", group = "Close" },
-		{ "<leader>bca", "<cmd>%Bwipeout<cr>", desc = "All" },
-		{ "<leader>bcc", "<cmd>Bwipeout<cr>", desc = "Current" },
-		{ "<leader>bco", '<cmd>%Bdelete | e # | normal `"<cr>', desc = "Others" },
+		{ "<leader>bc", "<cmd>Bwipeout<cr>", desc = "Close current" },
+		{ "<leader>ba", "<cmd>%Bwipeout<cr>", desc = "Close all" },
+		{ "<leader>bo", '<cmd>%Bdelete | e # | normal `"<cr>', desc = "Close others" },
 	})
 end
 

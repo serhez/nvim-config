@@ -7,18 +7,18 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>uS", group = "Split" },
+		{ "<leader>kS", group = "Split" },
 
 		{ "_", "<cmd>FocusSplitDown<cr>", desc = "Horizontal split" },
 		{ "|", "<cmd>FocusSplitRight<cr>", desc = "Vertical split" },
-		{ "<leader>uSj", "<cmd>FocusSplitDown<cr>", desc = "Down" },
-		{ "<leader>uSl", "<cmd>FocusSplitRight<cr>", desc = "Right" },
-		{ "<leader>uSh", "<cmd>FocusSplitLeft<cr>", desc = "Left" },
-		{ "<leader>uSk", "<cmd>FocusSplitUp<cr>", desc = "Up" },
-		{ "<leader>us", "<cmd>FocusSplitNicely<cr>", desc = "Automatic split" },
-		{ "<leader>ue", "<cmd>FocusEqualise<cr>", desc = "Equalize window sizes" },
-		{ "<leader>ua", "<cmd>FocusToggle<cr>", desc = "Toggle automatic window resizing" },
-		{ "<leader>uz", "<cmd>FocusMaximise<cr>", desc = "Zoom window" },
+		{ "<leader>kSj", "<cmd>FocusSplitDown<cr>", desc = "Down" },
+		{ "<leader>kSl", "<cmd>FocusSplitRight<cr>", desc = "Right" },
+		{ "<leader>kSh", "<cmd>FocusSplitLeft<cr>", desc = "Left" },
+		{ "<leader>kSk", "<cmd>FocusSplitUp<cr>", desc = "Up" },
+		{ "<leader>ks", "<cmd>FocusSplitNicely<cr>", desc = "Automatic split" },
+		{ "<leader>ke", "<cmd>FocusEqualise<cr>", desc = "Equalize window sizes" },
+		{ "<leader>ka", "<cmd>FocusToggle<cr>", desc = "Toggle automatic window resizing" },
+		{ "<leader>kz", "<cmd>FocusMaximise<cr>", desc = "Zoom window" },
 	})
 end
 

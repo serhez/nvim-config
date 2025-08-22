@@ -38,14 +38,14 @@ local basic_mappings = {
 	{ "<leader>lQ", group = "Quickfix" },
 
 	{ "<leader>n", group = "Notebook" },
-	{ "<leader>p", group = "Projects" },
 
-	{ "<leader>u", group = "UI" },
-	{ "<leader>us", group = "Split" },
+	{ "<leader>t", group = "Tabs" },
+
+	{ "<leader>k", group = "Toolkit" },
+	{ "<leader>k", group = "Toolkit", mode = "v" },
 
 	{ "<leader>a", group = "Assistant", mode = "v" },
 	{ "<leader>n", group = "Notebooks", mode = "v" },
-	{ "<leader>u", group = "UI", mode = "v" },
 
 	---- MAPPINGS
 
@@ -56,7 +56,6 @@ local basic_mappings = {
 	{ "<A-Right>", "<cmd>vertical resize +1<cr>", desc = "Resize right" },
 
 	-- Window splits
-	-- NOTE: Now managed by focus.nvim
 	{ "_", "<cmd>split<cr>", desc = "Horizontal split" },
 	{ "|", "<cmd>vsplit<cr>", desc = "Vertical split" },
 
@@ -65,16 +64,14 @@ local basic_mappings = {
 	{ ">", ">gv", mode = "v", desc = "Indent right" },
 
 	-- Tabs
-	-- { "<leader>t", group = "Tabs" },
-	{ "t", "<cmd>tabnew<cr>", desc = "New tab" },
 	{ "Q", "<cmd>tabclose<cr>", desc = "Quit tab" },
-	-- { "<leader>tn", "<cmd>tabnew<cr>", desc = "New" },
-	-- { "<leader>tq", "<cmd>tabnew<cr>", desc = "Quit" },
 	{ "]t", "<cmd>tabnext<cr>", desc = "Next tab" },
 	{ "[t", "<cmd>tabprev<cr>", desc = "Prev tab" },
+	{ "<leader>tn", "<cmd>tabnew<cr>", desc = "New" },
+	{ "<leader>tc", "<cmd>tabclose<cr>", desc = "Close current" },
 
 	-- Messages and notifications
-	{ "<leader>um", "<cmd>messages<cr>", desc = "Messages" },
+	{ "<leader>km", "<cmd>messages<cr>", desc = "Messages" },
 
 	-- Move selected line / block of text in visual mode
 	{ "J", "<cmd>move '>+1<cr>gv-gv", mode = "x", desc = "Move block down" },
@@ -130,7 +127,7 @@ local basic_mappings = {
 
 	-- Inline hints
 	{
-		"<leader>uh",
+		"<leader>kh",
 		function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), {
 				bufnr = nil, -- all buffers

@@ -4,6 +4,8 @@ local M = {
 	event = "VeryLazy",
 }
 
+vim.g.copilot_loaded = false
+
 function M.init()
 	require("mappings").register({
 		{ "<leader>ao", "<cmd>Copilot panel<cr>", desc = "Copilot options" },
@@ -56,6 +58,8 @@ function M.config()
 			autostart = true,
 		},
 	})
+
+	vim.g.copilot_loaded = true
 end
 
 return M

@@ -123,7 +123,7 @@ end
 
 function M.init()
 	require("mappings").register({
-		"<leader>uf",
+		"<leader>kf",
 		"<cmd>lua require('plugins.configs.lualine').toggle_filetype()<cr>",
 		desc = "Toggle filetype",
 	})
@@ -464,8 +464,7 @@ function M.config()
 						},
 					},
 					cond = function()
-						local present, _ = pcall(require, "copilot")
-						return present
+						return vim.g.copilot_loaded ~= nil and vim.g.copilot_loaded and vim.g.copilot_loaded ~= false
 					end,
 				},
 				{
@@ -513,7 +512,7 @@ function M.config()
 		winbar = {},
 		inactive_winbar = {},
 		extensions = {
-			"avante",
+			-- "avante",  -- loads avante at startup, which is a significant overhead
 			"lazy",
 			"mason",
 			"neo-tree",

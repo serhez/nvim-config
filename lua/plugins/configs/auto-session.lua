@@ -1,33 +1,65 @@
 local M = {
 	"rmagatti/auto-session",
 	lazy = false,
-	-- dependencies = { -- These plugins are loaded before the session is restored, so that they can properly restore buffers (pinned, etc.)
-	-- 	"akinsho/bufferline.nvim",
-	-- 	"axkirillov/hbac.nvim",
-	-- },
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
 }
 
+local function _get_tmux_tag()
+	local tmux_tag = ""
+
+	if vim.env.TMUX then
+		local session_handle = io.popen("tmux display-message -p '#S'")
+		if session_handle ~= nil then
+			local session_name = session_handle:read("*a")
+			session_handle:close()
+			tmux_tag = tmux_tag .. session_name:gsub("\n", "")
+		else
+			tmux_tag = tmux_tag .. "__session__"
+		end
+
+		local window_name_handle = io.popen("tmux display-message -p '#W'")
+		if window_name_handle ~= nil then
+			local window_name = window_name_handle:read("*a")
+			window_name_handle:close()
+			tmux_tag = tmux_tag .. ":" .. window_name:gsub("\n", "")
+		else
+			tmux_tag = tmux_tag .. "__window__"
+		end
+
+		-- NOTE: I like it better without accounting for the window index
+		--       I can rearrange windows without affecting sessions
+		--       This means that, to have unique sessions for a given window, I must give it
+		--       a unique name for that session.
+		-- local window_index_handle = io.popen("tmux display-message -p '#I'")
+		-- if window_index_handle ~= nil then
+		-- 	local window_index = window_index_handle:read("*a")
+		-- 	window_index_handle:close()
+		-- 	tmux_tag = tmux_tag .. ":" .. window_index:gsub("\n", "")
+		-- else
+		-- 	tmux_tag = tmux_tag .. "__index__"
+		-- end
+	end
+
+	return tmux_tag
+end
+
+vim.g.auto_session_custom_tag = nil
+
 function M.config()
 	require("auto-session").setup({
-		enabled = true, -- Enables/disables auto creating, saving and restoring
-		auto_save = true, -- Enables/disables auto saving session on exit
-		auto_restore = true, -- Enables/disables auto restoring session on start
-		auto_create = true, -- Enables/disables auto creating new session files. Can take a function that should return true/false if a new session file should be created or not
-		auto_restore_last_session = false, -- On startup, loads the last saved session if session for cwd does not exist
-		use_git_branch = true, -- Include git branch name in session name
-		lazy_support = true, -- Automatically detect if Lazy.nvim is being used and wait until Lazy is done to make sure session is restored correctly. Does nothing if Lazy isn't being used. Can be disabled if a problem is suspected or for debugging
-		close_unsupported_windows = true, -- Close windows that aren't backed by normal file before autosaving a session
-		args_allow_single_directory = true, -- Follow normal sesion save/load logic if launched with a single directory as the only argument
-		args_allow_files_auto_save = false, -- Allow saving a session even when launched with a file argument (or multiple files/dirs). It does not load any existing session first. While you can just set this to true, you probably want to set it to a function that decides when to save a session when launched with file args. See documentation for more detail
-		continue_restore_on_error = true, -- Keep loading the session even if there's an error
+		git_use_branch_name = true, -- Include git branch name in session name
+		git_auto_restore_on_branch_change = true, -- Should we auto-restore the session when the git branch changes. Requires git_use_branch_name
 		show_auto_restore_notif = true, -- Whether to show a notification when auto-restoring
 		cwd_change_handling = true, -- Follow cwd changes, saving a session before change and restoring after
-		lsp_stop_on_restore = false, -- Should language servers be stopped when restoring a session. Can also be a function that will be called if set. Not called on autorestore from startup
 		log_level = "info", -- Sets the log level of the plugin (debug, info, warn, error).
-		session_lens = {
-			load_on_setup = false, -- Initialize on startup (requires Telescope)
-		},
+
+		-- Different sessions for tmux sessions & windows
+		custom_session_tag = function(_)
+			if vim.g.auto_session_custom_tag == nil then
+				vim.g.auto_session_custom_tag = _get_tmux_tag()
+			end
+			return vim.g.auto_session_custom_tag
+		end,
 
 		-- BUG: Cannot use this, because the algorithm attempts to match the cwd
 		--      with every single possible directory in the list, which is

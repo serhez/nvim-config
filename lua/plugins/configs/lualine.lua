@@ -169,7 +169,6 @@ function M.config()
 
 	function folders_component:update_status()
 		local data = folders_component.super.update_status(self)
-		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
 
 		-- Remove leading slashes
 		data = data:gsub("^/+", "")
@@ -181,12 +180,12 @@ function M.config()
 
 		-- Terminals
 		if data:find("term://") then
-			return "Terminal:"
+			return "Terminal: "
 		end
 
 		-- mini.files
 		if data:find("minifiles://") then
-			return "File explorer:"
+			return "File explorer: "
 		end
 
 		-- oil
@@ -198,9 +197,15 @@ function M.config()
 		data = data:match("(.+)/[^/]+$") or data
 
 		-- Use custom separators
-		data = data:gsub("/", " " .. icons.arrow.right_tall .. " ")
+		data = data:gsub("/", " " .. icons.arrow.right_tall .. " " .. icons.folder.default .. " ")
 
-		return data .. " " .. icons.arrow.right_tall
+		-- Include padding icons
+		data = icons.folder.default .. " " .. data .. " " .. icons.arrow.right_tall
+
+		-- Adapt highlights
+		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
+
+		return data
 	end
 
 	function filename_component:init(options)

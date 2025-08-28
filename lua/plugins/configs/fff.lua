@@ -3,19 +3,6 @@ local M = {
 	build = "cargo build --release",
 }
 
-function M.init()
-	require("mappings").register({
-		{
-			"<leader>f",
-			function()
-				-- or find_in_git_root() if you only want git files
-				require("fff").find_files()
-			end,
-			desc = "Find files",
-		},
-	})
-end
-
 function M.config()
 	local icons = require("icons")
 

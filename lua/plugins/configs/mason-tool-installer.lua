@@ -128,6 +128,7 @@ function M.config()
 			"sql-formatter",
 
 			-- Markdown / LaTeX
+			"markdown-oxide",
 			"markdownlint",
 			"texlab",
 			"latexindent",

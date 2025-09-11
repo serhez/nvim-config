@@ -12,7 +12,8 @@ function M.init()
 		local pieces = vim.split(filepath, "://", { plain = true })
 		local scheme = pieces[1] or "file"
 		if scheme ~= "oil-ssh" then
-			vim.cmd("Oil --preview")
+			-- vim.cmd("Oil --preview") -- BUG: messes up window sizes
+			vim.cmd("Oil")
 		else
 			vim.cmd("Oil")
 		end

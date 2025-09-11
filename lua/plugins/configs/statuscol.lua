@@ -7,8 +7,8 @@ local M = {
 	cond = not vim.g.started_by_firenvim,
 }
 
-function M.config()
-	local builtin = require("statuscol.builtin")
+function M.config() -- test
+	local builtin = require("statuscol.builtin") -- test
 	local clickmod = "c"
 
 	require("statuscol").setup({
@@ -54,8 +54,8 @@ function M.config()
 				click = "v:lua.ScSa",
 			},
 			{
-				text = { builtin.foldfunc, "" },
-				sign = { maxwidth = 1, colwidth = 1 },
+				text = { builtin.foldfunc, " " },
+				sign = { maxwidth = 2, colwidth = 2 },
 				condition = { true, builtin.not_empty },
 				click = "v:lua.ScFa",
 			},

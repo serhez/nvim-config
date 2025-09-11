@@ -12,6 +12,8 @@ local M = {
 			"lua_ls",
 			"copilot",
 			"copilot_ls",
+			"copilot_language_server",
+			"copilot-language-server",
 		},
 	},
 }

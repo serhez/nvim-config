@@ -50,12 +50,12 @@ function M.config()
 	local icons = require("icons")
 
 	vim.o.fillchars = "eob: ,fold: ,foldopen:"
-		.. icons.arrow.down_short
+		.. icons.arrow.down_short_thick
 		.. ",foldsep: ,foldclose:"
-		.. icons.arrow.right_short
-	vim.o.foldcolumn = "2"
+		.. icons.arrow.right_short_thick
+	vim.o.foldcolumn = "1"
 	vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-	vim.o.foldlevelstart = -1
+	vim.o.foldlevelstart = 99
 	vim.o.foldenable = true
 
 	-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
@@ -63,20 +63,8 @@ function M.config()
 	vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
 	require("ufo").setup({
-		provider_selector = function(_, _)
-			-- return a string type use ufo providers
-			-- return a string in a table like a string type
-			-- return empty string '' will disable any providers
-			-- return `nil` will use default value {'lsp', 'indent'}
-			return ""
-		end,
 		fold_virt_text_handler = handler,
 	})
-
-	-- buffer scope handler
-	-- will override global handler if it is existed
-	local bufnr = vim.api.nvim_get_current_buf()
-	require("ufo").setFoldVirtTextHandler(bufnr, handler)
 end
 
 return M

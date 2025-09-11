@@ -3,6 +3,32 @@ local M = {
 	event = "VeryLazy",
 }
 
+function M.init()
+	local formatting = require("plugins.configs.mason-lspconfig.formatting")
+
+	require("mappings").register({
+		{
+			"<leader>cf",
+			function(args)
+				formatting.format(args.buf)
+			end,
+			desc = "Format buffer",
+		},
+		{
+			"<leader>cF",
+			function()
+				local enabled = formatting.toggle_auto_format()
+				vim.notify(
+					(enabled and "Enabled" or "Disabled") .. " auto-formatting",
+					vim.log.levels.INFO,
+					{ title = "Auto-formatting" }
+				)
+			end,
+			desc = "Toggle auto-format",
+		},
+	})
+end
+
 function M.config()
 	require("conform").setup({
 		format = {

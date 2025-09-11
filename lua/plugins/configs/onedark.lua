@@ -1,11 +1,17 @@
 local M = {
-    "navarasu/onedark.nvim",
+	"olimorris/onedarkpro.nvim",
+	priority = 1000, -- Ensure it loads first
 }
 
 function M.config()
-    require("onedark").setup({
-        style = "dark",
-    })
+	require("onedarkpro").setup({
+		filetypes = {
+			all = true,
+		},
+		plugins = {
+			all = true,
+		},
+	})
 end
 
 return M

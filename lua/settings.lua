@@ -64,7 +64,6 @@ function M.setup()
 	opt.number = true -- set numbered lines
 	opt.relativenumber = false -- set relative numbered lines
 	opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
-	opt.foldcolumn = "auto" -- always show the sign column, otherwise it would shift the text each time
 	opt.wrap = true -- display lines as one long line
 	opt.laststatus = 3 -- display one statusline for all windows
 	opt.guicursor = "i:ver100-blinkoff700-blinkon700"
@@ -77,6 +76,9 @@ function M.setup()
 	-- opt.sessionoptions =
 	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
 	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+	-- NOTE: Folding settings are handled by `nvim-ufo`
+	-- opt.foldcolumn = "auto" -- always show the sign column, otherwise it would shift the text each time
 
 	-- Make TreeSitter highlight groups have higher priority than LSP semantic tokens
 	vim.highlight.priorities.treesitter = 100

@@ -4,10 +4,15 @@ local M = {
 }
 
 function M.config()
+	local icons = require("icons")
+
 	require("nvim-highlight-colors").setup({
 		---Render style
 		---@usage 'background'|'foreground'|'virtual'
-		render = "virtual",
+		render = "background",
+
+		---Set virtual symbol (requires render to be set to 'virtual')
+		virtual_symbol = icons.circle,
 
 		---Highlight tailwind colors, e.g. 'bg-blue-500'
 		enable_tailwind = true,

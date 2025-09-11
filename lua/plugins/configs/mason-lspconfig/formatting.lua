@@ -27,7 +27,12 @@ function M.format(bufnr)
 	end
 
 	if conform_present then
-		conform.format({ timeout_ms = 2000, lsp_format = "fallback", bufnr = bufnr })
+		conform.format({
+			timeout_ms = 2000,
+			lsp_format = "fallback",
+			filter = null_ls_filter,
+			bufnr = bufnr,
+		})
 	else
 		vim.lsp.buf.format({
 			filter = null_ls_filter,

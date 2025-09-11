@@ -2,6 +2,7 @@ local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "VeryLazy",
+	enabled = false,
 }
 
 vim.g.copilot_loaded = false

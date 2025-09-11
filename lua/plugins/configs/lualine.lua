@@ -4,7 +4,7 @@ local M = {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		"AndreM222/copilot-lualine",
+		-- "AndreM222/copilot-lualine",
 	},
 	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.slow_network,
@@ -307,9 +307,11 @@ function M.config()
 					icon = icons.git.branch,
 					on_click = git_branches_fn,
 				},
+			},
+			lualine_b = {
 				{
 					venv_provider,
-					color = "IncSearch",
+					-- color = "IncSearch",
 					cond = function()
 						local cond = vim.g.active_venv ~= nil
 							and vim.g.active_venv ~= ""
@@ -322,7 +324,7 @@ function M.config()
 				},
 				{
 					kernel_provider,
-					color = "Cursor",
+					-- color = "Cursor",
 				},
 				{
 					"diff",
@@ -345,7 +347,6 @@ function M.config()
 					end,
 				},
 			},
-			lualine_b = {},
 			lualine_c = {
 				"%=",
 				-- {
@@ -453,25 +454,25 @@ function M.config()
 				-- 	icon = "", -- f013
 				-- 	ignore_lsp = { "copilot" },
 				-- },
-				{
-					"copilot",
-					show_colors = true,
-					show_loading = true,
-					symbols = {
-						status = {
-							icons = {
-								enabled = icons.copilot.enabled,
-								sleep = icons.copilot.sleep,
-								disabled = icons.copilot.disabled,
-								warning = icons.copilot.warning,
-								unknown = icons.copilot.unknown,
-							},
-						},
-					},
-					cond = function()
-						return vim.g.copilot_loaded ~= nil and vim.g.copilot_loaded and vim.g.copilot_loaded ~= false
-					end,
-				},
+				-- {
+				-- 	"copilot",
+				-- 	show_colors = true,
+				-- 	show_loading = true,
+				-- 	symbols = {
+				-- 		status = {
+				-- 			icons = {
+				-- 				enabled = icons.copilot.enabled,
+				-- 				sleep = icons.copilot.sleep,
+				-- 				disabled = icons.copilot.disabled,
+				-- 				warning = icons.copilot.warning,
+				-- 				unknown = icons.copilot.unknown,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- 	cond = function()
+				-- 		return vim.g.copilot_loaded ~= nil and vim.g.copilot_loaded and vim.g.copilot_loaded ~= false
+				-- 	end,
+				-- },
 				{
 					supermaven_provider,
 					cond = function()
@@ -489,8 +490,12 @@ function M.config()
 				},
 			},
 			lualine_z = {
-				"location",
-				"progress",
+				{
+					"location",
+				},
+				{
+					"progress",
+				},
 				{
 					"tabs",
 					use_mode_colors = true,

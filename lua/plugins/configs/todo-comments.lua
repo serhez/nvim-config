@@ -13,7 +13,7 @@ function M.config()
 	local icons = require("icons")
 
 	require("todo-comments").setup({
-		signs = true, -- show icons in the signs column
+		signs = false, -- show icons in the signs column
 		sign_priority = 90,
 		-- keywords recognized as todo comments
 		keywords = {
@@ -41,7 +41,7 @@ function M.config()
 			before = "", -- "fg" or "bg" or empty
 			keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
 			after = "fg", -- "fg" or "bg" or empty
-			pattern = [[.*<(KEYWORDS)\s*:]], -- pattern used for highlightng (vim regex)
+			pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]], -- pattern used for highlightng (vim regex)
 			comments_only = true, -- uses treesitter to match keywords in comments only
 		},
 		-- list of named colors where we try to extract the guifg from the
@@ -52,6 +52,7 @@ function M.config()
 			info = { "TodoCommentsInfo", "#2563EB" },
 			hint = { "TodoCommentsHint", "#10B981" },
 			default = { "TodoCommentsDefault", "#7C3AED" },
+			test = { "TodoCommentsTest", "#FF00FF" },
 		},
 		search = {
 			command = "rg",
@@ -64,7 +65,7 @@ function M.config()
 			},
 			-- regex that will be used to match keywords.
 			-- don't replace the (KEYWORDS) placeholder
-			pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+			pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]], -- ripgrep regex
 			-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 		},
 	})

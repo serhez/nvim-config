@@ -38,7 +38,7 @@ function M.config()
 			hover = {
 				border = {
 					-- `"double"`, `"none"`, `"rounded"`, `"shadow"`, `"single"` or `"solid"`
-					style = "single",
+					style = "solid",
 					padding = { 0, 0 },
 				},
 				position = { row = 0, col = 0 },

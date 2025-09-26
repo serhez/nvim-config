@@ -71,7 +71,7 @@ function M.setup()
 	opt.pumblend = 10 -- popups transparency
 	opt.pumheight = 10 -- maximum number of entries in a popup
 	opt.winblend = 10 -- floating windows transparency
-	-- opt.winborder = "single" -- default window border style
+	opt.winborder = "none" -- default window border style
 	opt.termsync = false -- don't sync neovim with terminal emulator
 	-- opt.sessionoptions =
 	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }

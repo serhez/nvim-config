@@ -29,7 +29,7 @@ function M.setup()
 		},
 		float = {
 			relative = "editor",
-			border = "single",
+			border = "solid",
 			style = "minimal",
 			scope = "line",
 			focusable = false,

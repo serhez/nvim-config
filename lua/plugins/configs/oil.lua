@@ -316,10 +316,10 @@ function M.config()
 			},
 		},
 		confirmation = {
-			border = "single",
+			border = "solid",
 		},
 		keymaps_help = {
-			border = "single",
+			border = "solid",
 		},
 		progress = {
 			border = "solid",

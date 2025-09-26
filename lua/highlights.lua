@@ -194,12 +194,11 @@ function M.setup()
 	-- BUG: This is completely resetting fillchars
 	-- vim.cmd([[let &fcs='eob: ']])
 
-	local common_hls = M.common_hls()
 	local c = M.colors()
 	local groups = {
 		-- Native UI
-		NormalFloat = { bg = c.statusline_bg },
-		FloatBorder = common_hls.border_statusline,
+		-- NormalFloat = { bg = c.statusline_bg }, -- let the colorscheme handle this
+		-- FloatBorder = common_hls.border_statusline,
 		DiagnosticUnderlineError = { undercurl = true, sp = c.error_fg },
 		DiagnosticUnderlineWarn = { undercurl = true, sp = c.warn_fg },
 		DiagnosticUnderlineHint = { undercurl = true, sp = c.hint_fg },
@@ -210,8 +209,8 @@ function M.setup()
 		EndOfBuffer = { default = true, link = "Normal" },
 
 		-- LSP
-		LspFloatWinNormal = { bg = c.statusline_bg },
-		LspFloatWinBorder = common_hls.border_statusline,
+		-- LspFloatWinNormal = { bg = c.statusline_bg },
+		-- LspFloatWinBorder = common_hls.border_statusline,
 		DiagnosticFloatingError = { fg = c.error_fg, bg = c.red_virtual_bg },
 		DiagnosticFloatingWarn = { fg = c.warn_fg, bg = c.yellow_virtual_bg },
 		DiagnosticFloatingInfo = { fg = c.info_fg, bg = c.cyan_virtual_bg },

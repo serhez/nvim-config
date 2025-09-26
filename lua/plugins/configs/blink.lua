@@ -67,7 +67,7 @@ function M.config()
 		signature = {
 			enabled = true,
 			window = {
-				border = "single",
+				border = "solid",
 			},
 		},
 

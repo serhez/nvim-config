@@ -191,7 +191,8 @@ function M.setup()
 	})
 
 	-- Remove the tilde (~) after EOF
-	vim.cmd([[let &fcs='eob: ']])
+	-- BUG: This is completely resetting fillchars
+	-- vim.cmd([[let &fcs='eob: ']])
 
 	local common_hls = M.common_hls()
 	local c = M.colors()

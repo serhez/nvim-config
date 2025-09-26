@@ -155,6 +155,9 @@ local basic_mappings = {
 	{ "<leader>Ln", "<cmd>lnew<cr>", desc = "Next" },
 	{ "<leader>Qp", "<cmd>col<cr>", desc = "Previous" },
 	{ "<leader>Lp", "<cmd>lol<cr>", desc = "Previous" },
+
+	-- Folding toggle
+	{ "F", "za", desc = "Toggle fold" },
 }
 
 function M.config()

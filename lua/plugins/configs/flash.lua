@@ -14,7 +14,7 @@ function M.config()
 				enabled = false,
 			},
 			char = {
-				keys = { "f", "F" }, -- { "f", "F", "t", "T", ";", "," }
+				keys = { "f", "S" }, -- { "f", "F", "t", "T", ";", "," }
 			},
 		},
 		label = {
@@ -30,7 +30,7 @@ function M.config()
 	vim.keymap.set({ "n", "x", "o" }, "f", function()
 		flash.jump()
 	end, { desc = "Jump to char" })
-	vim.keymap.set({ "n", "x", "o" }, "F", function()
+	vim.keymap.set({ "n", "x", "o" }, "S", function()
 		flash.treesitter({
 			actions = {
 				["<c-.>"] = "next",

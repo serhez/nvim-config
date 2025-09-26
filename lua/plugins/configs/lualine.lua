@@ -4,7 +4,7 @@ local M = {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		-- "AndreM222/copilot-lualine",
+		"AndreM222/copilot-lualine",
 	},
 	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.slow_network,
@@ -454,25 +454,25 @@ function M.config()
 				-- 	icon = "", -- f013
 				-- 	ignore_lsp = { "copilot" },
 				-- },
-				-- {
-				-- 	"copilot",
-				-- 	show_colors = true,
-				-- 	show_loading = true,
-				-- 	symbols = {
-				-- 		status = {
-				-- 			icons = {
-				-- 				enabled = icons.copilot.enabled,
-				-- 				sleep = icons.copilot.sleep,
-				-- 				disabled = icons.copilot.disabled,
-				-- 				warning = icons.copilot.warning,
-				-- 				unknown = icons.copilot.unknown,
-				-- 			},
-				-- 		},
-				-- 	},
-				-- 	cond = function()
-				-- 		return vim.g.copilot_loaded ~= nil and vim.g.copilot_loaded and vim.g.copilot_loaded ~= false
-				-- 	end,
-				-- },
+				{
+					"copilot",
+					show_colors = true,
+					show_loading = true,
+					symbols = {
+						status = {
+							icons = {
+								enabled = icons.copilot.enabled,
+								sleep = icons.copilot.sleep,
+								disabled = icons.copilot.disabled,
+								warning = icons.copilot.warning,
+								unknown = icons.copilot.unknown,
+							},
+						},
+					},
+					cond = function()
+						return vim.g.copilot_loaded ~= nil and vim.g.copilot_loaded and vim.g.copilot_loaded ~= false
+					end,
+				},
 				{
 					supermaven_provider,
 					cond = function()

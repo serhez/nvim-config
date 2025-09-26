@@ -1,5 +1,7 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
+	-- TODO: integrate with the newwer version (main brach)
+	-- branch = "main",
 	build = ":TSUpdate",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
@@ -73,7 +75,7 @@ function M.config()
 				enable = true,
 				set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
-					["]]"] = "@function.outer",
+					["]]"] = "@function.inner",
 					["]f"] = "@function.outer",
 					["]c"] = "@class.outer",
 					["]p"] = "@parameter.outer",
@@ -85,13 +87,13 @@ function M.config()
 					["]P"] = "@parameter.inner",
 				},
 				goto_previous_start = {
-					["[["] = "@function.outer",
+					["[["] = "@function.inner",
 					["[f"] = "@function.outer",
 					["[c"] = "@class.outer",
 					["[p"] = "@parameter.outer",
 				},
 				goto_previous_end = {
-					["[]"] = "@function.inner",
+					["[]"] = "@function.outer",
 					["[F"] = "@function.inner",
 					["[C"] = "@class.inner",
 					["[P"] = "@parameter.inner",

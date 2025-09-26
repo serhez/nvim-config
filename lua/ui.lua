@@ -1,11 +1,12 @@
 local M = {}
 
 function M.setup()
-	M.set_separators()
+	-- M.set_separators()
 
 	-- Statuscolumn (for when plugin `statuscol` is buggy)
 	local present, _ = pcall(require, "statuscol")
 	if not present then
+		vim.notify("Plugin 'statuscol' not found. Using built-in statuscolumn.", vim.log.levels.WARN)
 		vim.opt.statuscolumn = [[%!v:lua.require('ui').statuscolumn()]]
 	end
 
@@ -21,23 +22,23 @@ function M.toggle_anchor_center()
 	vim.opt.scrolloff = on and 0 or 999
 end
 
-function M.set_separators()
-	local icons = require("icons")
-	vim.o.fillchars = "vert:"
-		.. icons.bar.vertical_block
-		.. ",horiz:"
-		.. icons.bar.lower_horizontal_thick
-		.. ",horizup:"
-		.. icons.bar.vertical_block
-		.. ",horizdown:"
-		.. icons.bar.vertical_block
-		.. ",vertleft:"
-		.. icons.bar.vertical_block
-		.. ",vertright:"
-		.. icons.bar.vertical_block
-		.. ",verthoriz:"
-		.. icons.bar.vertical_block
-end
+-- function M.set_separators()
+-- 	local icons = require("icons")
+-- 	vim.o.fillchars = "vert:"
+-- 		.. icons.bar.vertical_block
+-- 		.. ",horiz:"
+-- 		.. icons.bar.lower_horizontal_thick
+-- 		.. ",horizup:"
+-- 		.. icons.bar.vertical_block
+-- 		.. ",horizdown:"
+-- 		.. icons.bar.vertical_block
+-- 		.. ",vertleft:"
+-- 		.. icons.bar.vertical_block
+-- 		.. ",vertright:"
+-- 		.. icons.bar.vertical_block
+-- 		.. ",verthoriz:"
+-- 		.. icons.bar.vertical_block
+-- end
 
 ---@alias Sign {name:string, text:string, texthl:string, priority:number}
 

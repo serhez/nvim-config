@@ -82,18 +82,8 @@ local function format_file_git_status(item, picker)
 		icon = picker.opts.icons.git.staged
 	end
 
-	local text_icon = status.status:sub(1, 1):upper()
-	text_icon = status.status == "untracked" and "?" or status.status == "ignored" and "!" or text_icon
-
 	ret[#ret + 1] = { icon, hl }
 	ret[#ret + 1] = { " ", virtual = true }
-
-	ret[#ret + 1] = {
-		col = 0,
-		virt_text = { { text_icon, hl }, { " " } },
-		virt_text_pos = "right_align",
-		hl_mode = "combine",
-	}
 	return ret
 end
 
@@ -129,7 +119,7 @@ function fff_picker.picker()
 		end
 	end
 	require("snacks").picker({
-		title = "FFFiles",
+		title = "Files",
 		finder = fff_picker.finder,
 		on_close = on_close,
 		format = format,
@@ -406,6 +396,13 @@ function M.init()
 				snacks.picker.icons()
 			end,
 			desc = "Icons list",
+		},
+		{
+			"<leader>kl",
+			function()
+				snacks.picker.lsp_config()
+			end,
+			desc = "LSP servers",
 		},
 
 		-- Git

@@ -7,7 +7,7 @@ local settings = {
 		analysis = {
 			autoImportCompletions = true,
 			autoSearchPaths = true,
-			diagnosticMode = "openFilesOnly", -- "openFilesOnly" or "workspace"
+			diagnosticMode = "workspace", -- "openFilesOnly" or "workspace"
 			typeCheckingMode = "basic", -- "off", "basic", "standard", "strict" or "all"
 			useLibraryCodeForTypes = true,
 		},

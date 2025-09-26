@@ -16,7 +16,7 @@ function M.init()
 		{ "<leader>gc", "<cmd>DiffviewFileHistory %<cr>", desc = "Commits (file)" },
 		{ "<leader>gC", "<cmd>DiffviewFileHistory<cr>", desc = "Commits (workspace)" },
 		{ "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffs tool" },
-		{ "<leader>gD", "<cmd>DiffviewOpen ", desc = "Diffs tool (specify commits)" },
+		{ "<leader>gD", ":DiffviewOpen ", desc = "Diffs tool (specify target)" },
 	})
 end
 

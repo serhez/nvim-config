@@ -7,8 +7,8 @@ local M = {
 	cond = not vim.g.started_by_firenvim,
 }
 
-function M.config() -- test
-	local builtin = require("statuscol.builtin") -- test
+function M.config()
+	local builtin = require("statuscol.builtin")
 	local clickmod = "c"
 
 	require("statuscol").setup({
@@ -112,8 +112,8 @@ function M.config() -- test
 		end
 	end
 
-	local ui = require("ui")
-	ui.set_separators()
+	-- local ui = require("ui")
+	-- ui.set_separators()
 end
 
 return M

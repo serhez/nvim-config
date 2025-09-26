@@ -12,6 +12,7 @@ function M.init()
 	vim.api.nvim_del_keymap("v", "gra")
 	vim.api.nvim_del_keymap("n", "grr")
 	vim.api.nvim_del_keymap("n", "gri")
+	vim.api.nvim_del_keymap("n", "grt")
 	vim.api.nvim_del_keymap("n", "gO")
 
 	-- Override quickfile and location list mappings

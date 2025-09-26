@@ -7,34 +7,22 @@ local M = {
 	lazy = false,
 }
 
-local function check_codelens_support()
-	local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-	for _, c in ipairs(clients) do
-		if c.server_capabilities.codeLensProvider then
-			return true
-		end
-	end
-	return false
-end
+local function custom_attach(_, bufnr)
+	local ver = vim.version()
 
-local function custom_attach(client, bufnr)
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
+	if ver.major > 0 or ver.minor >= 12 then
+		vim.lsp.on_type_formatting.enable(true)
+		vim.lsp.inline_completion.enable(true)
 	end
 
-	vim.lsp.on_type_formatting.enable(true)
-	vim.lsp.inline_completion.enable(true)
-
-	if check_codelens_support() then
-		vim.lsp.codelens.refresh({ bufnr = 0 })
-	end
+	vim.lsp.semantic_tokens.enable(true)
 
 	-- Enable completion triggered by <c-x><c-o>
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
 function M.config()
-	local lspconfig = require("lspconfig")
+	local ver = vim.version()
 	local mason_lspconfig = require("mason-lspconfig")
 
 	mason_lspconfig.setup({
@@ -65,11 +53,13 @@ function M.config()
 		"detail",
 		"additionalTextEdits",
 	}
-	custom_capabilities.textDocument.onTypeFormatting.dynamicRegistration = false
 	custom_capabilities.textDocument.foldingRange = {
 		dynamicRegistration = false,
 		lineFoldingOnly = true,
 	}
+	if ver.major > 0 or ver.minor >= 12 then
+		custom_capabilities.textDocument.onTypeFormatting.dynamicRegistration = false
+	end
 
 	for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
 		local opts = {
@@ -82,7 +72,6 @@ function M.config()
 
 		local has_custom_opts, custom_opts = pcall(require, "plugins.configs.mason-lspconfig.servers." .. server)
 		if has_custom_opts then
-			-- Enhance the default opts with the server-specific ones
 			opts.settings = custom_opts
 		end
 
@@ -90,7 +79,7 @@ function M.config()
 	end
 
 	-- Configure Dart/Flutter server here since it is not installed via Mason
-	lspconfig.dartls.setup({
+	vim.lsp.config("dartls", {
 		cmd = { "dart", "language-server", "--protocol=lsp" },
 		filetypes = { "dart" },
 		init_options = {
@@ -122,8 +111,16 @@ function M.config()
 	if has_custom_opts then
 		sourcekit_opts.settings = custom_opts
 	end
-	lspconfig.sourcekit.setup(sourcekit_opts)
+	vim.lsp.config("sourcekit", sourcekit_opts)
 
+	-- Enable LSP codelens
+	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+		callback = function()
+			vim.lsp.codelens.refresh({ bufnr = 0 })
+		end,
+	})
+
+	-- NOTE: handled by `coilot.lua` plugin
 	-- Keymaps for inline ghost text completion (e.g., Copilot)
 	vim.keymap.set("i", "<C-l>", function()
 		if not vim.lsp.inline_completion.get() then

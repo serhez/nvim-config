@@ -31,7 +31,12 @@ function M.config()
 		flash.jump()
 	end, { desc = "Jump to char" })
 	vim.keymap.set({ "n", "x", "o" }, "F", function()
-		flash.treesitter()
+		flash.treesitter({
+			actions = {
+				["<c-.>"] = "next",
+				["<c-,>"] = "prev",
+			},
+		})
 	end, { desc = "Treesitter selection" })
 	-- vim.keymap.set({ "o" }, "r", function()
 	-- 	flash.remote()

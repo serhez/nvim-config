@@ -2,6 +2,7 @@ local M = {
 	"kevinhwang91/nvim-ufo",
 	dependencies = "kevinhwang91/promise-async",
 	event = "VeryLazy",
+	-- enabled = false,
 }
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
@@ -35,33 +36,12 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 end
 
 function M.init()
-	-- Disable folds in the following filetypes
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = { "NeogitStatus" },
-		callback = function()
-			require("ufo").detach()
-			vim.opt_local.foldenable = false
-			vim.wo.foldcolumn = "0"
-		end,
-	})
-end
-
-function M.config()
-	local icons = require("icons")
-
-	vim.o.fillchars = "eob: ,fold: ,foldopen:"
-		.. icons.arrow.down_short_thick
-		.. ",foldsep: ,foldclose:"
-		.. icons.arrow.right_short_thick
-	vim.o.foldcolumn = "1"
-	vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-	vim.o.foldlevelstart = 99
-	vim.o.foldenable = true
-
 	-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 	vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 	vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+end
 
+function M.config()
 	require("ufo").setup({
 		fold_virt_text_handler = handler,
 	})

@@ -77,8 +77,41 @@ function M.setup()
 	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
 	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-	-- NOTE: Folding settings are handled by `nvim-ufo`
-	-- opt.foldcolumn = "auto" -- always show the sign column, otherwise it would shift the text each time
+	-- Folding & fillchars
+	vim.o.fillchars = "eob: ,lastline: ,fold: ,foldopen:"
+		.. icons.arrow.down_short_thick
+		.. ",foldsep: ,foldclose:"
+		.. icons.arrow.right_short_thick
+		.. ",trunc:"
+		.. icons.three_dots
+		.. ",truncrl:"
+		.. icons.three_dots
+	vim.o.foldcolumn = "1"
+	vim.o.foldlevel = 99
+	vim.o.foldlevelstart = 99
+	vim.o.foldenable = true
+
+	-- -- Disable folds in the following filetypes
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = { "NeogitStatus" },
+		callback = function()
+			local present, ufo = pcall(require, "ufo")
+			if present then
+				ufo.detach()
+			end
+			vim.opt_local.foldenable = false
+			vim.wo.foldcolumn = "0"
+		end,
+	})
+
+	-- Automatically fold imports
+	vim.api.nvim_create_autocmd("LspNotify", {
+		callback = function(args)
+			if args.data.method == "textDocument/didOpen" then
+				vim.lsp.foldclose("imports", vim.fn.bufwinid(args.buf))
+			end
+		end,
+	})
 
 	-- Make TreeSitter highlight groups have higher priority than LSP semantic tokens
 	vim.highlight.priorities.treesitter = 100

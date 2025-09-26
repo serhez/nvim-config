@@ -94,6 +94,8 @@ local basic_mappings = {
 	{ "[j", "[jzz", desc = "Previous jump" },
 	{ "]s", "]szz", desc = "Next misspelling" },
 	{ "[s", "[szz", desc = "Previous misspelling" },
+	{ "C-o", "C-ozz", desc = "Jump out" },
+	{ "C-i", "C-izz", desc = "Jump in" },
 
 	-- Make . work over visual selections
 	{ ".", "<cmd>norm.<cr>", mode = "x", desc = "Treesitter increment" },

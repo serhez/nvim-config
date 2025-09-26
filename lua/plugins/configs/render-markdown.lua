@@ -39,10 +39,12 @@ function M.config()
 	require("render-markdown").setup({
 		render_modes = { "n", "no", "i", "v", "V", "^V", "r", "x", "c" },
 		file_types = { "markdown", "quarto", "rmd", "Avante", "noice" },
+		restart_highlighter = true,
 
 		completions = {
 			-- Settings for blink.cmp completions source
 			blink = { enabled = true },
+			lsp = { enabled = true },
 		},
 
 		heading = {

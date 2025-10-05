@@ -30,6 +30,11 @@ function M.setup()
 		git = {
 			timeout = 300, -- 5 minutes
 		},
+		-- BUG: luarocks is broken, remove the options below once fixed
+		rocks = {
+			server = "https://lumen-oss.github.io/rocks-binaries/",
+			enabled = false,
+		},
 		performance = {
 			rtp = {
 				disabled_plugins = {

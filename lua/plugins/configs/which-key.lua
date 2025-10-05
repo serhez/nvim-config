@@ -97,9 +97,6 @@ local basic_mappings = {
 	{ "C-o", "C-ozz", desc = "Jump out" },
 	{ "C-i", "C-izz", desc = "Jump in" },
 
-	-- Make . work over visual selections
-	{ ".", "<cmd>norm.<cr>", mode = "x", desc = "Treesitter increment" },
-
 	-- Avoid c storing in registers
 	{ "c", '"_c', desc = "Change" },
 	{ "C", '"_C', desc = "Change to end of line" },

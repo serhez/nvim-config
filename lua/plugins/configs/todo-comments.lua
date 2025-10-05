@@ -32,6 +32,11 @@ function M.config()
 			},
 			PERF = { icon = icons.fast .. " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
 			NOTE = { icon = icons.message .. " ", color = "hint", alt = { "INFO" } },
+			SECTION = {
+				icon = icons.cube .. " ",
+				color = "section",
+				alt = { "SNIPPET", "BLOCK", "MODULE", "UNIT", "SEGMENT", "COMPONENT", "ELEMENT" },
+			},
 		},
 		-- highlighting of the line containing the todo comment
 		-- * before: highlights before the keyword (typically comment characters)
@@ -52,6 +57,7 @@ function M.config()
 			info = { "TodoCommentsInfo", "#2563EB" },
 			hint = { "TodoCommentsHint", "#10B981" },
 			default = { "TodoCommentsDefault", "#7C3AED" },
+			section = { "TodoCommentsSection", "TodoCommentsDefault", "#7C3AED" },
 			test = { "TodoCommentsTest", "#FF00FF" },
 		},
 		search = {

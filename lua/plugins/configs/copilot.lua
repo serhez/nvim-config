@@ -46,7 +46,7 @@ function M.config()
 			},
 		},
 		nes = {
-			-- BUG: copilot-lsp works like shit ATM
+			-- BUG: using folke's sidekick.nvim instead
 			enabled = false, -- requires copilot-lsp as a dependency
 			auto_trigger = true,
 			keymap = {

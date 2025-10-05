@@ -12,7 +12,10 @@ local function custom_attach(_, bufnr)
 
 	if ver.major > 0 or ver.minor >= 12 then
 		vim.lsp.on_type_formatting.enable(true)
-		vim.lsp.inline_completion.enable(true)
+
+		-- NOTE: handled by `coilot.lua` plugin
+		-- vim.lsp.inline_completion.enable(true)
+		vim.lsp.inline_completion.enable(false)
 	end
 
 	vim.lsp.semantic_tokens.enable(true)
@@ -122,15 +125,15 @@ function M.config()
 
 	-- NOTE: handled by `coilot.lua` plugin
 	-- Keymaps for inline ghost text completion (e.g., Copilot)
-	vim.keymap.set("i", "<C-l>", function()
-		if not vim.lsp.inline_completion.get() then
-			return "<C-l>"
-		end
-	end, {
-		expr = true,
-		replace_keycodes = true,
-		desc = "Accept inline completion",
-	})
+	-- vim.keymap.set("i", "<C-l>", function()
+	-- 	if not vim.lsp.inline_completion.get() then
+	-- 		return "<C-l>"
+	-- 	end
+	-- end, {
+	-- 	expr = true,
+	-- 	replace_keycodes = true,
+	-- 	desc = "Accept inline completion",
+	-- })
 end
 
 return M

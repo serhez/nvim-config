@@ -112,11 +112,11 @@ function M.config()
 		---@alias Provider "openai" | "claude" | "azure"  | "copilot" | [string]
 		provider = "copilot",
 		auto_suggestions_provider = "copilot",
-		providers = {
-			copilot = {
-				model = "claude-sonnet-4",
-			},
-		},
+		-- providers = {
+		-- 	copilot = {
+		-- 		model = "claude-sonnet-4",
+		-- 	},
+		-- },
 		behaviour = {
 			auto_set_keymaps = false,
 		},

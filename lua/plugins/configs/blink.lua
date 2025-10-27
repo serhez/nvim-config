@@ -117,7 +117,7 @@ function M.config()
 				gitcommit = { "git" },
 				bash = { "env" },
 				zsh = { "env" },
-				markdown = { "lsp", "pandoc_references", "thesaurus" },
+				markdown = { "lsp", "pandoc_references", "thesaurus", "snippets" },
 				-- BUG: inherit_defaults is not working fine
 				-- quarto = { inherit_defaults = true, "lsp", "pandoc_references", "thesaurus" },
 				text = { "thesaurus" },

@@ -211,6 +211,7 @@ local M = {
 					and vim.bo[buf].ft ~= "buffer_manager"
 					and vim.bo[buf].ft ~= "snacks_picker_list"
 					and vim.bo[buf].ft ~= "snacks_picker_input"
+					and vim.bo[buf].ft ~= "markdown"
 			end,
 		},
 		picker = {

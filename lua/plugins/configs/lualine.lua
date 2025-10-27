@@ -155,11 +155,12 @@ function M.config()
 		folders_component.super.init(self, options)
 
 		-- Register highlight groups
-		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
-			link = "StatusLine",
+		vim.api.nvim_set_hl(0, "LualineFoldersSaved", {
+			link = "lualine_c_inactive",
 		})
-		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
-			link = "DiagnosticVirtualTextWarn",
+		vim.api.nvim_set_hl(0, "LualineFoldersModified", {
+			-- link = "DiagnosticVirtualTextWarn",
+			link = "lualine_c_inactive",
 		})
 
 		if self.options.color == nil then
@@ -203,7 +204,7 @@ function M.config()
 		data = icons.folder.default .. " " .. data .. " " .. icons.arrow.right_tall
 
 		-- Adapt highlights
-		data = "%#" .. (vim.bo.modified and "LualineFileNameModified" or "LualineFileNameSaved") .. "#" .. data
+		data = "%#" .. (vim.bo.modified and "LualineFoldersModified" or "LualineFoldersSaved") .. "#" .. data
 
 		return data
 	end
@@ -213,10 +214,15 @@ function M.config()
 
 		-- Register highlight groups
 		vim.api.nvim_set_hl(0, "LualineFileNameSaved", {
-			link = "StatusLine",
+			fg = hls.fromhl("StatusLine").fg,
+			bg = hls.fromhl("StatusLine").bg,
+			bold = true,
 		})
 		vim.api.nvim_set_hl(0, "LualineFileNameModified", {
-			link = "DiagnosticVirtualTextWarn",
+			-- fg = hls.fromhl("DiagnosticVirtualTextWarn").fg,
+			-- bg = hls.fromhl("DiagnosticVirtualTextWarn").bg,
+			fg = hls.fromhl("DiagnosticWarn").fg,
+			bold = true,
 		})
 
 		if self.options.color == nil then
@@ -241,7 +247,8 @@ function M.config()
 			link = "StatusLine",
 		})
 		vim.api.nvim_set_hl(0, "LualineFileTypeModified", {
-			link = "DiagnosticVirtualTextWarn",
+			-- link = "DiagnosticVirtualTextWarn",
+			link = "StatusLine",
 		})
 
 		if self.options.color == nil then
@@ -249,25 +256,25 @@ function M.config()
 		end
 	end
 
-	function custom_ftype:apply_icon()
-		custom_ftype.super.apply_icon(self)
-
-		local current_highlight = self.status:match("%#(.-)#")
-
-		-- If the file is modified, change the background color
-		if vim.bo.modified then
-			if current_highlight then
-				local hl_data = hls.get_bg_fg(current_highlight)
-				local modified_hl_data = hls.get_bg_fg("DiagnosticVirtualTextWarn")
-				local modified_highlight = current_highlight .. "_modified"
-				vim.api.nvim_set_hl(0, modified_highlight, {
-					fg = hl_data.foreground,
-					bg = modified_hl_data.background,
-				})
-				self.status = self.status:gsub(current_highlight, modified_highlight)
-			end
-		end
-	end
+	-- function custom_ftype:apply_icon()
+	-- 	custom_ftype.super.apply_icon(self)
+	--
+	-- 	local current_highlight = self.status:match("%#(.-)#")
+	--
+	-- 	-- If the file is modified, change the background color
+	-- 	if vim.bo.modified then
+	-- 		if current_highlight then
+	-- 			local hl_data = hls.get_bg_fg(current_highlight)
+	-- 			local modified_hl_data = hls.get_bg_fg("DiagnosticVirtualTextWarn")
+	-- 			local modified_highlight = current_highlight .. "_modified"
+	-- 			vim.api.nvim_set_hl(0, modified_highlight, {
+	-- 				fg = hl_data.foreground,
+	-- 				bg = modified_hl_data.background,
+	-- 			})
+	-- 			self.status = self.status:gsub(current_highlight, modified_highlight)
+	-- 		end
+	-- 	end
+	-- end
 
 	require("lualine").setup({
 		options = {
@@ -348,7 +355,7 @@ function M.config()
 				},
 			},
 			lualine_c = {
-				"%=",
+				-- "%=",
 				-- {
 				-- 	"hostname",
 				-- 	cond = function()
@@ -375,7 +382,6 @@ function M.config()
 					path = 1,
 					padding = { left = 1, right = 0 },
 					shorting_target = 75,
-					color = { gui = "bold" },
 					symbols = {
 						modified = icons.small_circle,
 						readonly = icons.lock,

@@ -10,13 +10,6 @@ function M.init()
 
 		{ "<leader>ga", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Author (line)" },
 		{ "<leader>gA", "<cmd>Gitsigns blame<cr>", desc = "Author (buffer)" },
-		{
-			"<leader>gi",
-			function()
-				require("gitsigns").toggle_word_diff()
-			end,
-			desc = "Toggle inline diff",
-		},
 		{ "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Revert buffer" },
 		{ "<leader>gh", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview hunk" },
 		{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Revert hunk" },

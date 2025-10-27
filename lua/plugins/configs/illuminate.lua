@@ -1,5 +1,3 @@
-local hls = require("highlights")
-
 local M = {
 	"RRethy/vim-illuminate",
 	event = "CursorMoved",
@@ -14,13 +12,6 @@ function M.config()
 			"neo-tree",
 			"TelescopePrompt",
 		},
-	})
-
-	local c = hls.colors()
-	hls.register_hls({
-		IlluminatedWordRead = { bg = c.folded_bg, underline = false },
-		IlluminatedWordText = { bg = c.folded_bg, underline = false },
-		IlluminatedWordWrite = { bg = c.folded_bg, underline = false },
 	})
 end
 

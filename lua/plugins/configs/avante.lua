@@ -22,12 +22,6 @@ function M.init()
 			mode = { "n", "v" },
 		},
 		{
-			"<leader>aC",
-			"<cmd>AvanteClear<cr>",
-			desc = "Clear chat",
-			mode = { "n" },
-		},
-		{
 			"<leader>ae",
 			function()
 				require("avante.api").edit()
@@ -119,6 +113,9 @@ function M.config()
 		-- },
 		behaviour = {
 			auto_set_keymaps = false,
+			auto_approve_tool_permissions = false,
+			---@type "popup" | "inline_buttons"
+			confirmation_ui_style = "inline_buttons",
 		},
 		input = {
 			provider = "snacks",
@@ -150,7 +147,6 @@ function M.config()
 				add_current = "aC", -- conflicts with current toggle chat mapping
 			},
 		},
-		hints = { enabled = true },
 		windows = {
 			wrap = true, -- similar to vim.o.wrap
 			width = 33, -- default % based on available width
@@ -158,11 +154,6 @@ function M.config()
 				align = "center", -- left, center, right for title
 				rounded = false,
 			},
-		},
-		diff = {
-			debug = false,
-			autojump = true,
-			list_opener = "copen",
 		},
 	})
 end

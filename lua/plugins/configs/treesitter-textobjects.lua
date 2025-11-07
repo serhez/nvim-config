@@ -13,7 +13,8 @@ function M.config()
 		},
 	})
 
-	-- Keymaps
+	-- SECTION: Keymaps
+
 	-- You can use the capture groups defined in `textobjects.scm`
 	require("mappings").register({
 		-- Select
@@ -82,23 +83,23 @@ function M.config()
 			desc = "Inside block",
 		},
 
+		-- FIX: not working
 		-- Swap
-		{ "<leader>S", group = "Swap" },
 		{
-			"<leader>Sl",
+			"Sl",
 			function()
 				require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
 			end,
 			mode = "n",
-			desc = "Next",
+			desc = "Swap with next",
 		},
 		{
-			"<leader>Sh",
+			"Sh",
 			function()
 				require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
 			end,
 			mode = "n",
-			desc = "Previous",
+			desc = "Swap with previous",
 		},
 
 		-- Move

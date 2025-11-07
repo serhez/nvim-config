@@ -133,6 +133,7 @@ local M = {
 	opts = {
 		bigfile = { enabled = true },
 		-- image = { enabled = true }, -- NOTE: works like shit for now
+		gh = {},
 		indent = {
 			indent = {
 				priority = 1,
@@ -420,6 +421,39 @@ function M.init()
 				snacks.picker.git_stash()
 			end,
 			desc = "Stashes",
+		},
+
+		-- GitHub
+		{ "<leader>gh", group = "GitHub" },
+		{ "<leader>ghi", group = "Issues" },
+		{ "<leader>ghp", group = "Pull requests" },
+		{
+			"<leader>ghio",
+			function()
+				snacks.picker.gh_issue()
+			end,
+			desc = "Open",
+		},
+		{
+			"<leader>ghia",
+			function()
+				snacks.picker.gh_issue({ state = "all" })
+			end,
+			desc = "All",
+		},
+		{
+			"<leader>ghpo",
+			function()
+				snacks.picker.gh_pr()
+			end,
+			desc = "Open",
+		},
+		{
+			"<leader>ghpa",
+			function()
+				snacks.picker.gh_pr({ state = "all" })
+			end,
+			desc = "All",
 		},
 	})
 end

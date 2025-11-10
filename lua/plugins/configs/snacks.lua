@@ -424,32 +424,32 @@ function M.init()
 		},
 
 		-- GitHub
-		{ "<leader>gh", group = "GitHub" },
-		{ "<leader>ghi", group = "Issues" },
-		{ "<leader>ghp", group = "Pull requests" },
+		{ "<leader>gH", group = "GitHub" },
+		{ "<leader>gHi", group = "Issues" },
+		{ "<leader>gHp", group = "Pull requests" },
 		{
-			"<leader>ghio",
+			"<leader>gHio",
 			function()
 				snacks.picker.gh_issue()
 			end,
 			desc = "Open",
 		},
 		{
-			"<leader>ghia",
+			"<leader>gHia",
 			function()
 				snacks.picker.gh_issue({ state = "all" })
 			end,
 			desc = "All",
 		},
 		{
-			"<leader>ghpo",
+			"<leader>gHpo",
 			function()
 				snacks.picker.gh_pr()
 			end,
 			desc = "Open",
 		},
 		{
-			"<leader>ghpa",
+			"<leader>gHpa",
 			function()
 				snacks.picker.gh_pr({ state = "all" })
 			end,

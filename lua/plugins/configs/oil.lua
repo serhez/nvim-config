@@ -120,7 +120,7 @@ function M.config()
 			["q"] = "actions.close",
 			["<space>e"] = "actions.close",
 			["K"] = "actions.preview",
-			["<C-h>"] = {
+			["<C-j>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Go to parent directory",
@@ -128,7 +128,9 @@ function M.config()
 					oil.open()
 				end,
 			},
-			["<C-l>"] = {
+			-- Custom OS remap CTRL+; to CTRL+h,
+			-- since CTRL+; is not captured by terminal
+			["<C-h>"] = {
 				mode = "n",
 				buffer = true,
 				desc = "Select the entry under the cursor",

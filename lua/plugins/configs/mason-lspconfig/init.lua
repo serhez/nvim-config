@@ -125,9 +125,11 @@ function M.config()
 
 	-- NOTE: handled by `coilot.lua` plugin
 	-- Keymaps for inline ghost text completion (e.g., Copilot)
-	-- vim.keymap.set("i", "<C-l>", function()
+	-- Custom OS remap CTRL+; to CTRL+h,
+	-- since CTRL+; is not captured by terminal
+	-- vim.keymap.set("i", "<C-h>", function()
 	-- 	if not vim.lsp.inline_completion.get() then
-	-- 		return "<C-l>"
+	-- 		return "<C-h>"
 	-- 	end
 	-- end, {
 	-- 	expr = true,

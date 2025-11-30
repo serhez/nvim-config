@@ -39,10 +39,12 @@ function M.config()
 			auto_trigger = true,
 			hide_during_completion = false,
 			keymap = {
-				accept = "<C-l>",
-				next = "<C-j>",
-				prev = "<C-k>",
-				dismiss = "<C-h>",
+				-- Custom OS remap CTRL+; to CTRL+h,
+				-- since CTRL+; is not captured by terminal
+				accept = "<C-h>",
+				next = "<C-k>",
+				prev = "<C-l>",
+				dismiss = "<C-j>",
 			},
 		},
 		nes = {

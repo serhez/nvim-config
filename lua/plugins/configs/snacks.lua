@@ -40,7 +40,7 @@ function fff_picker.finder(_, ctx)
 		end
 	end
 
-	local fff_result = file_picker.search_files(ctx.filter.search, 100, 4, fff_picker.state.current_file_cache, false)
+	local fff_result = file_picker.search_files(ctx.filter.search, fff_picker.state.current_file_cache, 100, 4, false)
 
 	local items = {}
 	for _, fff_item in ipairs(fff_result) do

@@ -13,7 +13,7 @@ local M = {
 	-- use a release tag to download pre-built binaries
 	version = "v0.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-	build = "cargo build --release",
+	build = vim.g.blink_enabled and "RUSTUP_TOOLCHAIN=nightly cargo build --release",
 	event = "InsertEnter",
 }
 
@@ -118,6 +118,7 @@ function M.config()
 				bash = { "env" },
 				zsh = { "env" },
 				markdown = { "lsp", "pandoc_references", "thesaurus", "snippets" },
+				quarto = { "lsp", "pandoc_references", "thesaurus", "snippets" },
 				-- BUG: inherit_defaults is not working fine
 				-- quarto = { inherit_defaults = true, "lsp", "pandoc_references", "thesaurus" },
 				text = { "thesaurus" },
@@ -127,27 +128,42 @@ function M.config()
 					module = "blink-cmp-avante",
 					name = "Avante",
 					opts = {},
+					max_items = 7,
 				},
 				thesaurus = {
 					name = "blink-cmp-words",
 					module = "blink-cmp-words.thesaurus",
 					score_offset = -2,
 					min_keyword_length = 3,
+					max_items = 7,
 				},
 				git = {
 					module = "blink-cmp-git",
 					name = "Git",
 					opts = {},
+					max_items = 7,
 				},
 				env = {
 					module = "blink-cmp-env",
 					name = "Env",
 					score_offset = -3,
 					opts = {},
+					max_items = 5,
 				},
 				pandoc_references = {
 					module = "cmp-pandoc-references.blink",
 					name = "pandoc_references",
+					max_items = 7,
+				},
+				lsp = {
+					async = true,
+					max_items = 7,
+				},
+				snippets = {
+					max_items = 5,
+				},
+				buffer = {
+					max_items = 5,
 				},
 			},
 		},

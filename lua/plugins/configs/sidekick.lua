@@ -1,6 +1,7 @@
 local M = {
 	"folke/sidekick.nvim",
 	event = "VeryLazy",
+	enabled = false,
 }
 
 function M.init()

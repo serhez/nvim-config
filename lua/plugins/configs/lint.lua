@@ -40,6 +40,7 @@ function M.config()
 			--  "pylint",
 			-- 	"pydocstyle",
 			-- 	"mypy",
+			-- "ruff", -- no need, as it's already running as LSP
 			"snyk_iac",
 			"trivy",
 		},

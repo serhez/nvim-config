@@ -1,5 +1,3 @@
--- TODO: Do not display filepath/filename in focused window, display only full path in unfocused windows (no treesitter stuff)
-
 local M = {
 	"Bekaboo/dropbar.nvim",
 	lazy = false,
@@ -12,57 +10,6 @@ function M.init()
 	-- end)
 end
 
--- https://github.com/Bekaboo/dropbar.nvim/issues/2#issuecomment-2353962505
-local function bar_background_color_source()
-	local function set_highlight_take_foreground(opts, source_hl, target_hl)
-		if target_hl == nil then
-			target_hl = source_hl
-		end
-		local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(source_hl)), "fg#")
-		if fg == "" then
-			vim.api.nvim_set_hl(0, target_hl, opts)
-		else
-			vim.api.nvim_set_hl(0, target_hl, vim.tbl_extend("force", opts, { fg = fg }))
-		end
-	end
-
-	local function color_symbols(symbols, opts)
-		for _, symbol in ipairs(symbols) do
-			local source_hl = symbol.icon_hl
-			symbol.icon_hl = "DropbarSymbol" .. symbol.icon_hl
-			symbol.name_hl = symbol.icon_hl
-			set_highlight_take_foreground(opts, source_hl, symbol.icon_hl)
-		end
-		return symbols
-	end
-
-	return {
-		get_symbols = function(buf, win, cursor)
-			-- Use the background of the WinBar highlight group
-			local opts = { bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("WinBar")), "bg#") }
-			set_highlight_take_foreground(opts, "DropBarIconUISeparator")
-			set_highlight_take_foreground(opts, "DropBarIconUIPickPivot")
-
-			local sources = require("dropbar.sources")
-			if vim.bo[buf].ft == "markdown" then
-				return color_symbols(sources.markdown.get_symbols(buf, win, cursor), opts)
-			end
-			if vim.bo[buf].ft == "terminal" then
-				return color_symbols(sources.terminal.get_symbols(buf, win, cursor), opts)
-			end
-
-			-- for _, source in ipairs({ sources.lsp }) do
-			for _, source in ipairs({ sources.lsp, sources.treesitter }) do
-				local symbols = source.get_symbols(buf, win, cursor)
-				if not vim.tbl_isempty(symbols) then
-					return color_symbols(symbols, opts)
-				end
-			end
-			return {}
-		end,
-	}
-end
-
 function M.config()
 	local hls = require("highlights")
 	local c = hls.colors()
@@ -72,8 +19,44 @@ function M.config()
 		WinBar = { bg = c.red },
 	})
 
+	local utils = require("dropbar.utils")
+	local sources = require("dropbar.sources")
+
 	local icons = require("icons")
 	local disabled_fts = { oil = "", undotree = "", diff = "", ["no-neck-pain"] = "" }
+
+	local active_win = vim.api.nvim_get_current_win()
+	vim.api.nvim_create_autocmd({ "WinEnter", "TermEnter" }, {
+		callback = function()
+			active_win = vim.api.nvim_get_current_win()
+			require("dropbar.utils.bar").exec("update")
+		end,
+	})
+
+	-- This function wraps a source and hides it if the window is inactive
+	local function content_source(source)
+		local get_symbols = function(buf, win, cursor)
+			if win ~= active_win then
+				return {}
+			end
+
+			if source.get_symbols then
+				return source.get_symbols(buf, win, cursor)
+			end
+
+			return {}
+		end
+
+		return setmetatable({}, {
+			__index = function(_, key)
+				if key == "get_symbols" then
+					return get_symbols
+				else
+					return source[key]
+				end
+			end,
+		})
+	end
 
 	require("dropbar").setup({
 		sources = {
@@ -131,10 +114,9 @@ function M.config()
 			end,
 
 			update_events = {
-				-- Remove the 'WinEnter' event since I handle it manually for just
-				-- showing the full dropbar in the current window.
 				win = { "CursorMoved", "CursorMovedI", "WinResized" },
 			},
+
 			padding = {
 				left = 1,
 				right = 1,
@@ -143,27 +125,19 @@ function M.config()
 				pivots = "asdfhjklbcegimnopqrtuvwxyz1234567890",
 			},
 			truncate = true,
-			-- sources = function(_, _)
-			-- 	return { bar_background_color_source() }
-			-- end,
+
 			sources = function(buf, _)
-				local sources = require("dropbar.sources")
-				local utils = require("dropbar.utils")
+				if vim.bo[buf].buftype == "terminal" then
+					return { sources.terminal }
+				end
 
 				if vim.bo[buf].ft == "markdown" then
 					return {
 						sources.path,
-						sources.markdown,
+						content_source(sources.markdown),
 					}
 				end
 
-				if vim.bo[buf].buftype == "terminal" then
-					return {
-						sources.terminal,
-					}
-				end
-
-				-- Prioritize treesitter for TSX and Vue files, since LSP does not show HTML tags
 				if
 					vim.bo[buf].ft == "typescriptreact"
 					or vim.bo[buf].ft == "javascriptreact"
@@ -171,19 +145,20 @@ function M.config()
 				then
 					return {
 						sources.path,
-						utils.source.fallback({
+						content_source(utils.source.fallback({
 							sources.treesitter,
 							sources.lsp,
-						}),
+						})),
 					}
 				end
 
+				-- Default view
 				return {
 					sources.path,
-					utils.source.fallback({
+					content_source(utils.source.fallback({
 						sources.lsp,
 						sources.treesitter,
-					}),
+					})),
 				}
 			end,
 		},
@@ -290,16 +265,6 @@ function M.config()
 				style = "minimal",
 			},
 		},
-	})
-
-	-- Required updates to detect active vs. inactive windows
-	vim.api.nvim_create_autocmd("WinEnter", {
-		callback = function()
-			-- Refresh the dropbars except when entering the dropbar itself.
-			if vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].winbar == 1 then
-				require("dropbar.utils.bar").exec("update")
-			end
-		end,
 	})
 end
 

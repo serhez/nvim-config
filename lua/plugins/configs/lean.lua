@@ -10,6 +10,7 @@ local M = {
 		"andymass/vim-matchup", -- for enhanced % motion behavior
 		"andrewradev/switch.vim", -- for switch support
 	},
+	enabled = false, -- not using Lean ATM, but keeping the config for later
 }
 
 function M.config()

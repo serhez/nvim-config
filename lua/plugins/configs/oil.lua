@@ -7,22 +7,23 @@ local M = {
 }
 
 function M.init()
-	vim.api.nvim_create_user_command("OilSmart", function()
-		local filepath = vim.api.nvim_buf_get_name(0)
-		local pieces = vim.split(filepath, "://", { plain = true })
-		local scheme = pieces[1] or "file"
-		if scheme ~= "oil-ssh" then
-			-- vim.cmd("Oil --preview") -- BUG: messes up window sizes
-			vim.cmd("Oil")
-		else
-			vim.cmd("Oil")
-		end
-	end, { desc = "Open Oil with smart logic" })
+	-- vim.api.nvim_create_user_command("OilSmart", function()
+	-- 	local filepath = vim.api.nvim_buf_get_name(0)
+	-- 	local pieces = vim.split(filepath, "://", { plain = true })
+	-- 	local scheme = pieces[1] or "file"
+	-- 	if scheme ~= "oil-ssh" then
+	-- 		-- vim.cmd("Oil --preview") -- BUG: messes up window sizes
+	-- 		vim.cmd("Oil")
+	-- 	else
+	-- 		vim.cmd("Oil")
+	-- 	end
+	-- end, { desc = "Open Oil with smart logic" })
 
 	require("mappings").register({
 		"<leader>e",
 		function()
-			vim.cmd("OilSmart")
+			-- vim.cmd("OilSmart")
+			vim.cmd("Oil")
 		end,
 		desc = "Explorer",
 	})

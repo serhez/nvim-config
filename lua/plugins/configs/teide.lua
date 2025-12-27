@@ -1,6 +1,5 @@
 local M = {
 	"serhez/teide.nvim",
-	dev = true,
 	name = "teide.nvim",
 }
 

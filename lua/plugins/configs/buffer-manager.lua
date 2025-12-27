@@ -1,6 +1,5 @@
 local M = {
 	"serhez/buffer_manager.nvim",
-	dev = true,
 	cond = not vim.g.started_by_firenvim,
 	event = "VeryLazy",
 }

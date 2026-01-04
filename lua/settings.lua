@@ -75,7 +75,7 @@ function M.setup()
 	opt.termsync = false -- don't sync neovim with terminal emulator
 	-- opt.sessionoptions =
 	-- { "buffers", "curdir", "tabpages", "winsize", "winpos", "globals", "localoptions", "folds", "terminal", "help" }
-	opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+	opt.sessionoptions = "globals,blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 	-- Folding & fillchars
 	vim.o.fillchars = "eob: ,lastline: ,fold: ,foldopen:"

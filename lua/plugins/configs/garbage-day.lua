@@ -2,6 +2,7 @@ local M = {
 	"zeioth/garbage-day.nvim",
 	dependencies = "neovim/nvim-lspconfig",
 	event = "VeryLazy",
+	enabled = false,
 	opts = {
 		aggressive_mode = false, -- stop all lsp clients except the current buffer, every time you enter a buffer
 		grace_period = 60 * 10, -- seconds, i.e., 10 minutes

@@ -62,6 +62,9 @@ function M.config()
 		sources = {
 			path = {
 				modified = function(sym)
+					if sym == nil then
+						return sym
+					end
 					return sym:merge({
 						name_hl = "DiagnosticSignWarn",
 					})
@@ -101,16 +104,7 @@ function M.config()
 					and vim.api.nvim_buf_get_name(buf) ~= "/Users/ser/.local/share/nvim/no-neck-pain_scratchpad_right.qmd"
 					and vim.api.nvim_buf_get_name(buf) ~= "/Users/ser/.local/share/nvim/no-neck-pain_scratchpad_left.qmd"
 					and not vim.wo[win].diff
-					and (
-						disabled_fts[vim.bo[buf].ft] == nil
-						or (
-							buf
-								and vim.api.nvim_buf_is_valid(buf)
-								and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
-								and true
-							or false
-						)
-					)
+					and (disabled_fts[vim.bo[buf].ft] == nil or (buf and vim.api.nvim_buf_is_valid(buf)))
 			end,
 
 			update_events = {

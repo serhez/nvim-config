@@ -162,7 +162,7 @@ function M.config()
 		indent_guides = true, -- show indent guides
 		max_items = 500, -- limit number of items that can be displayed per section
 		multiline = true, -- render multi-line messages
-		pinned = true, -- When pinned, the opened trouble window will be bound to the current buffer
+		pinned = false, -- When pinned, the opened trouble window will be bound to the current buffer
 		warn_no_results = true, -- show a warning when there are no results
 		open_no_results = false, -- open the trouble window when there are no results
 		preview = {

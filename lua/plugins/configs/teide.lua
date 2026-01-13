@@ -1,11 +1,12 @@
 local M = {
 	"serhez/teide.nvim",
+	dev = true,
 	name = "teide.nvim",
 }
 
 function M.config()
-	local tokyonight = require("tokyonight")
-	tokyonight.setup({
+	local teide = require("teide")
+	teide.setup({
 		terminal_colors = true,
 		styles = {
 			-- Style to be applied to different syntax groups
@@ -39,7 +40,7 @@ function M.config()
 		-- }
 		-- end,
 	})
-	tokyonight.load()
+	teide.load()
 end
 
 return M

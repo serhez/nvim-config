@@ -149,12 +149,12 @@ local M = {
 				},
 			},
 			animate = {
-				enabled = vim.fn.has("nvim-0.10") == 1,
-				-- enabled = false,
-				duration = {
-					step = 10, -- ms per step
-					total = 500, -- maximum duration
-				},
+				-- enabled = vim.fn.has("nvim-0.10") == 1,
+				enabled = false,
+				-- duration = {
+				-- 	step = 10, -- ms per step
+				-- 	total = 500, -- maximum duration
+				-- },
 			},
 			filter = function(buf)
 				return vim.g.snacks_indent ~= false
@@ -217,18 +217,67 @@ local M = {
 		},
 		picker = {
 			prompt = "   " .. icons.arrow.right_short_thick .. " ",
-			layout = {
-				cycle = true, -- go to top when reaching bottom and vice versa
-				preset = function()
-					return vim.o.columns >= 120 and "ivy" or "vscode"
-				end,
-				-- Improve the presets
-				layout = {
-					height = 0.9,
-					backdrop = true,
-					title_pos = "center",
-				},
-			},
+			-- layout = {
+			-- 	cycle = true, -- go to top when reaching bottom and vice versa
+			-- preset = function()
+			-- 	return vim.o.columns >= 120 and "ivy" or "vscode"
+			-- end,
+			-- -- Improve the presets
+			-- layout = {
+			-- 	height = 0.9,
+			-- 	backdrop = true,
+			-- 	title_pos = "center",
+			-- },
+			layout = function()
+				if vim.o.columns >= 120 then
+					return {
+						cycle = true,
+						layout = {
+							box = "vertical",
+							backdrop = true,
+							row = -1,
+							width = 0,
+							height = 0.9,
+							border = "top",
+							title = " {title} {live} {flags}",
+							title_pos = "center",
+							{ win = "input", height = 1, border = "bottom" },
+							{
+								box = "horizontal",
+								{ win = "list", border = "none" },
+								{
+									win = "preview",
+									title = "{preview}",
+									width = 0.4,
+									border = "left",
+								},
+							},
+						},
+					}
+				else
+					return {
+						cycle = true,
+						hidden = { "preview" },
+						layout = {
+							box = "vertical",
+							backdrop = true,
+							row = 1,
+							width = 0.8,
+							height = 0.9,
+							border = "top",
+							title = " {title} {live} {flags}",
+							title_pos = "center",
+							{
+								win = "input",
+								height = 1,
+								border = "bottom",
+							},
+							{ win = "list", border = "hpad" },
+						},
+					}
+				end
+			end,
+			-- },
 			matcher = {
 				fuzzy = true, -- use fuzzy matching
 				smartcase = true, -- use smartcase

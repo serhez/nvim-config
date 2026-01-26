@@ -3,6 +3,7 @@ local M = {
 	version = "*",
 	dependencies = "saghen/blink.download",
 	event = "VeryLazy",
+	enabled = false,
 }
 
 function M.config()

@@ -9,6 +9,7 @@ local M = {
 		"MeanderingProgrammer/render-markdown.nvim",
 		"folke/snacks.nvim",
 	},
+	enabled = false,
 }
 
 function M.init()

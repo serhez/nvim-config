@@ -9,6 +9,7 @@ local M = {
 		"DiffviewFileHistory",
 	},
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+	enabled = false,
 }
 
 function M.init()

@@ -2,7 +2,6 @@ local M = {
 	"NeogitOrg/neogit",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
-		"sindrets/diffview.nvim", -- optional
 	},
 	cmd = "Neogit",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
@@ -29,7 +28,6 @@ function M.config()
 			kind = "split",
 		},
 		integrations = {
-			diffview = true,
 			snacks = true,
 		},
 	})

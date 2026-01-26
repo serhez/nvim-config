@@ -41,6 +41,7 @@ function M.config()
 			render_markdown = true,
 			window_picker = true,
 			diffview = true,
+			codediff = true,
 			nvim_surround = true,
 			rainbow_delimiters = true,
 			snacks = true,

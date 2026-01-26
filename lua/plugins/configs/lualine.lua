@@ -350,7 +350,7 @@ function M.config()
 					},
 					source = diff_source,
 					on_click = function(_, _, _)
-						vim.cmd("DiffviewOpen")
+						vim.cmd("CodeDiff")
 					end,
 				},
 			},

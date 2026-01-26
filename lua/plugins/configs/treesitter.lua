@@ -17,6 +17,19 @@ function M.init()
 	vim.treesitter.language.register("markdown", "pandoc")
 	vim.treesitter.language.register("markdown", "rmd")
 	vim.treesitter.language.register("markdown", "quarto")
+
+	-- Custom parser for comments
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "TSUpdate",
+		callback = function()
+			require("nvim-treesitter.parsers").comment = {
+				install_info = {
+					url = "https://github.com/OXY2DEV/tree-sitter-comment",
+					queries = "queries/",
+				},
+			}
+		end,
+	})
 end
 
 function M.config()

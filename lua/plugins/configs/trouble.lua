@@ -165,6 +165,15 @@ function M.config()
 		pinned = false, -- When pinned, the opened trouble window will be bound to the current buffer
 		warn_no_results = true, -- show a warning when there are no results
 		open_no_results = false, -- open the trouble window when there are no results
+		keys = {
+			["_"] = "jump_split",
+			["|"] = "jump_vsplit",
+		},
+		win = {
+			size = {
+				height = 8,
+			},
+		},
 		preview = {
 			-- type = "split",
 			-- relative = "win",
@@ -178,10 +187,6 @@ function M.config()
 			position = { 0, -2 },
 			size = { width = 0.4, height = 11 },
 			zindex = 200,
-		},
-		keys = {
-			["_"] = "jump_split",
-			["|"] = "jump_vsplit",
 		},
 		modes = {
 			lsp_base = {
@@ -244,9 +249,8 @@ function M.config()
 	})
 
 	local hls = require("highlights")
-	local c = hls.colors()
 	hls.register_hls({
-		TroubleNormal = { bg = c.statusline_bg, fg = c.statusline_fg },
+		TroubleNormalNC = "TroubleNormal",
 	})
 end
 

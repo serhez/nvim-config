@@ -155,7 +155,10 @@ function M.register_hls(groups)
 		while hl["link"] do
 			hl = vim.api.nvim_get_hl(0, { name = hl["link"] })
 		end
-		if hl then
+
+		if type(attrs) == "string" then
+			vim.api.nvim_set_hl(0, group, { link = attrs })
+		elseif hl then
 			for k, v in pairs(attrs) do
 				hl[k] = v
 			end
@@ -180,10 +183,14 @@ function M.setup()
 	vim.g.tokyonight_italic_functions = true
 	vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal" }
 
+	-- Teide
+	vim.g.teide_italic_functions = true
+	vim.g.teide_sidebars = { "qf", "vista_kind", "terminal" }
+
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "teide-darker"
+	vim.g.colors_name = "teide-dimmed"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },

@@ -22,10 +22,10 @@ function M.config()
 		-- start; they should be the names Mason uses for each tool
 		ensure_installed = {
 			-- Text (general: grammar, syntax, etc.)
-			-- "harper_ls",  -- annoying
 			-- "grammarly-languageserver", -- broken
 			"commitlint",
-			-- "copilot-language-server",
+			"typos-lsp",
+			"ltex-ls",
 
 			-- Security
 			"snyk",
@@ -41,10 +41,6 @@ function M.config()
 			"shfmt",
 
 			-- Python
-			-- "python-lsp-server",
-			-- "pyright",
-			-- "basedpyright",
-			-- "pylint",
 			"ty",
 			"ruff",
 			"uv",

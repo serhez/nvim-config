@@ -1,6 +1,64 @@
 local icons = require("icons")
 
 local fff_picker = {}
+local fff_grep_picker = {}
+
+local function is_overleaf_buffer()
+	local ok, overleaf = pcall(require, "overleaf")
+	return ok and overleaf.is_overleaf_context(0) or false
+end
+
+local function try_overleaf_picker(kind)
+	if not is_overleaf_buffer() then
+		return false
+	end
+
+	local ok, overleaf = pcall(require, "overleaf")
+	if ok then
+		if kind == "files" then
+			overleaf.files()
+		elseif kind == "grep" then
+			overleaf.search()
+		end
+	else
+		vim.cmd(kind == "files" and "Overleaf files" or "Overleaf search")
+	end
+
+	return true
+end
+
+local function try_sshfs_live_picker(method)
+	local utils = require("utils")
+	if not (utils.is_slow_fs_buf(0) or utils.is_slow_fs_path(vim.fn.getcwd())) then
+		return false
+	end
+
+	local ok, sshfs = pcall(require, "sshfs")
+	if not ok or not sshfs.has_active or not sshfs.has_active() then
+		return false
+	end
+
+	if type(sshfs[method]) ~= "function" then
+		return false
+	end
+
+	sshfs[method]()
+	return true
+end
+
+local function route(handlers)
+	local ok, router = pcall(require, "editr.router")
+	if ok then
+		return router.first(handlers)
+	end
+
+	for _, handler in ipairs(handlers) do
+		if handler() then
+			return true
+		end
+	end
+	return false
+end
 
 local staged_status = {
 	staged_new = true,
@@ -23,10 +81,26 @@ local status_map = {
 	unknown = "untracked",
 }
 
+local function ensure_fff_file_picker()
+	local file_picker = require("fff.file_picker")
+	if file_picker.is_initialized() then
+		return true
+	end
+
+	local setup_success = file_picker.setup()
+	if not setup_success then
+		vim.notify("Failed to initialize fff file picker", vim.log.levels.ERROR)
+		return false
+	end
+
+	return true
+end
+
 fff_picker.state = {}
 
 function fff_picker.finder(_, ctx)
 	local file_picker = require("fff.file_picker")
+	local base_path = require("fff.conf").get().base_path
 
 	if not fff_picker.state.current_file_cache then
 		local current_buf = vim.api.nvim_get_current_buf()
@@ -44,9 +118,11 @@ function fff_picker.finder(_, ctx)
 
 	local items = {}
 	for _, fff_item in ipairs(fff_result) do
+		local file = fff_item.relative_path or fff_item.path
 		local item = {
-			text = fff_item.name,
-			file = fff_item.path,
+			text = fff_item.name or file,
+			file = file,
+			cwd = base_path,
 			score = fff_item.total_frecency_score,
 			status = status_map[fff_item.git_status] and {
 				status = status_map[fff_item.git_status],
@@ -111,13 +187,10 @@ local function format(item, picker)
 end
 
 function fff_picker.picker()
-	local file_picker = require("fff.file_picker")
-	if not file_picker.is_initialized() then
-		local setup_success = file_picker.setup()
-		if not setup_success then
-			vim.notify("Failed to initialize file picker", vim.log.levels.ERROR)
-		end
+	if not ensure_fff_file_picker() then
+		return false
 	end
+
 	require("snacks").picker({
 		title = "Files",
 		finder = fff_picker.finder,
@@ -125,6 +198,88 @@ function fff_picker.picker()
 		format = format,
 		live = true,
 	})
+	return true
+end
+
+fff_grep_picker.state = {}
+
+function fff_grep_picker.finder(_, ctx)
+	local query = ((ctx or {}).filter or {}).search or ""
+	fff_grep_picker.state.last_query = query
+
+	if query == "" then
+		return {}
+	end
+
+	local ok, grep = pcall(require, "fff.grep")
+	if not ok then
+		vim.notify("Failed to load fff grep: " .. tostring(grep), vim.log.levels.ERROR)
+		return {}
+	end
+
+	local conf = require("fff.conf").get()
+	local ok_search, fff_result = pcall(grep.search, query, 0, 100, conf.grep or {}, "plain")
+	if not ok_search then
+		vim.notify("Failed to search text with fff: " .. tostring(fff_result), vim.log.levels.ERROR)
+		return {}
+	end
+
+	local items = {}
+	for _, fff_item in ipairs(fff_result.items or {}) do
+		local file = fff_item.relative_path or fff_item.path
+		if file then
+			local line_number = fff_item.line_number or 1
+			local col = fff_item.col or 0
+			local line = fff_item.line_content or ""
+			local location = ("%s:%d:%d"):format(file, line_number, col + 1)
+
+			items[#items + 1] = {
+				text = location .. " " .. line,
+				file = file,
+				cwd = conf.base_path,
+				line = line,
+				pos = { line_number, col },
+				search = query,
+				score = fff_item.fuzzy_score or fff_item.total_frecency_score,
+				status = status_map[fff_item.git_status] and {
+					status = status_map[fff_item.git_status],
+					staged = staged_status[fff_item.git_status] or false,
+					unmerged = fff_item.git_status == "unmerged",
+				},
+			}
+		end
+	end
+
+	return items
+end
+
+local function on_grep_close()
+	local query = fff_grep_picker.state.last_query
+	fff_grep_picker.state.last_query = nil
+
+	if not query or query == "" then
+		return
+	end
+
+	local ok, fuzzy = pcall(require, "fff.fuzzy")
+	if ok then
+		pcall(fuzzy.track_grep_query, query)
+	end
+end
+
+function fff_grep_picker.picker()
+	if not ensure_fff_file_picker() then
+		return false
+	end
+
+	require("snacks").picker({
+		title = "Grep",
+		finder = fff_grep_picker.finder,
+		on_close = on_grep_close,
+		format = format,
+		live = true,
+	})
+	return true
 end
 
 local M = {
@@ -383,6 +538,21 @@ function M.init()
 		{
 			"<leader>f",
 			function()
+				local ok, router = pcall(require, "editr.router")
+				local editr_files = ok and router.editr("files") or function()
+					return false
+				end
+				if route({
+					function()
+						return try_overleaf_picker("files")
+					end,
+					editr_files,
+					function()
+						return try_sshfs_live_picker("live_find")
+					end,
+				}) then
+					return
+				end
 				fff_picker.picker()
 			end,
 			desc = "Find files",
@@ -399,7 +569,24 @@ function M.init()
 		{
 			"<leader>s",
 			function()
-				snacks.picker.grep()
+				local ok, router = pcall(require, "editr.router")
+				local editr_grep = ok and router.editr("grep") or function()
+					return false
+				end
+				if route({
+					function()
+						return try_overleaf_picker("grep")
+					end,
+					editr_grep,
+					function()
+						return try_sshfs_live_picker("live_grep")
+					end,
+				}) then
+					return
+				end
+				if not fff_grep_picker.picker() then
+					snacks.picker.grep()
+				end
 			end,
 			desc = "Search text",
 		},

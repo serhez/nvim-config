@@ -7,32 +7,35 @@ function M.config()
 	local lint = require("lint")
 
 	vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-		callback = function()
+		callback = function(event)
+			if require("utils").is_slow_fs_buf(event.buf) then
+				return
+			end
 			lint.try_lint()
 		end,
 	})
 
 	require("lint").linters_by_ft = {
-		markdown = {
-			-- "vale",
-			-- "markdownlint",
-			"codespell",
-		},
-		quarto = {
-			"codespell",
-		},
-		txt = {
-			"codespell",
-		},
-		tex = {
-			"codespell",
-		},
-		latex = {
-			"codespell",
-		},
-		rmd = {
-			"codespell",
-		},
+		-- markdown = {
+		-- 	-- "vale",
+		-- 	-- "markdownlint",
+		-- 	"codespell",
+		-- },
+		-- quarto = {
+		-- 	"codespell",
+		-- },
+		-- txt = {
+		-- 	"codespell",
+		-- },
+		-- tex = {
+		-- 	"codespell",
+		-- },
+		-- latex = {
+		-- 	"codespell",
+		-- },
+		-- rmd = {
+		-- 	"codespell",
+		-- },
 
 		sh = { "shellcheck" },
 

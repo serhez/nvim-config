@@ -4,13 +4,17 @@ local M = {
 }
 
 function M.init()
-	local unclash = require("unclash")
+	local conflicts = require("git_conflicts")
 	require("mappings").register({
-		{ "<leader>C", group = "Conflicts" },
-		{ "<leader>Cc", unclash.accept_current, desc = "Accept current" },
-		{ "<leader>Ci", unclash.accept_incoming, desc = "Accept incoming" },
-		{ "<leader>Cb", unclash.accept_both, desc = "Accept both" },
-		{ "<leader>Cq", "<cmd>UnclashTrouble<cr>", desc = "Quickfix" },
+		{ "<leader>gx", group = "Conflicts" },
+		{ "<leader>gxb", conflicts.accept_both, desc = "Accept both" },
+		{ "<leader>gxc", conflicts.accept_current, desc = "Accept current" },
+		{ "<leader>gxi", conflicts.accept_incoming, desc = "Accept incoming" },
+		{ "<leader>gxm", conflicts.open_merge_editor, desc = "Merge editor" },
+		{ "<leader>gxq", "<cmd>UnclashTrouble<cr>", desc = "Quickfix" },
+		{ "<leader>gxx", conflicts.discard, desc = "Discard to base" },
+		{ "]x", conflicts.next_conflict, desc = "Next conflict" },
+		{ "[x", conflicts.prev_conflict, desc = "Previous conflict" },
 	})
 end
 

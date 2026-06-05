@@ -2,6 +2,7 @@ local M = {
 	"NeogitOrg/neogit",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
+		"esmuellert/codediff.nvim",
 	},
 	cmd = "Neogit",
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode,
@@ -29,8 +30,12 @@ function M.config()
 		},
 		integrations = {
 			snacks = true,
+			codediff = nil,
 		},
+		diff_viewer = "codediff",
 	})
+
+	require("window_backgrounds").setup_dark_bg_filetypes("UserNeogitDarkBackground", { "Neogit*" })
 end
 
 return M

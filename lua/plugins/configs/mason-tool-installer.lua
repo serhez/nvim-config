@@ -25,7 +25,6 @@ function M.config()
 			-- "grammarly-languageserver", -- broken
 			"commitlint",
 			"typos-lsp",
-			"ltex-ls",
 
 			-- Security
 			"snyk",

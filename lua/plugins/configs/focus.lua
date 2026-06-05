@@ -2,7 +2,6 @@ local M = {
 	"nvim-focus/focus.nvim",
 	version = "*",
 	event = "BufEnter",
-	enabled = false, -- NOTE: the colorschemes bug when using this plugin
 }
 
 function M.init()
@@ -40,8 +39,8 @@ function M.config()
 				enable = false, -- Display colorcolumn in the foccused window only
 				list = "+1", -- Set the comma-saperated list for the colorcolumn
 			},
-			signcolumn = true, -- Display signcolumn in the focussed window only
-			winhighlight = true, -- Auto highlighting for focussed/unfocussed windows
+			signcolumn = false, -- Display signcolumn in the focussed window only
+			winhighlight = false, -- KEEP false: links Normal->FocusedWindow->VertSplit (near-black border) -> invisible plain text in the focused window
 		},
 	})
 end

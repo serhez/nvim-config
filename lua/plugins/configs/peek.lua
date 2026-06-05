@@ -5,9 +5,9 @@ local M = {
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>M", group = "Markdown" },
+		{ "<leader>m", group = "Markdown" },
 		{
-			"<leader>Mp",
+			"<leader>mp",
 			function()
 				local peek = require("peek")
 				if peek.is_open() then

@@ -13,12 +13,12 @@ local _toggle_state = true
 
 function M.init()
 	require("mappings").register({
-		{ "<leader>M", group = "Markdown" },
+		{ "<leader>m", group = "Markdown" },
 		{
-			"<leader>Mr",
+			"<leader>mr",
 			function()
 				vim.cmd("RenderMarkdown toggle")
-				local _, present = pcall(require, "yamlmatter")
+				local present, _ = pcall(require, "yamlmatter")
 				if present then
 					if _toggle_state then
 						vim.cmd("YamlMatterDisable")

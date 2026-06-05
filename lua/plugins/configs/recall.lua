@@ -9,9 +9,9 @@ function M.init()
 	vim.opt.shadafile = ".vim/project.shada"
 
 	require("mappings").register({
-		{ "<leader>m", group = "Marks" },
+		{ "<leader>M", group = "Marks" },
 		{
-			"<leader>mm",
+			"<leader>Mm",
 			function()
 				vim.notify("Toggled mark", vim.log.levels.INFO, { title = "Marks" })
 				require("recall").toggle()
@@ -19,7 +19,7 @@ function M.init()
 			desc = "Toggle",
 		},
 		{
-			"<leader>mc",
+			"<leader>Mc",
 			function()
 				vim.notify("Cleared all project marks", vim.log.levels.INFO, { title = "Marks" })
 				require("recall").clear()
@@ -28,7 +28,7 @@ function M.init()
 		},
 		{ "]m", require("recall").goto_next, desc = "Next mark" },
 		{ "[m", require("recall").goto_prev, desc = "Previous mark" },
-		{ "<leader>ml", require("recall.snacks").pick, desc = "List" },
+		{ "<leader>Ml", require("recall.snacks").pick, desc = "List" },
 	})
 end
 

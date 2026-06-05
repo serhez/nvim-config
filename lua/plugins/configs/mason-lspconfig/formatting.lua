@@ -2,7 +2,7 @@ local M = {}
 
 M.augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-local ignore_filetypes = { "oil" }
+local ignore_filetypes = { "oil", "canola" }
 local auto_format_enabled = true -- Default
 
 function M.toggle_auto_format()

@@ -23,7 +23,7 @@ function M.config()
 	local sources = require("dropbar.sources")
 
 	local icons = require("icons")
-	local disabled_fts = { oil = "", undotree = "", diff = "", ["no-neck-pain"] = "" }
+	local disabled_fts = { oil = "", canola = "", undotree = "", diff = "", ["no-neck-pain"] = "" }
 
 	local active_win = vim.api.nvim_get_current_win()
 	vim.api.nvim_create_autocmd({ "WinEnter", "TermEnter" }, {

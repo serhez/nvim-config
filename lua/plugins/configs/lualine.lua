@@ -32,13 +32,108 @@ local mini_files_extension = {
 	filetypes = { "minifiles" },
 }
 
+local function canola_url()
+	local ok, canola = pcall(require, "canola")
+	if ok then
+		return canola.get_current_url(0) or vim.api.nvim_buf_get_name(0)
+	end
+
+	return vim.api.nvim_buf_get_name(0)
+end
+
+local function canola_remote_parts()
+	return require("utils").canola_ssh_location(canola_url())
+end
+
+local function canola_is_remote()
+	return canola_remote_parts() ~= nil
+end
+
+local function canola_remote_machine()
+	local machine = canola_remote_parts()
+	return require("utils").statusline_escape(machine or "")
+end
+
+local function canola_remote_path()
+	local _, path = canola_remote_parts()
+	return ": " .. require("utils").statusline_escape(path or "")
+end
+
+local function canola_local_location()
+	local ok, canola = pcall(require, "canola")
+	if not ok then
+		return ""
+	end
+
+	local dir = canola.get_current_dir()
+	local location = dir and vim.fn.fnamemodify(dir, ":~") or vim.api.nvim_buf_get_name(0)
+	return require("utils").statusline_escape(location)
+end
+
+local function remote_parent_path(path)
+	if path == "~" or path == "/" then
+		return path
+	end
+
+	local parent = path:match("(.+)/[^/]+$")
+	if parent then
+		return parent
+	end
+
+	if path:sub(1, 1) == "/" then
+		return "/"
+	end
+
+	return path
+end
+
+local function remote_folder_display(path)
+	if path == "/" then
+		return "/"
+	end
+	if path == "~" then
+		return "~/"
+	end
+	return path .. "/"
+end
+
+local canola_extension = {
+	sections = {
+		lualine_a = {
+			{
+				canola_remote_machine,
+				cond = canola_is_remote,
+				color = { gui = "bold" },
+				separator = "",
+				padding = { left = 1, right = 0 },
+			},
+			{
+				canola_remote_path,
+				cond = canola_is_remote,
+				separator = "",
+				padding = { left = 0, right = 1 },
+			},
+			{
+				canola_local_location,
+				cond = function()
+					return not canola_is_remote()
+				end,
+			},
+		},
+	},
+	filetypes = { "canola" },
+}
+
 local function open_explorer()
 	local minifiles_present, _ = pcall(require, "mini.files")
 	local oil_present, _ = pcall(require, "oil")
+	local canola_present, _ = pcall(require, "canola")
 	if minifiles_present then
 		vim.cmd("MiniFiles")
 	elseif oil_present then
-		vim.cmd("OilSmart")
+		vim.cmd("Oil")
+	elseif canola_present then
+		vim.cmd("Canola")
 	end
 end
 
@@ -162,6 +257,15 @@ function M.config()
 			-- link = "DiagnosticVirtualTextWarn",
 			link = "lualine_c_inactive",
 		})
+		vim.api.nvim_set_hl(0, "LualineRemoteMachineSaved", {
+			fg = hls.fromhl("StatusLine").fg,
+			bg = hls.fromhl("StatusLine").bg,
+			bold = true,
+		})
+		vim.api.nvim_set_hl(0, "LualineRemoteMachineModified", {
+			fg = hls.fromhl("DiagnosticWarn").fg,
+			bold = true,
+		})
 
 		if self.options.color == nil then
 			self.options.color = ""
@@ -170,6 +274,27 @@ function M.config()
 
 	function folders_component:update_status()
 		local data = folders_component.super.update_status(self)
+		local utils = require("utils")
+		local raw_bufname = vim.api.nvim_buf_get_name(0)
+		local machine, remote_path = utils.remote_ssh_location(raw_bufname)
+		if not machine then
+			machine, remote_path = utils.remote_ssh_location(data)
+		end
+		if machine then
+			local machine_hl = vim.bo.modified and "LualineRemoteMachineModified" or "LualineRemoteMachineSaved"
+			local folder_hl = vim.bo.modified and "LualineFoldersModified" or "LualineFoldersSaved"
+			local parent = remote_folder_display(remote_parent_path(remote_path))
+			return table.concat({
+				"%#",
+				machine_hl,
+				"#",
+				utils.statusline_escape(machine),
+				"%#",
+				folder_hl,
+				"#: ",
+				utils.statusline_escape(parent),
+			})
+		end
 
 		-- Remove leading slashes
 		data = data:gsub("^/+", "")
@@ -189,8 +314,8 @@ function M.config()
 			return "File explorer: "
 		end
 
-		-- oil
-		if data:find("ssh://") then
+		-- oil/canola
+		if raw_bufname:find("ssh://") or raw_bufname:find("scp://") or data:find("ssh://") or data:find("scp://") then
 			return "Remote: "
 		end
 
@@ -385,8 +510,8 @@ function M.config()
 					symbols = {
 						modified = icons.small_circle,
 						readonly = icons.lock,
-						unnamed = "[No name]",
-						newfile = "[New]",
+						unnamed = " [No name]",
+						newfile = " [New]",
 					},
 					on_click = open_explorer,
 				},
@@ -413,8 +538,8 @@ function M.config()
 					symbols = {
 						modified = icons.small_circle,
 						readonly = icons.lock,
-						unnamed = "[No name]",
-						newfile = "[New]",
+						unnamed = " [No name]",
+						newfile = " [New]",
 					},
 					on_click = open_explorer,
 				},
@@ -538,6 +663,7 @@ function M.config()
 			"symbols-outline",
 			"toggleterm",
 			"trouble",
+			canola_extension,
 			mini_files_extension,
 		},
 	})

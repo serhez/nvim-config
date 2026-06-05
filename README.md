@@ -16,7 +16,7 @@ You can install this config by cloning the repo and performing `make install` fr
 
 To connect to a remote file-system via SSH:
 1. Use `ssh-add` to add the private key you use to identify with the server.
-2. Start Neovim as `nvim oil-ssh://<user>@<ip>:<port>/`
+2. Start Neovim as `nvim canola-ssh://<user>@<ip>:<port>/`
 
 ## Acknowledgments
 

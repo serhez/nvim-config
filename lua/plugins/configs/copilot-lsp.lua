@@ -49,6 +49,7 @@ function M.init()
 				or vim.bo[bufnr].filetype == "svn"
 				or vim.bo[bufnr].filetype == "cvs"
 				or vim.bo[bufnr].filetype == "oil"
+				or vim.bo[bufnr].filetype == "canola"
 				or vim.bo[bufnr].filetype == "grug-far"
 				or vim.bo[bufnr].filetype == "."
 			then

@@ -190,7 +190,7 @@ function M.setup()
 	-- Colorscheme
 	vim.g.nvcode_termcolors = 256
 	vim.g.syntax = true
-	vim.g.colors_name = "teide-dimmed"
+	vim.g.colors_name = "teide-dark"
 	vim.o.background = "dark"
 	vim.cmd.colorscheme({
 		args = { vim.g.colors_name },

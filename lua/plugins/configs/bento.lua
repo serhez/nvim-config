@@ -7,7 +7,7 @@ local M = {
 
 function M.config()
 	require("bento").setup({
-		max_open_buffers = 10,
+		max_open_buffers = 5,
 		map_last_accessed = false,
 	})
 

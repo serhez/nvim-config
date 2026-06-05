@@ -189,6 +189,20 @@ function M.config()
 			zindex = 200,
 		},
 		modes = {
+			qflist = {
+				auto_preview = false,
+				keys = {
+					p = false,
+					P = false,
+				},
+			},
+			quickfix = {
+				auto_preview = false,
+				keys = {
+					p = false,
+					P = false,
+				},
+			},
 			lsp_base = {
 				auto_refresh = false,
 				params = {
@@ -196,6 +210,11 @@ function M.config()
 				},
 			},
 			loclist = {
+				auto_preview = false,
+				keys = {
+					p = false,
+					P = false,
+				},
 				win = {
 					position = "top",
 					relative = "editor",

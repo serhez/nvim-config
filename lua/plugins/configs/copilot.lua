@@ -1,11 +1,11 @@
 local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
-	-- requires = {
-	-- 	"copilotlsp-nvim/copilot-lsp", -- for NES functionality
-	-- },
-	-- event = "VeryLazy",
-	event = "InsertEnter",
+	requires = {
+		"copilotlsp-nvim/copilot-lsp", -- for NES functionality
+	},
+	event = "VeryLazy",
+	-- event = "InsertEnter",
 }
 
 vim.g.copilot_loaded = false
@@ -47,7 +47,7 @@ function M.config()
 		},
 		nes = {
 			-- BUG: using folke's sidekick.nvim instead
-			enabled = false, -- requires copilot-lsp as a dependency
+			enabled = true, -- requires copilot-lsp as a dependency
 			auto_trigger = true,
 			keymap = {
 				accept_and_goto = "<C-CR>",
@@ -68,14 +68,12 @@ function M.config()
 		},
 		logger = {
 			print_log_level = vim.log.levels.OFF, -- disable annoying messages when no internet
+			-- 	file_log_level = vim.log.levels.TRACE,
+			-- 	print_log_level = vim.log.levels.TRACE,
+			-- 	trace_lsp = "verbose",
+			-- 	log_lsp_messages = true,
+			-- 	trace_lsp_progress = true,
 		},
-		-- logger = {
-		-- 	file_log_level = vim.log.levels.TRACE,
-		-- 	print_log_level = vim.log.levels.TRACE,
-		-- 	trace_lsp = "verbose",
-		-- 	log_lsp_messages = true,
-		-- 	trace_lsp_progress = true,
-		-- },
 
 		server_opts_overrides = {
 			autostart = true,

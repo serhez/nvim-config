@@ -1,7 +1,7 @@
 local M = {
 	"copilotlsp-nvim/copilot-lsp",
 	-- event = "VeryLazy",
-	enabled = false, -- BUG: it just constantly throws errors
+	-- enabled = false, -- BUG: it just constantly throws errors
 }
 
 function M.init()

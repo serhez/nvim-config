@@ -110,6 +110,35 @@ function M.setup()
 			vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
 		end,
 	})
+
+	local slow_fs_group = vim.api.nvim_create_augroup("slow_fs_buffers", { clear = true })
+
+	vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+		group = slow_fs_group,
+			callback = function(event)
+				if not require("utils").is_slow_fs_path(event.match) then
+					return
+				end
+
+				vim.b[event.buf].slow_fs = true
+				vim.bo[event.buf].swapfile = false
+				vim.bo[event.buf].undofile = false
+			end,
+		})
+
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = slow_fs_group,
+		callback = function(event)
+			if not require("utils").is_slow_fs_buf(event.buf) then
+				return
+			end
+
+			local client_id = event.data and event.data.client_id
+			if client_id then
+				pcall(vim.lsp.buf_detach_client, event.buf, client_id)
+			end
+		end,
+	})
 end
 
 return M

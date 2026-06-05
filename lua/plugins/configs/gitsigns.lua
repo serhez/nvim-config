@@ -19,6 +19,11 @@ end
 function M.config()
 	local icons = require("icons")
 	require("gitsigns").setup({
+		on_attach = function(bufnr)
+			if require("utils").is_slow_fs_buf(bufnr) then
+				return false
+			end
+		end,
 		signs = {
 			add = {
 				text = icons.bar.vertical_left_thick,

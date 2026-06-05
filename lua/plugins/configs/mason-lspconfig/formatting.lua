@@ -46,6 +46,10 @@ function M.format(bufnr)
 end
 
 function M.auto_format(bufnr)
+	if require("utils").is_slow_fs_buf(bufnr) then
+		return
+	end
+
 	if auto_format_enabled then
 		M.format(bufnr)
 	end

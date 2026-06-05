@@ -7,7 +7,16 @@ local M = {
 	lazy = false,
 }
 
-local function custom_attach(_, bufnr)
+local function custom_attach(client, bufnr)
+	if require("utils").is_slow_fs_buf(bufnr) then
+		vim.schedule(function()
+			if client and client.id then
+				pcall(vim.lsp.buf_detach_client, bufnr, client.id)
+			end
+		end)
+		return
+	end
+
 	local ver = vim.version()
 
 	if ver.major > 0 or ver.minor >= 12 then
@@ -118,8 +127,11 @@ function M.config()
 
 	-- Enable LSP codelens
 	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-		callback = function()
-			vim.lsp.codelens.refresh({ bufnr = 0 })
+		callback = function(args)
+			if require("utils").is_slow_fs_buf(args.buf) then
+				return
+			end
+			vim.lsp.codelens.enable(true, { bufnr = args.buf })
 		end,
 	})
 

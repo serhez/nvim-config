@@ -21,6 +21,24 @@ function M.config()
 			winhl = "Normal:OutlineWindow",
 			wrap = false,
 			-- hide_cursor = true, -- BUG: not working
+
+			-- Percentage or integer of columns; serves as the base/minimum width
+			-- for the outline window (and for auto_width calculations)
+			width = 25,
+			-- When auto_width.enabled = true, 'width' is the minimum window width.
+			-- When auto_width.enabled = false, 'width' is the exact/default window width.
+			auto_width = {
+				-- Dynamically resize window width to fit content
+				enabled = true,
+				-- Maximum width (columns or percent if relative_width)
+				max_width = 33,
+				-- Include symbol details in width calculation
+				include_symbol_details = false,
+			},
+			-- Whether width is relative to the total width of nvim
+			-- When relative_width = true, this means take 25% of the total
+			-- screen width for outline window.
+			relative_width = true,
 		},
 		symbol_folding = {
 			-- Depth past which nodes will be folded by default. Set to false to unfold all on open.

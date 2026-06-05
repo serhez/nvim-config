@@ -4,7 +4,7 @@ local M = {
 		"nvim-treesitter/nvim-treesitter",
 	},
 	ft = { "markdown", "quarto", "rmd", "latex" },
-	enabled = false,
+	-- enabled = false,
 }
 
 function M.setup()

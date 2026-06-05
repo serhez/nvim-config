@@ -4,6 +4,7 @@ local M = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 		"ray-x/yamlmatter.nvim",
+		"techwizrd/render-latex.nvim",
 	},
 	ft = { "markdown", "quarto", "rmd", "Avante", "noice" },
 }
@@ -164,7 +165,7 @@ function M.config()
 		},
 
 		latex = {
-			enabled = true, -- using mdmath plugin
+			enabled = false, -- using mdmath plugin
 			converter = "latex2text",
 		},
 

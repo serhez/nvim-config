@@ -104,11 +104,6 @@ function M.config()
 		},
 		name = "lldb",
 	}
-
-	-- Load launch.json files
-	local vscode = require("dap.ext.vscode")
-	vscode.load_launchjs("launch.json")
-	vscode.load_launchjs(".vscode/launch.json")
 end
 
 return M

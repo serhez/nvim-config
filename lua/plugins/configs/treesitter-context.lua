@@ -4,7 +4,7 @@ local M = {
 		"nvim-treesitter/nvim-treesitter",
 	},
 	event = "VeryLazy",
-	enabled = false,
+	-- enabled = false,
 }
 
 function M.config()

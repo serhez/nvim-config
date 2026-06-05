@@ -11,9 +11,9 @@ local M = {
 		"jmbuhr/cmp-pandoc-references",
 	},
 	-- use a release tag to download pre-built binaries
-	version = "v0.*",
+	version = "1.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-	build = vim.g.blink_enabled and "RUSTUP_TOOLCHAIN=nightly cargo build --release",
+	-- build = vim.g.blink_enabled and "RUSTUP_TOOLCHAIN=nightly cargo build --release",
 	event = "InsertEnter",
 }
 
@@ -117,7 +117,7 @@ function M.config()
 				gitcommit = { "git" },
 				bash = { "env" },
 				zsh = { "env" },
-				markdown = { "lsp", "pandoc_references", "thesaurus", "snippets" },
+				markdown = { "filemention", "lsp", "pandoc_references", "thesaurus", "snippets" },
 				quarto = { "lsp", "pandoc_references", "thesaurus", "snippets" },
 				-- BUG: inherit_defaults is not working fine
 				-- quarto = { inherit_defaults = true, "lsp", "pandoc_references", "thesaurus" },
@@ -163,6 +163,11 @@ function M.config()
 					max_items = 5,
 				},
 				buffer = {
+					max_items = 5,
+				},
+				filemention = {
+					name = "filemention",
+					module = "filemention.sources.blink",
 					max_items = 5,
 				},
 			},

@@ -61,7 +61,7 @@ function M.config()
 			["javascript.jsx"] = { "prettierd" },
 			typescriptreact = { "prettierd" },
 			["typescript.tsx"] = { "prettierd" },
-			-- vue = { "prettierd" },
+			vue = { "prettierd" },
 			svelte = { "prettierd" },
 
 			-- HTML
@@ -92,8 +92,17 @@ function M.config()
 			-- SQL
 			sql = { "sql_formatter" },
 
-			-- Injected
-			["*"] = { "injected" },
+			-- Injected (format embedded code blocks, e.g. fenced code in markdown)
+			["*"] = function(bufnr)
+				-- Skip the injected formatter for Vue SFCs: it treats template
+				-- attribute expressions (e.g. :name="social.icon") as standalone
+				-- JS statements and appends a semicolon, corrupting the markup.
+				-- Vue files are formatted as a whole by prettierd instead.
+				if vim.bo[bufnr].filetype == "vue" then
+					return {}
+				end
+				return { "injected" }
+			end,
 		},
 
 		formatters = {

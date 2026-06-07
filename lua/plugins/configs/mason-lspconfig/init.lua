@@ -85,6 +85,12 @@ function M.config()
 		local has_custom_opts, custom_opts = pcall(require, "plugins.configs.mason-lspconfig.servers." .. server)
 		if has_custom_opts then
 			opts.settings = custom_opts
+			-- A server module may also declare `filetypes` to override which
+			-- buffers it attaches to (e.g. extending `vtsls` to `.vue` files).
+			-- lspconfig expects `filetypes` at the top level, not under `settings`.
+			if custom_opts.filetypes then
+				opts.filetypes = custom_opts.filetypes
+			end
 		end
 
 		vim.lsp.config(server, opts)

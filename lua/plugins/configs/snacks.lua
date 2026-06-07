@@ -211,7 +211,7 @@ function fff_grep_picker.finder(_, ctx)
 		return {}
 	end
 
-	local ok, grep = pcall(require, "fff.grep")
+	local ok, grep = pcall(require, "fff.picker_ui.grep_renderer")
 	if not ok then
 		vim.notify("Failed to load fff grep: " .. tostring(grep), vim.log.levels.ERROR)
 		return {}

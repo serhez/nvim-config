@@ -33,14 +33,86 @@ function M.init()
 	})
 end
 
+-- Recover from the Treesitter "Index out of bounds" desync.
+--
+-- Under Neovim's async parsing (large buffers + interactive highlighter) the
+-- parser's tree can desync from the live buffer: a node's range runs past the
+-- end of the buffer, so render-markdown's get_node_text -> nvim_buf_get_text
+-- throws "Index out of bounds". Once desynced it stays that way, so every
+-- subsequent render (every CursorMoved) trips the same error until the parser
+-- is rebuilt -- which otherwise means restarting Neovim.
+--
+-- render-markdown debounces + vim.schedules its whole render pass through
+-- Decorator:schedule, and BOTH failing stacks (Node.new and query-predicate
+-- handlers) originate there, so wrapping that callback is the single seam.
+-- On the out-of-bounds error we force a full reparse to resync the parser in
+-- place; any other error is re-raised with its traceback intact.
+local function patch_oob_guard()
+	local ok, Decorator = pcall(require, "render-markdown.lib.decorator")
+	if not ok or type(Decorator) ~= "table" or Decorator.__oob_guard then
+		return
+	end
+	local original_schedule = Decorator.schedule
+	if type(original_schedule) ~= "function" then
+		return
+	end
+
+	-- Rate-limit recovery to once per (buffer, changedtick) so a tree that is
+	-- still stale right after a reparse can't spin invalidate/parse in a loop.
+	local last_recovered = {} ---@type table<integer, integer>
+
+	local function recover(buf)
+		if not buf or not vim.api.nvim_buf_is_valid(buf) then
+			return
+		end
+		local tick = vim.api.nvim_buf_get_changedtick(buf)
+		if last_recovered[buf] == tick then
+			return
+		end
+		last_recovered[buf] = tick
+		local got, parser = pcall(vim.treesitter.get_parser, buf)
+		if got and parser then
+			pcall(function()
+				parser:invalidate(true)
+			end)
+			pcall(function()
+				parser:parse(true)
+			end)
+		end
+	end
+
+	function Decorator:schedule(debounce, ms, callback)
+		local buf = self.buf
+		return original_schedule(self, debounce, ms, function()
+			local pass_ok, err = xpcall(callback, debug.traceback)
+			if not pass_ok then
+				if tostring(err):find("out of bounds", 1, true) then
+					vim.schedule(function()
+						recover(buf)
+					end)
+				else
+					error(err)
+				end
+			end
+		end)
+	end
+	Decorator.__oob_guard = true
+end
+
 function M.config()
 	local icons = require("icons")
 	local block = icons.bar.vertical_block
 
+	patch_oob_guard()
+
 	require("render-markdown").setup({
-		render_modes = { "n", "no", "i", "v", "V", "^V", "r", "x", "c" },
+		-- Visual-block mode is "\22" (Ctrl-V), not "^V"; "x" isn't a real mode() string.
+		render_modes = { "n", "no", "i", "v", "V", "r", "c" },
 		file_types = { "markdown", "quarto", "rmd", "Avante", "noice" },
-		restart_highlighter = true,
+		-- Kept off: stopping/starting the TS highlighter on attach churns the
+		-- parser and can leave it desynced from the buffer (the "Index out of
+		-- bounds" errors). Re-enable only if markdown highlighting misbehaves.
+		restart_highlighter = false,
 
 		completions = {
 			-- Settings for blink.cmp completions source

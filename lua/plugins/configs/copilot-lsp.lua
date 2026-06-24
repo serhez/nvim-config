@@ -1,7 +1,10 @@
 local M = {
 	"copilotlsp-nvim/copilot-lsp",
 	-- event = "VeryLazy",
-	-- enabled = false, -- BUG: it just constantly throws errors
+	-- Disabled: this registers the `copilot_ls` LSP with cmd `copilot-language-server`,
+	-- which isn't installed (not on PATH, not in Mason), so vim.lsp.enable("copilot_ls")
+	-- fails with "not executable" on every start. copilot.lua handles suggestions/NES.
+	enabled = false,
 }
 
 function M.init()

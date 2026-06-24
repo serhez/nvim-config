@@ -45,7 +45,42 @@ end
 
 vim.g.auto_session_custom_tag = nil
 
+-- Patch the "E944: Reverse range in character class" crash on VimEnter.
+--
+-- auto-session derives the session file name from the cwd via
+-- Lib.percent_encode, which escapes "/ \ : * ? \" ' < > + space | . %" but NOT
+-- square brackets. So a cwd like ~/Downloads/[NeurIPS-26] .../ keeps "[..]" in
+-- the session path. Lib.expand then feeds that path to vim.fn.expand, which
+-- treats "[..]" as a glob character class; "[NeurIPS-26]" contains the range
+-- "S-2" (S > 2), so Vim raises E944 and the whole VimEnter autorestore aborts.
+--
+-- Lib.expand only ever wants to canonicalize a path (expand ~/env, make it
+-- absolute) -- it never wants glob behaviour -- so we keep the original for the
+-- normal case and only fall back to a glob-free canonicalization when expand
+-- throws. Minimal blast radius: identical output for every non-crashing input.
+local function patch_expand_glob_crash()
+	local ok, Lib = pcall(require, "auto-session.lib")
+	if not ok or type(Lib) ~= "table" or Lib.__expand_glob_guard then
+		return
+	end
+	local original_expand = Lib.expand
+	if type(original_expand) ~= "function" then
+		return
+	end
+
+	function Lib.expand(file_or_dir)
+		local got, ret = pcall(original_expand, file_or_dir)
+		if got then
+			return ret
+		end
+		return vim.fn.fnamemodify(vim.fs.normalize(file_or_dir), ":p")
+	end
+	Lib.__expand_glob_guard = true
+end
+
 function M.config()
+	patch_expand_glob_crash()
+
 	require("auto-session").setup({
 		git_use_branch_name = true, -- Include git branch name in session name
 		git_auto_restore_on_branch_change = true, -- Should we auto-restore the session when the git branch changes. Requires git_use_branch_name

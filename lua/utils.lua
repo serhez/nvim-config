@@ -66,7 +66,9 @@ local function normalize_local_path(path)
 		return nil
 	end
 
-	local expanded = vim.fn.expand(path)
+	-- vim.fs.normalize expands ~ and env vars WITHOUT glob expansion, so paths
+	-- containing brackets (e.g. "[d-a]") don't trip vim.fn.expand's E944.
+	local expanded = vim.fs.normalize(path)
 	local normalized = vim.fn.fnamemodify(expanded, ":p")
 	return normalized:gsub("/+$", "")
 end

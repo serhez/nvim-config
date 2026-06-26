@@ -46,8 +46,10 @@ function M.config()
 			},
 		},
 		nes = {
-			-- BUG: using folke's sidekick.nvim instead
-			enabled = true, -- requires copilot-lsp as a dependency
+			-- Disabled: NES requires the copilot-lsp plugin, which is disabled (its
+			-- copilot_ls binary isn't installed). With it off, copilot.lua errors
+			-- "copilot-lsp is not available, disabling nes". Re-enable both together.
+			enabled = false,
 			auto_trigger = true,
 			keymap = {
 				accept_and_goto = "<C-CR>",

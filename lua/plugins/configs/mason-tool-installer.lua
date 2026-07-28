@@ -45,6 +45,7 @@ function M.config()
 			"uv",
 			"pydocstyle",
 			"debugpy",
+			"pytest-language-server",
 
 			-- C/C++
 			"clangd",

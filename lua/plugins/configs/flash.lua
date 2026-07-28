@@ -16,8 +16,10 @@ function M.config()
 			search = {
 				enabled = false,
 			},
+			-- f/t are mapped explicitly below (jump + treesitter), so flash's own
+			-- char mode must stay off: it would fight for the same keys.
 			char = {
-				keys = { "f", "t" },
+				enabled = false,
 			},
 		},
 		jump = {

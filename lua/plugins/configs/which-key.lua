@@ -88,10 +88,10 @@ local basic_mappings = {
 	{ "}", "}zz", desc = "Scroll down" },
 	{ "n", "nzz", desc = "Next result" },
 	{ "N", "Nzz", desc = "Previous result" },
-	{ "]c", "]czz", desc = "Next class" },
-	{ "[c", "[czz", desc = "Previous class" },
-	{ "]j", "]jzz", desc = "Next jump" },
-	{ "[j", "[jzz", desc = "Previous jump" },
+	-- NOTE: ]c/[c and ]j/[j are intentionally absent. Both were `noremap`, so they
+	--       ran the *native* motions (]c = diff change, ]j = nothing) rather than the
+	--       plugin ones, and they raced with the real providers on every startup.
+	--       Class motion is owned by treesitter-textobjects, jumps by mini.bracketed.
 	{ "]s", "]szz", desc = "Next misspelling" },
 	{ "[s", "[szz", desc = "Previous misspelling" },
 	{ "C-o", "C-ozz", desc = "Jump out" },

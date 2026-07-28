@@ -373,6 +373,9 @@ local M = {
 			end,
 		},
 		picker = {
+			-- dressing.nvim also claims vim.ui.select/input and loads after snacks,
+			-- so it already wins. Opt out here instead of leaving it to load order.
+			ui_select = false,
 			prompt = "   " .. icons.arrow.right_short_thick .. " ",
 			-- layout = {
 			-- 	cycle = true, -- go to top when reaching bottom and vice versa

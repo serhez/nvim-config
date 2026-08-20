@@ -224,7 +224,7 @@ function M.config()
 		closePreviewOnExit = true,
 		lspFeatures = {
 			enabled = true,
-			languages = { "r", "python", "julia", "rust", "bash" },
+			languages = { "python", "julia", "rust", "bash" },
 			chunks = "all", -- 'curly' or 'all'
 			diagnostics = {
 				enabled = true,

@@ -1,5 +1,5 @@
 local M = {
-	"toppair/peek.nvim",
+	"serhez/peek.nvim",
 	build = "deno task --quiet build:fast",
 }
 

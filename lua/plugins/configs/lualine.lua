@@ -5,6 +5,7 @@ local M = {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		"AndreM222/copilot-lualine",
+		"serhez/tabern.nvim",
 	},
 	lazy = false,
 	cond = not vim.g.started_by_firenvim and not vim.g.vscode and not vim.g.slow_network,
@@ -205,6 +206,14 @@ local function recorder_condition()
 	return recorder.recordingStatus() ~= ""
 end
 
+local function tab_name_provider()
+	local ok, tabern = pcall(require, "tabern")
+	if not ok then
+		return ""
+	end
+	return tabern.get_custom_name() or ""
+end
+
 local function diff_source()
 	local gitsigns = vim.b.gitsigns_status_dict
 	if gitsigns then
@@ -227,6 +236,11 @@ end
 function M.config()
 	local hls = require("highlights")
 	local colors = hls.colors()
+	local lualine_highlight = require("lualine.highlight")
+
+	local function branch_tab_color()
+		return "lualine_a" .. lualine_highlight.get_mode_suffix()
+	end
 
 	local folders_component = require("lualine.components.filename"):extend()
 	local filename_component = require("lualine.components.filename"):extend()
@@ -427,9 +441,25 @@ function M.config()
 			always_divide_middle = true,
 			globalstatus = true,
 			refresh = {
-				statusline = 100,
-				tabline = 100,
-				winbar = 100,
+				-- Navigation no longer queues a full statusline rebuild. Dynamic
+				-- components (git, diagnostics, tabs, location) update once a second,
+				-- while state-changing events still refresh promptly.
+				statusline = 1000,
+				tabline = 1000,
+				winbar = 1000,
+				refresh_time = 100,
+				events = {
+					"WinEnter",
+					"BufEnter",
+					"BufWritePost",
+					"SessionLoadPost",
+					"FileChangedShellPost",
+					"VimResized",
+					"ModeChanged",
+					"DiagnosticChanged",
+					"LspAttach",
+					"LspDetach",
+				},
 			},
 		},
 		sections = {
@@ -554,7 +584,9 @@ function M.config()
 				},
 				{
 					"diagnostics",
-					sources = { "nvim_lsp" },
+					-- Uses vim.diagnostic.count() on current Neovim instead of
+					-- walking every LSP diagnostic and filtering namespaces.
+					sources = { "nvim_diagnostic" },
 					sections = { "error", "warn", "info", "hint" },
 					diagnostics_color = {
 						error = "DiagnosticVirtualTextError",
@@ -628,8 +660,16 @@ function M.config()
 					"progress",
 				},
 				{
+					tab_name_provider,
+					color = branch_tab_color,
+				},
+				{
 					"tabs",
 					use_mode_colors = true,
+					tabs_color = {
+						active = branch_tab_color,
+						inactive = "Visual",
+					},
 					show_modified_status = false,
 					mode = 1,
 					fmt = function(_, context)

@@ -107,7 +107,8 @@ function M.config()
 			enabled = true,
 			-- See |updatetime|.
 			-- Set to a negative value to avoid setting the updatetime.
-			updatetime = 100,
+			-- Keep the global 300 ms value from settings.lua.
+			updatetime = -1,
 			-- See |nvim_create_autocmd|.
 			events = { "CursorHold", "CursorHoldI" },
 			-- See |nvim_create_autocmd| and |autocmd-pattern|.

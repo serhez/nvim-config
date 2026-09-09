@@ -24,12 +24,7 @@ end
 
 function M.init()
 	require("mappings").register({
-		-- NOTE: Now handled by markdown-preview
-		--       (better functionality, such as cursor following and
-		--       syncing without saving)
-		-- { "<leader>m", group = "Markdown" },
-		-- { "<leader>mp", "<cmd>QuartoPreview<cr>", desc = "Preview" },
-		-- { "<leader>mP", "<cmd>QuartoClosePreview<cr>", desc = "Close preview" },
+		{ "<leader>mP", "<cmd>QuartoPreview<cr>", desc = "Quarto preview" },
 
 		{ "<leader>nn", "o<esc>O```python\r```<esc>O", desc = "New cell" },
 		{ "<leader>nd", "o```\r\r```python<esc>kkk0", desc = "Divide cell" },

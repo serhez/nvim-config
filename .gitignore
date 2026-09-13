@@ -18,3 +18,4 @@ eclipse.jdt.ls/
 .debuggers/
 spell/
 .DS_Store
+.local/

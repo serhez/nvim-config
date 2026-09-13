@@ -70,11 +70,12 @@ function M.config()
 			-- CSS
 			css = { "prettierd" },
 
-			-- Markdown & notebooks
-			markdown = { "cbfmt" },
-			-- markdown = { "mdformat" },
-			-- markdown = { "prettierd" }, -- NOTE: prettierd sucks at markdown
-			-- quarto = { "prettierd" }, -- FIX: use global prettierd config to supply parser ("markdown") and to use 4 spaces
+			-- Markdown & notebooks: no whole-file formatter. Fenced code blocks are
+			-- handled by the "injected" formatter below, which reuses the per-filetype
+			-- formatters configured here. cbfmt is not used: it needs a .cbfmt.toml in
+			-- the file's project tree and otherwise aborts, and it would duplicate the
+			-- language-to-formatter mapping "injected" already derives from this table.
+			-- prettierd is not used either: it reflows markdown prose badly.
 
 			-- JSON
 			json = { "prettierd" },

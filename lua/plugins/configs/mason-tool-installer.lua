@@ -129,7 +129,6 @@ function M.config()
 			"texlab",
 			"latexindent",
 			"mdformat",
-			"cbfmt",
 			-- "vale",
 		},
 

@@ -442,11 +442,11 @@ function M.config()
 			globalstatus = true,
 			refresh = {
 				-- Navigation no longer queues a full statusline rebuild. Dynamic
-				-- components (git, diagnostics, tabs, location) update twice a second,
+				-- components (git, diagnostics, tabs, location) update four times a second,
 				-- while state-changing events still refresh promptly.
-				statusline = 500,
-				tabline = 500,
-				winbar = 500,
+				statusline = 250,
+				tabline = 250,
+				winbar = 250,
 				refresh_time = 100,
 				events = {
 					"WinEnter",

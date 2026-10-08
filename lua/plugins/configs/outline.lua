@@ -1,10 +1,34 @@
 local M = {
 	"hedyhli/outline.nvim",
+	dev = vim.fn.isdirectory(vim.fn.expand("~/dev/outline.nvim")) == 1,
 	cmd = "Outline",
 }
 
+local function open_outline()
+	local lifecycle = package.loaded["codediff.ui.lifecycle"]
+	local tab = vim.api.nvim_get_current_tabpage()
+	if lifecycle and lifecycle.get_session(tab) and vim.bo.filetype == "codediff-explorer" then
+		local _, win = lifecycle.get_windows(tab)
+		if not win or not vim.api.nvim_win_is_valid(win) then
+			vim.notify("Select a file in CodeDiff before opening Outline", vim.log.levels.WARN)
+			return
+		end
+		local buf = vim.api.nvim_win_get_buf(win)
+		local name = vim.api.nvim_buf_get_name(buf)
+		local original, modified = lifecycle.get_paths(tab)
+		local selected = (modified and modified.relative ~= "" and modified)
+			or (original and original.relative ~= "" and original)
+		if not selected and not vim.startswith(name, "codediff:///") then
+			vim.notify("Select a file in CodeDiff before opening Outline", vim.log.levels.WARN)
+			return
+		end
+		vim.api.nvim_set_current_win(win)
+	end
+	vim.cmd.Outline()
+end
+
 function M.init()
-	require("mappings").register({ "<leader>h", "<cmd>Outline<cr>", desc = "Code hierarchy" })
+	require("mappings").register({ "<leader>h", open_outline, desc = "Code hierarchy", nowait = true })
 end
 
 function M.config()
@@ -66,6 +90,7 @@ function M.config()
 			},
 		},
 		providers = {
+			priority = { "codediff", "lsp", "coc", "markdown", "norg", "man" },
 			markdown = {
 				-- List of supported ft's to use the markdown provider
 				filetypes = { "markdown", "quarto", "rmd" },

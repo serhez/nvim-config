@@ -14,6 +14,11 @@ You can install this config by cloning the repo and performing `make install` fr
 
 ## Tips
 
+In a CodeDiff tab, `<leader>h` opens Outline for the selected file without leaving the diff. Revision buffers use Markdown headings or available Tree-sitter symbols because CodeDiff keeps LSPs detached from them. Select a file in the explorer first.
+CodeDiff's hunk actions use `<leader>gxs` (stage), `<leader>gxu` (unstage), and `<leader>gxr` (discard), leaving `<leader>h` immediately available for Outline.
+CodeDiff's side explorer opens in tree view; press `i` there to switch between tree and list views.
+Outline uses the local `~/dev/outline.nvim` checkout when it exists, and the upstream plugin otherwise.
+
 Split sizes stay fixed when switching windows; use Alt+arrow keys to resize them manually.
 
 In Herdr or tmux, automatic sessions are separated by tab or window. Files over 2 MB open in a new pane with the minimal Neovim config by default.

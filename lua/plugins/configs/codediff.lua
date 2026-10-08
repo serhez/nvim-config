@@ -48,8 +48,14 @@ function M.config()
 		explorer = {
 			auto_open_on_cursor = false,
 			focus_on_select = true,
+			view_mode = "tree",
 		},
 		keymaps = {
+			view = {
+				stage_hunk = "<leader>gxs",
+				unstage_hunk = "<leader>gxu",
+				discard_hunk = "<leader>gxr",
+			},
 			explorer = {
 				select = { "<CR>", "l" },
 			},

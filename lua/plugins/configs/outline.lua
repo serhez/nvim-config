@@ -91,6 +91,9 @@ function M.config()
 		},
 		providers = {
 			priority = { "codediff", "lsp", "coc", "markdown", "norg", "man" },
+			lsp = {
+				blacklist_clients = { "pytest_language_server" },
+			},
 			markdown = {
 				-- List of supported ft's to use the markdown provider
 				filetypes = { "markdown", "quarto", "rmd" },

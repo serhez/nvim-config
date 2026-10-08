@@ -1,9 +1,9 @@
 local M = {
-	"barrettruth/canola.nvim",
+	"https://forge.barrettruth.com/barrettruth/canola.nvim",
 	branch = "canola",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		"barrettruth/canola-collection",
+		"https://forge.barrettruth.com/barrettruth/canola-collection",
 		"s1n7ax/nvim-window-picker",
 	},
 	cmd = "Canola",

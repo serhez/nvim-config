@@ -1,5 +1,5 @@
 -- Ultra-light neovim config for big files
--- Used by bigfile.lua when opening large files in tmux pane
+-- Used by bigfile.lua when opening large files in a separate multiplexer pane
 
 -- Load teide colorscheme from dev path
 vim.opt.runtimepath:prepend("~/dev/teide.nvim")

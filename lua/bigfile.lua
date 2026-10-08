@@ -1,9 +1,11 @@
+local multiplexer = require("multiplexer")
+
 local M = {}
 
 M.config = {
 	size_limit = 2 * 1024 * 1024, -- 2MB in bytes
-	tmux_split = "-h", -- -h for horizontal (pane to right), -v for vertical (pane below)
-	tmux_size = nil, -- e.g., "-p 50" for 50% or "-l 80" for 80 columns. nil = tmux default
+	split_direction = "right", -- "right" or "down"
+	split_ratio = nil, -- fraction of the current pane, e.g. 0.5. nil = multiplexer default
 	mode = "nvim", -- "nvim" for editing, "less" for fast read-only viewing
 }
 
@@ -12,30 +14,29 @@ local function get_file_size(path)
 	return stat and stat.size or 0
 end
 
-local function is_in_tmux()
-	return vim.env.TMUX ~= nil
-end
-
-local function open_in_tmux(filepath)
-	local escaped_path = vim.fn.shellescape(filepath)
-	local size_opt = M.config.tmux_size or ""
-	local split_dir = M.config.tmux_split
-
-	local cmd
+local function open_in_split(filepath)
+	local argv
 	if M.config.mode == "less" then
-		cmd = string.format("tmux split-window %s %s less %s", split_dir, size_opt, escaped_path)
+		argv = { "less", filepath }
 	else
-		local minimal_config = vim.fn.shellescape(vim.fn.stdpath("config") .. "/minimal.lua")
-		cmd = string.format(
-			"tmux split-window %s %s nvim -n -i NONE --noplugin -u %s --cmd 'set noloadplugins' %s",
-			split_dir,
-			size_opt,
-			minimal_config,
-			escaped_path
-		)
+		argv = {
+			"nvim",
+			"-n",
+			"-i",
+			"NONE",
+			"--noplugin",
+			"-u",
+			vim.fn.stdpath("config") .. "/minimal.lua",
+			"--cmd",
+			"set noloadplugins",
+			filepath,
+		}
 	end
 
-	os.execute(cmd .. " &")
+	return multiplexer.open_in_split(argv, {
+		direction = M.config.split_direction,
+		ratio = M.config.split_ratio,
+	})
 end
 
 local function format_size(bytes)
@@ -105,32 +106,29 @@ function M.setup(opts)
 
 			-- Set up the buffer
 			vim.bo[args.buf].bufhidden = "wipe"
-			vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, { "Big file - opening in tmux pane..." })
+			vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, { "Big file - opening in a new pane..." })
 			vim.bo[args.buf].modifiable = false
 
-			if is_in_tmux() then
-				local ok, err = pcall(open_in_tmux, info.path)
-				local mode_desc = M.config.mode == "less" and "less (read-only)" or "minimal nvim"
-				if ok then
-					vim.notify(
-						string.format("Big file (%s) opened in tmux pane with %s", size_str, mode_desc),
-						vim.log.levels.INFO
-					)
-				else
-					vim.notify(
-						string.format("Failed to open tmux pane: %s", tostring(err)),
-						vim.log.levels.ERROR
-					)
-				end
-			else
+			local mode_desc = M.config.mode == "less" and "less (read-only)" or "minimal nvim"
+			if multiplexer.kind() == nil then
 				vim.notify(
 					string.format(
-						"Big file (%s) blocked. Run in tmux, or use: nvim -u minimal.lua %s",
+						"Big file (%s) blocked. Run in herdr or tmux, or use: nvim -u minimal.lua %s",
 						size_str,
 						vim.fn.shellescape(info.path)
 					),
 					vim.log.levels.ERROR
 				)
+			else
+				local ok, err = open_in_split(info.path)
+				if ok then
+					vim.notify(
+						string.format("Big file (%s) opened in a new pane with %s", size_str, mode_desc),
+						vim.log.levels.INFO
+					)
+				else
+					vim.notify(string.format("Failed to open pane: %s", tostring(err)), vim.log.levels.ERROR)
+				end
 			end
 
 			-- Go back to previous buffer and wipe this one

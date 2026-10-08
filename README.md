@@ -14,6 +14,14 @@ You can install this config by cloning the repo and performing `make install` fr
 
 ## Tips
 
+Split sizes stay fixed when switching windows; use Alt+arrow keys to resize them manually.
+
+In Herdr or tmux, automatic sessions are separated by tab or window. Files over 2 MB open in a new pane with the minimal Neovim config by default.
+
+Canola and canola-collection are installed from [Forgejo](https://forge.barrettruth.com/barrettruth/canola.nvim), with Canola on the `canola` branch.
+
+On macOS, fff.nvim builds its native library from source with symbol stripping disabled to avoid a [Rust Mach-O alignment bug](https://github.com/rust-lang/rust/issues/157750). This requires Rust/Cargo and the Xcode Command Line Tools. To rebuild it, run `:Lazy build fff.nvim`, then restart Neovim. Other platforms use the plugin's binary downloader with a source-build fallback.
+
 To connect to a remote file-system via SSH:
 1. Use `ssh-add` to add the private key you use to identify with the server.
 2. Start Neovim as `nvim canola-ssh://<user>@<ip>:<port>/`

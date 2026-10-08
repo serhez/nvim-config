@@ -1,5 +1,6 @@
 local M = {
 	"nvim-focus/focus.nvim",
+	enabled = false,
 	version = "*",
 	event = "BufEnter",
 }

@@ -1,6 +1,5 @@
 local M = {
 	"hedyhli/outline.nvim",
-	dev = vim.fn.isdirectory(vim.fn.expand("~/dev/outline.nvim")) == 1,
 	cmd = "Outline",
 }
 

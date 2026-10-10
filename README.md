@@ -20,7 +20,6 @@ In a CodeDiff tab, `<leader>h` opens Outline for the selected file without leavi
 CodeDiff's hunk actions use `<leader>gxs` (stage), `<leader>gxu` (unstage), and `<leader>gxr` (discard), leaving `<leader>h` immediately available for Outline.
 CodeDiff's side explorer opens in tree view; press `i` there to switch between tree and list views.
 CodeDiff wraps lines in its inline view. Side-by-side and conflict views keep lines unwrapped to preserve pane alignment.
-Outline uses the local `~/dev/outline.nvim` checkout when it exists, and the upstream plugin otherwise.
 For Python files, Outline skips `pytest_language_server` so `ty` can provide document symbols.
 
 Split sizes stay fixed when switching windows; use Alt+arrow keys to resize them manually.

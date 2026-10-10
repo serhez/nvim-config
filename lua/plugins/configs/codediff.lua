@@ -22,6 +22,53 @@ local function setup_tab_name()
 	})
 end
 
+local function setup_inline_wrap()
+	-- CodeDiff resets wrap during inline rendering and on window events.
+	local function schedule_wrap(win)
+		if not vim.api.nvim_win_is_valid(win) or vim.w[win].codediff_restore ~= 1 then
+			return
+		end
+		vim.schedule(function()
+			if not vim.api.nvim_win_is_valid(win) then
+				return
+			end
+			local session = require("codediff.ui.lifecycle").get_session(vim.api.nvim_win_get_tabpage(win))
+			if session and session.layout == "inline" and win == session.modified_win then
+				vim.wo[win].wrap = true
+			end
+		end)
+	end
+
+	local inline_render = require("codediff.ui.view.inline_view.render")
+	local render = inline_render.compute_and_render_inline
+	inline_render.compute_and_render_inline = function(...)
+		local result = render(...)
+		local win = select(7, ...)
+		if result and win and vim.api.nvim_win_is_valid(win) then
+			vim.wo[win].wrap = true
+		end
+		return result
+	end
+
+	local group = vim.api.nvim_create_augroup("UserCodeDiffInlineWrap", { clear = true })
+	vim.api.nvim_create_autocmd("User", {
+		group = group,
+		pattern = "CodeDiffOpen",
+		callback = function(event)
+			local session = require("codediff.ui.lifecycle").get_session(event.data.tabpage)
+			if session then
+				schedule_wrap(session.modified_win)
+			end
+		end,
+	})
+	vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "WinEnter", "FileType" }, {
+		group = group,
+		callback = function()
+			schedule_wrap(vim.api.nvim_get_current_win())
+		end,
+	})
+end
+
 function M.init()
 	require("mappings").register({
 		{ "<leader>gx", group = "Conflicts" },
@@ -75,6 +122,7 @@ function M.config()
 			},
 		},
 	})
+	setup_inline_wrap()
 
 	require("window_backgrounds").setup_dark_bg_filetypes("UserCodeDiffDarkBackground", { "codediff-explorer" })
 end

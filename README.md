@@ -19,6 +19,7 @@ You can install this config by cloning the repo and performing `make install` fr
 In a CodeDiff tab, `<leader>h` opens Outline for the selected file without leaving the diff. Revision buffers use Markdown headings or available Tree-sitter symbols because CodeDiff keeps LSPs detached from them. Select a file in the explorer first.
 CodeDiff's hunk actions use `<leader>gxs` (stage), `<leader>gxu` (unstage), and `<leader>gxr` (discard), leaving `<leader>h` immediately available for Outline.
 CodeDiff's side explorer opens in tree view; press `i` there to switch between tree and list views.
+CodeDiff wraps lines in its inline view. Side-by-side and conflict views keep lines unwrapped to preserve pane alignment.
 Outline uses the local `~/dev/outline.nvim` checkout when it exists, and the upstream plugin otherwise.
 For Python files, Outline skips `pytest_language_server` so `ty` can provide document symbols.
 

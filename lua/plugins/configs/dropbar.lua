@@ -5,9 +5,15 @@ local M = {
 }
 
 function M.init()
-	-- vim.keymap.set({ "n", "x", "o" }, ";", function()
-	-- 	require("dropbar.api").pick()
-	-- end)
+	require("mappings").register({
+		{
+			"<leader>H",
+			function()
+				require("dropbar.api").pick()
+			end,
+			desc = "Hierarchy picker",
+		},
+	})
 end
 
 function M.config()
@@ -28,6 +34,9 @@ function M.config()
 	local active_win = vim.api.nvim_get_current_win()
 	vim.api.nvim_create_autocmd({ "WinEnter", "TermEnter" }, {
 		callback = function()
+			if vim.api.nvim_win_get_config(0).relative ~= "" then
+				return
+			end
 			active_win = vim.api.nvim_get_current_win()
 			require("dropbar.utils.bar").exec("update")
 		end,

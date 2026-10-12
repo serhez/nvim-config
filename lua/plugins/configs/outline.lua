@@ -27,7 +27,7 @@ local function open_outline()
 end
 
 function M.init()
-	require("mappings").register({ "<leader>h", open_outline, desc = "Code hierarchy", nowait = true })
+	require("mappings").register({ "<leader>h", open_outline, desc = "Hierarchy", nowait = true })
 end
 
 function M.config()

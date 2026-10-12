@@ -16,6 +16,8 @@ You can install this config by cloning the repo and performing `make install` fr
 
 `w`, `e`, and `b` move through subwords, including parts of camelCase and snake_case names.
 
+Use `<leader>H` to pick a top-bar breadcrumb. Breadcrumbs show symbols for the active split and keep that context while a dropdown is open.
+
 In a CodeDiff tab, `<leader>h` opens Outline for the selected file without leaving the diff. Revision buffers use Markdown headings or available Tree-sitter symbols because CodeDiff keeps LSPs detached from them. Select a file in the explorer first.
 CodeDiff's hunk actions use `<leader>gxs` (stage), `<leader>gxu` (unstage), and `<leader>gxr` (discard), leaving `<leader>h` immediately available for Outline.
 CodeDiff's side explorer opens in tree view; press `i` there to switch between tree and list views.

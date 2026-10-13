@@ -19,6 +19,16 @@ function M.init()
 			desc = "Status",
 		},
 		{
+			"<leader>oe",
+			"<cmd>Overleaf explorer<cr>",
+			desc = "Explorer",
+		},
+		{
+			"<leader>ob",
+			"<cmd>Overleaf compile<cr>",
+			desc = "Build saved files",
+		},
+		{
 			"<leader>od",
 			"<cmd>Overleaf disconnect<cr>",
 			desc = "Disconnect",
@@ -44,6 +54,11 @@ function M.init()
 			"<leader>ocl",
 			"<cmd>Overleaf comments<cr>",
 			desc = "List",
+		},
+		{
+			"<leader>ocd",
+			"<cmd>Overleaf comments drafts<cr>",
+			desc = "Retained drafts",
 		},
 		{
 			"<leader>oca",
@@ -80,27 +95,58 @@ function M.init()
 		{
 			"<leader>oS",
 			"<cmd>Overleaf sync<cr>",
-			desc = "Sync",
+			desc = "Rescan saved files",
+		},
+
+		{ "<leader>ox", group = "Conflicts / recovery" },
+		{
+			"<leader>oxl",
+			"<cmd>Overleaf conflicts<cr>",
+			desc = "List held files",
 		},
 		{
-			"<leader>oi",
-			"<cmd>Overleaf sync import<cr>",
-			desc = "Import",
+			"<leader>oxr",
+			"<cmd>Overleaf resolve<cr>",
+			desc = "Resolve current file",
 		},
 		{
-			"<leader>oe",
-			"<cmd>Overleaf sync export<cr>",
-			desc = "Export",
+			"<leader>oxc",
+			"<cmd>Overleaf resolve codediff<cr>",
+			desc = "Resolve with CodeDiff",
+		},
+		{
+			"<leader>oxh",
+			"<cmd>Overleaf resolve history<cr>",
+			desc = "Resolve live undo",
+		},
+		{
+			"<leader>oxH",
+			"<cmd>Overleaf resolve disk-history<cr>",
+			desc = "Resolve persistent undo",
+		},
+		{
+			"<leader>oxe",
+			"<cmd>Overleaf recover<cr>",
+			desc = "Review recovery versions",
+		},
+		{
+			"<leader>oxk",
+			"<cmd>Overleaf recover locks<cr>",
+			desc = "Review writer locks",
 		},
 	})
 end
 
 function M.config()
 	require("overleaf").setup({
+		node_path = "/opt/homebrew/bin/node",
 		sync_dir = "~/.overleaf",
 		explorer = "canola",
+		picker = "auto",
 		compile = {
 			backend = "local",
+			open_pdf = true,
+			auto_start_watch = false,
 		},
 	})
 end

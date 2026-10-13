@@ -30,6 +30,22 @@ In Herdr or tmux, automatic sessions are separated by tab or window. Files over 
 
 Canola and canola-collection are installed from [Forgejo](https://forge.barrettruth.com/barrettruth/canola.nvim), with Canola on the `canola` branch.
 
+Overleaf uses the local `~/dev/overleaf.nvim` checkout, Canola, and workspaces under `~/.overleaf`. Open a project with `<leader>oo`; saved text synchronizes automatically. `<leader>f` and `<leader>s` use Overleaf files and search in a project buffer. Local compilation uses saved inputs and opens the PDF; start watch mode explicitly with `<leader>ow` and stop it with `<leader>oW`.
+
+| Overleaf key | Action |
+| --- | --- |
+| `<leader>oe` | Explorer |
+| `<leader>ob` | Build saved files |
+| `<leader>os` | Local-save and synchronization status |
+| `<leader>oS` | Rescan saved files |
+| `<leader>oxl` | List held files |
+| `<leader>oxr` | Resolve current file |
+| `<leader>oxc` | Resolve with CodeDiff |
+| `<leader>oxh` / `<leader>oxH` | Resolve live / persistent undo |
+| `<leader>oxe` | Review recovery versions |
+| `<leader>oxk` | Review writer locks |
+| `<leader>ocd` | Retained comment drafts |
+
 On macOS, fff.nvim builds its native library from source with symbol stripping disabled to avoid a [Rust Mach-O alignment bug](https://github.com/rust-lang/rust/issues/157750). This requires Rust/Cargo and the Xcode Command Line Tools. To rebuild it, run `:Lazy build fff.nvim`, then restart Neovim. Other platforms use the plugin's binary downloader with a source-build fallback.
 
 To connect to a remote file-system via SSH:
